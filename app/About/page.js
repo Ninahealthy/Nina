@@ -248,7 +248,9 @@ const About = () => {
                   <div className={styles.profileImageWrapper}>
                     <Image
                       src="/nina.jpg"
-                      alt="Nina Rodriguez - Interior Designer"
+                      width={384}
+                      height={448}
+                      alt="Nina"
                       className={styles.profileImage}
                       loading="eager"
                     />

@@ -36,10 +36,32 @@
   cursor: pointer;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  outline: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
 }
 
 .logo:hover {
   transform: scale(1.05);
+}
+
+.logo:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logo:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logo:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 /* Desktop Navigation */
@@ -55,10 +77,31 @@
   position: relative;
   transition: color 0.3s ease;
   padding: 10px 0;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .nav a:hover {
   color: #667eea;
+}
+
+.nav a:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav a:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav a:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .nav a::after {
@@ -76,7 +119,7 @@
   width: 100%;
 }
 
-/* Mobile Menu Toggle - FIXED */
+/* Mobile Menu Toggle - FIXED TO REMOVE SQUARE BORDER */
 .menuToggle {
   display: none;
   background: none;
@@ -84,14 +127,32 @@
   cursor: pointer;
   padding: 8px;
   z-index: 1001;
-  /* Remove any border radius or box shadow that might create squares */
   border-radius: 0;
   box-shadow: none;
   outline: none;
+  /* Additional fixes to prevent any focus styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .menuToggle:focus {
   outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.menuToggle:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.menuToggle:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 .hamburger {
@@ -205,6 +266,28 @@
   color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  outline: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.mobileMenuLogo:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuLogo:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuLogo:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 /* REMOVED .closeButton styles since we don't use it anymore */
@@ -223,6 +306,9 @@
   font-size: 1.1em;
   transition: all 0.3s ease;
   border-left: 4px solid transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .mobileMenuItems a:hover {
@@ -230,6 +316,24 @@
   border-left-color: #667eea;
   color: #667eea;
   transform: translateX(5px);
+}
+
+.mobileMenuItems a:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuItems a:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuItems a:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .menuIcon {

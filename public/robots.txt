@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://no.ninahealthy.com
+
+# Sitemaps
+Sitemap: https://no.ninahealthy.com/sitemap.xml

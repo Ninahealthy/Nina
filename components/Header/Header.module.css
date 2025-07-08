@@ -1,0 +1,393 @@
+/* components/Header.module.css */
+
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
+  /*background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);*/
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  cursor: pointer;
+  animation: gradientShift 4s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Desktop Navigation */
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 10px 0;
+}
+
+.nav a:hover {
+  color: #667eea;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* Mobile Menu Toggle - FIXED */
+.menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+  /* Remove any border radius or box shadow that might create squares */
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.menuToggle:focus {
+  outline: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  height: 18px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* FIXED X formation */
+.hamburgerOpen span:nth-child(1) {
+  transform: rotate(45deg) translateY(7.5px);
+}
+
+.hamburgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerOpen span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-7.5px);
+}
+
+/* Search Bar */
+.searchBar {
+  position: relative;
+  margin-left: 20px;
+}
+
+.searchBar input {
+  padding: 12px 50px 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.searchBar input:focus {
+  outline: none;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+.searchIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667eea;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* Mobile Menu Overlay */
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: white;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  animation: slideIn 0.3s ease forwards;
+  overflow-y: auto;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  justify-content: flex-start; /* Changed from space-between since we removed close button */
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.mobileMenuLogo {
+  font-size: 1.8em;
+  font-weight: 800;
+  background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 4s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* REMOVED .closeButton styles since we don't use it anymore */
+
+.mobileMenuItems {
+  padding: 30px 0;
+}
+
+.mobileMenuItems a {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.mobileMenuItems a:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-left-color: #667eea;
+  color: #667eea;
+  transform: translateX(5px);
+}
+
+.menuIcon {
+  margin-right: 15px;
+  font-size: 1.2em;
+}
+
+.mobileSearchBar {
+  padding: 0 30px 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobileSearchBar input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.mobileSearchBar input:focus {
+  outline: none;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  border-color: #667eea;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .searchBar {
+    margin-left: 10px;
+  }
+
+  .searchBar input {
+    width: 200px;
+  }
+
+  .logo {
+    font-size: 2em;
+  }
+
+  .headerContent {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBar input {
+    width: 150px;
+    font-size: 12px;
+  }
+
+  .logo {
+    font-size: 1.8em;
+  }
+
+  .mobileMenu {
+    width: 100vw;
+  }
+
+  .searchBar {
+    order: -1;
+    margin-left: 0;
+    margin-right: 15px;
+  }
+
+  .headerContent {
+    flex-direction: row-reverse;
+    gap: 10px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(30, 30, 30, 0.95);
+  }
+
+  .nav a {
+    color: #e0e0e0;
+  }
+
+  .nav a:hover {
+    color: #667eea;
+  }
+
+  .searchBar input {
+    background: rgba(40, 40, 40, 0.9);
+    color: #e0e0e0;
+  }
+
+  .searchBar input::placeholder {
+    color: #999;
+  }
+
+  .mobileMenu {
+    background: #2a2a2a;
+    color: #e0e0e0;
+  }
+
+  .mobileMenuItems a {
+    color: #e0e0e0;
+  }
+
+  .mobileSearchBar input {
+    background: rgba(40, 40, 40, 0.9);
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}

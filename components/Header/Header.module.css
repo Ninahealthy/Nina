@@ -327,29 +327,44 @@
   }
 }
 
+/* FIXED MOBILE LAYOUT */
 @media (max-width: 480px) {
-  .searchBar input {
-    width: 150px;
-    font-size: 12px;
+  .headerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    gap: 10px;
   }
 
   .logo {
     font-size: 1.8em;
+    order: 1; /* Logo on the left */
+    flex-shrink: 0;
+  }
+
+  .searchBar {
+    order: 2; /* Search in the middle */
+    margin-left: 0;
+    margin-right: 0;
+    flex: 1;
+    max-width: 150px;
+  }
+
+  .searchBar input {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px 40px 10px 15px;
+  }
+
+  .menuToggle {
+    order: 3; /* Hamburger on the right */
+    flex-shrink: 0;
   }
 
   .mobileMenu {
     width: 100vw;
-  }
-
-  .searchBar {
-    order: -1;
-    margin-left: 0;
-    margin-right: 15px;
-  }
-
-  .headerContent {
-    flex-direction: row-reverse;
-    gap: 10px;
   }
 }
 

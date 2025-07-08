@@ -4,6 +4,7 @@ import Header from "@/components/Header/Header"; // Adjust the import path as ne
 import Home from "@/components/Home/Home";
 import { SearchProvider } from "@/contexts/SearchContext";
 import Footer from "@/components/Footer/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup/NewsletterSignup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <Header />
           {children}
+          <NewsletterSignup />
           <Footer />
         </body>
       </html>

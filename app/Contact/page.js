@@ -1,4 +1,4 @@
-import ContactPage from "@/components/Contact/Contact";
+import ContactForm from "@/components/ContactMe/ContactMe";
 
 // pages/contact.js
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
 export default function ContactMe() {
   return (
     <>
-      <ContactPage />
+      <ContactForm />
     </>
   );
 }

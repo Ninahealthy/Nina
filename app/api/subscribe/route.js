@@ -1,6 +1,125 @@
 import nodemailer from "nodemailer";
 
 export async function POST(req) {
+  try {
+    const { name, email, subject, message } = await req.json();
+
+    // Basic validation
+    if (!name || !email) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Name and email are required",
+        }),
+        { status: 400 }
+      );
+    }
+
+    // Email format validation
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Invalid email format",
+        }),
+        { status: 400 }
+      );
+    }
+
+    // SMTP configuration
+    const transporter = nodemailer.createTransporter({
+      host: process.env.SMTP,
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.MAIL,
+        pass: process.env.MAILP,
+      },
+    });
+
+    // Send confirmation email to user
+    const userMailOptions = {
+      from: `"NinaHealthy 💚" <${process.env.MAIL}>`,
+      to: email,
+      subject: `Welcome to NinaHealthy Newsletter, ${name}!`,
+      text: `
+        Hi ${name},
+        
+        Thank you for subscribing to our newsletter!
+        You'll receive regular updates about health tips and inspiration.
+        
+        Best regards,
+        NinaHealthy Team
+      `,
+      html: `
+        <h2>Welcome to NinaHealthy Newsletter!</h2>
+        <p>Hi <strong>${name}</strong>,</p>
+        <p>Thank you for subscribing to our newsletter! 🎉</p>
+        <p>You'll receive regular updates about health tips and inspiration.</p>
+        <p>Best regards,<br>
+        <strong>NinaHealthy Team</strong></p>
+      `,
+    };
+
+    // Send notification email to admin (optional)
+    const adminMailOptions = {
+      from: `"Newsletter Signup" <${process.env.MAIL}>`,
+      to: process.env.MAILR || process.env.MAIL,
+      subject: "New Newsletter Subscription",
+      text: `
+        New newsletter subscription:
+        Name: ${name}
+        Email: ${email}
+        Subject: ${subject || "Newsletter Subscription"}
+        Message: ${message || "No additional message"}
+      `,
+      html: `
+        <h3>New Newsletter Subscription</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject || "Newsletter Subscription"}</p>
+        <p><strong>Message:</strong> ${message || "No additional message"}</p>
+      `,
+    };
+
+    // Send both emails
+    await transporter.sendMail(userMailOptions);
+
+    // Only send admin notification if MAILR is set
+    if (process.env.MAILR) {
+      await transporter.sendMail(adminMailOptions);
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "Successfully subscribed! Check your inbox for confirmation.",
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Newsletter signup error:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: "Failed to subscribe. Please try again later.",
+      }),
+      { status: 500 }
+    );
+  }
+}
+
+// Optional: Handle GET requests
+export async function GET(req) {
+  return new Response(
+    JSON.stringify({ message: "Newsletter API is working" }),
+    { status: 200 }
+  );
+}
+import nodemailer from "nodemailer";
+
+/*export async function POST(req) {
   if (req.method === "POST") {
     const { name, email, subject, message } = await req.json();
 

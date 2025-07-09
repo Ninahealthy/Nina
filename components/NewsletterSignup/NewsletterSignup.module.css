@@ -109,7 +109,7 @@
   background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
   background-size: 200% 200%;
   color: white;
-  border-radius: 9999px;
+  border-radius: 3rem;
   font-weight: 700;
   font-size: 1.125rem;
   border: none;
@@ -120,9 +120,9 @@
   overflow: hidden;
   animation: gradientShift 3s ease-in-out infinite;
   text-decoration: none;
-  display: inline-block;
   white-space: nowrap;
-  min-width: 140px;
+  min-width: 200px;
+  align-self: center;
 }
 
 .newsletterButton:hover:not(:disabled) {

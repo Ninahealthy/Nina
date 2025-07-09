@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearch } from "../../contexts/SearchContext";
 import styles from "./Header.module.css";
 
@@ -29,11 +30,21 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <Link href="/" className={styles.logo}>
-          Nina
+        <Link href="/" className={styles.logoContainer}>
+          <div className={styles.logoAvatar}>
+            <Image
+              src="/nina.jpg"
+              alt="Nina - Interior Design Expert"
+              className={styles.logoImage}
+              width="1080"
+              height="1080"
+              priority
+            />
+          </div>
+          <span className={styles.logo}>Nina</span>
         </Link>
 
-        {/* Search Bar */}
+        {/* Search Bar 
         <div className={styles.searchBar}>
           <input
             type="text"
@@ -42,7 +53,7 @@ const Header = () => {
             onChange={handleSearchChange}
           />
           <div className={styles.searchIcon}>🔍</div>
-        </div>
+        </div>*/}
 
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
@@ -57,7 +68,7 @@ const Header = () => {
           </Link>
         </nav>
 
-        {/* Mobile Menu Button - FIXED STRUCTURE */}
+        {/* Mobile Menu Button */}
         <button
           className={styles.menuToggle}
           onClick={toggleMenu}
@@ -85,12 +96,20 @@ const Header = () => {
             <div className={styles.mobileMenuHeader}>
               <Link
                 href="/"
-                className={styles.mobileMenuLogo}
+                className={styles.mobileMenuLogoContainer}
                 onClick={handleNavClick}
               >
-                Nina
+                <div className={styles.mobileMenuLogoAvatar}>
+                  <Image
+                    src="/nina.jpg"
+                    alt="Nina - Interior Design Expert"
+                    className={styles.mobileMenuLogoImage}
+                    width="1080"
+                    height="1080"
+                  />
+                </div>
+                <span className={styles.mobileMenuLogo}>Nina</span>
               </Link>
-              {/* REMOVED THE SEPARATE CLOSE BUTTON */}
             </div>
             <div className={styles.mobileMenuItems}>
               <Link href="/" onClick={handleNavClick}>
@@ -107,12 +126,12 @@ const Header = () => {
               </Link>
             </div>
             <div className={styles.mobileSearchBar}>
-              <input
+              {/* <input
                 type="text"
                 placeholder="Search inspiration..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-              />
+              />*/}
             </div>
           </nav>
         </div>

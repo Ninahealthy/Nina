@@ -329,7 +329,17 @@ const BlogPost = ({
             <h1 className={styles.mainTitle} itemProp="headline">
               <span className={styles.titleGradient}>{title}</span>
             </h1>
+          </div>
+        </header>
 
+        {/* Content Section */}
+        <div id="content" className={styles.contentSection}>
+          <div className={styles.contentContainer}>
+            <main className={styles.article} itemProp="articleBody">
+              {contentToRender.map((section, index) =>
+                renderContent(section, index)
+              )}
+            </main>
             {/* Author & Meta Info */}
             <div className={styles.metaWrapper}>
               <div
@@ -337,21 +347,21 @@ const BlogPost = ({
                 itemScope
                 itemType="https://schema.org/Person"
               >
-                <div className={styles.authorAvatar}>
+                {/*<div className={styles.authorAvatar}>
                   <Image
                     src={author.avatar}
                     alt={`${author.name} - Interior Design Expert`}
                     className={styles.authorImage}
                     itemProp="image"
                     loading="eager"
-                    width="64"
-                    height="64"
+                    width="1080"
+                    height="1080"
                   />
-                </div>
+                </div>*/}
                 <div className={styles.authorDetails}>
-                  <div className={styles.authorName} itemProp="name">
+                  {/*<div className={styles.authorName} itemProp="name">
                     {author.name}
-                  </div>
+                  </div>*/}
                   <time
                     className={styles.publishDate}
                     dateTime={publishDate}
@@ -366,9 +376,9 @@ const BlogPost = ({
                 </div>
               </div>
               <div className={styles.metaInfo}>
-                <div className={styles.readTime} itemProp="timeRequired">
+                {/*<div className={styles.readTime} itemProp="timeRequired">
                   {readTime}
-                </div>
+                </div>*/}
                 <div className={styles.tagsWrapper}>
                   {tags.map((tag, index) => (
                     <span
@@ -382,17 +392,6 @@ const BlogPost = ({
                 </div>
               </div>
             </div>
-          </div>
-        </header>
-
-        {/* Content Section */}
-        <div id="content" className={styles.contentSection}>
-          <div className={styles.contentContainer}>
-            <main className={styles.article} itemProp="articleBody">
-              {contentToRender.map((section, index) =>
-                renderContent(section, index)
-              )}
-            </main>
 
             {/* Related Posts */}
             {relatedPosts.length > 0 && (

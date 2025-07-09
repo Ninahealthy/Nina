@@ -23,17 +23,80 @@
   padding: 0 20px;
 }
 
+/* Logo Container with Avatar */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoContainer:hover {
+  transform: scale(1.05);
+}
+
+.logoContainer:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoContainer:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoContainer:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #9333ea, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.logoContainer:hover .logoAvatar {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  transform: scale(1.05);
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
 .logo {
   font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
-  /*background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);*/
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  cursor: pointer;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
   outline: none;
@@ -42,26 +105,87 @@
   text-decoration: none;
 }
 
-.logo:hover {
+/* Mobile Menu Logo Container */
+.mobileMenuLogoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuLogoContainer:hover {
   transform: scale(1.05);
 }
 
-.logo:focus {
+.mobileMenuLogoContainer:focus {
   outline: none;
   border: none;
   box-shadow: none;
 }
 
-.logo:active {
+.mobileMenuLogoContainer:active {
   outline: none;
   border: none;
   box-shadow: none;
 }
 
-.logo:focus-visible {
+.mobileMenuLogoContainer:focus-visible {
   outline: none;
   border: none;
   box-shadow: none;
+}
+
+.mobileMenuLogoAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #8b5cf6, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobileMenuLogoContainer:hover .mobileMenuLogoAvatar {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  transform: scale(1.05);
+}
+
+.mobileMenuLogoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.mobileMenuLogo {
+  font-size: 1.8em;
+  font-weight: 800;
+  background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 4s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  outline: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
 }
 
 /* Desktop Navigation */
@@ -80,6 +204,7 @@
   outline: none;
   border: none;
   box-shadow: none;
+  font-size: 1.3rem;
 }
 
 .nav a:hover {
@@ -119,7 +244,7 @@
   width: 100%;
 }
 
-/* Mobile Menu Toggle - FIXED TO REMOVE SQUARE BORDER */
+/* Mobile Menu Toggle */
 .menuToggle {
   display: none;
   background: none;
@@ -130,7 +255,6 @@
   border-radius: 0;
   box-shadow: none;
   outline: none;
-  /* Additional fixes to prevent any focus styles */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -175,7 +299,6 @@
   transform-origin: center;
 }
 
-/* FIXED X formation */
 .hamburgerOpen span:nth-child(1) {
   transform: rotate(45deg) translateY(7.5px);
 }
@@ -248,49 +371,12 @@
 
 .mobileMenuHeader {
   display: flex;
-  justify-content: flex-start; /* Changed from space-between since we removed close button */
+  justify-content: flex-start;
   align-items: center;
   padding: 20px 30px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
-
-.mobileMenuLogo {
-  font-size: 1.8em;
-  font-weight: 800;
-  background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: none;
-  box-shadow: none;
-  text-decoration: none;
-}
-
-.mobileMenuLogo:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogo:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogo:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-/* REMOVED .closeButton styles since we don't use it anymore */
 
 .mobileMenuItems {
   padding: 30px 0;
@@ -404,6 +490,25 @@
   }
 }
 
+@keyframes borderGradientShift {
+  0% {
+    border-color: #9333ea;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+  }
+  33% {
+    border-color: #ec4899;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+  }
+  66% {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    border-color: #9333ea;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav {
@@ -426,12 +531,17 @@
     font-size: 2em;
   }
 
+  .logoAvatar {
+    width: 80px;
+    height: 80px;
+  }
+
   .headerContent {
     padding: 0 15px;
   }
 }
 
-/* FIXED MOBILE LAYOUT */
+/* Mobile Layout */
 @media (max-width: 480px) {
   .headerContent {
     display: flex;
@@ -442,14 +552,23 @@
     gap: 10px;
   }
 
+  .logoContainer {
+    order: 1;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
   .logo {
     font-size: 1.8em;
-    order: 1; /* Logo on the left */
-    flex-shrink: 0;
+  }
+
+  .logoAvatar {
+    width: 80px;
+    height: 80px;
   }
 
   .searchBar {
-    order: 2; /* Search in the middle */
+    order: 2;
     margin-left: 0;
     margin-right: 0;
     flex: 1;
@@ -463,12 +582,25 @@
   }
 
   .menuToggle {
-    order: 3; /* Hamburger on the right */
+    order: 3;
     flex-shrink: 0;
   }
 
   .mobileMenu {
     width: 100vw;
+  }
+
+  .mobileMenuLogoContainer {
+    gap: 8px;
+  }
+
+  .mobileMenuLogo {
+    font-size: 1.6em;
+  }
+
+  .mobileMenuLogoAvatar {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -508,5 +640,51 @@
     background: rgba(40, 40, 40, 0.9);
     color: #e0e0e0;
     border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Accessibility and reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .logoContainer,
+  .mobileMenuLogoContainer,
+  .logoAvatar,
+  .mobileMenuLogoAvatar,
+  .logoImage,
+  .mobileMenuLogoImage {
+    transition: none;
+  }
+
+  .logo,
+  .mobileMenuLogo {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .logoAvatar,
+  .mobileMenuLogoAvatar {
+    border-color: currentColor;
+    border-width: 3px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header {
+    position: static;
+    background: white;
+    box-shadow: none;
+  }
+
+  .logoAvatar,
+  .mobileMenuLogoAvatar {
+    box-shadow: none;
+  }
+
+  .logo,
+  .mobileMenuLogo {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
   }
 }

@@ -1,8 +1,23 @@
+/* Body padding to prevent content from being hidden behind fixed header */
+/* Add this to your global CSS or body styles 
+body {
+  padding-top: 140px; /* Adjust based on your header height 
+}
+
+/* Alternative: Add this class to your main content container 
+.mainContent {
+  padding-top: 140px; /* Adjust based on your header height 
+}*/
+
+body {
+  margin-top: 140px;
+}
+
 /* Focus Styles for Better Accessibility */
-* :focus {
+/** :focus {
   outline: 2px solid #8b5cf6;
   outline-offset: 2px;
-}
+}*/
 
 /* Accessibility Improvements */
 @media (prefers-reduced-motion: reduce) {

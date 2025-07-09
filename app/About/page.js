@@ -34,67 +34,68 @@ const About = () => {
   }, []);
 
   const skills = [
-    { name: "Interior Design", level: 95 },
-    { name: "Space Planning", level: 92 },
-    { name: "Color Theory", level: 88 },
-    { name: "Furniture Selection", level: 90 },
-    { name: "Lighting Design", level: 85 },
-    { name: "Project Management", level: 93 },
+    { name: "Content Creation", level: 95 },
+    { name: "Home Styling", level: 90 },
+    { name: "DIY Projects", level: 88 },
+    { name: "Photography", level: 85 },
+    { name: "Trend Research", level: 92 },
+    { name: "Social Media", level: 90 },
   ];
 
   const achievements = [
-    { year: "2024", title: "Featured in House Beautiful Magazine" },
-    { year: "2023", title: "Interior Designer of the Year - Regional Award" },
-    { year: "2022", title: "Sustainable Design Excellence Award" },
-    { year: "2021", title: "Top 40 Under 40 Interior Designers" },
+    { year: "2024", title: "Reached 500K+ Monthly Blog Readers" },
+    { year: "2023", title: "Featured in Better Homes & Gardens" },
+    { year: "2022", title: "Top Home Decor Blogger Award" },
+    { year: "2021", title: "Launched Successful YouTube Channel" },
   ];
 
   const services = [
     {
-      title: "Full Home Design",
+      title: "Blog Content",
       description:
-        "Complete interior design services from concept to completion",
+        "In-depth articles on home decor trends, DIY projects, and styling tips",
+      icon: "📝",
+    },
+    {
+      title: "Home Tours",
+      description:
+        "Inspiring home tours featuring beautiful spaces and decor ideas",
       icon: "🏠",
     },
     {
-      title: "Room Makeovers",
-      description: "Transform individual spaces with focused design solutions",
+      title: "DIY Tutorials",
+      description:
+        "Step-by-step guides for creating beautiful home decor on a budget",
+      icon: "🔨",
+    },
+    {
+      title: "Product Reviews",
+      description: "Honest reviews of home decor products and furniture finds",
+      icon: "⭐",
+    },
+    {
+      title: "Styling Tips",
+      description: "Practical advice for decorating and organizing your home",
       icon: "✨",
     },
     {
-      title: "Color Consultation",
-      description: "Expert color palette selection and coordination",
-      icon: "🎨",
-    },
-    {
-      title: "Virtual Design",
-      description:
-        "Remote design services with detailed plans and 3D renderings",
-      icon: "💻",
-    },
-    {
-      title: "Styling & Staging",
-      description: "Professional styling for photoshoots and home staging",
-      icon: "📸",
-    },
-    {
-      title: "Design Workshops",
-      description: "Educational workshops and design consultations",
-      icon: "🎓",
+      title: "Seasonal Decor",
+      description: "Ideas for decorating your home throughout the year",
+      icon: "🌸",
     },
   ];
 
   return (
     <>
       <Head>
-        <title>About Nina - Interior Design Expert | Interior Design Pro</title>
+        <title>About Nina - Home Decor & Interior Design Blogger</title>
         <meta
           name="description"
-          content="Meet Nina, an award-winning interior designer with 15+ years of experience creating beautiful, functional spaces. Discover her story, expertise, and design philosophy."
+          content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips to help you create your dream home."
         />
         <meta
           name="keywords"
-          content="Nina Rodriguez, interior designer, home decor expert, design consultation, interior design services"
+          content="Nina Rodriguez, home decor blogger, interior design blog, DIY home projects, home styling tips, decor inspiration"
         />
         <meta name="author" content="Nina" />
         <meta name="robots" content="index, follow" />
@@ -103,11 +104,11 @@ const About = () => {
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="About Nina - Interior Design Expert"
+          content="About Nina - Home Decor & Interior Design Blogger"
         />
         <meta
           property="og:description"
-          content="Meet Nina, an award-winning interior designer with 15+ years of experience creating beautiful, functional spaces."
+          content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips."
         />
         <meta property="og:image" content="/nina-about-hero.jpg" />
         <meta property="og:url" content="https://yoursite.com/about" />
@@ -117,11 +118,11 @@ const About = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="About Nina - Interior Design Expert"
+          content="About Nina - Home Decor & Interior Design Blogger"
         />
         <meta
           name="twitter:description"
-          content="Meet Nina, an award-winning interior designer with 15+ years of experience creating beautiful, functional spaces."
+          content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips."
         />
         <meta name="twitter:image" content="/nina-about-hero.jpg" />
 
@@ -133,26 +134,27 @@ const About = () => {
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Nina Rodriguez",
-              jobTitle: "Interior Designer",
+              jobTitle: "Home Decor Blogger",
               description:
-                "Interior Design Expert with 15+ years of experience in modern home transformations",
+                "Home decor and interior design blogger passionate about helping others create beautiful, functional spaces",
               image: "/nina.jpg",
               sameAs: [
-                "https://twitter.com/ninadesigns",
-                "https://instagram.com/nina_interior_design",
-                "https://linkedin.com/in/nina-rodriguez-interior-design",
+                "https://twitter.com/ninahomedecor",
+                "https://instagram.com/nina_home_blog",
+                "https://pinterest.com/nina_home_decor",
+                "https://youtube.com/nina_home_styling",
               ],
               knowsAbout: [
-                "Interior Design",
-                "Space Planning",
-                "Color Theory",
-                "Furniture Selection",
                 "Home Decor",
-                "Lighting Design",
+                "Interior Design",
+                "DIY Projects",
+                "Home Styling",
+                "Budget Decorating",
+                "Content Creation",
               ],
               worksFor: {
                 "@type": "Organization",
-                name: "Interior Design Pro",
+                name: "Nina's Home Blog",
               },
             }),
           }}
@@ -209,8 +211,8 @@ const About = () => {
               <span className={styles.titleGradient}>About Nina</span>
             </h1>
             <p className={styles.heroSubtitle}>
-              Transforming spaces into beautiful, functional homes for over 15
-              years
+              Home decor blogger sharing design inspiration, DIY projects, and
+              styling tips to help you create your dream home
             </p>
           </div>
         </section>
@@ -222,26 +224,29 @@ const About = () => {
             <section className={styles.introSection}>
               <div className={styles.introGrid}>
                 <div className={styles.introText}>
-                  <h2 className={styles.sectionTitle}>My Design Journey</h2>
+                  <h2 className={styles.sectionTitle}>My Blogging Journey</h2>
                   <p className={styles.introDescription}>
-                    Hello! I'm Nina Rodriguez, an interior designer passionate
-                    about creating spaces that reflect your personality while
-                    enhancing your daily life. With over 15 years of experience
-                    in the industry, I've had the privilege of transforming
-                    hundreds of homes into beautiful, functional sanctuaries.
+                    Hello! I'm Nina Rodriguez, a home decor blogger with an
+                    insatiable passion for beautiful interiors and creative DIY
+                    projects. What started as a personal love for transforming
+                    spaces has evolved into a thriving blog where I share my
+                    discoveries, experiments, and inspirations with fellow home
+                    decor enthusiasts.
                   </p>
                   <p className={styles.introDescription}>
-                    My approach combines timeless design principles with
-                    contemporary aesthetics, always keeping comfort and
-                    livability at the forefront. I believe that great design
-                    should not only look beautiful but also support how you
-                    live, work, and play in your space.
+                    Through my blog, I explore the latest design trends, hunt
+                    for budget-friendly decor finds, and create step-by-step
+                    tutorials that make beautiful home styling accessible to
+                    everyone. I believe that creating a beautiful home shouldn't
+                    require a huge budget or professional training—just
+                    creativity, passion, and the right guidance.
                   </p>
                   <p className={styles.introDescription}>
-                    Whether you're looking to redesign a single room or
-                    transform your entire home, I'm here to guide you through
-                    every step of the process, from initial concept to final
-                    styling touches.
+                    Join me on this journey as we discover how to transform
+                    ordinary spaces into extraordinary homes, one project at a
+                    time. Whether you're a seasoned decorator or just starting
+                    out, I'm here to inspire and guide you through every step of
+                    your home decor adventure.
                   </p>
                 </div>
                 <div className={styles.introImage}>
@@ -250,7 +255,7 @@ const About = () => {
                       src="/nina.jpg"
                       width={384}
                       height={448}
-                      alt="Nina"
+                      alt="Nina Rodriguez - Home Decor Blogger"
                       className={styles.profileImage}
                       loading="eager"
                     />
@@ -262,7 +267,7 @@ const About = () => {
 
             {/* Skills Section */}
             <section className={styles.skillsSection}>
-              <h2 className={styles.sectionTitle}>Expertise & Skills</h2>
+              <h2 className={styles.sectionTitle}>What I Bring to the Table</h2>
               <div className={styles.skillsGrid}>
                 {skills.map((skill, index) => (
                   <div key={index} className={styles.skillCard}>
@@ -286,7 +291,7 @@ const About = () => {
 
             {/* Services Section */}
             <section className={styles.servicesSection}>
-              <h2 className={styles.sectionTitle}>What I Offer</h2>
+              <h2 className={styles.sectionTitle}>What You'll Find Here</h2>
               <div className={styles.servicesGrid}>
                 {services.map((service, index) => (
                   <div key={index} className={styles.serviceCard}>
@@ -302,7 +307,7 @@ const About = () => {
 
             {/* Achievements Section */}
             <section className={styles.achievementsSection}>
-              <h2 className={styles.sectionTitle}>Awards & Recognition</h2>
+              <h2 className={styles.sectionTitle}>Blog Milestones</h2>
               <div className={styles.achievementsGrid}>
                 {achievements.map((achievement, index) => (
                   <div key={index} className={styles.achievementCard}>
@@ -319,29 +324,30 @@ const About = () => {
 
             {/* Philosophy Section */}
             <section className={styles.philosophySection}>
-              <h2 className={styles.sectionTitle}>Design Philosophy</h2>
+              <h2 className={styles.sectionTitle}>My Design Philosophy</h2>
               <div className={styles.philosophyContent}>
                 <div className={styles.philosophyQuote}>
                   <blockquote>
-                    "Great design is not just about aesthetics—it's about
-                    creating spaces that enhance your life, reflect your
-                    personality, and bring you joy every single day."
+                    "Home is where your story begins. Through thoughtful decor
+                    and personal touches, we can create spaces that not only
+                    look beautiful but truly feel like home."
                   </blockquote>
                 </div>
                 <div className={styles.philosophyText}>
                   <p>
-                    I believe that every space has the potential to be
-                    extraordinary. My design philosophy centers on the idea that
-                    your home should be a reflection of who you are—a place
-                    where you feel most comfortable, inspired, and at peace.
+                    I believe that great home decor doesn't have to be expensive
+                    or complicated. Some of the most beautiful spaces are
+                    created with creativity, resourcefulness, and a keen eye for
+                    what makes a house feel like home. Through my blog, I want
+                    to show you that amazing design is within everyone's reach.
                   </p>
                   <p>
-                    I approach each project with a deep understanding of my
-                    clients' lifestyle, preferences, and dreams. By combining
-                    this insight with my expertise in color, texture, lighting,
-                    and space planning, I create homes that are not only
-                    beautiful but also perfectly suited to the people who live
-                    in them.
+                    My approach combines practical advice with creative
+                    inspiration. I love discovering affordable alternatives to
+                    high-end pieces, sharing DIY projects that anyone can
+                    tackle, and exploring how small changes can make a huge
+                    impact in your space. Let's create homes that tell your
+                    unique story!
                   </p>
                 </div>
               </div>
@@ -351,15 +357,16 @@ const About = () => {
             <section className={styles.ctaSection}>
               <div className={styles.ctaContent}>
                 <h2 className={styles.ctaTitle}>
-                  Ready to Transform Your Space?
+                  Let's Create Beautiful Spaces Together
                 </h2>
                 <p className={styles.ctaDescription}>
-                  Let's work together to create the home of your dreams. Whether
-                  you're starting from scratch or looking to refresh your
-                  current space, I'm here to help bring your vision to life.
+                  Ready to transform your home? Follow along for weekly
+                  inspiration, DIY tutorials, and all the tips you need to
+                  create a space you love. Join our community of home decor
+                  enthusiasts!
                 </p>
                 <div className={styles.ctaButtons}>
-                  <button className={styles.ctaButton}>Get Started</button>
+                  <button className={styles.ctaButton}>Follow My Blog</button>
                 </div>
               </div>
             </section>

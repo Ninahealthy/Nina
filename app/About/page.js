@@ -95,11 +95,11 @@ const About = () => {
         />
         <meta
           name="keywords"
-          content="Nina Rodriguez, home decor blogger, interior design blog, DIY home projects, home styling tips, decor inspiration"
+          content="Nina, home decor blogger, interior design blog, DIY home projects, home styling tips, decor inspiration"
         />
         <meta name="author" content="Nina" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://yoursite.com/about" />
+        <link rel="canonical" href="https://ninahealthy.com/About" />
 
         {/* Open Graph */}
         <meta
@@ -111,7 +111,7 @@ const About = () => {
           content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips."
         />
         <meta property="og:image" content="/nina-about-hero.jpg" />
-        <meta property="og:url" content="https://yoursite.com/about" />
+        <meta property="og:url" content="https://ninahealthy.com/About" />
         <meta property="og:type" content="website" />
 
         {/* Twitter Card */}
@@ -124,7 +124,7 @@ const About = () => {
           name="twitter:description"
           content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips."
         />
-        <meta name="twitter:image" content="/nina-about-hero.jpg" />
+        <meta name="twitter:image" content="/nina.jpg" />
 
         {/* Structured Data */}
         <script
@@ -133,7 +133,7 @@ const About = () => {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Nina Rodriguez",
+              name: "Nina",
               jobTitle: "Home Decor Blogger",
               description:
                 "Home decor and interior design blogger passionate about helping others create beautiful, functional spaces",
@@ -226,19 +226,19 @@ const About = () => {
                 <div className={styles.introText}>
                   <h2 className={styles.sectionTitle}>My Blogging Journey</h2>
                   <p className={styles.introDescription}>
-                    Hello! I'm Nina Rodriguez, a home decor blogger with an
-                    insatiable passion for beautiful interiors and creative DIY
-                    projects. What started as a personal love for transforming
-                    spaces has evolved into a thriving blog where I share my
-                    discoveries, experiments, and inspirations with fellow home
-                    decor enthusiasts.
+                    Hello! I'm Nina, a home decor blogger with an insatiable
+                    passion for beautiful interiors and creative DIY projects.
+                    What started as a personal love for transforming spaces has
+                    evolved into a thriving blog where I share my discoveries,
+                    experiments, and inspirations with fellow home decor
+                    enthusiasts.
                   </p>
                   <p className={styles.introDescription}>
                     Through my blog, I explore the latest design trends, hunt
                     for budget-friendly decor finds, and create step-by-step
                     tutorials that make beautiful home styling accessible to
                     everyone. I believe that creating a beautiful home shouldn't
-                    require a huge budget or professional training—just
+                    require a huge budget or professional training just
                     creativity, passion, and the right guidance.
                   </p>
                   <p className={styles.introDescription}>

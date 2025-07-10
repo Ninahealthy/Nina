@@ -111,7 +111,7 @@ export async function sendContactMessage(formData) {
           <div style="background: #e8f4f8; padding: 20px; border-radius: 8px;">
             <p style="margin: 0; color: #666; font-size: 14px;">
               Best regards,<br>
-              Nina Healthy Team
+              Nina 💚
             </p>
           </div>
         </div>

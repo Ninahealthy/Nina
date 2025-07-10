@@ -26,23 +26,28 @@ const Footer = () => {
     },
     {
       name: "TikTok",
-      href: "https://www.tiktok.com/@nina_vibes",
+      href: "https://www.tiktok.com/@nina__vibes",
       icon: "🎵",
     },
     {
       name: "YouTube",
-      href: "https://www.youtube.com/@nina_vibes",
+      href: "https://www.youtube.com/@lnina_vibes",
       icon: "📺",
     },
     {
       name: "Snapchat",
-      href: "https://www.snapchat.com/add/nina_vibes",
+      href: "https://www.snapchat.com/add/bright-mindset",
       icon: "👻",
     },
     {
       name: "X",
-      href: "https://www.x.com/nina_vibes",
+      href: "https://www.x.com/Nina__vibes",
       icon: "✖️",
+    },
+    {
+      name: "Facebook",
+      href: "https://www.facebook.com/lnina.vibes",
+      icon: "👤",
     },
   ];
 
@@ -125,8 +130,7 @@ const Footer = () => {
           <div className={styles.footerBottom}>
             <div className={styles.footerBottomContent}>
               <p className={styles.copyright}>
-                © {new Date().getFullYear()} Nina Home Decor and Interior
-                Design. All rights reserved.
+                © {new Date().getFullYear()} Nina All rights reserved.
               </p>
               <div className={styles.footerBottomLinks}>
                 <Link

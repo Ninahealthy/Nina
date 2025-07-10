@@ -95,7 +95,7 @@ const About = () => {
         />
         <meta
           name="keywords"
-          content="Nina, home decor blogger, interior design blog, DIY home projects, home styling tips, decor inspiration"
+          content="Nina, home decor, interior design , DIY home projects, home styling tips, decor inspiration"
         />
         <meta name="author" content="Nina" />
         <meta name="robots" content="index, follow" />
@@ -110,7 +110,7 @@ const About = () => {
           property="og:description"
           content="Meet Nina, a passionate home decor blogger sharing interior design inspiration, DIY projects, and styling tips."
         />
-        <meta property="og:image" content="/nina-about-hero.jpg" />
+        <meta property="og:image" content="/nina.jpg" />
         <meta property="og:url" content="https://ninahealthy.com/About" />
         <meta property="og:type" content="website" />
 
@@ -139,10 +139,10 @@ const About = () => {
                 "Home decor and interior design blogger passionate about helping others create beautiful, functional spaces",
               image: "/nina.jpg",
               sameAs: [
-                "https://twitter.com/ninahomedecor",
-                "https://instagram.com/nina_home_blog",
-                "https://pinterest.com/nina_home_decor",
-                "https://youtube.com/nina_home_styling",
+                "https://twitter.com/Nina__vibes",
+                "https://instagram.com/nina____vibes",
+                "https://pinterest.com/nina_vibes",
+                "https://youtube.com/lnina_vibes",
               ],
               knowsAbout: [
                 "Home Decor",

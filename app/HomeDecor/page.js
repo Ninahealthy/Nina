@@ -1,7 +1,7 @@
 import HomeDecor from "@/components/HomeDecor/HomeDecor";
 
 export const metadata = {
-  title: "Nina's Cozy Modern Living - Home Decor Inspiration",
+  title: "Nina - Home Decor",
   description:
     "Explore the latest trends in home decor, lifestyle, and DIY projects.",
 };

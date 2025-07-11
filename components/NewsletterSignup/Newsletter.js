@@ -26,12 +26,12 @@ export async function subscribeToNewsletter(email) {
     const subscriberMailOptions = {
       from: process.env.MAIL,
       to: email,
-      subject: "Welcome to Nina Healthy Newsletter!",
+      subject: "Welcome to Nina Newsletter!",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             <h2 style="color: #333; text-align: center; margin-bottom: 20px;">
-              Welcome to Nina Healthy! 🌟
+              Welcome to Nina! 🌟
             </h2>
             
             <p style="color: #666; font-size: 16px; line-height: 1.6;">
@@ -45,7 +45,6 @@ export async function subscribeToNewsletter(email) {
             <ul style="color: #666; font-size: 16px; line-height: 1.6; margin-left: 20px;">
               <li>Design tips and inspiration</li>
               <li>Exclusive updates and content</li>
-              <li>Health and wellness insights</li>
               <li>Special offers and promotions</li>
             </ul>
             
@@ -57,7 +56,7 @@ export async function subscribeToNewsletter(email) {
             
             <div style="border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px; text-align: center;">
               <p style="color: #888; font-size: 12px; margin: 0;">
-                © 2024 Nina Healthy. All rights reserved.
+                © 2024 Nina. All rights reserved.
               </p>
             </div>
           </div>

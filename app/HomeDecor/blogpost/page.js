@@ -10,12 +10,11 @@ const BlogPost = ({
   content,
   author = {
     name: "Nina",
-    bio: "Interior Design Expert with 15+ years of experience in modern home transformations",
+    bio: "home decor enthusiast and interior design blogger, sharing tips and inspiration for creating beautiful, functional spaces.",
     avatar: "/nina.jpg",
     social: {
-      twitter: "@ninadesigns",
-      instagram: "@nina_interior_design",
-      linkedin: "nina-rodriguez-interior-design",
+      twitter: "@Nina__vibes",
+      instagram: "@nina____vibes",
     },
   },
   publishDate = "2025-07-07",
@@ -23,31 +22,31 @@ const BlogPost = ({
   category = "Home Decor",
   readTime = "5 min read",
   tags = ["modern", "cozy", "inspiration", "interior-design", "home-decor"],
-  featuredImage = "/images/modern-interior-design-hero.jpg",
-  canonicalUrl = "https://yoursite.com/transform-your-space-with-modern-interior-design",
-  siteUrl = "https://yoursite.com",
-  siteName = "Interior Design Pro",
+  featuredImage = "/nina.jpg",
+  canonicalUrl = "https://ninahealthy.com/transform-your-space-with-modern-interior-design",
+  siteUrl = "https://ninahealthy.com",
+  siteName = "Interior Design & Home Decor by Nina",
   relatedPosts = [
     {
       title: "Modern Farmhouse Kitchen Ideas",
       description:
         "Rustic charm meets contemporary functionality in this stunning kitchen design",
       slug: "modern-farmhouse-kitchen-ideas",
-      image: "/images/modern-farmhouse-kitchen.jpg",
+      image: "/nina.jpg",
     },
     {
       title: "Bohemian Bedroom Retreat",
       description:
         "Warm earth tones and layered textiles for a cozy, eclectic bedroom vibe",
       slug: "bohemian-bedroom-retreat",
-      image: "/images/bohemian-bedroom.jpg",
+      image: "/nina.jpg",
     },
     {
       title: "Spa-Inspired Bathroom Design",
       description:
         "Transform your bathroom into a luxurious spa retreat with these calming elements",
       slug: "spa-inspired-bathroom-design",
-      image: "/images/spa-bathroom.jpg",
+      image: "/nina.jpg",
     },
   ],
 }) => {
@@ -144,7 +143,7 @@ const BlogPost = ({
       name: siteName,
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/images/logo.png`,
+        url: `${siteUrl}/nina.jpg`,
       },
     },
     datePublished: publishDate,

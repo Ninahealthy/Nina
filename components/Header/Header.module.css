@@ -172,7 +172,7 @@
 }
 
 .mobileMenuLogo {
-  font-size: 1.8em;
+  font-size: 2.5em;
   font-weight: 800;
   background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
   background-size: 400% 400%;
@@ -559,7 +559,7 @@
   }
 
   .logo {
-    font-size: 1.8em;
+    font-size: 2.5em;
   }
 
   .logoAvatar {
@@ -595,7 +595,7 @@
   }
 
   .mobileMenuLogo {
-    font-size: 1.6em;
+    font-size: 2rem;
   }
 
   .mobileMenuLogoAvatar {

@@ -405,13 +405,16 @@ const BlogPost = ({
                   {relatedPosts.map((post, index) => (
                     <article key={index} className={styles.relatedCard}>
                       <div className={styles.relatedCardContent}>
-                        <div
-                          className={`${styles.relatedCardImage} ${
-                            styles[`relatedCardImage${index + 1}`]
-                          }`}
-                          role="img"
-                          aria-label={`Featured image for ${post.title}`}
-                        />
+                        <div className={styles.relatedCardImageWrapper}>
+                          <Image
+                            src={post.image}
+                            alt={post.title}
+                            className={styles.relatedCardImage}
+                            width={1080}
+                            height={1080}
+                            loading="lazy"
+                          />
+                        </div>
                         <h4 className={styles.relatedCardTitle}>
                           {post.title}
                         </h4>

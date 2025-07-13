@@ -18,20 +18,21 @@ const PinterestBoard = () => {
           "Transform your small bathroom with these ingenious storage hacks that don't sacrifice style for function",
         imageClass: styles.livingRoom,
         featuredImage: "/large-round-miror.png", // Add featured image path
-        badge: "TRENDING",
-        slug: "/small-bathroom-storage-solutions",
-      },
-      /*{
-        id: 2,
-        title: "Modern Farmhouse Kitchen Ideas",
-        description:
-          "Rustic charm meets contemporary functionality in this stunning kitchen design",
-        imageClass: styles.kitchen,
-        featuredImage: "/images/modern-farmhouse-kitchen.jpg",
         badge: null,
-        slug: "modern-farmhouse-kitchen-ideas",
+        slug: "small-bathroom-storage-solutions",
       },
       {
+        id: 2,
+        title:
+          "5 Minimalist Living Room Ideas That Transform Your Space Into A Serene Sanctuary",
+        description:
+          "Discover timeless minimalist living room designs that create calm, spacious, and effortlessly elegant spaces",
+        imageClass: styles.kitchen,
+        featuredImage: "/scandinavian-minimalist-living-room.png",
+        badge: "TRENDING",
+        slug: "minimalist-living-room-ideas",
+      },
+      /* {
         id: 3,
         title: "Bohemian Bedroom Retreat",
         description:

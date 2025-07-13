@@ -45,12 +45,18 @@ const BlogPost = () => {
     social: {
       twitter: "@Nina__vibes",
       instagram: "@nina____vibes",
+      pinterest: "@Nina_Vibes",
+      tiktok: "@nina__vibes",
+      youtube: "@lnina_vibes",
+      snapchat: "@bright-mindset",
+      x: "@Nina__vibes",
+      facebook: "@lnina.vibes",
     },
   };
   const publishDate = "2025-07-11";
   const modifiedDate = "2025-07-11";
   const category = "Bathroom Storage";
-  const readTime = "8 min read";
+  const readTime = "8 minutes";
   const tags = [
     "small-bathroom",
     "storage-solutions",
@@ -420,6 +426,12 @@ const BlogPost = () => {
       sameAs: [
         `https://twitter.com/${author.social.twitter.replace("@", "")}`,
         `https://instagram.com/${author.social.instagram.replace("@", "")}`,
+        `https://pinterest.com/${author.social.pinterest.replace("@", "")}`,
+        `https://tiktok.com/${author.social.tiktok.replace("@", "")}`,
+        `https://youtube.com/${author.social.youtube.replace("@", "")}`,
+        `https://snapchat.com/add/${author.social.snapchat.replace("@", "")}`,
+        `https://x.com/${author.social.x.replace("@", "")}`,
+        `https://facebook.com/${author.social.facebook.replace("@", "")}`,
       ],
     },
     publisher: {
@@ -693,8 +705,8 @@ const BlogPost = () => {
                             src={post.image}
                             alt={post.title}
                             className={styles.relatedCardImage}
-                            width={400}
-                            height={300}
+                            width={1200}
+                            height={768}
                             loading="lazy"
                           />
                         </div>

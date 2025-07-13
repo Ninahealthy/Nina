@@ -1,22 +1,3 @@
-/* === Root Variables === */
-:root {
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  --color-text: #374151;
-  --color-text-light: #6b7280;
-  --color-heading: #1f2937;
-  --color-background: #ffffff;
-  --color-primary: #8b5cf6;
-  --color-secondary: #ec4899;
-  --color-accent: #3b82f6;
-  --color-border: #e5e7eb;
-  --max-width: 1408px;
-  --content-width: 896px;
-  --radius: 0.75rem;
-  --transition: all 0.3s ease-in-out;
-}
-
 /* === Base Styles === */
 .container {
   font-family: var(--font-sans);
@@ -350,24 +331,7 @@
   margin-bottom: 1.5rem;
   color: var(--color-heading);
 }
-.furnitureGrid,
-.lightingGrid,
-.storageGrid,
-.mistakeGrid {
-  composes: guideGrid;
-}
-.furnitureItem,
-.lightingLayer,
-.storageItem,
-.mistakeItem {
-  composes: guideItem;
-}
-.furniturePiece,
-.lightingType,
-.storageSolution,
-.mistakeName {
-  composes: guideItem h4;
-}
+
 .furnitureDetails,
 .lightingDetails,
 .storageDetails,

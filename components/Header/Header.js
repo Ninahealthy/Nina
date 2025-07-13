@@ -1,6 +1,6 @@
 // components/Header/Header.js
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearch } from "../../contexts/SearchContext";
@@ -8,7 +8,36 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { searchQuery, handleSearch } = useSearch();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show header when at top of page
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      }
+      // Hide header when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -28,7 +57,11 @@ const Header = () => {
   };
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${
+        isVisible ? styles.visible : styles.hidden
+      }`}
+    >
       <div className={styles.headerContent}>
         <Link href="/" className={styles.logoContainer}>
           <div className={styles.logoAvatar}>

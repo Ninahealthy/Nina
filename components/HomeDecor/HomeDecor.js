@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./HomeDecor.module.css";
 import { useState, useEffect } from "react";
 import { useSearch } from "../../contexts/SearchContext";
@@ -12,19 +13,21 @@ const PinterestBoard = () => {
     const pins = [
       {
         id: 1,
-        title: "Scandinavian Living Room with Natural Textures",
+        title: "Maximizing Storage in Tiny Bathrooms: 15 Clever Solutions",
         description:
-          "Clean lines, neutral colors, and cozy textures create the perfect modern sanctuary",
+          "Transform your small bathroom with these ingenious storage hacks that don't sacrifice style for function",
         imageClass: styles.livingRoom,
+        featuredImage: "/large-round-miror.png", // Add featured image path
         badge: "TRENDING",
-        slug: "scandinavian-living-room-natural-textures",
+        slug: "/small-bathroom-storage-solutions",
       },
-      {
+      /*{
         id: 2,
         title: "Modern Farmhouse Kitchen Ideas",
         description:
           "Rustic charm meets contemporary functionality in this stunning kitchen design",
         imageClass: styles.kitchen,
+        featuredImage: "/images/modern-farmhouse-kitchen.jpg",
         badge: null,
         slug: "modern-farmhouse-kitchen-ideas",
       },
@@ -34,6 +37,7 @@ const PinterestBoard = () => {
         description:
           "Warm earth tones and layered textiles for a cozy, eclectic bedroom vibe",
         imageClass: styles.bedroom,
+        featuredImage: "/images/bohemian-bedroom.jpg",
         badge: null,
         slug: "bohemian-bedroom-retreat",
       },
@@ -43,6 +47,7 @@ const PinterestBoard = () => {
         description:
           "Transform your bathroom into a luxurious spa retreat with these calming elements",
         imageClass: styles.bathroom,
+        featuredImage: "/images/spa-bathroom-design.jpg",
         badge: "HOT",
         slug: "spa-inspired-bathroom-design",
       },
@@ -52,6 +57,7 @@ const PinterestBoard = () => {
         description:
           "Create memorable dining experiences with sophisticated decor and ambient lighting",
         imageClass: styles.dining,
+        featuredImage: "/images/elegant-dining-room.jpg",
         badge: null,
         slug: "elegant-dining-room-makeover",
       },
@@ -61,6 +67,7 @@ const PinterestBoard = () => {
         description:
           "Boost productivity with these stylish and functional workspace solutions",
         imageClass: styles.office,
+        featuredImage: "/images/home-office-organization.jpg",
         badge: null,
         slug: "home-office-organization-ideas",
       },
@@ -70,6 +77,7 @@ const PinterestBoard = () => {
         description:
           "Extend your home's comfort outdoors with these patio and garden decor ideas",
         imageClass: styles.outdoor,
+        featuredImage: "/images/cozy-outdoor-living.jpg",
         badge: "NEW",
         slug: "cozy-outdoor-living-space",
       },
@@ -79,6 +87,7 @@ const PinterestBoard = () => {
         description:
           "Curate the perfect art collection to showcase your personal style",
         imageClass: styles.decor,
+        featuredImage: "/images/gallery-wall-inspiration.jpg",
         badge: null,
         slug: "gallery-wall-inspiration",
       },
@@ -88,6 +97,7 @@ const PinterestBoard = () => {
         description:
           "Illuminate your space with these eye-catching pendant lights and chandeliers",
         imageClass: styles.lighting,
+        featuredImage: "/images/statement-lighting.jpg",
         badge: null,
         slug: "statement-lighting-ideas",
       },
@@ -97,6 +107,7 @@ const PinterestBoard = () => {
         description:
           "Maximize space while maintaining style with these clever organization hacks",
         imageClass: styles.storage,
+        featuredImage: "/images/creative-storage-solutions.jpg",
         badge: null,
         slug: "creative-storage-solutions",
       },
@@ -106,6 +117,7 @@ const PinterestBoard = () => {
         description:
           "Bring nature indoors with these gorgeous houseplant arrangements",
         imageClass: styles.plants,
+        featuredImage: "/images/indoor-plant-paradise.jpg",
         badge: "VIRAL",
         slug: "indoor-plant-paradise",
       },
@@ -115,9 +127,10 @@ const PinterestBoard = () => {
         description:
           "Master the art of mixing patterns, textures, and colors for cozy interiors",
         imageClass: styles.textiles,
+        featuredImage: "/images/textile-layering.jpg",
         badge: null,
         slug: "textile-layering-techniques",
-      },
+      },*/
     ];
 
     if (searchQuery === "") {
@@ -170,8 +183,18 @@ const PinterestBoard = () => {
       <div className={styles.pinsGrid}>
         {filteredPins.map((pin) => (
           <div key={pin.id} className={styles.pin}>
-            <Link href={`/blog/${pin.slug}`} className={styles.pinLink}>
+            <Link href={`/HomeDecor/${pin.slug}`} className={styles.pinLink}>
               <div className={`${styles.pinImage} ${pin.imageClass}`}>
+                {pin.featuredImage && (
+                  <Image
+                    src={pin.featuredImage}
+                    alt={pin.title}
+                    fill
+                    className={styles.featuredImage}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={pin.id <= 3} // Prioritize loading for first 3 images
+                  />
+                )}
                 {pin.badge && (
                   <div className={styles.trendingBadge}>{pin.badge}</div>
                 )}
@@ -182,7 +205,7 @@ const PinterestBoard = () => {
               <h3 className={styles.pinTitle}>{pin.title}</h3>
               <p className={styles.pinDescription}>{pin.description}</p>
               <Link
-                href={`/blog/${pin.slug}`}
+                href={`/HomeDecor/${pin.slug}`}
                 className={styles.takeALookButton}
               >
                 Take a Look

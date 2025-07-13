@@ -753,3 +753,260 @@
 .navButton:hover::before {
   left: 100%;
 }
+
+/* Add these styles to your existing page.module.css */
+
+/* Image Prompt Box Styles - Move from inline to CSS module */
+.imagePromptBox {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-left: 4px solid #3b82f6;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagePromptBox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.imagePromptTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.imagePromptText {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Enhanced Content Section Styling */
+.contentSection {
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border-radius: 2rem 2rem 0 0;
+  margin-top: 2rem;
+  box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+/* Better content flow */
+.article {
+  max-width: none;
+  line-height: 1.8;
+}
+
+.article > * + * {
+  margin-top: 1.5rem;
+}
+
+.article h2 + p {
+  margin-top: 1rem;
+}
+
+.article p + .imagePromptBox {
+  margin-top: 1rem;
+}
+
+/* Enhanced paragraph styling for better readability */
+.contentParagraph {
+  font-size: 1.125rem;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-weight: 400;
+  max-width: 65ch; /* Optimal reading width */
+}
+
+.contentParagraph:first-letter {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #8b5cf6;
+}
+
+/* Improved heading hierarchy */
+.contentHeading {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid transparent;
+  background: linear-gradient(45deg, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  scroll-margin-top: 2rem; /* For smooth scrolling */
+}
+
+.contentHeading:first-of-type {
+  margin-top: 1.5rem;
+}
+
+/* Enhanced meta info layout */
+.metaWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Better tag styling */
+.tag {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(
+    45deg,
+    rgba(59, 130, 246, 0.15),
+    rgba(139, 92, 246, 0.15)
+  );
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  color: #1f2937;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-transform: lowercase;
+}
+
+.tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    45deg,
+    rgba(59, 130, 246, 0.25),
+    rgba(139, 92, 246, 0.25)
+  );
+}
+
+/* Enhanced list styling */
+.contentList {
+  background: linear-gradient(135deg, #eff6ff, #faf5ff);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  border-left: 4px solid #8b5cf6;
+  list-style: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.contentList::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899, #22d3ee);
+}
+
+.contentListItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.contentListItem:last-child {
+  margin-bottom: 0;
+}
+
+.contentListIcon {
+  color: #8b5cf6;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  font-weight: 700;
+}
+
+/* Mobile responsiveness for new styles */
+@media (max-width: 640px) {
+  .imagePromptBox {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .imagePromptTitle {
+    font-size: 0.9rem;
+  }
+
+  .imagePromptText {
+    font-size: 0.8rem;
+  }
+
+  .contentParagraph {
+    font-size: 1rem;
+  }
+
+  .contentList {
+    padding: 1.5rem;
+  }
+
+  .contentListItem {
+    font-size: 1rem;
+  }
+
+  .metaWrapper {
+    padding: 1rem;
+  }
+}
+
+/* Focus states for accessibility */
+.imagePromptBox:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.tag:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* Enhanced print styles */
+@media print {
+  .imagePromptBox {
+    background: #f8fafc;
+    border-left: 4px solid #333;
+  }
+
+  .imagePromptTitle {
+    color: #333;
+  }
+
+  .imagePromptText {
+    color: #666;
+  }
+
+  .tag {
+    background: #f3f4f6;
+    color: #333;
+    border: 1px solid #d1d5db;
+  }
+}

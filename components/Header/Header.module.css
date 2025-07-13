@@ -12,6 +12,18 @@
   z-index: 1000;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+/* Scroll visibility states */
+.header.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.header.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .headerContent {
@@ -645,6 +657,10 @@
 
 /* Accessibility and reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+  }
+
   .logoContainer,
   .mobileMenuLogoContainer,
   .logoAvatar,
@@ -675,6 +691,8 @@
     position: static;
     background: white;
     box-shadow: none;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .logoAvatar,

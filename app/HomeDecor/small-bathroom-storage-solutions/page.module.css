@@ -753,3 +753,302 @@
 .navButton:hover::before {
   left: 100%;
 }
+
+/* Enhanced Callout Box Styles */
+.calloutBox {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.1),
+    rgba(236, 72, 153, 0.1)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 4px solid #8b5cf6;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.calloutBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.05),
+    rgba(236, 72, 153, 0.05)
+  );
+  pointer-events: none;
+}
+
+.calloutBox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.3);
+  border-color: rgba(236, 72, 153, 0.3);
+}
+
+.calloutIcon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+  float: left;
+  margin-top: 0.125rem;
+  color: #8b5cf6;
+  filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.3));
+}
+
+.calloutText {
+  color: #1f2937;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Enhanced Image Container Styles */
+.imageContainer {
+  margin: 2.5rem 0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.1),
+    rgba(236, 72, 153, 0.1)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.imageContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 35px 70px -20px rgba(139, 92, 246, 0.3);
+}
+
+.contentImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.imageContainer:hover .contentImage {
+  transform: scale(1.03);
+}
+
+.imageCaption {
+  padding: 1.5rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(248, 250, 252, 0.8)
+  );
+  backdrop-filter: blur(10px);
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.imageCaption::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+
+/* Enhanced CTA Section Styles */
+.ctaSection {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.15),
+    rgba(236, 72, 153, 0.15),
+    rgba(34, 211, 238, 0.1)
+  );
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  margin: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
+  transition: all 0.3s ease;
+}
+
+.ctaSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.08),
+    rgba(236, 72, 153, 0.08),
+    rgba(34, 211, 238, 0.08)
+  );
+  pointer-events: none;
+}
+
+.ctaSection:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 35px 70px -20px rgba(139, 92, 246, 0.35);
+  border-color: rgba(236, 72, 153, 0.3);
+}
+
+.ctaTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #8b5cf6, #ec4899, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.2));
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.ctaSubtext {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-weight: 400;
+}
+
+/* Enhanced Responsive Typography */
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 2rem;
+  }
+
+  .contentHeading {
+    font-size: 1.5rem;
+  }
+
+  .contentParagraph {
+    font-size: 1rem;
+  }
+
+  .authorName {
+    font-size: 1rem;
+  }
+
+  .publishDate {
+    font-size: 0.75rem;
+  }
+
+  .calloutText {
+    font-size: 1rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.5rem;
+  }
+
+  .ctaText {
+    font-size: 1rem;
+  }
+
+  .ctaSection {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .imageContainer {
+    border-radius: 1rem;
+  }
+
+  .calloutBox {
+    padding: 1.25rem;
+  }
+}
+
+/* Enhanced Accessibility for Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .calloutBox:hover,
+  .imageContainer:hover,
+  .ctaSection:hover {
+    transform: none;
+  }
+
+  .imageContainer:hover .contentImage {
+    transform: none;
+  }
+}
+
+/* Enhanced High Contrast Support */
+@media (prefers-contrast: high) {
+  .ctaTitle {
+    background: #1f2937;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .calloutBox {
+    border-left-color: #1f2937;
+  }
+
+  .imageCaption::before {
+    background: #1f2937;
+  }
+}
+
+/* Enhanced Print Styles */
+@media print {
+  .calloutBox,
+  .imageContainer,
+  .ctaSection {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  .ctaTitle {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+  }
+
+  .calloutBox::before,
+  .imageContainer::before,
+  .ctaSection::before {
+    display: none;
+  }
+}

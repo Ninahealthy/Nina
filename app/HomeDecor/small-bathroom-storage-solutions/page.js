@@ -476,8 +476,8 @@ const BlogPost = () => {
             <Image
               src={section.src}
               alt={section.alt}
-              width={800}
-              height={600}
+              width={1408}
+              height={768}
               className={styles.contentImage}
               loading="lazy"
             />

@@ -968,7 +968,7 @@ const BlogPost = () => {
 
             {/* Related Posts Section */}
             <section className={styles.relatedPosts}>
-              <h2 className={styles.contentHeading}>Related Articles</h2>
+              <h2 className={styles.contentHeading}>You Might Also Like</h2>
               <div className={styles.relatedGrid}>
                 {relatedPosts.map((post, index) => (
                   <article key={index} className={styles.relatedPost}>
@@ -976,8 +976,8 @@ const BlogPost = () => {
                       <img
                         src={post.image}
                         alt={post.title}
-                        width={400}
-                        height={225}
+                        width={1408}
+                        height={768}
                         className={styles.relatedImage}
                         loading="lazy"
                       />

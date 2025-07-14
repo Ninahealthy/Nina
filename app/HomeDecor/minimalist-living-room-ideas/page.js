@@ -72,7 +72,8 @@ const BlogPost = () => {
     "modern-minimalism",
   ];
   const featuredImage = "/minimalist-living-room-overview.png";
-  const canonicalUrl = "https://ninahealthy.com/minimalist-living-room-ideas";
+  const canonicalUrl =
+    "https://ninahealthy.com/HomeDecor/minimalist-living-room-ideas";
   const siteUrl = "https://ninahealthy.com";
   const siteName = "Interior Design & Home Decor by Nina";
 

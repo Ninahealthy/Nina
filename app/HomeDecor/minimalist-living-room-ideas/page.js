@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 
 const BlogPost = () => {
+  const [expandedFaq, setExpandedFaq] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [particles, setParticles] = useState([]);
@@ -33,6 +34,10 @@ const BlogPost = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  const toggleFaq = (index) => {
+    setExpandedFaq(expandedFaq === index ? null : index);
+  };
 
   const title =
     "5 Minimalist Living Room Ideas That Transform Your Space Into A Serene Sanctuary";
@@ -766,8 +771,25 @@ const BlogPost = () => {
                 <div className={styles.faqContainer}>
                   {faqData.map((faq, index) => (
                     <div key={index} className={styles.faqItem}>
-                      <h3 className={styles.faqQuestion}>{faq.question}</h3>
-                      <p className={styles.faqAnswer}>{faq.answer}</p>
+                      <button
+                        className={`${styles.faqQuestion} ${
+                          expandedFaq === index ? styles.faqQuestionActive : ""
+                        }`}
+                        onClick={() => toggleFaq(index)}
+                        aria-expanded={expandedFaq === index}
+                      >
+                        {faq.question}
+                        <span className={styles.faqToggle}>
+                          {expandedFaq === index ? "−" : "+"}
+                        </span>
+                      </button>
+                      <div
+                        className={`${styles.faqAnswer} ${
+                          expandedFaq === index ? styles.faqAnswerOpen : ""
+                        }`}
+                      >
+                        <p>{faq.answer}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

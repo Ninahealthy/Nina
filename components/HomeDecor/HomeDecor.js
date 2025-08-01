@@ -32,16 +32,17 @@ const PinterestBoard = () => {
         badge: "TRENDING",
         slug: "minimalist-living-room-ideas",
       },
-      /* {
+      {
         id: 3,
-        title: "Bohemian Bedroom Retreat",
+        title:
+          "15 Minimalist Bedroom Ideas That Create the Ultimate Sleep Sanctuary",
         description:
-          "Warm earth tones and layered textiles for a cozy, eclectic bedroom vibe",
+          "Transform your bedroom into a serene, clutter-free haven with these inspiring minimalist design ideas",
         imageClass: styles.bedroom,
-        featuredImage: "/images/bohemian-bedroom.jpg",
+        featuredImage: "/minimalist-bedroom-overview.png",
         badge: null,
-        slug: "bohemian-bedroom-retreat",
-      },
+        slug: "minimalist-bedroom-ideas",
+      } /*
       {
         id: 4,
         title: "Spa-Inspired Bathroom Design",
@@ -131,7 +132,7 @@ const PinterestBoard = () => {
         featuredImage: "/images/textile-layering.jpg",
         badge: null,
         slug: "textile-layering-techniques",
-      },*/
+      },*/,
     ];
 
     if (searchQuery === "") {

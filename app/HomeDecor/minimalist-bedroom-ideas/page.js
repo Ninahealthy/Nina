@@ -129,7 +129,7 @@ const BlogPost = () => {
     {
       type: "paragraph",
       content:
-        "A <strong>minimalist bedroom</strong> isn't just about having fewer things—it's about creating a sanctuary that promotes rest, reduces stress, and enhances your overall well-being. <strong>Minimalist bedroom ideas</strong> focus on intentional design choices that maximize both beauty and functionality while eliminating visual clutter that can interfere with quality sleep. Whether you're designing a <strong>small minimalist bedroom</strong> or transforming a spacious master suite, these principles will help you create the perfect sleep environment.",
+        "A <strong>minimalist bedroom</strong> isn't just about having fewer things it's about creating a sanctuary that promotes rest, reduces stress, and enhances your overall well-being. <strong>Minimalist bedroom ideas</strong> focus on intentional design choices that maximize both beauty and functionality while eliminating visual clutter that can interfere with quality sleep. Whether you're designing a <strong>small minimalist bedroom</strong> or transforming a spacious master suite, these principles will help you create the perfect sleep environment.",
     },
     {
       type: "image",
@@ -158,7 +158,7 @@ const BlogPost = () => {
     {
       type: "paragraph",
       content:
-        "The <strong>Scandinavian minimalist bedroom</strong> embodies the Danish concept of hygge—that feeling of cozy contentment. This approach to <strong>minimalist bedroom design</strong> combines functional beauty with emotional warmth. <strong>Scandinavian bedroom decor</strong> focuses on natural materials, soft textures, and lighting that mimics the gentle Nordic sun.",
+        "The <strong>Scandinavian minimalist bedroom</strong> embodies the Danish concept of hygge that feeling of cozy contentment. This approach to <strong>minimalist bedroom design</strong> combines functional beauty with emotional warmth. <strong>Scandinavian bedroom decor</strong> focuses on natural materials, soft textures, and lighting that mimics the gentle Nordic sun.",
     },
     {
       type: "image",
@@ -181,7 +181,7 @@ const BlogPost = () => {
     {
       type: "callout",
       content:
-        "Hygge Secret: The key to Scandinavian bedrooms is 'lagom'—having just the right amount of everything, creating perfect balance without excess.",
+        "Hygge Secret: The key to Scandinavian bedrooms is 'lagom' having just the right amount of everything, creating perfect balance without excess.",
     },
     {
       type: "heading",
@@ -214,7 +214,7 @@ const BlogPost = () => {
     {
       type: "callout",
       content:
-        "Zen Wisdom: In Japanese design, 'ma' represents the powerful use of negative space—what you don't include is as important as what you do.",
+        "Zen Wisdom: In Japanese design, 'ma' represents the powerful use of negative space what you don't include is as important as what you do.",
     },
     {
       type: "heading",
@@ -537,7 +537,7 @@ const BlogPost = () => {
     {
       type: "paragraph",
       content:
-        "A <strong>minimalist master bedroom</strong> should feel like a luxury hotel suite—spacious, serene, and sophisticated. <strong>Master bedroom minimalist design</strong> can accommodate larger spaces while maintaining the essential principles of simplicity and function. The key is creating zones within the space without compromising the overall minimalist aesthetic.",
+        "A <strong>minimalist master bedroom</strong> should feel like a luxury hotel suite spacious, serene, and sophisticated. <strong>Master bedroom minimalist design</strong> can accommodate larger spaces while maintaining the essential principles of simplicity and function. The key is creating zones within the space without compromising the overall minimalist aesthetic.",
     },
     {
       type: "image",
@@ -618,7 +618,7 @@ const BlogPost = () => {
       question:
         "How do I prevent a minimalist bedroom from feeling cold or sterile?",
       answer:
-        "Add warmth through natural materials like wood and linen, use warm lighting (2700K-3000K), include live plants, and layer different shades of neutral colors. Texture is key—add a chunky knit throw or natural fiber rug for coziness.",
+        "Add warmth through natural materials like wood and linen, use warm lighting (2700K-3000K), include live plants, and layer different shades of neutral colors. Texture is key add a chunky knit throw or natural fiber rug for coziness.",
     },
     {
       question: "Can I have plants in a minimalist bedroom?",
@@ -645,7 +645,7 @@ const BlogPost = () => {
       question:
         "Can minimalist bedrooms work for couples with different style preferences?",
       answer:
-        "Yes! Focus on neutral foundations that both partners appreciate, then add small personal touches through artwork, books, or accessories. Communication and compromise are key—choose quality pieces you both love rather than items that please only one person.",
+        "Yes! Focus on neutral foundations that both partners appreciate, then add small personal touches through artwork, books, or accessories. Communication and compromise are key choose quality pieces you both love rather than items that please only one person.",
     },
     {
       question: "What lighting is best for minimalist bedrooms?",

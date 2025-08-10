@@ -132,7 +132,7 @@ const BlogPost = () => {
     },
     {
       type: "image",
-      src: "/small-bedroom-storage-overview.png",
+      src: "/small-bedroom-storage-overview.jpg",
       alt: "Small bedroom showcasing multiple storage solutions including under-bed storage, wall-mounted shelves, and multi-functional furniture",
       caption:
         "Small bedroom storage: transforming limitations into opportunities",

@@ -712,7 +712,7 @@ const BlogPost = () => {
       title: "Small Bedroom Storage Solutions That Maximize Space",
       description:
         "Creative storage ideas that keep small bedrooms organized and clutter-free",
-      slug: "small-bedroom-storage-solutions",
+      slug: "HomeDecor/small-bedroom-storage-solutions",
       image: "/bedroom-storage.png",
     },
     {

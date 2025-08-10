@@ -90,8 +90,8 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
-          <Link href="/" onClick={handleNavClick}>
-            Home
+          <Link href="/garden" onClick={handleNavClick}>
+            Garden
           </Link>
           <Link href="/HomeDecor" onClick={handleNavClick}>
             Home Decor

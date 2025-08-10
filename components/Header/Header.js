@@ -145,9 +145,9 @@ const Header = () => {
               </Link>
             </div>
             <div className={styles.mobileMenuItems}>
-              <Link href="/" onClick={handleNavClick}>
-                <span className={styles.menuIcon}>🏠</span>
-                Home
+              <Link href="/garden" onClick={handleNavClick}>
+                <span className={styles.menuIcon}>🌿</span>
+                Garden
               </Link>
               <Link href="/HomeDecor" onClick={handleNavClick}>
                 <span className={styles.menuIcon}>🎨</span>

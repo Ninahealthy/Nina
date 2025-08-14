@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Carousel from "@/components/Carousel/Carousel";
 import Head from "next/head";
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -194,30 +193,25 @@ const BlogPost = () => {
         "Transform your living space with <strong>sculptural wooden bookshelves</strong> that blur the line between furniture and art. These <strong>organic curve bookshelves</strong> feature <strong>biomorphic design elements</strong> that bring nature's flowing forms indoors. From <strong>liquid-inspired wood furniture</strong> to <strong>tree branch shelving designs</strong>, discover how <strong>flowing wood shelves</strong> can become the centerpiece of your interior. According to the <a href='https://www.asid.org' target='_blank' rel='noopener'>American Society of Interior Designers</a>, sculptural furniture pieces can increase room perceived value by up to 35% while creating memorable focal points.",
     },
     {
-      type: "carousel", // New type for carousel
-      images: [
-        {
-          type: "image",
-          src: "/sculptural-wooden-bookshelf-hero.png",
-          alt: "Sculptural wooden bookshelf with organic flowing curves resembling liquid wood, featuring multiple curved compartments in light blonde wood",
-          caption:
-            "Biomorphic bookshelf design showcasing fluid, wave-like curves in natural wood tones",
-        },
-        {
-          type: "image",
-          src: "/biomorphic-bookshelf-flowing-curves.png",
-          alt: "Biomorphic wooden bookshelf with kidney-shaped compartments and flowing organic curves in light oak",
-          caption:
-            "Biomorphic design creates cellular-like compartments with seamless flowing transitions",
-        },
-        {
-          type: "image",
-          src: "/tree-branch-inspired-bookshelf.png",
-          alt: "Tree branch inspired wooden bookshelf with asymmetrical extending arms and natural wood grain in walnut",
-          caption:
-            "Tree branch aesthetics create dramatic asymmetrical balance with natural beauty",
-        },
-      ],
+      type: "image",
+      src: "/sculptural-wooden-bookshelf-hero.png",
+      alt: "Sculptural wooden bookshelf with organic flowing curves resembling liquid wood, featuring multiple curved compartments in light blonde wood",
+      caption:
+        "Biomorphic bookshelf design showcasing fluid, wave-like curves in natural wood tones",
+    },
+    {
+      type: "image",
+      src: "/sculptural-wooden-bookshelf-hero.png",
+      alt: "Sculptural wooden bookshelf with organic flowing curves resembling liquid wood, featuring multiple curved compartments in light blonde wood",
+      caption:
+        "Biomorphic bookshelf design showcasing fluid, wave-like curves in natural wood tones",
+    },
+    {
+      type: "image",
+      src: "/sculptural-wooden-bookshelf-hero.png",
+      alt: "Sculptural wooden bookshelf with organic flowing curves resembling liquid wood, featuring multiple curved compartments in light blonde wood",
+      caption:
+        "Biomorphic bookshelf design showcasing fluid, wave-like curves in natural wood tones",
     },
     {
       type: "heading",
@@ -1188,12 +1182,6 @@ const BlogPost = () => {
             {section.content}
           </h2>
         );
-      case "carousel":
-        return (
-          <div key={index} className={styles.carouselSection}>
-            <Carousel images={section.images} />
-          </div>
-        );
       case "paragraph":
         return (
           <p
@@ -1225,7 +1213,6 @@ const BlogPost = () => {
             )}
           </div>
         );
-
       case "list":
         return (
           <ul key={index} className={styles.contentList}>

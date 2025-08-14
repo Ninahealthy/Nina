@@ -1864,15 +1864,3 @@
 .categoryCard:hover .tipIcon {
   transform: translateX(2px);
 }
-
-.carouselSection {
-  margin: 3rem 0;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .carouselSection {
-    margin: 2rem 0;
-  }
-}

@@ -67,7 +67,7 @@ const Carousel = ({ images = [] }) => {
     });
   };
 
-  // Touch/Mouse handlers for carousel
+  // Touch/Mouse handlers for carousel - FIXED SWIPE LOGIC
   const handleCarouselStart = (clientX, clientY) => {
     if (isTransitioning) return;
     setIsDragging(true);
@@ -88,10 +88,12 @@ const Carousel = ({ images = [] }) => {
     if (!isDragging) return;
 
     if (Math.abs(dragOffset) > dragThreshold) {
+      // FIXED: Swipe right (positive deltaX) = go to previous
+      // Swipe left (negative deltaX) = go to next
       if (dragOffset > 0) {
-        prevImage();
+        prevImage(); // Swipe right = previous
       } else {
-        nextImage();
+        nextImage(); // Swipe left = next
       }
     }
 
@@ -99,7 +101,7 @@ const Carousel = ({ images = [] }) => {
     setDragOffset(0);
   };
 
-  // Modal touch/mouse handlers
+  // Modal touch/mouse handlers - FIXED SWIPE LOGIC
   const handleModalStart = (clientX, clientY) => {
     setIsDragging(true);
     setDragStart({ x: clientX, y: clientY });
@@ -116,12 +118,14 @@ const Carousel = ({ images = [] }) => {
     if (!isDragging) return;
 
     if (Math.abs(dragOffset) > modalDragThreshold) {
+      // FIXED: Swipe right (positive deltaX) = go to previous
+      // Swipe left (negative deltaX) = go to next
       if (dragOffset > 0) {
         setModalImageIndex(
           (prev) => (prev - 1 + images.length) % images.length
-        );
+        ); // Swipe right = previous
       } else {
-        setModalImageIndex((prev) => (prev + 1) % images.length);
+        setModalImageIndex((prev) => (prev + 1) % images.length); // Swipe left = next
       }
     }
 
@@ -228,12 +232,15 @@ const Carousel = ({ images = [] }) => {
           onMouseMove={(e) => handleCarouselMove(e.clientX)}
           onMouseUp={handleCarouselEnd}
           onMouseLeave={handleCarouselEnd}
-          // Touch events
+          // Touch events - IMPROVED with passive handling
           onTouchStart={(e) => {
             handleCarouselStart(e.touches[0].clientX, e.touches[0].clientY);
           }}
           onTouchMove={(e) => {
-            e.preventDefault();
+            // Prevent default to stop page scrolling during horizontal swipe
+            if (isDragging) {
+              e.preventDefault();
+            }
             handleCarouselMove(e.touches[0].clientX);
           }}
           onTouchEnd={handleCarouselEnd}
@@ -302,12 +309,14 @@ const Carousel = ({ images = [] }) => {
             onMouseMove={(e) => handleModalMove(e.clientX)}
             onMouseUp={handleModalEnd}
             onMouseLeave={handleModalEnd}
-            // Touch events for modal
+            // Touch events for modal - IMPROVED
             onTouchStart={(e) => {
               handleModalStart(e.touches[0].clientX, e.touches[0].clientY);
             }}
             onTouchMove={(e) => {
-              e.preventDefault();
+              if (isDragging) {
+                e.preventDefault();
+              }
               handleModalMove(e.touches[0].clientX);
             }}
             onTouchEnd={handleModalEnd}

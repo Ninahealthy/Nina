@@ -1,177 +1,279 @@
-/* carousel.module.css */
+/* carousel.module.css - Complete Modern iOS-Style Carousel */
 
+/* Root carousel container with entrance animation */
 .carousel {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  margin: 2rem 0;
-  border-radius: 20px;
-  overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(139, 115, 85, 0.1) 0%,
-    rgba(160, 130, 98, 0.1) 100%
-  );
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Helvetica Neue", Roboto, sans-serif;
 }
 
 .carousel.loaded {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
+/* Image container with glassmorphism and modern shadows */
 .imageContainer {
   position: relative;
-  width: 100%;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
   overflow: hidden;
-  background: #f8f6f3;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  will-change: transform;
+  touch-action: pan-y;
 }
 
+.imageContainer:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.16), 0 16px 32px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.imageContainer.dragging {
+  cursor: grabbing;
+  transform: scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.15);
+  transition: none;
+}
+
+/* Carousel image with smooth transitions */
 .carouselImage {
   width: 100%;
   height: auto;
+  max-height: 600px;
   object-fit: cover;
   cursor: pointer;
-  transition: all 0.4s ease;
-  filter: brightness(1.02) contrast(1.05);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: brightness(1.02) contrast(1.05) saturate(105%);
   display: block;
+  border-radius: 24px;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  pointer-events: auto;
 }
 
 .carouselImage:hover {
-  transform: scale(1.02);
-  filter: brightness(1.05) contrast(1.08);
+  transform: scale(1.03);
+  filter: brightness(1.05) contrast(1.08) saturate(110%);
 }
 
+.carouselImage:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* iOS-style sliding caption */
 .imageCaption {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(0, 0, 0, 0.6) 60%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
   color: #ffffff;
-  padding: 40px 30px 20px;
-  font-size: 14px;
-  line-height: 1.6;
-  font-weight: 400;
-  backdrop-filter: blur(15px);
+  padding: 50px 24px 24px;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   transform: translateY(100%);
-  transition: transform 0.4s ease;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 0 0 24px 24px;
+  pointer-events: none;
 }
 
-.carousel:hover .imageCaption {
+.imageContainer:hover .imageCaption {
   transform: translateY(0);
 }
 
+/* Modern iOS-style controls */
 .carouselControls {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
-  background: rgba(248, 246, 243, 0.95);
-  backdrop-filter: blur(20px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-width: 220px;
 }
 
+.carouselControls:hover {
+  transform: translateY(-2px);
+}
+
+/* iOS-style page indicators */
 .indicators {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid rgba(139, 115, 85, 0.3);
-  background: transparent;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(60, 60, 67, 0.3);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
   position: relative;
   overflow: hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .indicator:hover {
-  border-color: rgba(139, 115, 85, 0.6);
+  background: rgba(60, 60, 67, 0.5);
   transform: scale(1.2);
 }
 
+.indicator:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 3px;
+}
+
+.indicator:active {
+  transform: scale(0.9);
+}
+
+.indicator:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Active indicator with iOS blue and pill shape */
 .indicatorActive {
-  background: linear-gradient(45deg, #8b7355, #a08262);
-  border-color: #8b7355;
-  transform: scale(1.3);
-  box-shadow: 0 0 15px rgba(139, 115, 85, 0.4);
+  background: #007aff;
+  width: 20px;
+  transform: scale(1);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+  animation: indicatorPulse 2s ease-in-out infinite;
 }
 
+.indicatorActive:hover {
+  background: #0056cc;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+}
+
+.indicatorActive:disabled {
+  opacity: 0.7;
+}
+
+/* Modern counter with iOS styling */
 .carouselCounter {
-  font-size: 14px;
-  color: #8b7355;
-  font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-.errorMessage {
-  padding: 40px;
+  font-size: 13px;
+  color: #1c1c1e;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 8px 16px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   text-align: center;
-  color: #666;
-  font-style: italic;
-  background: #f9f9f9;
-  border-radius: 10px;
-  margin: 2rem 0;
+  letter-spacing: 0.3px;
+  min-width: 60px;
+  white-space: nowrap;
 }
 
-/* Modal Styles */
+.carouselCounter:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Error message */
+.errorMessage {
+  padding: 48px;
+  text-align: center;
+  color: #8e8e93;
+  font-style: italic;
+  font-size: 16px;
+  background: linear-gradient(135deg, #f2f2f7, #e5e5ea);
+  border-radius: 24px;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.6s ease;
+}
+
+/* Modal overlay with enhanced backdrop */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  padding: 20px;
-  animation: fadeIn 0.3s ease;
+  padding: 24px;
   cursor: pointer;
+  animation: modalFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  touch-action: manipulation;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* Modal content with modern styling */
 .modalContent {
   position: relative;
-  max-width: 95vw;
-  max-height: 95vh;
-  border-radius: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 24px;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-  animation: slideIn 0.4s ease;
-  cursor: default;
+  background: rgba(28, 28, 30, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3), 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  animation: modalSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  touch-action: pan-y;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+.modalContent.modalDragging {
+  cursor: grabbing;
+  transition: none;
 }
 
 .modalImageWrapper {
@@ -179,7 +281,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
+  background: transparent;
+  min-height: 200px;
 }
 
 .modalImage {
@@ -188,186 +291,453 @@
   max-height: 80vh;
   object-fit: contain;
   display: block;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 24px;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
 }
 
+.modalImage:hover {
+  transform: scale(1.02);
+}
+
+/* iOS-style close button */
 .closeButton {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
+  border-radius: 18px;
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10001;
-  transition: all 0.3s ease;
-  font-size: 24px;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 20px;
   font-weight: 300;
+  outline: none;
+  opacity: 0.8;
+  transform: scale(0.9);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.modalContent:hover .closeButton {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1) rotate(90deg);
+  background: rgba(142, 142, 147, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
 }
 
 .closeIcon {
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1;
+  font-weight: 300;
 }
 
+/* Modal caption */
 .modalCaption {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  background: linear-gradient(
+    transparent 0%,
+    rgba(28, 28, 30, 0.4) 40%,
+    rgba(28, 28, 30, 0.9) 100%
+  );
   color: white;
-  padding: 40px 30px 20px;
+  padding: 50px 32px 28px;
   font-size: 16px;
-  line-height: 1.6;
-  backdrop-filter: blur(20px);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
 }
 
+.modalContent:hover .modalCaption {
+  transform: translateY(0);
+}
+
+/* iOS-style modal navigation arrows */
 .modalArrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
+  border-radius: 22px;
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10001;
-  transition: all 0.3s ease;
-  font-size: 32px;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 24px;
   font-weight: 300;
+  outline: none;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.modalContent:hover .modalArrow {
+  opacity: 0.8;
+  transform: translateY(-50%) scale(1);
 }
 
 .modalArrow:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(142, 142, 147, 0.4);
+  opacity: 1;
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modalArrow:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.modalArrow:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .modalArrowPrev {
-  left: 30px;
+  left: 24px;
 }
 
 .modalArrowNext {
-  right: 30px;
+  right: 24px;
 }
 
+.arrowIcon {
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* Modal counter with iOS styling */
 .modalCounter {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(20px);
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 10px 18px;
+  border-radius: 16px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   z-index: 10001;
+  animation: counterSlideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
+    both;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+  white-space: nowrap;
 }
 
-/* Mobile responsiveness */
+.modalCounter:hover {
+  background: rgba(142, 142, 147, 0.4);
+  transform: translateX(-50%) scale(1.05);
+  opacity: 1;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px) saturate(100%);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(40px) saturate(180%);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes indicatorPulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.5);
+  }
+}
+
+@keyframes counterSlideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(0.8);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Responsive design for mobile devices */
 @media (max-width: 768px) {
   .carousel {
-    margin: 1.5rem 0;
-    border-radius: 15px;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .imageContainer {
+    border-radius: 20px;
+  }
+
+  .carouselImage {
+    border-radius: 20px;
+    max-height: 500px;
   }
 
   .imageCaption {
-    font-size: 12px;
-    padding: 30px 20px 15px;
+    padding: 40px 20px 20px;
+    font-size: 14px;
+    border-radius: 0 0 20px 20px;
   }
 
   .carouselControls {
-    padding: 15px 20px;
-  }
-
-  .indicators {
-    gap: 8px;
-  }
-
-  .indicator {
-    width: 10px;
-    height: 10px;
+    padding: 12px 20px;
+    gap: 16px;
+    min-width: 180px;
+    border-radius: 18px;
   }
 
   .carouselCounter {
+    padding: 6px 14px;
     font-size: 12px;
+    border-radius: 12px;
+  }
+
+  .modalOverlay {
+    padding: 16px;
   }
 
   .modalContent {
-    border-radius: 15px;
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 20px;
+  }
+
+  .modalImage {
+    max-height: 75vh;
+    border-radius: 20px;
   }
 
   .closeButton {
-    width: 40px;
-    height: 40px;
-    top: 15px;
-    right: 15px;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+
+  .closeIcon {
     font-size: 20px;
   }
 
-  .modalCaption {
-    font-size: 14px;
-    padding: 30px 20px 15px;
-  }
-
   .modalArrow {
-    width: 50px;
-    height: 50px;
-    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
   }
 
   .modalArrowPrev {
-    left: 20px;
+    left: 16px;
   }
 
   .modalArrowNext {
-    right: 20px;
+    right: 16px;
   }
 
-  .modalCounter {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carouselControls {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-  }
-
-  .modalArrow {
-    width: 45px;
-    height: 45px;
+  .arrowIcon {
     font-size: 24px;
   }
 
-  .modalArrowPrev {
-    left: 15px;
+  .modalCounter {
+    top: 16px;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 14px;
   }
 
-  .modalArrowNext {
-    right: 15px;
+  .modalCaption {
+    padding: 40px 24px 20px;
+    font-size: 15px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .indicator {
+    background: rgba(60, 60, 67, 0.6);
+    border: 1px solid rgba(60, 60, 67, 0.8);
+  }
+
+  .indicatorActive {
+    background: #007aff;
+    border: 2px solid #ffffff;
+  }
+
+  .closeButton,
+  .modalArrow {
+    background: rgba(142, 142, 147, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .carousel,
+  .imageContainer,
+  .carouselImage,
+  .imageCaption,
+  .carouselControls,
+  .indicator,
+  .carouselCounter,
+  .modalOverlay,
+  .modalContent,
+  .modalImage,
+  .closeButton,
+  .modalArrow,
+  .modalCounter,
+  .modalCaption {
+    transition: none;
+    animation: none;
+  }
+
+  .imageContainer:hover {
+    transform: none;
+  }
+
+  .carouselImage:hover,
+  .modalImage:hover {
+    transform: none;
+  }
+
+  .indicatorActive {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .carouselControls {
+    background: rgba(44, 44, 46, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .carouselControls:hover {
+    background: rgba(44, 44, 46, 0.95);
+    border-color: rgba(0, 122, 255, 0.3);
+  }
+
+  .indicator {
+    background: rgba(142, 142, 147, 0.4);
+  }
+
+  .indicator:hover {
+    background: rgba(142, 142, 147, 0.6);
+  }
+
+  .carouselCounter {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .carouselCounter:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .errorMessage {
+    background: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+    color: #8e8e93;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Print styles */
+@media print {
+  .carousel {
+    break-inside: avoid;
+  }
+
+  .carouselControls,
+  .modalOverlay,
+  .closeButton,
+  .modalArrow,
+  .modalCounter {
+    display: none;
+  }
+
+  .imageContainer {
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
 }

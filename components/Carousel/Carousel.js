@@ -1,5 +1,5 @@
 // components/Carousel.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./carousel.module.css";
 
@@ -8,53 +8,196 @@ const Carousel = ({ images = [] }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImageIndex, setModalImageIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Auto-advance carousel every 2 seconds
+  const carouselRef = useRef(null);
+  const modalRef = useRef(null);
+  const intervalRef = useRef(null);
+  const dragThreshold = 50; // pixels
+  const modalDragThreshold = 80;
+
+  // Auto-advance carousel with smooth transitions
   useEffect(() => {
     setIsLoaded(true);
 
     if (images.length <= 1) return;
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 2000);
+    const startInterval = () => {
+      intervalRef.current = setInterval(() => {
+        setIsTransitioning(true);
+        setCurrentIndex((prevIndex) => {
+          const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
+          setTimeout(() => setIsTransitioning(false), 300);
+          return nextIndex;
+        });
+      }, 4000);
+    };
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+    if (!isDragging && !isModalOpen) {
+      startInterval();
+    }
 
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [images.length, isDragging, isModalOpen]);
+
+  const nextImage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => {
+      const next = (prev + 1) % images.length;
+      setTimeout(() => setIsTransitioning(false), 300);
+      return next;
+    });
+  };
+
+  const prevImage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => {
+      const next = (prev - 1 + images.length) % images.length;
+      setTimeout(() => setIsTransitioning(false), 300);
+      return next;
+    });
+  };
+
+  // Touch/Mouse handlers for carousel
+  const handleCarouselStart = (clientX, clientY) => {
+    if (isTransitioning) return;
+    setIsDragging(true);
+    setDragStart({ x: clientX, y: clientY });
+    setDragOffset(0);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  };
+
+  const handleCarouselMove = (clientX) => {
+    if (!isDragging || isTransitioning) return;
+    const deltaX = clientX - dragStart.x;
+    setDragOffset(deltaX);
+  };
+
+  const handleCarouselEnd = () => {
+    if (!isDragging) return;
+
+    if (Math.abs(dragOffset) > dragThreshold) {
+      if (dragOffset > 0) {
+        prevImage();
+      } else {
+        nextImage();
+      }
+    }
+
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  // Modal touch/mouse handlers
+  const handleModalStart = (clientX, clientY) => {
+    setIsDragging(true);
+    setDragStart({ x: clientX, y: clientY });
+    setDragOffset(0);
+  };
+
+  const handleModalMove = (clientX) => {
+    if (!isDragging) return;
+    const deltaX = clientX - dragStart.x;
+    setDragOffset(deltaX);
+  };
+
+  const handleModalEnd = () => {
+    if (!isDragging) return;
+
+    if (Math.abs(dragOffset) > modalDragThreshold) {
+      if (dragOffset > 0) {
+        setModalImageIndex(
+          (prev) => (prev - 1 + images.length) % images.length
+        );
+      } else {
+        setModalImageIndex((prev) => (prev + 1) % images.length);
+      }
+    }
+
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  // Event handlers
   const handleImageClick = (index) => {
-    setModalImageIndex(index);
-    setIsModalOpen(true);
+    if (!isDragging && Math.abs(dragOffset) < 10) {
+      setModalImageIndex(index);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setDragOffset(0);
+    setIsDragging(false);
   };
 
   const handleIndicatorClick = (index) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
-  // Handle keyboard events for accessibility
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (isModalOpen && event.key === "Escape") {
-        handleCloseModal();
+      if (isModalOpen) {
+        if (event.key === "Escape") {
+          handleCloseModal();
+        } else if (event.key === "ArrowLeft") {
+          setModalImageIndex(
+            (prev) => (prev - 1 + images.length) % images.length
+          );
+        } else if (event.key === "ArrowRight") {
+          setModalImageIndex((prev) => (prev + 1) % images.length);
+        }
+      } else {
+        if (event.key === "ArrowLeft") {
+          prevImage();
+        } else if (event.key === "ArrowRight") {
+          nextImage();
+        }
       }
     };
 
+    document.addEventListener("keydown", handleKeyPress);
+
     if (isModalOpen) {
-      document.addEventListener("keydown", handleKeyPress);
       document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
       document.body.style.overflow = "unset";
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, images.length]);
+
+  // Prevent context menu on long press
+  useEffect(() => {
+    const preventContextMenu = (e) => {
+      if (isDragging) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("contextmenu", preventContextMenu);
+    return () =>
+      document.removeEventListener("contextmenu", preventContextMenu);
+  }, [isDragging]);
 
   if (!images || images.length === 0) {
     return (
@@ -64,18 +207,48 @@ const Carousel = ({ images = [] }) => {
 
   return (
     <>
+      {/* Main Carousel */}
       <div className={`${styles.carousel} ${isLoaded ? styles.loaded : ""}`}>
-        <div className={styles.imageContainer}>
+        <div
+          ref={carouselRef}
+          className={`${styles.imageContainer} ${
+            isDragging ? styles.dragging : ""
+          }`}
+          style={{
+            transform: `translateX(${dragOffset}px)`,
+            transition: isDragging
+              ? "none"
+              : "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          }}
+          // Mouse events
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleCarouselStart(e.clientX, e.clientY);
+          }}
+          onMouseMove={(e) => handleCarouselMove(e.clientX)}
+          onMouseUp={handleCarouselEnd}
+          onMouseLeave={handleCarouselEnd}
+          // Touch events
+          onTouchStart={(e) => {
+            handleCarouselStart(e.touches[0].clientX, e.touches[0].clientY);
+          }}
+          onTouchMove={(e) => {
+            e.preventDefault();
+            handleCarouselMove(e.touches[0].clientX);
+          }}
+          onTouchEnd={handleCarouselEnd}
+        >
           <Image
             src={images[currentIndex].src}
             alt={images[currentIndex].alt}
-            width={926}
-            height={616}
+            width={400}
+            height={600}
             className={styles.carouselImage}
             onClick={() => handleImageClick(currentIndex)}
-            loading="lazy"
-            /* priority={currentIndex === 0}*/
+            priority={currentIndex === 0}
+            draggable={false}
           />
+
           {images[currentIndex].caption && (
             <div className={styles.imageCaption}>
               {images[currentIndex].caption}
@@ -95,22 +268,49 @@ const Carousel = ({ images = [] }) => {
                   onClick={() => handleIndicatorClick(index)}
                   aria-label={`Go to image ${index + 1}`}
                   type="button"
+                  disabled={isTransitioning}
                 />
               ))}
             </div>
             <div className={styles.carouselCounter}>
-              {currentIndex + 1} / {images.length}
+              {currentIndex + 1} of {images.length}
             </div>
           </div>
         )}
       </div>
 
-      {/* Modal for expanded view */}
+      {/* Modal */}
       {isModalOpen && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modalContent}
+            ref={modalRef}
+            className={`${styles.modalContent} ${
+              isDragging ? styles.modalDragging : ""
+            }`}
+            style={{
+              transform: `translateX(${dragOffset}px)`,
+              transition: isDragging
+                ? "none"
+                : "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            }}
             onClick={(e) => e.stopPropagation()}
+            // Mouse events for modal
+            onMouseDown={(e) => {
+              e.preventDefault();
+              handleModalStart(e.clientX, e.clientY);
+            }}
+            onMouseMove={(e) => handleModalMove(e.clientX)}
+            onMouseUp={handleModalEnd}
+            onMouseLeave={handleModalEnd}
+            // Touch events for modal
+            onTouchStart={(e) => {
+              handleModalStart(e.touches[0].clientX, e.touches[0].clientY);
+            }}
+            onTouchMove={(e) => {
+              e.preventDefault();
+              handleModalMove(e.touches[0].clientX);
+            }}
+            onTouchEnd={handleModalEnd}
           >
             <button
               className={styles.closeButton}
@@ -118,17 +318,18 @@ const Carousel = ({ images = [] }) => {
               aria-label="Close expanded view"
               type="button"
             >
-              <span className={styles.closeIcon}>X</span>
+              <span className={styles.closeIcon}>×</span>
             </button>
 
             <div className={styles.modalImageWrapper}>
               <Image
                 src={images[modalImageIndex].src}
                 alt={images[modalImageIndex].alt}
-                width={1200}
-                height={800}
+                width={928}
+                height={1664}
                 className={styles.modalImage}
-                loading="lazy"
+                priority
+                draggable={false}
               />
             </div>
 
@@ -138,7 +339,6 @@ const Carousel = ({ images = [] }) => {
               </div>
             )}
 
-            {/* Navigation arrows in modal */}
             {images.length > 1 && (
               <>
                 <button
@@ -152,8 +352,9 @@ const Carousel = ({ images = [] }) => {
                     );
                   }}
                   aria-label="Previous image"
+                  type="button"
                 >
-                  <
+                  <span className={styles.arrowIcon}>‹</span>
                 </button>
                 <button
                   className={`${styles.modalArrow} ${styles.modalArrowNext}`}
@@ -166,11 +367,12 @@ const Carousel = ({ images = [] }) => {
                     );
                   }}
                   aria-label="Next image"
+                  type="button"
                 >
-                  >
+                  <span className={styles.arrowIcon}>›</span>
                 </button>
                 <div className={styles.modalCounter}>
-                  {modalImageIndex + 1} / {images.length}
+                  {modalImageIndex + 1} of {images.length}
                 </div>
               </>
             )}

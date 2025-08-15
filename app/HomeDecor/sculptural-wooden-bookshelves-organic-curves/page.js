@@ -196,13 +196,13 @@ const BlogPost = () => {
     {
       type: "carousel", // New type for carousel
       images: [
-        {
-          type: "image",
+        /* {
+           type: "image",
           src: "/sculptural-wooden-bookshelf-hero.png",
           alt: "Sculptural wooden bookshelf with organic flowing curves resembling liquid wood, featuring multiple curved compartments in light blonde wood",
           caption:
             "Biomorphic bookshelf design showcasing fluid, wave-like curves in natural wood tones",
-        },
+        },*/
         {
           type: "image",
           src: "/biomorphic-bookshelf-flowing-curves.png",
@@ -1209,7 +1209,7 @@ const BlogPost = () => {
             <p className={styles.calloutText}>{section.content}</p>
           </div>
         );
-      case "image":
+      /* case "image":
         return (
           <div key={index} className={styles.imageContainer}>
             <Image
@@ -1224,7 +1224,7 @@ const BlogPost = () => {
               <p className={styles.imageCaption}>{section.caption}</p>
             )}
           </div>
-        );
+        );*/
 
       case "list":
         return (
@@ -1701,7 +1701,7 @@ const BlogPost = () => {
                 itemType="https://schema.org/Person"
               >
                 <div className={styles.authorAvatar}>
-                  <img
+                  <Image
                     src={author.avatar}
                     alt={`${author.name} - Author`}
                     width={80}
@@ -1834,7 +1834,7 @@ const BlogPost = () => {
                 {relatedPosts.map((post, index) => (
                   <article key={index} className={styles.relatedPost}>
                     <div className={styles.relatedImageContainer}>
-                      <img
+                      <Image
                         src={post.image}
                         alt={post.title}
                         width={400}

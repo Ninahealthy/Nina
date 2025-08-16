@@ -13,6 +13,10 @@ const Carousel = ({ images = [] }) => {
   const [dragOffset, setDragOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // New state for smooth photo transitions
+  const [slideDirection, setSlideDirection] = useState("");
+  const [modalSlideDirection, setModalSlideDirection] = useState("");
+
   const carouselRef = useRef(null);
   const modalRef = useRef(null);
   const intervalRef = useRef(null);
@@ -28,9 +32,13 @@ const Carousel = ({ images = [] }) => {
     const startInterval = () => {
       intervalRef.current = setInterval(() => {
         setIsTransitioning(true);
+        setSlideDirection("next");
         setCurrentIndex((prevIndex) => {
           const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
-          setTimeout(() => setIsTransitioning(false), 300);
+          setTimeout(() => {
+            setIsTransitioning(false);
+            setSlideDirection("");
+          }, 500);
           return nextIndex;
         });
       }, 4000);
@@ -50,9 +58,13 @@ const Carousel = ({ images = [] }) => {
   const nextImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    setSlideDirection("next");
     setCurrentIndex((prev) => {
       const next = (prev + 1) % images.length;
-      setTimeout(() => setIsTransitioning(false), 300);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setSlideDirection("");
+      }, 500);
       return next;
     });
   };
@@ -60,9 +72,31 @@ const Carousel = ({ images = [] }) => {
   const prevImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    setSlideDirection("prev");
     setCurrentIndex((prev) => {
       const next = (prev - 1 + images.length) % images.length;
-      setTimeout(() => setIsTransitioning(false), 300);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setSlideDirection("");
+      }, 500);
+      return next;
+    });
+  };
+
+  const nextModalImage = () => {
+    setModalSlideDirection("next");
+    setModalImageIndex((prev) => {
+      const next = (prev + 1) % images.length;
+      setTimeout(() => setModalSlideDirection(""), 500);
+      return next;
+    });
+  };
+
+  const prevModalImage = () => {
+    setModalSlideDirection("prev");
+    setModalImageIndex((prev) => {
+      const next = (prev - 1 + images.length) % images.length;
+      setTimeout(() => setModalSlideDirection(""), 500);
       return next;
     });
   };
@@ -121,11 +155,9 @@ const Carousel = ({ images = [] }) => {
       // FIXED: Swipe right (positive deltaX) = go to previous
       // Swipe left (negative deltaX) = go to next
       if (dragOffset > 0) {
-        setModalImageIndex(
-          (prev) => (prev - 1 + images.length) % images.length
-        ); // Swipe right = previous
+        prevModalImage(); // Swipe right = previous
       } else {
-        setModalImageIndex((prev) => (prev + 1) % images.length); // Swipe left = next
+        nextModalImage(); // Swipe left = next
       }
     }
 
@@ -145,13 +177,22 @@ const Carousel = ({ images = [] }) => {
     setIsModalOpen(false);
     setDragOffset(0);
     setIsDragging(false);
+    setModalSlideDirection("");
   };
 
   const handleIndicatorClick = (index) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+
+    // Determine slide direction based on target index
+    const direction = index > currentIndex ? "next" : "prev";
+    setSlideDirection(direction);
+
     setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 300);
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setSlideDirection("");
+    }, 500);
   };
 
   // Keyboard navigation
@@ -161,11 +202,9 @@ const Carousel = ({ images = [] }) => {
         if (event.key === "Escape") {
           handleCloseModal();
         } else if (event.key === "ArrowLeft") {
-          setModalImageIndex(
-            (prev) => (prev - 1 + images.length) % images.length
-          );
+          prevModalImage();
         } else if (event.key === "ArrowRight") {
-          setModalImageIndex((prev) => (prev + 1) % images.length);
+          nextModalImage();
         }
       } else {
         if (event.key === "ArrowLeft") {
@@ -217,6 +256,15 @@ const Carousel = ({ images = [] }) => {
           ref={carouselRef}
           className={`${styles.imageContainer} ${
             isDragging ? styles.dragging : ""
+          } ${
+            slideDirection
+              ? styles[
+                  `sliding${
+                    slideDirection.charAt(0).toUpperCase() +
+                    slideDirection.slice(1)
+                  }`
+                ]
+              : ""
           }`}
           style={{
             transform: `translateX(${dragOffset}px)`,
@@ -245,16 +293,27 @@ const Carousel = ({ images = [] }) => {
           }}
           onTouchEnd={handleCarouselEnd}
         >
-          <Image
-            src={images[currentIndex].src}
-            alt={images[currentIndex].alt}
-            width={400}
-            height={600}
-            className={styles.carouselImage}
-            onClick={() => handleImageClick(currentIndex)}
-            priority={currentIndex === 0}
-            draggable={false}
-          />
+          <div className={styles.imageWrapper}>
+            <Image
+              src={images[currentIndex].src}
+              alt={images[currentIndex].alt}
+              width={400}
+              height={600}
+              className={`${styles.carouselImage} ${
+                slideDirection
+                  ? styles[
+                      `imageSlide${
+                        slideDirection.charAt(0).toUpperCase() +
+                        slideDirection.slice(1)
+                      }`
+                    ]
+                  : ""
+              }`}
+              onClick={() => handleImageClick(currentIndex)}
+              priority={currentIndex === 0}
+              draggable={false}
+            />
+          </div>
 
           {images[currentIndex].caption && (
             <div className={styles.imageCaption}>
@@ -293,6 +352,15 @@ const Carousel = ({ images = [] }) => {
             ref={modalRef}
             className={`${styles.modalContent} ${
               isDragging ? styles.modalDragging : ""
+            } ${
+              modalSlideDirection
+                ? styles[
+                    `modalSliding${
+                      modalSlideDirection.charAt(0).toUpperCase() +
+                      modalSlideDirection.slice(1)
+                    }`
+                  ]
+                : ""
             }`}
             style={{
               transform: `translateX(${dragOffset}px)`,
@@ -336,7 +404,16 @@ const Carousel = ({ images = [] }) => {
                 alt={images[modalImageIndex].alt}
                 width={928}
                 height={1664}
-                className={styles.modalImage}
+                className={`${styles.modalImage} ${
+                  modalSlideDirection
+                    ? styles[
+                        `modalImageSlide${
+                          modalSlideDirection.charAt(0).toUpperCase() +
+                          modalSlideDirection.slice(1)
+                        }`
+                      ]
+                    : ""
+                }`}
                 priority
                 draggable={false}
               />
@@ -354,11 +431,7 @@ const Carousel = ({ images = [] }) => {
                   className={`${styles.modalArrow} ${styles.modalArrowPrev}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setModalImageIndex(
-                      modalImageIndex === 0
-                        ? images.length - 1
-                        : modalImageIndex - 1
-                    );
+                    prevModalImage();
                   }}
                   aria-label="Previous image"
                   type="button"
@@ -369,11 +442,7 @@ const Carousel = ({ images = [] }) => {
                   className={`${styles.modalArrow} ${styles.modalArrowNext}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setModalImageIndex(
-                      modalImageIndex === images.length - 1
-                        ? 0
-                        : modalImageIndex + 1
-                    );
+                    nextModalImage();
                   }}
                   aria-label="Next image"
                   type="button"

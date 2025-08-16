@@ -1,4 +1,4 @@
-/* carousel.module.css - Complete Modern iOS-Style Carousel */
+/* carousel.module.css - Complete Modern iOS-Style Carousel with Photo Transitions */
 
 /* Root carousel container with entrance animation */
 .carousel {
@@ -56,6 +56,14 @@
   transition: none;
 }
 
+/* Image wrapper for smooth transitions */
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 24px;
+}
+
 /* Carousel image with smooth transitions */
 .carouselImage {
   width: 100%;
@@ -72,6 +80,23 @@
   -moz-user-drag: none;
   -o-user-drag: none;
   pointer-events: auto;
+}
+
+/* Slide transition effects for carousel */
+.imageSlideNext {
+  animation: slideInFromRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.imageSlidePrev {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slidingNext .carouselImage:not(.imageSlideNext) {
+  animation: slideOutToLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slidingPrev .carouselImage:not(.imageSlidePrev) {
+  animation: slideOutToRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .carouselImage:hover {
@@ -303,6 +328,23 @@
   transform: scale(1.02);
 }
 
+/* Modal slide transition effects */
+.modalImageSlideNext {
+  animation: modalSlideInFromRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalImageSlidePrev {
+  animation: modalSlideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalSlidingNext .modalImage:not(.modalImageSlideNext) {
+  animation: modalSlideOutToLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalSlidingPrev .modalImage:not(.modalImageSlidePrev) {
+  animation: modalSlideOutToRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* iOS-style close button */
 .closeButton {
   position: absolute;
@@ -483,7 +525,97 @@
   opacity: 1;
 }
 
-/* Keyframe animations */
+/* Keyframe animations for carousel slides */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Keyframe animations for modal slides */
+@keyframes modalSlideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes modalSlideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Existing keyframe animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -552,6 +684,10 @@
   .carouselImage {
     border-radius: 20px;
     max-height: 500px;
+  }
+
+  .imageWrapper {
+    border-radius: 20px;
   }
 
   .imageCaption {
@@ -650,7 +786,7 @@
   }
 }
 
-/* Reduced motion support */
+/* Reduced motion support - disable slide animations */
 @media (prefers-reduced-motion: reduce) {
   .carousel,
   .imageContainer,
@@ -680,6 +816,14 @@
   }
 
   .indicatorActive {
+    animation: none;
+  }
+
+  /* Disable slide animations */
+  .imageSlideNext,
+  .imageSlidePrev,
+  .modalImageSlideNext,
+  .modalImageSlidePrev {
     animation: none;
   }
 }

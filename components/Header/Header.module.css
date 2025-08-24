@@ -4,7 +4,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 12px 0; /* Reduced from 20px for more compact header */
+  padding: 10px 0; /* Reduced from 20px for more compact header */
   position: fixed;
   top: 0;
   left: 0;

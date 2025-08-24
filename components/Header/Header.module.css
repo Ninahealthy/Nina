@@ -50,7 +50,7 @@
 }
 
 .logoContainer:focus {
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+  transform: scale(1.05); /* Subtle focus effect instead of box-shadow */
 }
 
 .logoAvatar {
@@ -112,7 +112,7 @@
 }
 
 .mobileMenuLogoContainer:focus {
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+  transform: scale(1.05); /* Subtle focus effect instead of box-shadow */
 }
 
 .mobileMenuLogoAvatar {
@@ -181,7 +181,7 @@
 }
 
 .nav a:focus {
-  color: #667eea;
+  color: #667eea; /* Keep color change for focus */
 }
 
 .nav a::after {
@@ -216,7 +216,7 @@
 }
 
 .menuToggle:focus {
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+  outline: 2px solid #667eea; /* Subtle outline instead of box-shadow */
 }
 
 .hamburger {

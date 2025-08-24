@@ -4,7 +4,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 10px 0;
+  padding: 12px 0; /* Reduced from 20px for more compact header */
   position: fixed;
   top: 0;
   left: 0;
@@ -39,38 +39,55 @@
 .logoContainer {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px; /* Reduced from 12px */
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .logoContainer:hover {
-  transform: scale(1.05);
+  transform: scale(1.02); /* Reduced hover scale for subtlety */
 }
 
 .logoContainer:focus {
-  transform: scale(1.05); /* Subtle focus effect instead of box-shadow */
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoContainer:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logoContainer:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .logoAvatar {
-  width: 60px;
-  height: 60px;
+  width: 48px; /* Reduced from 100px - standard header logo size */
+  height: 48px;
   border-radius: 50%;
   background: linear-gradient(45deg, #9333ea, #ec4899);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Reduced shadow */
   overflow: hidden;
   position: relative;
-  border: 4px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3); /* Reduced border */
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
 }
 
 .logoContainer:hover .logoAvatar {
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 3px 12px rgba(139, 92, 246, 0.3); /* Reduced shadow */
   transform: scale(1.05);
 }
 
@@ -84,8 +101,8 @@
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-size: 1.75rem; /* Reduced from 2.5rem - more proportional to avatar */
+  font-weight: 700; /* Reduced from 800 for better readability */
   background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
   background-size: 400% 400%;
   -webkit-background-clip: text;
@@ -94,7 +111,11 @@
   color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  outline: none;
+  border: none;
+  box-shadow: none;
   text-decoration: none;
+  line-height: 1; /* Better text alignment */
 }
 
 /* Mobile Menu Logo Container */
@@ -105,35 +126,52 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .mobileMenuLogoContainer:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .mobileMenuLogoContainer:focus {
-  transform: scale(1.05); /* Subtle focus effect instead of box-shadow */
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuLogoContainer:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuLogoContainer:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .mobileMenuLogoAvatar {
-  width: 60px;
+  width: 60px; /* Reduced from 100px - appropriate for mobile menu */
   height: 60px;
   border-radius: 50%;
   background: linear-gradient(45deg, #8b5cf6, #ec4899);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   position: relative;
-  border: 4px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
 .mobileMenuLogoContainer:hover .mobileMenuLogoAvatar {
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
   transform: scale(1.05);
 }
 
@@ -147,8 +185,8 @@
 }
 
 .mobileMenuLogo {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-size: 1.8rem; /* Reduced from 2.5rem - better proportion */
+  font-weight: 700; /* Reduced from 800 */
   background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
   background-size: 400% 400%;
   -webkit-background-clip: text;
@@ -157,7 +195,11 @@
   color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  outline: none;
+  border: none;
+  box-shadow: none;
   text-decoration: none;
+  line-height: 1;
 }
 
 /* Desktop Navigation */
@@ -173,7 +215,10 @@
   position: relative;
   transition: color 0.3s ease;
   padding: 10px 0;
-  font-size: 1.3rem;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  font-size: 1.1rem; /* Slightly reduced from 1.3rem for better balance */
 }
 
 .nav a:hover {
@@ -181,7 +226,21 @@
 }
 
 .nav a:focus {
-  color: #667eea; /* Keep color change for focus */
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav a:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav a:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .nav a::after {
@@ -195,8 +254,7 @@
   transition: width 0.3s ease;
 }
 
-.nav a:hover::after,
-.nav a:focus::after {
+.nav a:hover::after {
   width: 100%;
 }
 
@@ -209,6 +267,8 @@
   padding: 8px;
   z-index: 1001;
   border-radius: 0;
+  box-shadow: none;
+  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -216,7 +276,21 @@
 }
 
 .menuToggle:focus {
-  outline: 2px solid #667eea; /* Subtle outline instead of box-shadow */
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.menuToggle:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.menuToggle:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 .hamburger {
@@ -332,6 +406,9 @@
   font-size: 1.1em;
   transition: all 0.3s ease;
   border-left: 4px solid transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .mobileMenuItems a:hover {
@@ -342,9 +419,21 @@
 }
 
 .mobileMenuItems a:focus {
-  background: rgba(102, 126, 234, 0.1);
-  border-left-color: #667eea;
-  color: #667eea;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuItems a:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobileMenuItems a:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .menuIcon {
@@ -453,21 +542,12 @@
   }
 
   .logo {
-    font-size: 1.6rem;
+    font-size: 1.5rem; /* Reduced from 2rem for mobile */
   }
 
   .logoAvatar {
-    width: 50px;
-    height: 50px;
-  }
-
-  .mobileMenuLogo {
-    font-size: 1.6rem;
-  }
-
-  .mobileMenuLogoAvatar {
-    width: 50px;
-    height: 50px;
+    width: 40px; /* Reduced from 80px */
+    height: 40px;
   }
 
   .headerContent {
@@ -493,12 +573,12 @@
   }
 
   .logo {
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* Further reduced for small screens */
   }
 
   .logoAvatar {
-    width: 40px;
-    height: 40px;
+    width: 36px; /* Smaller for very small screens */
+    height: 36px;
   }
 
   .searchBar {
@@ -529,12 +609,12 @@
   }
 
   .mobileMenuLogo {
-    font-size: 1.4rem;
+    font-size: 1.5rem; /* Reduced from 2rem */
   }
 
   .mobileMenuLogoAvatar {
-    width: 40px;
-    height: 40px;
+    width: 50px; /* Reduced from 80px */
+    height: 50px;
   }
 }
 

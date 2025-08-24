@@ -69,9 +69,10 @@ const Header = () => {
               src="/nina.jpg"
               alt="Nina - Interior Design Expert"
               className={styles.logoImage}
-              width="1080"
-              height="1080"
+              width={1080}
+              height={1080}
               priority
+              sizes="(max-width: 480px) 40px, (max-width: 768px) 50px, 60px"
             />
           </div>
           <span className={styles.logo}>Nina</span>
@@ -137,8 +138,9 @@ const Header = () => {
                     src="/nina.jpg"
                     alt="Nina - Interior Design Expert"
                     className={styles.mobileMenuLogoImage}
-                    width="1080"
-                    height="1080"
+                    width={1080}
+                    height={1080}
+                    sizes="(max-width: 480px) 40px, (max-width: 768px) 50px, 60px"
                   />
                 </div>
                 <span className={styles.mobileMenuLogo}>Nina</span>

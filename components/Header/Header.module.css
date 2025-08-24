@@ -4,7 +4,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 20px 0;
+  padding: 10px 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -43,9 +43,6 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.3s ease;
-  outline: none;
-  border: none;
-  box-shadow: none;
 }
 
 .logoContainer:hover {
@@ -53,26 +50,12 @@
 }
 
 .logoContainer:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoContainer:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoContainer:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
 }
 
 .logoAvatar {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(45deg, #9333ea, #ec4899);
   display: flex;
@@ -101,7 +84,7 @@
 }
 
 .logo {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 800;
   background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
   background-size: 400% 400%;
@@ -111,9 +94,6 @@
   color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: none;
-  box-shadow: none;
   text-decoration: none;
 }
 
@@ -125,9 +105,6 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.3s ease;
-  outline: none;
-  border: none;
-  box-shadow: none;
 }
 
 .mobileMenuLogoContainer:hover {
@@ -135,26 +112,12 @@
 }
 
 .mobileMenuLogoContainer:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoContainer:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoContainer:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
 }
 
 .mobileMenuLogoAvatar {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(45deg, #8b5cf6, #ec4899);
   display: flex;
@@ -184,7 +147,7 @@
 }
 
 .mobileMenuLogo {
-  font-size: 2.5em;
+  font-size: 1.8rem;
   font-weight: 800;
   background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
   background-size: 400% 400%;
@@ -194,9 +157,6 @@
   color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: none;
-  box-shadow: none;
   text-decoration: none;
 }
 
@@ -213,9 +173,6 @@
   position: relative;
   transition: color 0.3s ease;
   padding: 10px 0;
-  outline: none;
-  border: none;
-  box-shadow: none;
   font-size: 1.3rem;
 }
 
@@ -224,21 +181,7 @@
 }
 
 .nav a:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.nav a:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.nav a:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  color: #667eea;
 }
 
 .nav a::after {
@@ -252,7 +195,8 @@
   transition: width 0.3s ease;
 }
 
-.nav a:hover::after {
+.nav a:hover::after,
+.nav a:focus::after {
   width: 100%;
 }
 
@@ -265,8 +209,6 @@
   padding: 8px;
   z-index: 1001;
   border-radius: 0;
-  box-shadow: none;
-  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -274,21 +216,7 @@
 }
 
 .menuToggle:focus {
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
-
-.menuToggle:active {
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
-
-.menuToggle:focus-visible {
-  outline: none;
-  box-shadow: none;
-  border: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
 }
 
 .hamburger {
@@ -404,9 +332,6 @@
   font-size: 1.1em;
   transition: all 0.3s ease;
   border-left: 4px solid transparent;
-  outline: none;
-  border: none;
-  box-shadow: none;
 }
 
 .mobileMenuItems a:hover {
@@ -417,21 +342,9 @@
 }
 
 .mobileMenuItems a:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuItems a:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuItems a:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  background: rgba(102, 126, 234, 0.1);
+  border-left-color: #667eea;
+  color: #667eea;
 }
 
 .menuIcon {
@@ -540,12 +453,21 @@
   }
 
   .logo {
-    font-size: 2em;
+    font-size: 1.6rem;
   }
 
   .logoAvatar {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .mobileMenuLogo {
+    font-size: 1.6rem;
+  }
+
+  .mobileMenuLogoAvatar {
+    width: 50px;
+    height: 50px;
   }
 
   .headerContent {
@@ -571,12 +493,12 @@
   }
 
   .logo {
-    font-size: 2.5em;
+    font-size: 1.4rem;
   }
 
   .logoAvatar {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
   }
 
   .searchBar {
@@ -607,12 +529,12 @@
   }
 
   .mobileMenuLogo {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 
   .mobileMenuLogoAvatar {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
   }
 }
 

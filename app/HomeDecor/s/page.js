@@ -12,7 +12,7 @@ const Carousel = ({ images = [] }) => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showModalControls, setShowModalControls] = useState(true); // New state for modal controls visibility
+  const [showModalControls, setShowModalControls] = useState(true);
 
   const [slideDirection, setSlideDirection] = useState("");
   const [modalSlideDirection, setModalSlideDirection] = useState("");
@@ -155,20 +155,24 @@ const Carousel = ({ images = [] }) => {
       } else {
         nextModalImage();
       }
-    } else if (Math.abs(dragOffset) < 10) {
-      // Toggle controls on tap (short drag)
-      setShowModalControls((prev) => !prev);
     }
 
     setIsDragging(false);
     setDragOffset(0);
   };
 
+  // Handle image click for toggling modal controls
+  const handleModalImageClick = () => {
+    if (!isDragging && Math.abs(dragOffset) < 10) {
+      setShowModalControls((prev) => !prev);
+    }
+  };
+
   const handleImageClick = (index) => {
     if (!isDragging && Math.abs(dragOffset) < 10) {
       setModalImageIndex(index);
       setIsModalOpen(true);
-      setShowModalControls(true); // Show controls when opening modal
+      setShowModalControls(true);
     }
   };
 
@@ -177,7 +181,7 @@ const Carousel = ({ images = [] }) => {
     setDragOffset(0);
     setIsDragging(false);
     setModalSlideDirection("");
-    setShowModalControls(true); // Reset to show controls when reopening
+    setShowModalControls(true);
   };
 
   const handleIndicatorClick = (index) => {
@@ -263,7 +267,6 @@ const Carousel = ({ images = [] }) => {
                 ]
               : ""
           }`}
-          // Mouse events
           onMouseDown={(e) => {
             e.preventDefault();
             handleCarouselStart(e.clientX, e.clientY);
@@ -271,7 +274,6 @@ const Carousel = ({ images = [] }) => {
           onMouseMove={(e) => handleCarouselMove(e.clientX)}
           onMouseUp={handleCarouselEnd}
           onMouseLeave={handleCarouselEnd}
-          // Touch events
           onTouchStart={(e) => {
             handleCarouselStart(e.touches[0].clientX, e.touches[0].clientY);
           }}
@@ -353,7 +355,6 @@ const Carousel = ({ images = [] }) => {
                 : ""
             }`}
             onClick={(e) => e.stopPropagation()}
-            // Mouse events for modal
             onMouseDown={(e) => {
               e.preventDefault();
               handleModalStart(e.clientX, e.clientY);
@@ -361,7 +362,6 @@ const Carousel = ({ images = [] }) => {
             onMouseMove={(e) => handleModalMove(e.clientX)}
             onMouseUp={handleModalEnd}
             onMouseLeave={handleModalEnd}
-            // Touch events for modal
             onTouchStart={(e) => {
               handleModalStart(e.touches[0].clientX, e.touches[0].clientY);
             }}
@@ -400,6 +400,7 @@ const Carousel = ({ images = [] }) => {
                       ]
                     : ""
                 }`}
+                onClick={handleModalImageClick}
                 priority
                 draggable={false}
               />

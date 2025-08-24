@@ -1,7 +1,6 @@
 /* carousel.module.css - Complete Modern iOS-Style Carousel with Photo Transitions */
 
 /* Root carousel container with entrance animation */
-
 .carousel {
   display: flex;
   flex-direction: column;
@@ -271,7 +270,7 @@
   padding: 24px;
   cursor: pointer;
   animation: modalFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  touch-action: manipulation;
+  touch-action: none; /* Prevent all scrolling in modal overlay */
 }
 
 /* Modal content with modern styling */
@@ -293,7 +292,7 @@
   -ms-user-select: none;
   animation: modalSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
-  touch-action: pan-y;
+  touch-action: pan-x; /* Allow only horizontal swipes */
 }
 
 .modalContent.modalDragging {
@@ -322,6 +321,7 @@
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+  cursor: pointer;
 }
 
 .modalImage:hover {
@@ -367,8 +367,6 @@
   font-size: 20px;
   font-weight: 300;
   outline: none;
-  opacity: 0.8;
-  transform: scale(0.9);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

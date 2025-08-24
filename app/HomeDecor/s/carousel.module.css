@@ -1,0 +1,903 @@
+/* carousel.module.css - Complete Modern iOS-Style Carousel with Photo Transitions */
+
+/* Root carousel container with entrance animation */
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Helvetica Neue", Roboto, sans-serif;
+}
+
+.carousel.loaded {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Image container with glassmorphism and modern shadows */
+.imageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+.imageContainer:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.16), 0 16px 32px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.imageContainer.dragging {
+  cursor: grabbing;
+  transform: scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.15);
+  transition: none;
+}
+
+/* Image wrapper for smooth transitions */
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 24px;
+}
+
+/* Carousel image with smooth transitions */
+.carouselImage {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: brightness(1.02) contrast(1.05) saturate(105%);
+  display: block;
+  border-radius: 24px;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  pointer-events: auto;
+}
+
+/* Slide transition effects for carousel */
+.imageSlideNext {
+  animation: slideInFromRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.imageSlidePrev {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slidingNext .carouselImage:not(.imageSlideNext) {
+  animation: slideOutToLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slidingPrev .carouselImage:not(.imageSlidePrev) {
+  animation: slideOutToRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carouselImage:hover {
+  transform: scale(1.03);
+  filter: brightness(1.05) contrast(1.08) saturate(110%);
+}
+
+.carouselImage:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* iOS-style sliding caption */
+.imageCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(0, 0, 0, 0.6) 60%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  color: #ffffff;
+  padding: 50px 24px 24px;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 0 0 24px 24px;
+  pointer-events: none;
+}
+
+.imageContainer:hover .imageCaption {
+  transform: translateY(0);
+}
+
+/* Modern iOS-style controls */
+.carouselControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-width: 220px;
+}
+
+.carouselControls:hover {
+  transform: translateY(-2px);
+}
+
+/* iOS-style page indicators */
+.indicators {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(60, 60, 67, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.indicator:hover {
+  background: rgba(60, 60, 67, 0.5);
+  transform: scale(1.2);
+}
+
+.indicator:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 3px;
+}
+
+.indicator:active {
+  transform: scale(0.9);
+}
+
+.indicator:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Active indicator with iOS blue and pill shape */
+.indicatorActive {
+  background: #007aff;
+  width: 20px;
+  transform: scale(1);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+  animation: indicatorPulse 2s ease-in-out infinite;
+}
+
+.indicatorActive:hover {
+  background: #0056cc;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+}
+
+.indicatorActive:disabled {
+  opacity: 0.7;
+}
+
+/* Modern counter with iOS styling */
+.carouselCounter {
+  font-size: 13px;
+  color: #1c1c1e;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 8px 16px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-align: center;
+  letter-spacing: 0.3px;
+  min-width: 60px;
+  white-space: nowrap;
+}
+
+.carouselCounter:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Error message */
+.errorMessage {
+  padding: 48px;
+  text-align: center;
+  color: #8e8e93;
+  font-style: italic;
+  font-size: 16px;
+  background: linear-gradient(135deg, #f2f2f7, #e5e5ea);
+  border-radius: 24px;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.6s ease;
+}
+
+/* Modal overlay with enhanced backdrop */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+  cursor: pointer;
+  animation: modalFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  touch-action: manipulation;
+}
+
+/* Modal content with modern styling */
+.modalContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(28, 28, 30, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3), 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  animation: modalSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+.modalContent.modalDragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.modalImageWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  min-height: 200px;
+}
+
+.modalImage {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 24px;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+.modalImage:hover {
+  transform: scale(1.02);
+}
+
+/* Modal slide transition effects */
+.modalImageSlideNext {
+  animation: modalSlideInFromRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalImageSlidePrev {
+  animation: modalSlideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalSlidingNext .modalImage:not(.modalImageSlideNext) {
+  animation: modalSlideOutToLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modalSlidingPrev .modalImage:not(.modalImageSlidePrev) {
+  animation: modalSlideOutToRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* iOS-style close button */
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 18px;
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 20px;
+  font-weight: 300;
+  outline: none;
+  opacity: 0.8;
+  transform: scale(0.9);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.closeButton.show {
+  opacity: 0.8;
+  transform: scale(0.9);
+}
+
+.closeButton.hide {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.closeButton:hover {
+  background: rgba(142, 142, 147, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+}
+
+.closeIcon {
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* Modal caption */
+.modalCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(28, 28, 30, 0.4) 40%,
+    rgba(28, 28, 30, 0.9) 100%
+  );
+  color: white;
+  padding: 50px 32px 28px;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
+  pointer-events: none;
+}
+
+.modalCaption.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modalCaption.hide {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* iOS-style modal navigation arrows */
+.modalArrow {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 22px;
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 24px;
+  font-weight: 300;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.modalArrow.show {
+  opacity: 0.8;
+  transform: translateY(-50%) scale(1);
+}
+
+.modalArrow.hide {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  pointer-events: none;
+}
+
+.modalArrow:hover {
+  background: rgba(142, 142, 147, 0.4);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modalArrow:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.modalArrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.modalArrowPrev {
+  left: 24px;
+}
+
+.modalArrowNext {
+  right: 24px;
+}
+
+.arrowIcon {
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* Modal counter with iOS styling */
+.modalCounter {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(142, 142, 147, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10001;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.modalCounter.show {
+  opacity: 0.9;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.modalCounter.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-30px) scale(0.8);
+  pointer-events: none;
+}
+
+/* Keyframe animations for carousel slides */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Keyframe animations for modal slides */
+@keyframes modalSlideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes modalSlideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Existing keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px) saturate(100%);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(40px) saturate(180%);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes indicatorPulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.5);
+  }
+}
+
+@keyframes counterSlideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(0.8);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .carousel {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .imageContainer {
+    border-radius: 20px;
+  }
+
+  .carouselImage {
+    border-radius: 20px;
+    max-height: 500px;
+  }
+
+  .imageWrapper {
+    border-radius: 20px;
+  }
+
+  .imageCaption {
+    padding: 40px 20px 20px;
+    font-size: 14px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .carouselControls {
+    padding: 12px 20px;
+    gap: 16px;
+    min-width: 180px;
+    border-radius: 18px;
+  }
+
+  .carouselCounter {
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modalContent {
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 20px;
+  }
+
+  .modalImage {
+    max-height: 75vh;
+    border-radius: 20px;
+  }
+
+  .closeButton {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+
+  .closeIcon {
+    font-size: 20px;
+  }
+
+  .modalArrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .modalArrowPrev {
+    left: 16px;
+  }
+
+  .modalArrowNext {
+    right: 16px;
+  }
+
+  .arrowIcon {
+    font-size: 24px;
+  }
+
+  .modalCounter {
+    top: 16px;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 14px;
+  }
+
+  .modalCaption {
+    padding: 40px 24px 20px;
+    font-size: 15px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .indicator {
+    background: rgba(60, 60, 67, 0.6);
+    border: 1px solid rgba(60, 60, 67, 0.8);
+  }
+
+  .indicatorActive {
+    background: #007aff;
+    border: 2px solid #ffffff;
+  }
+
+  .closeButton,
+  .modalArrow {
+    background: rgba(142, 142, 147, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Reduced motion support - disable slide animations */
+@media (prefers-reduced-motion: reduce) {
+  .carousel,
+  .imageContainer,
+  .carouselImage,
+  .imageCaption,
+  .carouselControls,
+  .indicator,
+  .carouselCounter,
+  .modalOverlay,
+  .modalContent,
+  .modalImage,
+  .closeButton,
+  .modalArrow,
+  .modalCounter,
+  .modalCaption {
+    transition: none;
+    animation: none;
+  }
+
+  .imageContainer:hover {
+    transform: none;
+  }
+
+  .carouselImage:hover,
+  .modalImage:hover {
+    transform: none;
+  }
+
+  .indicatorActive {
+    animation: none;
+  }
+
+  /* Disable slide animations */
+  .imageSlideNext,
+  .imageSlidePrev,
+  .modalImageSlideNext,
+  .modalImageSlidePrev {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .carouselControls {
+    background: rgba(44, 44, 46, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .carouselControls:hover {
+    background: rgba(44, 44, 46, 0.95);
+    border-color: rgba(0, 122, 255, 0.3);
+  }
+
+  .indicator {
+    background: rgba(142, 142, 147, 0.4);
+  }
+
+  .indicator:hover {
+    background: rgba(142, 142, 147, 0.6);
+  }
+
+  .carouselCounter {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .carouselCounter:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .errorMessage {
+    background: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+    color: #8e8e93;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Print styles */
+@media print {
+  .carousel {
+    break-inside: avoid;
+  }
+
+  .carouselControls,
+  .modalOverlay,
+  .closeButton,
+  .modalArrow,
+  .modalCounter {
+    display: none;
+  }
+
+  .imageContainer {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

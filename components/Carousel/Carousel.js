@@ -1,4 +1,4 @@
-// components/Carousel.jsx
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./carousel.module.css";
@@ -12,18 +12,18 @@ const Carousel = ({ images = [] }) => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showModalControls, setShowModalControls] = useState(true);
 
-  // New state for smooth photo transitions
   const [slideDirection, setSlideDirection] = useState("");
   const [modalSlideDirection, setModalSlideDirection] = useState("");
 
   const carouselRef = useRef(null);
   const modalRef = useRef(null);
   const intervalRef = useRef(null);
-  const dragThreshold = 50; // pixels
+  const dragThreshold = 50;
   const modalDragThreshold = 80;
 
-  // Auto-advance carousel with smooth transitions
+  // Auto-advance carousel
   useEffect(() => {
     setIsLoaded(true);
 
@@ -101,7 +101,7 @@ const Carousel = ({ images = [] }) => {
     });
   };
 
-  // Touch/Mouse handlers for carousel - FIXED SWIPE LOGIC
+  // Carousel touch/mouse handlers
   const handleCarouselStart = (clientX, clientY) => {
     if (isTransitioning) return;
     setIsDragging(true);
@@ -122,12 +122,10 @@ const Carousel = ({ images = [] }) => {
     if (!isDragging) return;
 
     if (Math.abs(dragOffset) > dragThreshold) {
-      // FIXED: Swipe right (positive deltaX) = go to previous
-      // Swipe left (negative deltaX) = go to next
       if (dragOffset > 0) {
-        prevImage(); // Swipe right = previous
+        prevImage();
       } else {
-        nextImage(); // Swipe left = next
+        nextImage();
       }
     }
 
@@ -135,7 +133,7 @@ const Carousel = ({ images = [] }) => {
     setDragOffset(0);
   };
 
-  // Modal touch/mouse handlers - FIXED SWIPE LOGIC
+  // Modal touch/mouse handlers
   const handleModalStart = (clientX, clientY) => {
     setIsDragging(true);
     setDragStart({ x: clientX, y: clientY });
@@ -152,12 +150,10 @@ const Carousel = ({ images = [] }) => {
     if (!isDragging) return;
 
     if (Math.abs(dragOffset) > modalDragThreshold) {
-      // FIXED: Swipe right (positive deltaX) = go to previous
-      // Swipe left (negative deltaX) = go to next
       if (dragOffset > 0) {
-        prevModalImage(); // Swipe right = previous
+        prevModalImage();
       } else {
-        nextModalImage(); // Swipe left = next
+        nextModalImage();
       }
     }
 
@@ -165,11 +161,18 @@ const Carousel = ({ images = [] }) => {
     setDragOffset(0);
   };
 
-  // Event handlers
+  // Handle image click for toggling modal controls
+  const handleModalImageClick = () => {
+    if (!isDragging && Math.abs(dragOffset) < 10) {
+      setShowModalControls((prev) => !prev);
+    }
+  };
+
   const handleImageClick = (index) => {
     if (!isDragging && Math.abs(dragOffset) < 10) {
       setModalImageIndex(index);
       setIsModalOpen(true);
+      setShowModalControls(true);
     }
   };
 
@@ -178,16 +181,14 @@ const Carousel = ({ images = [] }) => {
     setDragOffset(0);
     setIsDragging(false);
     setModalSlideDirection("");
+    setShowModalControls(true);
   };
 
   const handleIndicatorClick = (index) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-
-    // Determine slide direction based on target index
     const direction = index > currentIndex ? "next" : "prev";
     setSlideDirection(direction);
-
     setCurrentIndex(index);
     setTimeout(() => {
       setIsTransitioning(false);
@@ -266,13 +267,6 @@ const Carousel = ({ images = [] }) => {
                 ]
               : ""
           }`}
-          style={{
-            transform: `translateX(${dragOffset}px)`,
-            transition: isDragging
-              ? "none"
-              : "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-          }}
-          // Mouse events
           onMouseDown={(e) => {
             e.preventDefault();
             handleCarouselStart(e.clientX, e.clientY);
@@ -280,12 +274,10 @@ const Carousel = ({ images = [] }) => {
           onMouseMove={(e) => handleCarouselMove(e.clientX)}
           onMouseUp={handleCarouselEnd}
           onMouseLeave={handleCarouselEnd}
-          // Touch events - IMPROVED with passive handling
           onTouchStart={(e) => {
             handleCarouselStart(e.touches[0].clientX, e.touches[0].clientY);
           }}
           onTouchMove={(e) => {
-            // Prevent default to stop page scrolling during horizontal swipe
             if (isDragging) {
               e.preventDefault();
             }
@@ -362,14 +354,7 @@ const Carousel = ({ images = [] }) => {
                   ]
                 : ""
             }`}
-            style={{
-              transform: `translateX(${dragOffset}px)`,
-              transition: isDragging
-                ? "none"
-                : "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-            }}
             onClick={(e) => e.stopPropagation()}
-            // Mouse events for modal
             onMouseDown={(e) => {
               e.preventDefault();
               handleModalStart(e.clientX, e.clientY);
@@ -377,7 +362,6 @@ const Carousel = ({ images = [] }) => {
             onMouseMove={(e) => handleModalMove(e.clientX)}
             onMouseUp={handleModalEnd}
             onMouseLeave={handleModalEnd}
-            // Touch events for modal - IMPROVED
             onTouchStart={(e) => {
               handleModalStart(e.touches[0].clientX, e.touches[0].clientY);
             }}
@@ -390,7 +374,9 @@ const Carousel = ({ images = [] }) => {
             onTouchEnd={handleModalEnd}
           >
             <button
-              className={styles.closeButton}
+              className={`${styles.closeButton} ${
+                showModalControls ? styles.show : styles.hide
+              }`}
               onClick={handleCloseModal}
               aria-label="Close expanded view"
               type="button"
@@ -414,13 +400,18 @@ const Carousel = ({ images = [] }) => {
                       ]
                     : ""
                 }`}
+                onClick={handleModalImageClick}
                 priority
                 draggable={false}
               />
             </div>
 
             {images[modalImageIndex].caption && (
-              <div className={styles.modalCaption}>
+              <div
+                className={`${styles.modalCaption} ${
+                  showModalControls ? styles.show : styles.hide
+                }`}
+              >
                 {images[modalImageIndex].caption}
               </div>
             )}
@@ -428,7 +419,9 @@ const Carousel = ({ images = [] }) => {
             {images.length > 1 && (
               <>
                 <button
-                  className={`${styles.modalArrow} ${styles.modalArrowPrev}`}
+                  className={`${styles.modalArrow} ${styles.modalArrowPrev} ${
+                    showModalControls ? styles.show : styles.hide
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     prevModalImage();
@@ -439,7 +432,9 @@ const Carousel = ({ images = [] }) => {
                   <span className={styles.arrowIcon}>‹</span>
                 </button>
                 <button
-                  className={`${styles.modalArrow} ${styles.modalArrowNext}`}
+                  className={`${styles.modalArrow} ${styles.modalArrowNext} ${
+                    showModalControls ? styles.show : styles.hide
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     nextModalImage();
@@ -449,7 +444,11 @@ const Carousel = ({ images = [] }) => {
                 >
                   <span className={styles.arrowIcon}>›</span>
                 </button>
-                <div className={styles.modalCounter}>
+                <div
+                  className={`${styles.modalCounter} ${
+                    showModalControls ? styles.show : styles.hide
+                  }`}
+                >
                   {modalImageIndex + 1} of {images.length}
                 </div>
               </>

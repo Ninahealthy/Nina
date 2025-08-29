@@ -34,7 +34,6 @@
   -ms-user-select: none;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08),
     0 4px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -271,7 +270,7 @@
   padding: 24px;
   cursor: pointer;
   animation: modalFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  touch-action: manipulation;
+  touch-action: none; /* Prevent all scrolling in modal overlay */
 }
 
 /* Modal content with modern styling */
@@ -293,7 +292,7 @@
   -ms-user-select: none;
   animation: modalSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
-  touch-action: pan-y;
+  touch-action: pan-x; /* Allow only horizontal swipes */
 }
 
 .modalContent.modalDragging {
@@ -322,6 +321,7 @@
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+  cursor: pointer;
 }
 
 .modalImage:hover {
@@ -367,16 +367,20 @@
   font-size: 20px;
   font-weight: 300;
   outline: none;
-  opacity: 0.8;
-  transform: scale(0.9);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-.modalContent:hover .closeButton {
-  opacity: 1;
-  transform: scale(1);
+.closeButton.show {
+  opacity: 0.8;
+  transform: scale(0.9);
+}
+
+.closeButton.hide {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
 }
 
 .closeButton:hover {
@@ -421,20 +425,24 @@
   letter-spacing: 0.2px;
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
   pointer-events: none;
 }
 
-.modalContent:hover .modalCaption {
+.modalCaption.show {
   transform: translateY(0);
+  opacity: 1;
+}
+
+.modalCaption.hide {
+  transform: translateY(100%);
+  opacity: 0;
 }
 
 /* iOS-style modal navigation arrows */
 .modalArrow {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   width: 44px;
   height: 44px;
   border: none;
@@ -452,16 +460,20 @@
   font-size: 24px;
   font-weight: 300;
   outline: none;
-  opacity: 0;
-  transform: translateY(-50%) scale(0.9);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-.modalContent:hover .modalArrow {
+.modalArrow.show {
   opacity: 0.8;
   transform: translateY(-50%) scale(1);
+}
+
+.modalArrow.hide {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  pointer-events: none;
 }
 
 .modalArrow:hover {
@@ -511,18 +523,20 @@
   font-size: 14px;
   font-weight: 600;
   z-index: 10001;
-  animation: counterSlideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
-    both;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   letter-spacing: 0.3px;
-  opacity: 0.9;
   white-space: nowrap;
 }
 
-.modalCounter:hover {
-  background: rgba(142, 142, 147, 0.4);
-  transform: translateX(-50%) scale(1.05);
-  opacity: 1;
+.modalCounter.show {
+  opacity: 0.9;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.modalCounter.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-30px) scale(0.8);
+  pointer-events: none;
 }
 
 /* Keyframe animations for carousel slides */

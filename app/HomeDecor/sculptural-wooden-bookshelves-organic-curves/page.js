@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Carousel from "@/app/HomeDecor/s/page";
+import Carousel from "@/components/Carousel/Carousel";
 import Head from "next/head";
 import styles from "./page.module.css";
 import Image from "next/image";

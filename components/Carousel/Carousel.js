@@ -23,8 +23,68 @@ const Carousel = ({ images = [] }) => {
   const dragThreshold = 50;
   const modalDragThreshold = 80;
 
-  // Auto-advance carousel
+  // Replace the problematic useEffect with these two separate ones:
+
+  // 1. Handle initial loading (runs once)
   useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // 2. Handle auto-advance separately with better control
+  useEffect(() => {
+    // Don't auto-advance if there's only one image or less
+    if (images.length <= 1 || isDragging || isModalOpen) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      return;
+    }
+
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    // Start new interval
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
+        return nextIndex;
+      });
+    }, 4000);
+
+    // Cleanup
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [images.length, isDragging, isModalOpen]); // Keep dependencies but simplified logic
+
+  // 3. Handle transitions separately (optional - you can remove the transition animations for now)
+  useEffect(() => {
+    if (slideDirection) {
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setSlideDirection("");
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [slideDirection]);
+
+  // 4. Also update your nextImage and prevImage functions to be simpler:
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Auto-advance carousel
+  /* useEffect(() => {
     setIsLoaded(true);
 
     if (images.length <= 1) return;
@@ -81,7 +141,7 @@ const Carousel = ({ images = [] }) => {
       }, 500);
       return next;
     });
-  };
+  };*/
 
   const nextModalImage = () => {
     setModalSlideDirection("next");

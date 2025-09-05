@@ -377,18 +377,40 @@ const Carousel = ({ images = [] }) => {
         {images.length > 1 && (
           <div className={styles.carouselControls}>
             <div className={styles.indicators}>
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  className={`${styles.indicator} ${
-                    index === currentIndex ? styles.indicatorActive : ""
-                  }`}
-                  onClick={() => handleIndicatorClick(index)}
-                  aria-label={`Go to image ${index + 1}`}
-                  type="button"
-                  disabled={isTransitioning}
-                />
-              ))}
+              {(() => {
+                // Calculate which indicators to show (max 3)
+                const prevIndex =
+                  (currentIndex - 1 + images.length) % images.length;
+                const nextIndex = (currentIndex + 1) % images.length;
+
+                // For 2 images, only show 2 indicators
+                const indicesToShow =
+                  images.length === 2
+                    ? [currentIndex, currentIndex === 0 ? 1 : 0]
+                    : [prevIndex, currentIndex, nextIndex];
+
+                return indicesToShow.map((index, position) => (
+                  <button
+                    key={`${index}-${position}`}
+                    className={`${styles.indicator} ${
+                      index === currentIndex ? styles.indicatorActive : ""
+                    } ${
+                      index === prevIndex && images.length > 2
+                        ? styles.indicatorPrev
+                        : ""
+                    } ${
+                      index === nextIndex && images.length > 2
+                        ? styles.indicatorNext
+                        : ""
+                    }`}
+                    onClick={() => handleIndicatorClick(index)}
+                    aria-label={`Go to image ${index + 1}`}
+                    type="button"
+                    disabled={isTransitioning}
+                    data-position={position}
+                  />
+                ));
+              })()}
             </div>
             <div className={styles.carouselCounter}>
               {currentIndex + 1} of {images.length}

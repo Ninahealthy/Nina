@@ -1,62 +1,357 @@
-/* Body padding to prevent content from being hidden behind fixed header */
-/* Add this to your global CSS or body styles 
-body {
-  padding-top: 140px; /* Adjust based on your header height 
-}
-
-/* Alternative: Add this class to your main content container 
-.mainContent {
-  padding-top: 140px; /* Adjust based on your header height 
-}*/
-
-body {
-  margin-top: 70px;
-}
-
-/* Focus Styles for Better Accessibility */
-/** :focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
-}*/
-
-/* Accessibility Improvements */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/*:root {
-  
-  --color-text: #374151;
-  --color-text-light: #6b7280;
-  --color-heading: #1f2937;
-  --color-background: #ffffff;
-  --color-primary: #8b5cf6;
-  --color-secondary: #ec4899;
-  --color-accent: #3b82f6;
-  --color-border: #e5e7eb;
-  --max-width: 1408px;
-  --content-width: 896px;
-  --radius: 0.75rem;
-  --transition: all 0.3s ease-in-out;
-}*/
 :root {
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+  /* Squircle clip-paths */
+  /* 20px squircle for buttons and inputs */
+  --clip-path-squircle-20: polygon(0px 40px,
+      0.0975px 25.339px,
+      0.3909px 20.098px,
+      0.8822px 16.2652px,
+      1.5756px 13.1823px,
+      2.4771px 10.6053px,
+      3.5957px 8.4143px,
+      4.9442px 6.5413px,
+      6.5413px 4.9442px,
+      8.4143px 3.5957px,
+      10.6053px 2.4771px,
+      13.1823px 1.5756px,
+      16.2652px 0.8822px,
+      20.098px 0.3909px,
+      25.339px 0.0975px,
+      40px 0px,
+      calc(100% - 40px) 0px,
+      calc(100% - 24.8843px) 0.112px,
+      calc(100% - 19.4883px) 0.4489px,
+      calc(100% - 15.5528px) 1.0137px,
+      calc(100% - 12.401px) 1.8116px,
+      calc(100% - 9.7828px) 2.8512px,
+      calc(100% - 7.5755px) 4.1446px,
+      calc(100% - 5.7102px) 5.7102px,
+      calc(100% - 4.1446px) 7.5755px,
+      calc(100% - 2.8512px) 9.7828px,
+      calc(100% - 1.8116px) 12.401px,
+      calc(100% - 1.0137px) 15.5528px,
+      calc(100% - 0.4489px) 19.4883px,
+      calc(100% - 0.112px) 24.8843px,
+      100% 40px,
+      100% calc(100% - 40px),
+      calc(100% - 0.112px) calc(100% - 24.8843px),
+      calc(100% - 0.4489px) calc(100% - 19.4883px),
+      calc(100% - 1.0137px) calc(100% - 15.5528px),
+      calc(100% - 1.8116px) calc(100% - 12.401px),
+      calc(100% - 2.8512px) calc(100% - 9.7828px),
+      calc(100% - 4.1446px) calc(100% - 7.5755px),
+      calc(100% - 5.7102px) calc(100% - 5.7102px),
+      calc(100% - 7.5755px) calc(100% - 4.1446px),
+      calc(100% - 9.7828px) calc(100% - 2.8512px),
+      calc(100% - 12.401px) calc(100% - 1.8116px),
+      calc(100% - 15.5528px) calc(100% - 1.0137px),
+      calc(100% - 19.4883px) calc(100% - 0.4489px),
+      calc(100% - 24.8843px) calc(100% - 0.112px),
+      calc(100% - 40px) 100%,
+      40px 100%,
+      24.8843px calc(100% - 0.112px),
+      19.4883px calc(100% - 0.4489px),
+      15.5528px calc(100% - 1.0137px),
+      12.401px calc(100% - 1.8116px),
+      9.7828px calc(100% - 2.8512px),
+      7.5755px calc(100% - 4.1446px),
+      5.7102px calc(100% - 5.7102px),
+      4.1446px calc(100% - 7.5755px),
+      2.8512px calc(100% - 9.7828px),
+      1.8116px calc(100% - 12.401px),
+      1.0137px calc(100% - 15.5528px),
+      0.4489px calc(100% - 19.4883px),
+      0.112px calc(100% - 24.8843px),
+      0px calc(100% - 40px));
 
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 36px squircle for images */
+  --clip-path-squircle-36: polygon(0px 72px,
+      0.1756px 45.6102px,
+      0.7036px 36.1765px,
+      1.588px 29.2774px,
+      2.8361px 23.7281px,
+      4.4589px 19.0896px,
+      6.4723px 15.1457px,
+      8.8996px 11.7743px,
+      11.7743px 8.8996px,
+      15.1457px 6.4723px,
+      19.0896px 4.4589px,
+      23.7281px 2.8361px,
+      29.2774px 1.588px,
+      36.1765px 0.7036px,
+      45.6102px 0.1756px,
+      72px 0px,
+      calc(100% - 72px) 0px,
+      calc(100% - 44.7917px) 0.2016px,
+      calc(100% - 35.0789px) 0.808px,
+      calc(100% - 27.995px) 1.8246px,
+      calc(100% - 22.3219px) 3.261px,
+      calc(100% - 17.609px) 5.1321px,
+      calc(100% - 13.6359px) 7.4603px,
+      calc(100% - 10.2784px) 10.2784px,
+      calc(100% - 7.4603px) 13.6359px,
+      calc(100% - 5.1321px) 17.609px,
+      calc(100% - 3.261px) 22.3219px,
+      calc(100% - 1.8246px) 27.995px,
+      calc(100% - 0.808px) 35.0789px,
+      calc(100% - 0.2016px) 44.7917px,
+      100% 72px,
+      100% calc(100% - 72px),
+      calc(100% - 0.2016px) calc(100% - 44.7917px),
+      calc(100% - 0.808px) calc(100% - 35.0789px),
+      calc(100% - 1.8246px) calc(100% - 27.995px),
+      calc(100% - 3.261px) calc(100% - 22.3219px),
+      calc(100% - 5.1321px) calc(100% - 17.609px),
+      calc(100% - 7.4603px) calc(100% - 13.6359px),
+      calc(100% - 10.2784px) calc(100% - 10.2784px),
+      calc(100% - 13.6359px) calc(100% - 7.4603px),
+      calc(100% - 17.609px) calc(100% - 5.1321px),
+      calc(100% - 22.3219px) calc(100% - 3.261px),
+      calc(100% - 27.995px) calc(100% - 1.8246px),
+      calc(100% - 35.0789px) calc(100% - 0.808px),
+      calc(100% - 44.7917px) calc(100% - 0.2016px),
+      calc(100% - 72px) 100%,
+      72px 100%,
+      44.7917px calc(100% - 0.2016px),
+      35.0789px calc(100% - 0.808px),
+      27.995px calc(100% - 1.8246px),
+      22.3219px calc(100% - 3.261px),
+      17.609px calc(100% - 5.1321px),
+      13.6359px calc(100% - 7.4603px),
+      10.2784px calc(100% - 10.2784px),
+      7.4603px calc(100% - 13.6359px),
+      5.1321px calc(100% - 17.609px),
+      3.261px calc(100% - 22.3219px),
+      1.8246px calc(100% - 27.995px),
+      0.808px calc(100% - 35.0789px),
+      0.2016px calc(100% - 44.7917px),
+      0px calc(100% - 72px));
+
+  /* 48px squircle for cards */
+  --clip-path-squircle-48: polygon(0px 96px,
+      0.2341px 60.8135px,
+      0.9381px 48.2354px,
+      2.1174px 39.0365px,
+      3.7815px 31.6375px,
+      5.9452px 25.4527px,
+      8.6298px 20.1943px,
+      11.8662px 15.6991px,
+      15.6991px 11.8662px,
+      20.1943px 8.6298px,
+      25.4527px 5.9452px,
+      31.6375px 3.7815px,
+      39.0365px 2.1174px,
+      48.2354px 0.9381px,
+      60.8135px 0.2341px,
+      96px 0px,
+      calc(100% - 96px) 0px,
+      calc(100% - 59.7223px) 0.2687px,
+      calc(100% - 46.7718px) 1.0773px,
+      calc(100% - 37.3267px) 2.4328px,
+      calc(100% - 29.7625px) 4.3479px,
+      calc(100% - 23.4787px) 6.8428px,
+      calc(100% - 18.1812px) 9.947px,
+      calc(100% - 13.7046px) 13.7046px,
+      calc(100% - 9.947px) 18.1812px,
+      calc(100% - 6.8428px) 23.4787px,
+      calc(100% - 4.3479px) 29.7625px,
+      calc(100% - 2.4328px) 37.3267px,
+      calc(100% - 1.0773px) 46.7718px,
+      calc(100% - 0.2687px) 59.7223px,
+      100% 96px,
+      100% calc(100% - 96px),
+      calc(100% - 0.2687px) calc(100% - 59.7223px),
+      calc(100% - 1.0773px) calc(100% - 46.7718px),
+      calc(100% - 2.4328px) calc(100% - 37.3267px),
+      calc(100% - 4.3479px) calc(100% - 29.7625px),
+      calc(100% - 6.8428px) calc(100% - 23.4787px),
+      calc(100% - 9.947px) calc(100% - 18.1812px),
+      calc(100% - 13.7046px) calc(100% - 13.7046px),
+      calc(100% - 18.1812px) calc(100% - 9.947px),
+      calc(100% - 23.4787px) calc(100% - 6.8428px),
+      calc(100% - 29.7625px) calc(100% - 4.3479px),
+      calc(100% - 37.3267px) calc(100% - 2.4328px),
+      calc(100% - 46.7718px) calc(100% - 1.0773px),
+      calc(100% - 59.7223px) calc(100% - 0.2687px),
+      calc(100% - 96px) 100%,
+      96px 100%,
+      59.7223px calc(100% - 0.2687px),
+      46.7718px calc(100% - 1.0773px),
+      37.3267px calc(100% - 2.4328px),
+      29.7625px calc(100% - 4.3479px),
+      23.4787px calc(100% - 6.8428px),
+      18.1812px calc(100% - 9.947px),
+      13.7046px calc(100% - 13.7046px),
+      9.947px calc(100% - 18.1812px),
+      6.8428px calc(100% - 23.4787px),
+      4.3479px calc(100% - 29.7625px),
+      2.4328px calc(100% - 37.3267px),
+      1.0773px calc(100% - 46.7718px),
+      0.2687px calc(100% - 59.7223px),
+      0px calc(100% - 96px));
+
+  /* 60px squircle for large sections */
+  --clip-path-squircle-60: polygon(0px 120px,
+      0.2926px 76.0169px,
+      1.1726px 60.2942px,
+      2.6467px 48.7956px,
+      4.7269px 39.5469px,
+      7.4314px 31.8159px,
+      10.7872px 25.2429px,
+      14.8327px 19.6239px,
+      19.6239px 14.8327px,
+      25.2429px 10.7872px,
+      31.8159px 7.4314px,
+      39.5469px 4.7269px,
+      48.7956px 2.6467px,
+      60.2942px 1.1726px,
+      76.0169px 0.2926px,
+      120px 0px,
+      calc(100% - 120px) 0px,
+      calc(100% - 74.6528px) 0.3359px,
+      calc(100% - 58.4648px) 1.3466px,
+      calc(100% - 46.6584px) 3.041px,
+      calc(100% - 37.2031px) 5.4349px,
+      calc(100% - 29.3483px) 8.5535px,
+      calc(100% - 22.7266px) 12.4338px,
+      calc(100% - 17.1307px) 17.1307px,
+      calc(100% - 12.4338px) 22.7266px,
+      calc(100% - 8.5535px) 29.3483px,
+      calc(100% - 5.4349px) 37.2031px,
+      calc(100% - 3.041px) 46.6584px,
+      calc(100% - 1.3466px) 58.4648px,
+      calc(100% - 0.3359px) 74.6528px,
+      100% 120px,
+      100% calc(100% - 120px),
+      calc(100% - 0.3359px) calc(100% - 74.6528px),
+      calc(100% - 1.3466px) calc(100% - 58.4648px),
+      calc(100% - 3.041px) calc(100% - 46.6584px),
+      calc(100% - 5.4349px) calc(100% - 37.2031px),
+      calc(100% - 8.5535px) calc(100% - 29.3483px),
+      calc(100% - 12.4338px) calc(100% - 22.7266px),
+      calc(100% - 17.1307px) calc(100% - 17.1307px),
+      calc(100% - 22.7266px) calc(100% - 12.4338px),
+      calc(100% - 29.3483px) calc(100% - 8.5535px),
+      calc(100% - 37.2031px) calc(100% - 5.4349px),
+      calc(100% - 46.6584px) calc(100% - 3.041px),
+      calc(100% - 58.4648px) calc(100% - 1.3466px),
+      calc(100% - 74.6528px) calc(100% - 0.3359px),
+      calc(100% - 120px) 100%,
+      120px 100%,
+      74.6528px calc(100% - 0.3359px),
+      58.4648px calc(100% - 1.3466px),
+      46.6584px calc(100% - 3.041px),
+      37.2031px calc(100% - 5.4349px),
+      29.3483px calc(100% - 8.5535px),
+      22.7266px calc(100% - 12.4338px),
+      17.1307px calc(100% - 17.1307px),
+      12.4338px calc(100% - 22.7266px),
+      8.5535px calc(100% - 29.3483px),
+      5.4349px calc(100% - 37.2031px),
+      3.041px calc(100% - 46.6584px),
+      1.3466px calc(100% - 58.4648px),
+      0.3359px calc(100% - 74.6528px),
+      0px calc(100% - 120px));
+
+  /* 10px squircle for small elements like badges */
+  --clip-path-squircle-10: polygon(0px 20px,
+      0.0488px 12.6695px,
+      0.1955px 10.049px,
+      0.4411px 8.1326px,
+      0.7878px 6.5912px,
+      1.2386px 5.3027px,
+      1.7979px 4.2072px,
+      2.4721px 3.2707px,
+      3.2707px 2.4721px,
+      4.2072px 1.7979px,
+      5.3027px 1.2386px,
+      6.5912px 0.7878px,
+      8.1326px 0.4411px,
+      10.049px 0.1955px,
+      12.6695px 0.0488px,
+      20px 0px,
+      calc(100% - 20px) 0px,
+      calc(100% - 12.4422px) 0.056px,
+      calc(100% - 9.7442px) 0.2245px,
+      calc(100% - 7.7764px) 0.5069px,
+      calc(100% - 6.2005px) 0.9058px,
+      calc(100% - 4.8914px) 1.4256px,
+      calc(100% - 3.7878px) 2.0723px,
+      calc(100% - 2.8551px) 2.8551px,
+      calc(100% - 2.0723px) 3.7878px,
+      calc(100% - 1.4256px) 4.8914px,
+      calc(100% - 0.9058px) 6.2005px,
+      calc(100% - 0.5069px) 7.7764px,
+      calc(100% - 0.2245px) 9.7442px,
+      calc(100% - 0.056px) 12.4422px,
+      100% 20px,
+      100% calc(100% - 20px),
+      calc(100% - 0.056px) calc(100% - 12.4422px),
+      calc(100% - 0.2245px) calc(100% - 9.7442px),
+      calc(100% - 0.5069px) calc(100% - 7.7764px),
+      calc(100% - 0.9058px) calc(100% - 6.2005px),
+      calc(100% - 1.4256px) calc(100% - 4.8914px),
+      calc(100% - 2.0723px) calc(100% - 3.7878px),
+      calc(100% - 2.8551px) calc(100% - 2.8551px),
+      calc(100% - 3.7878px) calc(100% - 2.0723px),
+      calc(100% - 4.8914px) calc(100% - 1.4256px),
+      calc(100% - 6.2005px) calc(100% - 0.9058px),
+      calc(100% - 7.7764px) calc(100% - 0.5069px),
+      calc(100% - 9.7442px) calc(100% - 0.2245px),
+      calc(100% - 12.4422px) calc(100% - 0.056px),
+      calc(100% - 20px) 100%,
+      20px 100%,
+      12.4422px calc(100% - 0.056px),
+      9.7442px calc(100% - 0.2245px),
+      7.7764px calc(100% - 0.5069px),
+      6.2005px calc(100% - 0.9058px),
+      4.8914px calc(100% - 1.4256px),
+      3.7878px calc(100% - 2.0723px),
+      2.8551px calc(100% - 2.8551px),
+      2.0723px calc(100% - 3.7878px),
+      1.4256px calc(100% - 4.8914px),
+      0.9058px calc(100% - 6.2005px),
+      0.5069px calc(100% - 7.7764px),
+      0.2245px calc(100% - 9.7442px),
+      0.056px calc(100% - 12.4422px),
+      0px calc(100% - 20px));
+
+  --color-cream: #FAF7F2;
+  --color-linen: #F3EDE4;
+  --color-warmwhite: #FEFCF8;
+  --color-charcoal: #3D3832;
+  --color-stone: #6B6560;
+  --color-pebble: #9A9490;
+  --color-terracotta: #C07A56;
+  --color-sage: #8FA98B;
+  --color-olive: #6B7D5E;
+  --color-clay: #C4A882;
+  --color-sand: #E8DFD0;
+
+  --background: var(--color-cream);
+  --foreground: var(--color-charcoal);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-cream: #1A1714;
+    --color-linen: #2A2520;
+    --color-warmwhite: #221E1A;
+    --color-charcoal: #E8E0D6;
+    --color-stone: #B0A89E;
+    --color-pebble: #8A837D;
+    --color-terracotta: #D4926B;
+    --color-sage: #A3BDA0;
+    --color-olive: #8A9E7D;
+    --color-clay: #B09974;
+    --color-sand: #3D3530;
+
+    --background: var(--color-cream);
+    --foreground: var(--color-charcoal);
   }
+}
+
+html {
+  height: 100%;
 }
 
 html,
@@ -66,9 +361,12 @@ body {
 }
 
 body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Georgia, "Times New Roman", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -82,6 +380,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+main {
+  flex: 1;
 }
 
 @media (prefers-color-scheme: dark) {

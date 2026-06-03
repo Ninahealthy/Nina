@@ -1,10 +1,10 @@
 /* Footer Main Container */
 .footer {
   position: relative;
-  background: #f8f9fa;
-  color: #374151;
-  margin-top: 5rem;
-  border-top: 1px solid #e5e7eb;
+  background: var(--color-linen);
+  color: var(--color-charcoal);
+  margin-top: auto;
+  border-top: 1px solid var(--color-sand);
 }
 
 /* Footer Content */
@@ -49,16 +49,13 @@
 .authorAvatar {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #8b5cf6, #ec4899);
+  clip-path: circle(50%);
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-sage));
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   position: relative;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
 }
 
@@ -71,7 +68,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
@@ -91,8 +87,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(45deg, #8b5cf6, #ec4899);
-  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-sage));
+  clip-path: circle(50%);
   display: none;
 }
 
@@ -104,26 +100,19 @@
 }
 
 .brandGradient {
-  background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  transition: transform 0.3s ease;
+  color: var(--color-terracotta);
+  transition: opacity 0.3s ease;
   cursor: pointer;
 }
 
 .brandGradient:hover {
-  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .brandDescription {
   font-size: 1rem;
   line-height: 1.7;
-  color: #6b7280;
+  color: var(--color-stone);
   margin-bottom: 2rem;
   font-weight: 400;
 }
@@ -140,21 +129,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border-radius: 50%;
-  border: 1px solid #e5e7eb;
+  background: var(--color-warmwhite);
+  clip-path: circle(50%);
   transition: all 0.3s ease;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Remove focus outline */
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  color: var(--color-stone);
 }
 
 .socialLink:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #8b5cf6;
+  box-shadow: 0 4px 12px rgba(61, 56, 50, 0.1);
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta);
 }
 
 .socialLink:focus {
@@ -180,7 +168,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #374151;
+  color: var(--color-charcoal);
 }
 
 .linksList {
@@ -194,19 +182,18 @@
 }
 
 .footerLink {
-  color: #6b7280;
+  color: var(--color-stone);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 400;
   transition: color 0.3s ease;
   display: inline-block;
-  /* Remove focus outline */
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 .footerLink:hover {
-  color: #8b5cf6;
+  color: var(--color-terracotta);
 }
 
 .footerLink:focus {
@@ -222,7 +209,7 @@
 /* Footer Bottom */
 .footerBottom {
   padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-sand);
 }
 
 .footerBottomContent {
@@ -241,7 +228,7 @@
 }
 
 .copyright {
-  color: #6b7280;
+  color: var(--color-pebble);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -259,17 +246,16 @@
 }
 
 .footerBottomLink {
-  color: #6b7280;
+  color: var(--color-pebble);
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.3s ease;
-  /* Remove focus outline */
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 .footerBottomLink:hover {
-  color: #8b5cf6;
+  color: var(--color-terracotta);
 }
 
 .footerBottomLink:focus {
@@ -361,15 +347,11 @@
 /* High contrast mode */
 @media (prefers-contrast: high) {
   .brandGradient {
-    background: #374151;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-charcoal);
   }
 
   .footerLink:hover {
-    color: #374151;
+    color: var(--color-charcoal);
   }
 }
 

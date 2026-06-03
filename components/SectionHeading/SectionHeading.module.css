@@ -1,0 +1,37 @@
+.wrapper {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.heading::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--color-terracotta);
+  margin: 0.75rem auto 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+  .heading {
+    font-size: 2.25rem;
+  }
+}

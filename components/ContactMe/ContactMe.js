@@ -58,11 +58,11 @@ const ContactForm = () => {
     <div className={styles.contactSection}>
       <div className={styles.contactContent}>
         <h4 className={styles.contactTitle}>
-          <span className={styles.titleGradient}>Get In Touch</span>
+          Get In Touch
         </h4>
         <p className={styles.contactDescription}>
-          Have a question or want to work together? I'd love to hear from you.
-          Send me a message and I'll get back to you as soon as possible.
+          Have a question or want to share something? I would love to hear from
+          you. Send me a message and I will get back to you soon.
         </p>
 
         <form onSubmit={handleSubmit} className={styles.contactForm}>

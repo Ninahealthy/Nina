@@ -1,0 +1,157 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8rem 1.5rem 2rem;
+  gap: 1.5rem;
+}
+
+.heroImageWrapper {
+  width: 180px;
+  height: 180px;
+  clip-path: var(--clip-path-squircle-60);
+  overflow: hidden;
+}
+
+.heroImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-sand), var(--color-linen));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-clay);
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-stone);
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+.story {
+  padding: 0 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.sectionTitle::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--color-terracotta);
+  margin: 0.75rem auto 0;
+}
+
+.storyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.storyContent p {
+  font-size: 1.05rem;
+  color: var(--color-stone);
+  line-height: 1.8;
+}
+
+.philosophy {
+  padding: 0 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.valueCard {
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-48);
+  padding: 2rem;
+  text-align: center;
+}
+
+.valueTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 0.75rem;
+}
+
+.valueText {
+  font-size: 0.95rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+}
+
+.closing {
+  padding: 0 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.closingText {
+  font-size: 1.05rem;
+  color: var(--color-stone);
+  line-height: 1.8;
+  font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .valuesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .heroImageWrapper {
+    width: 220px;
+    height: 220px;
+  }
+
+  .sectionTitle {
+    font-size: 2.25rem;
+  }
+
+  .valueCard {
+    padding: 2.5rem;
+  }
+}

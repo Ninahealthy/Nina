@@ -1,0 +1,209 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8rem 1.5rem 4rem;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 640px;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+.heroImageWrapper {
+  width: 200px;
+  height: 200px;
+  clip-path: var(--clip-path-squircle-60);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.heroImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-sand), var(--color-linen));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-clay);
+}
+
+.philosophy {
+  padding: 0 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.philosophyCard {
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-48);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.philosophyTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 1.25rem;
+}
+
+.philosophyText {
+  font-size: 1rem;
+  color: var(--color-stone);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featured {
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.practiceTeaser {
+  padding: 0 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.practiceTeaserCard {
+  background: var(--color-warmwhite);
+  clip-path: var(--clip-path-squircle-48);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(61, 56, 50, 0.06);
+}
+
+.practiceLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-sage);
+  margin-bottom: 1rem;
+}
+
+.practiceQuote {
+  font-size: 1.375rem;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-style: italic;
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter {
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  .hero {
+    flex-direction: row;
+    text-align: left;
+    padding: 10rem 2rem 6rem;
+  }
+
+  .heroContent {
+    align-items: flex-start;
+  }
+
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.25rem;
+  }
+
+  .heroImageWrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .philosophyCard {
+    padding: 3.5rem 3rem;
+  }
+
+  .philosophyTitle {
+    font-size: 2rem;
+  }
+
+  .philosophyText {
+    font-size: 1.125rem;
+  }
+
+  .practiceTeaserCard {
+    padding: 4rem 3rem;
+  }
+
+  .practiceQuote {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .heroImageWrapper {
+    width: 360px;
+    height: 360px;
+  }
+}

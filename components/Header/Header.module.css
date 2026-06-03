@@ -1,29 +1,15 @@
-/* components/Header.module.css */
-
 .header {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(250, 247, 242, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 10px 0; /* Reduced from 20px for more compact header */
+  padding: 10px 0;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(61, 56, 50, 0.08);
   transition: all 0.3s ease;
-  transform: translateY(0);
-}
-
-/* Scroll visibility states */
-.header.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.header.hidden {
-  transform: translateY(-100%);
-  opacity: 0;
 }
 
 .headerContent {
@@ -32,215 +18,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-}
-
-/* Logo Container with Avatar */
-.logoContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Reduced from 12px */
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoContainer:hover {
-  transform: scale(1.02); /* Reduced hover scale for subtlety */
-}
-
-.logoContainer:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoContainer:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoContainer:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.logoAvatar {
-  width: 48px; /* Reduced from 100px - standard header logo size */
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #9333ea, #ec4899);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Reduced shadow */
-  overflow: hidden;
-  position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.3); /* Reduced border */
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease;
-}
-
-.logoContainer:hover .logoAvatar {
-  box-shadow: 0 3px 12px rgba(139, 92, 246, 0.3); /* Reduced shadow */
-  transform: scale(1.05);
-}
-
-.logoImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
+  padding: 0 15px;
 }
 
 .logo {
-  font-size: 1.75rem; /* Reduced from 2.5rem - more proportional to avatar */
-  font-weight: 700; /* Reduced from 800 for better readability */
-  background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: none;
-  box-shadow: none;
-  text-decoration: none;
-  line-height: 1; /* Better text alignment */
-}
-
-/* Mobile Menu Logo Container */
-.mobileMenuLogoContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoContainer:hover {
-  transform: scale(1.02);
-}
-
-.mobileMenuLogoContainer:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoContainer:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoContainer:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuLogoAvatar {
-  width: 60px; /* Reduced from 100px - appropriate for mobile menu */
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #8b5cf6, #ec4899);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  position: relative;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.mobileMenuLogoContainer:hover .mobileMenuLogoAvatar {
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
-  transform: scale(1.05);
-}
-
-.mobileMenuLogoImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-.mobileMenuLogo {
-  font-size: 1.8rem; /* Reduced from 2.5rem - better proportion */
-  font-weight: 700; /* Reduced from 800 */
-  background: linear-gradient(45deg, #a78bfa, #fb7185, #22d3ee, #10b981);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  outline: none;
-  border: none;
-  box-shadow: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-terracotta);
   text-decoration: none;
   line-height: 1;
+  transition: opacity 0.3s ease;
 }
 
-/* Desktop Navigation */
+.logo:hover {
+  opacity: 0.8;
+}
+
 .nav {
-  display: flex;
+  display: none;
   gap: 30px;
 }
 
 .nav a {
   text-decoration: none;
-  color: #333;
+  color: var(--color-charcoal);
   font-weight: 500;
   position: relative;
   transition: color 0.3s ease;
   padding: 10px 0;
-  outline: none;
-  border: none;
-  box-shadow: none;
-  font-size: 1.1rem; /* Slightly reduced from 1.3rem for better balance */
+  font-size: 1rem;
 }
 
 .nav a:hover {
-  color: #667eea;
-}
-
-.nav a:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.nav a:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.nav a:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  color: var(--color-terracotta);
 }
 
 .nav a::after {
@@ -250,7 +61,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  background: var(--color-terracotta);
   transition: width 0.3s ease;
 }
 
@@ -258,39 +69,14 @@
   width: 100%;
 }
 
-/* Mobile Menu Toggle */
 .menuToggle {
-  display: none;
+  display: block;
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px;
   z-index: 1001;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-.menuToggle:focus {
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
-
-.menuToggle:active {
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
-
-.menuToggle:focus-visible {
-  outline: none;
-  box-shadow: none;
-  border: none;
 }
 
 .hamburger {
@@ -306,9 +92,8 @@
 .hamburger span {
   display: block;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  border-radius: 2px;
+  height: 2px;
+  background: var(--color-charcoal);
   transition: all 0.3s ease;
   transform-origin: center;
 }
@@ -325,47 +110,13 @@
   transform: rotate(-45deg) translateY(-7.5px);
 }
 
-/* Search Bar */
-.searchBar {
-  position: relative;
-  margin-left: 20px;
-}
-
-.searchBar input {
-  padding: 12px 50px 12px 20px;
-  border: none;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.searchBar input:focus {
-  outline: none;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-  transform: translateY(-2px);
-}
-
-.searchIcon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #667eea;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-/* Mobile Menu Overlay */
 .mobileMenuOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(61, 56, 50, 0.4);
   z-index: 999;
   animation: fadeIn 0.3s ease;
 }
@@ -374,10 +125,10 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 100vw;
   height: 100vh;
-  background: white;
-  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+  background: var(--color-cream);
+  box-shadow: -5px 0 20px rgba(61, 56, 50, 0.1);
   transform: translateX(100%);
   animation: slideIn 0.3s ease forwards;
   overflow-y: auto;
@@ -385,85 +136,71 @@
 
 .mobileMenuHeader {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.mobileMenuLogo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-terracotta);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--color-stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.closeButton:hover {
+  color: var(--color-charcoal);
 }
 
 .mobileMenuItems {
-  padding: 30px 0;
+  padding: 24px 0;
 }
 
 .mobileMenuItems a {
   display: flex;
   align-items: center;
-  padding: 20px 30px;
+  padding: 16px 24px;
   text-decoration: none;
-  color: #333;
+  color: var(--color-charcoal);
   font-weight: 500;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
-  border-left: 4px solid transparent;
-  outline: none;
-  border: none;
-  box-shadow: none;
+  border-left: 3px solid transparent;
 }
 
 .mobileMenuItems a:hover {
-  background: rgba(102, 126, 234, 0.1);
-  border-left-color: #667eea;
-  color: #667eea;
-  transform: translateX(5px);
-}
-
-.mobileMenuItems a:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuItems a:active {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.mobileMenuItems a:focus-visible {
-  outline: none;
-  border: none;
-  box-shadow: none;
+  background: var(--color-linen);
+  border-left-color: var(--color-terracotta);
+  color: var(--color-terracotta);
 }
 
 .menuIcon {
-  margin-right: 15px;
-  font-size: 1.2em;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  color: var(--color-pebble);
 }
 
-.mobileSearchBar {
-  padding: 0 30px 30px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+.mobileMenuItems a:hover .menuIcon {
+  color: var(--color-terracotta);
 }
 
-.mobileSearchBar input {
-  width: 100%;
-  padding: 15px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.mobileSearchBar input:focus {
-  outline: none;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-  border-color: #667eea;
-}
-
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -482,311 +219,58 @@
   }
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+@media (min-width: 481px) {
+  .mobileMenu {
+    width: 320px;
   }
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
+@media (min-width: 769px) {
+  .headerContent {
+    padding: 0 20px;
   }
-  50% {
-    transform: scale(1.05);
-  }
-}
 
-@keyframes borderGradientShift {
-  0% {
-    border-color: #9333ea;
-    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+  .logo {
+    font-size: 1.75rem;
   }
-  33% {
-    border-color: #ec4899;
-    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-  }
-  66% {
-    border-color: #3b82f6;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-  }
-  100% {
-    border-color: #9333ea;
-    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
-  }
-}
 
-/* Responsive Design */
-@media (max-width: 768px) {
   .nav {
+    display: flex;
+  }
+
+  .menuToggle {
     display: none;
   }
-
-  .menuToggle {
-    display: block;
-  }
-
-  .searchBar {
-    margin-left: 10px;
-  }
-
-  .searchBar input {
-    width: 200px;
-  }
-
-  .logo {
-    font-size: 1.5rem; /* Reduced from 2rem for mobile */
-  }
-
-  .logoAvatar {
-    width: 40px; /* Reduced from 80px */
-    height: 40px;
-  }
-
-  .headerContent {
-    padding: 0 15px;
-  }
 }
 
-/* Mobile Layout */
-@media (max-width: 480px) {
-  .headerContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-    gap: 10px;
-  }
-
-  .logoContainer {
-    order: 1;
-    flex-shrink: 0;
-    gap: 8px;
-  }
-
-  .logo {
-    font-size: 1.4rem; /* Further reduced for small screens */
-  }
-
-  .logoAvatar {
-    width: 36px; /* Smaller for very small screens */
-    height: 36px;
-  }
-
-  .searchBar {
-    order: 2;
-    margin-left: 0;
-    margin-right: 0;
-    flex: 1;
-    max-width: 150px;
-  }
-
-  .searchBar input {
-    width: 100%;
-    font-size: 12px;
-    padding: 10px 40px 10px 15px;
-  }
-
-  .menuToggle {
-    order: 3;
-    flex-shrink: 0;
-  }
-
-  .mobileMenu {
-    width: 100vw;
-  }
-
-  .mobileMenuLogoContainer {
-    gap: 8px;
-  }
-
-  .mobileMenuLogo {
-    font-size: 1.5rem; /* Reduced from 2rem */
-  }
-
-  .mobileMenuLogoAvatar {
-    width: 50px; /* Reduced from 80px */
-    height: 50px;
-  }
-}
-
-/* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .header {
-    background: rgba(30, 30, 30, 0.95);
+    background: rgba(26, 23, 20, 0.95);
   }
 
   .nav a {
-    color: #e0e0e0;
+    color: var(--color-charcoal);
   }
 
   .nav a:hover {
-    color: #667eea;
-  }
-
-  .searchBar input {
-    background: rgba(40, 40, 40, 0.9);
-    color: #e0e0e0;
-  }
-
-  .searchBar input::placeholder {
-    color: #999;
+    color: var(--color-terracotta);
   }
 
   .mobileMenu {
-    background: #2a2a2a;
-    color: #e0e0e0;
+    background: var(--color-cream);
   }
 
   .mobileMenuItems a {
-    color: #e0e0e0;
-  }
-
-  .mobileSearchBar input {
-    background: rgba(40, 40, 40, 0.9);
-    color: #e0e0e0;
-    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-charcoal);
   }
 }
 
-/* Accessibility and reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .header {
     transition: none;
   }
 
-  .logoContainer,
-  .mobileMenuLogoContainer,
-  .logoAvatar,
-  .mobileMenuLogoAvatar,
-  .logoImage,
-  .mobileMenuLogoImage {
+  .logo {
     transition: none;
-  }
-
-  .logo,
-  .mobileMenuLogo {
-    animation: none;
-  }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .logoAvatar,
-  .mobileMenuLogoAvatar {
-    border-color: currentColor;
-    border-width: 3px;
-  }
-}
-
-/* Print styles */
-@media print {
-  .header {
-    position: static;
-    background: white;
-    box-shadow: none;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .logoAvatar,
-  .mobileMenuLogoAvatar {
-    box-shadow: none;
-  }
-
-  .logo,
-  .mobileMenuLogo {
-    color: black !important;
-    -webkit-text-fill-color: black !important;
-  }
-}
-
-/* Add these styles to Header.module.css */
-
-/* Desktop Verified Badge */
-.verifiedBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -20px; /* Move up more */
-  margin-left: -8px;
-}
-
-.verifiedIcon {
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 1px 2px rgba(29, 161, 242, 0.2));
-}
-
-.logoContainer:hover .verifiedIcon {
-  transform: scale(1.05);
-  filter: drop-shadow(0 2px 4px rgba(29, 161, 242, 0.4));
-}
-
-/* Mobile Verified Badge */
-.mobileVerifiedBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: -8px;
-  margin-top: -20px;
-}
-
-.mobileVerifiedIcon {
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 1px 2px rgba(29, 161, 242, 0.2));
-}
-
-.mobileMenuLogoContainer:hover .mobileVerifiedIcon {
-  transform: scale(1.05);
-  filter: drop-shadow(0 2px 4px rgba(29, 161, 242, 0.4));
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .verifiedIcon {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .verifiedIcon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .mobileVerifiedIcon {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .verifiedIcon,
-  .mobileVerifiedIcon {
-    color: #1da1f2;
-    filter: drop-shadow(0 1px 3px rgba(29, 161, 242, 0.6));
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .verifiedIcon,
-  .mobileVerifiedIcon {
-    transition: none;
-  }
-
-  .logoContainer:hover .verifiedIcon,
-  .mobileMenuLogoContainer:hover .mobileVerifiedIcon {
-    transform: none;
   }
 }

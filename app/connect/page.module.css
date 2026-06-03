@@ -1,0 +1,88 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-bottom: 4rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 8rem 1.5rem 2rem;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-stone);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.contactSection {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.newsletterSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+.socialSection {
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.socialTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 1.5rem;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-linen);
+  color: var(--color-stone);
+  text-decoration: none;
+  clip-path: var(--clip-path-squircle-20);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background: var(--color-sand);
+  color: var(--color-terracotta);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 769px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+}

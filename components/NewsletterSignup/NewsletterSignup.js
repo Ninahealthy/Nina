@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { subscribeToNewsletter } from "./Newsletter"; // Adjust path as needed
+import { subscribeToNewsletter } from "./NewsletterAction";
 import styles from "./NewsletterSignup.module.css";
 
 const NewsletterSignup = () => {
@@ -40,11 +40,11 @@ const NewsletterSignup = () => {
     <div className={styles.newsletterSection}>
       <div className={styles.newsletterContent}>
         <h4 className={styles.newsletterTitle}>
-          <span className={styles.titleGradient}>Stay Inspired</span>
+          Stay Grounded
         </h4>
         <p className={styles.newsletterDescription}>
-          Get design tips, inspiration, and exclusive updates delivered to your
-          inbox.
+          Gentle reflections on mindful living, delivered to your inbox.
+          No noise, no rush -- just a quiet moment of intention each week.
         </p>
         <form onSubmit={handleSubmit} className={styles.newsletterForm}>
           <input
@@ -61,7 +61,7 @@ const NewsletterSignup = () => {
             className={styles.newsletterButton}
             disabled={isSubmitting || !email}
           >
-            {isSubmitting ? "Subscribing..." : "Subscribe"}
+            {isSubmitting ? "Joining..." : "Join the Journey"}
           </button>
         </form>
 

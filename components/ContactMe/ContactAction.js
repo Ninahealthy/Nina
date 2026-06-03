@@ -1,9 +1,21 @@
 "use server";
 import nodemailer from "nodemailer";
 
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function sendContactMessage(formData) {
   try {
-    const { name, email, subject, message } = formData;
+    const { name: rawName, email, subject: rawSubject, message: rawMessage } = formData;
+    const name = escapeHtml(rawName);
+    const subject = rawSubject ? escapeHtml(rawSubject) : "";
+    const message = escapeHtml(rawMessage);
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -39,28 +51,28 @@ export async function sendContactMessage(formData) {
       to: process.env.MAILR,
       subject: `New Contact Form Message: ${subject || "No Subject"}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
+        <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #C07A56 0%, #8FA98B 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
             <h2 style="margin: 0; font-size: 24px;">New Contact Form Message</h2>
           </div>
-          
-          <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h3 style="color: #333; margin-top: 0;">Contact Details</h3>
+
+          <div style="background: #FAF7F2; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h3 style="color: #3D3832; margin-top: 0;">Contact Details</h3>
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Subject:</strong> ${subject || "No subject provided"}</p>
           </div>
-          
-          <div style="background: #fff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
-            <h3 style="color: #333; margin-top: 0;">Message</h3>
-            <p style="line-height: 1.6; color: #555;">${message.replace(
+
+          <div style="background: #fff; padding: 20px; border-radius: 8px; border-left: 4px solid #C07A56;">
+            <h3 style="color: #3D3832; margin-top: 0;">Message</h3>
+            <p style="line-height: 1.6; color: #6B6560;">${message.replace(
               /\n/g,
               "<br>"
             )}</p>
           </div>
-          
-          <div style="margin-top: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
-            <p style="margin: 0; font-size: 14px; color: #666;">
+
+          <div style="margin-top: 20px; padding: 15px; background: #F3EDE4; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; color: #6B6560;">
               This message was sent from your website contact form on ${new Date().toLocaleDateString(
                 "en-US",
                 {
@@ -84,34 +96,34 @@ export async function sendContactMessage(formData) {
       to: email,
       subject: "Thank you for your message!",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
-            <h2 style="margin: 0; font-size: 24px;">Thank You for Your Message!</h2>
+        <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #C07A56 0%, #8FA98B 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 24px;">Thank You for Your Message</h2>
           </div>
-          
-          <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <p style="margin: 0; color: #333; font-size: 16px; line-height: 1.6;">
+
+          <div style="background: #FAF7F2; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <p style="margin: 0; color: #3D3832; font-size: 16px; line-height: 1.6;">
               Hi ${name},
             </p>
-            <p style="color: #555; line-height: 1.6;">
-              Thank you for reaching out! I've received your message and will get back to you as soon as possible, usually within 24-48 hours.
+            <p style="color: #6B6560; line-height: 1.6;">
+              Thank you for reaching out. I have received your message and will get back to you as soon as possible, usually within 24-48 hours.
             </p>
           </div>
-          
-          <div style="background: #fff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; margin-bottom: 20px;">
-            <h3 style="color: #333; margin-top: 0;">Your Message Summary</h3>
+
+          <div style="background: #fff; padding: 20px; border-radius: 8px; border-left: 4px solid #C07A56; margin-bottom: 20px;">
+            <h3 style="color: #3D3832; margin-top: 0;">Your Message Summary</h3>
             <p><strong>Subject:</strong> ${subject || "No subject provided"}</p>
             <p><strong>Message:</strong></p>
-            <p style="color: #555; line-height: 1.6; font-style: italic;">${message.replace(
+            <p style="color: #6B6560; line-height: 1.6; font-style: italic;">${message.replace(
               /\n/g,
               "<br>"
             )}</p>
           </div>
-          
-          <div style="background: #e8f4f8; padding: 20px; border-radius: 8px;">
-            <p style="margin: 0; color: #666; font-size: 14px;">
-              Best regards,<br>
-              Nina 💚
+
+          <div style="background: #F3EDE4; padding: 20px; border-radius: 8px;">
+            <p style="margin: 0; color: #6B6560; font-size: 14px;">
+              With warmth,<br>
+              Nina
             </p>
           </div>
         </div>

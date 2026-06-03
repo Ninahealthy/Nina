@@ -1,4 +1,4 @@
-import SectionHeading from "../components/SectionHeading/SectionHeading";
+﻿import SectionHeading from "../components/SectionHeading/SectionHeading";
 import Card from "../components/Card/Card";
 import Button from "../components/Button/Button";
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
@@ -48,19 +48,19 @@ export default function Home() {
         </SectionHeading>
         <div className={styles.cardGrid}>
           <Card
-            image="/images/journal-1.jpg"
+            image="/images/journal-1.png"
             title="The Art of Doing Nothing"
             excerpt="Why rest is not laziness, and how learning to be still changed the way I move through my days."
             href="/journal/the-art-of-doing-nothing"
           />
           <Card
-            image="/images/journal-2.jpg"
+            image="/images/journal-2.png"
             title="Morning Rituals That Anchor Me"
             excerpt="A simple sequence of small acts that turns the first hour of the day into something sacred."
             href="/journal/morning-rituals-that-anchor-me"
           />
           <Card
-            image="/images/journal-3.jpg"
+            image="/images/journal-3.png"
             title="Letting Go of Perfect"
             excerpt="Perfectionism kept me busy but never at peace. Here is what happened when I stopped chasing it."
             href="/journal/letting-go-of-perfect"

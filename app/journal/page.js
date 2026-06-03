@@ -7,6 +7,41 @@ const CATEGORIES = ["All", "Mindfulness", "Intentional Living", "Reflections", "
 
 const ENTRIES = [
   {
+    slug: "the-art-of-gentle-transitions",
+    title: "The Art of Gentle Transitions",
+    excerpt: "How learning to pause between tasks can protect your energy and bring ease to your day.",
+    category: "Mindfulness",
+    image: "/images/journal-11.png",
+  },
+  {
+    slug: "digital-minimalism-in-a-loud-world",
+    title: "Digital Minimalism in a Loud World",
+    excerpt: "Practical ways to clear the digital noise and reclaim your attention for the things that matter.",
+    category: "Intentional Living",
+    image: "/images/journal-12.png",
+  },
+  {
+    slug: "finding-ritual-in-the-kitchen",
+    title: "Finding Ritual in the Kitchen",
+    excerpt: "How turning cooking into a sensory practice can ground you in the present moment.",
+    category: "Rituals",
+    image: "/images/journal-13.png",
+  },
+  {
+    slug: "the-gentle-discipline-of-saying-no",
+    title: "The Gentle Discipline of Saying No",
+    excerpt: "Saying no is not selfish. It is the boundary that allows your yes to have true meaning.",
+    category: "Intentional Living",
+    image: "/images/journal-14.png",
+  },
+  {
+    slug: "cultivating-a-mindful-workspace",
+    title: "Cultivating a Mindful Workspace",
+    excerpt: "Simple adjustments to your physical and mental environment to bring more peace to your work hours.",
+    category: "Mindfulness",
+    image: "/images/journal-15.png",
+  },
+  {
     slug: "the-art-of-doing-nothing",
     title: "The Art of Doing Nothing",
     excerpt: "Why rest is not laziness, and how learning to be still changed the way I move through my days.",
@@ -126,3 +161,4 @@ export default function JournalPage() {
     </div>
   );
 }
+

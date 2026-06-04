@@ -1,4 +1,5 @@
 import { Playfair_Display, Lora } from "next/font/google";
+import Script from "next/script";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./globals.css";
@@ -67,6 +68,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
       <body>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087636695455778"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <a href="#main-content" className="skipLink">
           Skip to content
         </a>

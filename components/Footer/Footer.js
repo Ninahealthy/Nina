@@ -55,6 +55,7 @@ const Footer = () => {
               </div>
             </div>
 
+            <nav aria-label="Footer navigation" className={styles.footerNav}>
             <div className={styles.linksSection}>
               <h3 className={styles.sectionTitle}>Explore</h3>
               <ul className={styles.linksList}>
@@ -96,13 +97,19 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+            </nav>
           </div>
 
           <div className={styles.footerBottom}>
             <div className={styles.footerBottomContent}>
-              <p className={styles.copyright}>
-                Nina Healthy {new Date().getFullYear()}
-              </p>
+              <div>
+                <p className={styles.copyright}>
+                  Nina Healthy {new Date().getFullYear()}
+                </p>
+                <p className={styles.disclaimer}>
+                  This site shares personal reflections on mindfulness and intentional living. It is not medical or therapeutic advice. Please consult a qualified professional for health concerns.
+                </p>
+              </div>
               <div className={styles.footerBottomLinks}>
                 <Link href="/privacy" className={styles.footerBottomLink}>
                   Privacy Policy

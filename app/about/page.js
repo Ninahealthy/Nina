@@ -1,21 +1,53 @@
+import Image from "next/image";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import styles from "./page.module.css";
 
 export const metadata = {
   title: "About",
-  description: "Meet Nina and learn about her journey to mindfulness and intentional living.",
+  description:
+    "Meet Nina and learn about her journey to mindfulness and intentional living.",
+  openGraph: {
+    title: "About Nina",
+    description:
+      "Meet Nina and learn about her journey to mindfulness and intentional living.",
+    url: "https://ninahealthy.com/about",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "About Nina, a mindfulness and intentional living guide",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://ninahealthy.com/about",
+  },
+};
+
+const PERSON_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Nina",
+  description:
+    "A seeker of stillness in a world that never stops moving. Sharing reflections on mindfulness and intentional living.",
+  url: "https://ninahealthy.com/about",
 };
 
 export default function AboutPage() {
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
+      <JsonLd data={PERSON_JSONLD} />
+      <section className={styles.hero} aria-label="About Nina">
         <div className={styles.heroImageWrapper}>
-          <div className={styles.heroImagePlaceholder}>
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1" />
-              <path d="M5 20C5 17.2386 8.13401 15 12 15C15.866 15 19 17.2386 19 20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-            </svg>
-          </div>
+          <Image
+            src="/images/about-hero.png"
+            alt="Nina, a wellness guide with a warm and peaceful expression"
+            fill
+            sizes="(max-width: 768px) 180px, 220px"
+            priority
+            className={styles.heroImage}
+          />
         </div>
         <h1 className={styles.heroTitle}>Hi, I'm Nina</h1>
         <p className={styles.heroSubtitle}>
@@ -23,7 +55,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className={styles.story}>
+      <section className={styles.story} aria-label="My story">
         <h2 className={styles.sectionTitle}>My Story</h2>
         <div className={styles.storyContent}>
           <p>
@@ -47,7 +79,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={styles.philosophy}>
+      <section className={styles.philosophy} aria-label="Values">
         <h2 className={styles.sectionTitle}>What Healthy Means Here</h2>
         <div className={styles.valuesGrid}>
           <div className={styles.valueCard}>
@@ -74,7 +106,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={styles.closing}>
+      <section className={styles.closing} aria-label="Closing note">
         <p className={styles.closingText}>
           I am not a doctor, a therapist, or a guru. I am someone who found
           peace through small, daily acts of attention and I believe you can

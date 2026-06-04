@@ -71,7 +71,6 @@
 }
 
 .newsletterInput:focus {
-  outline: none;
   border-color: var(--color-terracotta);
   box-shadow: 0 0 0 3px rgba(192, 122, 86, 0.1);
 }
@@ -141,13 +140,13 @@
   }
 }
 
-@media (min-width: 481px) {
+@media (min-width: 640px) {
   .newsletterSection {
     padding: 4rem 3rem;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .newsletterSection {
     padding: 5rem 3rem;
   }
@@ -161,8 +160,8 @@
   }
 }
 
-.newsletterInput:focus,
-.newsletterButton:focus {
+.newsletterInput:focus-visible,
+.newsletterButton:focus-visible {
   outline: 3px solid var(--color-terracotta);
   outline-offset: 2px;
 }

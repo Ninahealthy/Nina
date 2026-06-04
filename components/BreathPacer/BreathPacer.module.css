@@ -1,0 +1,117 @@
+.pacer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-48);
+  text-align: center;
+}
+
+.circleContainer {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(143, 169, 139, 0.2),
+    rgba(192, 122, 86, 0.15)
+  );
+  transform: scale(0.6);
+  transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.circleInner {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(143, 169, 139, 0.3),
+    rgba(192, 122, 86, 0.2)
+  );
+}
+
+.circleLabel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.phaseText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  letter-spacing: 0.05em;
+}
+
+.countdownText {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-terracotta);
+  line-height: 1;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 360px;
+}
+
+.toggleButton {
+  padding: 0.75rem 2rem;
+  background: var(--color-terracotta);
+  color: var(--color-warmwhite);
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  clip-path: var(--clip-path-squircle-20);
+  box-shadow: 0 4px 12px rgba(192, 122, 86, 0.25);
+}
+
+.toggleButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(192, 122, 86, 0.35);
+  background: var(--color-olive);
+}
+
+.toggleButton:focus-visible {
+  outline: 3px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .circleContainer {
+    width: 220px;
+    height: 220px;
+  }
+
+  .pacer {
+    padding: 4rem 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle {
+    transition: none;
+  }
+}

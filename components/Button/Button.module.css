@@ -41,3 +41,19 @@
   cursor: not-allowed;
   transform: none;
 }
+
+.button:focus-visible {
+  outline: 3px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .primary:hover,
+  .secondary:hover {
+    transform: none;
+  }
+}

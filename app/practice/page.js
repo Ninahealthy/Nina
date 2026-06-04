@@ -1,10 +1,41 @@
-import SectionHeading from "../../components/SectionHeading/SectionHeading";
-import Button from "../../components/Button/Button";
+import SectionHeading from "@/components/SectionHeading/SectionHeading";
+import Button from "@/components/Button/Button";
+import BreathPacer from "@/components/BreathPacer/BreathPacer";
+import PageHero from "@/components/PageHero/PageHero";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import styles from "./page.module.css";
 
 export const metadata = {
   title: "Practice",
-  description: "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+  description:
+    "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+  openGraph: {
+    title: "Practice",
+    description:
+      "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+    url: "https://ninahealthy.com/practice",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Nina Healthy mindfulness practices",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://ninahealthy.com/practice",
+  },
+};
+
+const PRACTICE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Practice",
+  description:
+    "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+  url: "https://ninahealthy.com/practice",
+  specialty: "Mindfulness",
 };
 
 const PRACTICES = [
@@ -57,15 +88,13 @@ const PRACTICES = [
 export default function PracticePage() {
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Practice</h1>
-        <p className={styles.heroSubtitle}>
-          Mindfulness is not something you master. It is something you
-          practice, gently, every day. Start wherever you are.
-        </p>
-      </section>
+      <JsonLd data={PRACTICE_JSONLD} />
+      <PageHero
+        title="Practice"
+        subtitle="Mindfulness is not something you master. It is something you practice, gently, every day. Start wherever you are."
+      />
 
-      <section className={styles.invitation}>
+      <section className={styles.invitation} aria-label="Grounding moment">
         <div className={styles.invitationCard}>
           <p className={styles.invitationLabel}>A moment before you begin</p>
           <p className={styles.invitationText}>
@@ -75,7 +104,14 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <section className={styles.practices}>
+      <section className={styles.breathPacerSection} aria-label="Breathing exercise">
+        <SectionHeading subtitle="Follow the circle. Let your breath find its rhythm.">
+          Breathe With Me
+        </SectionHeading>
+        <BreathPacer />
+      </section>
+
+      <section className={styles.practices} aria-label="Mindfulness practices">
         <SectionHeading subtitle="Simple practices for everyday calm.">
           Ways to Begin
         </SectionHeading>
@@ -103,7 +139,7 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <section className={styles.cta}>
+      <section className={styles.cta} aria-label="Call to action">
         <p className={styles.ctaText}>
           Want to explore these ideas further? The journal has longer
           reflections on each of these practices.

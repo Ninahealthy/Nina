@@ -88,7 +88,6 @@
 
 .contactInput:focus,
 .contactTextarea:focus {
-  outline: none;
   border-color: var(--color-terracotta);
   box-shadow: 0 0 0 3px rgba(192, 122, 86, 0.1);
 }
@@ -159,19 +158,17 @@
   }
 }
 
-@media (min-width: 481px) {
+@media (min-width: 640px) {
   .contactSection {
     padding: 4rem 3rem;
   }
-}
 
-@media (min-width: 641px) {
   .formRow {
     flex-direction: row;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .contactSection {
     padding: 5rem 3rem;
   }
@@ -181,9 +178,9 @@
   }
 }
 
-.contactInput:focus,
-.contactTextarea:focus,
-.contactButton:focus {
+.contactInput:focus-visible,
+.contactTextarea:focus-visible,
+.contactButton:focus-visible {
   outline: 3px solid var(--color-terracotta);
   outline-offset: 2px;
 }

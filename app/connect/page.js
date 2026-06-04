@@ -1,32 +1,57 @@
-import ContactForm from "../../components/ContactMe/ContactMe";
-import NewsletterSignup from "../../components/NewsletterSignup/NewsletterSignup";
+import ContactForm from "@/components/ContactMe/ContactMe";
+import NewsletterSignup from "@/components/NewsletterSignup/NewsletterSignup";
+import PageHero from "@/components/PageHero/PageHero";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import styles from "./page.module.css";
 
 export const metadata = {
   title: "Connect",
-  description: "Get in touch with Nina. Send a message, subscribe to the newsletter, or find me on social media.",
+  description:
+    "Get in touch with Nina. Send a message, subscribe to the newsletter, or find me on social media.",
+  openGraph: {
+    title: "Connect with Nina",
+    description:
+      "Get in touch with Nina. Send a message, subscribe to the newsletter, or find me on social media.",
+    url: "https://ninahealthy.com/connect",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Connect with Nina Healthy",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://ninahealthy.com/connect",
+  },
+};
+
+const CONTACT_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Connect with Nina",
+  url: "https://ninahealthy.com/connect",
 };
 
 export default function ConnectPage() {
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Let's Connect</h1>
-        <p className={styles.heroSubtitle}>
-          Whether you have a question, a thought to share, or just want
-          to say hello, I would love to hear from you.
-        </p>
-      </section>
+      <JsonLd data={CONTACT_JSONLD} />
+      <PageHero
+        title="Let's Connect"
+        subtitle="Whether you have a question, a thought to share, or just want to say hello, I would love to hear from you."
+      />
 
-      <section className={styles.contactSection}>
+      <section className={styles.contactSection} aria-label="Contact form">
         <ContactForm />
       </section>
 
-      <section id="newsletter" className={styles.newsletterSection}>
+      <section id="newsletter" className={styles.newsletterSection} aria-label="Newsletter signup">
         <NewsletterSignup />
       </section>
 
-      <section className={styles.socialSection}>
+      <section className={styles.socialSection} aria-label="Social media links">
         <h2 className={styles.socialTitle}>Find Me Elsewhere</h2>
         <div className={styles.socialLinks}>
           <a

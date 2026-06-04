@@ -5,27 +5,6 @@
   padding-bottom: 4rem;
 }
 
-.hero {
-  text-align: center;
-  padding: 8rem 1.5rem 2rem;
-}
-
-.heroTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
-  color: var(--color-charcoal);
-  margin-bottom: 1rem;
-}
-
-.heroSubtitle {
-  font-size: 1.125rem;
-  color: var(--color-stone);
-  max-width: 500px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
 .contactSection {
   max-width: 800px;
   margin: 0 auto;
@@ -81,8 +60,3 @@
   transform: translateY(-2px);
 }
 
-@media (min-width: 769px) {
-  .heroTitle {
-    font-size: 3rem;
-  }
-}

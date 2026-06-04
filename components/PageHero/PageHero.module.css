@@ -1,0 +1,28 @@
+.hero {
+  text-align: center;
+  padding: 8rem 1.5rem 2rem;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-stone);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+}

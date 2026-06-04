@@ -1,13 +1,43 @@
-﻿import SectionHeading from "../components/SectionHeading/SectionHeading";
+import Image from "next/image";
+import SectionHeading from "../components/SectionHeading/SectionHeading";
 import Card from "../components/Card/Card";
 import Button from "../components/Button/Button";
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
+import JsonLd from "../components/JsonLd/JsonLd";
 import styles from "./page.module.css";
+
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Nina Healthy",
+  url: "https://ninahealthy.com",
+  description:
+    "Finding peace in the everyday. A personal journey through mindfulness, intentional living, and inner wellness.",
+  publisher: {
+    "@type": "Organization",
+    name: "Nina Healthy",
+    url: "https://ninahealthy.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://ninahealthy.com/icon.svg",
+    },
+  },
+};
+
+const ORGANIZATION_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Nina Healthy",
+  url: "https://ninahealthy.com",
+  logo: "https://ninahealthy.com/icon.svg",
+};
 
 export default function Home() {
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
+      <JsonLd data={WEBSITE_JSONLD} />
+      <JsonLd data={ORGANIZATION_JSONLD} />
+      <section className={styles.hero} aria-label="Introduction">
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Finding peace in the everyday</h1>
           <p className={styles.heroSubtitle}>
@@ -17,16 +47,18 @@ export default function Home() {
           <Button href="/practice">Begin the journey</Button>
         </div>
         <div className={styles.heroImageWrapper}>
-          <div className={styles.heroImagePlaceholder}>
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22C12 17 7 14 7 9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9C17 14 12 17 12 22Z" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12 4V2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-            </svg>
-          </div>
+          <Image
+            src="/images/home-hero.png"
+            alt="Serene meadow with soft morning light filtering through wildflowers"
+            fill
+            sizes="(max-width: 768px) 200px, (max-width: 1024px) 300px, 360px"
+            priority
+            className={styles.heroImage}
+          />
         </div>
       </section>
 
-      <section className={styles.philosophy}>
+      <section className={styles.philosophy} aria-label="Philosophy">
         <div className={styles.philosophyCard}>
           <h2 className={styles.philosophyTitle}>
             What does healthy really mean?
@@ -35,14 +67,14 @@ export default function Home() {
             For me, healthy has never been about diets or routines. It is about
             the quiet moments between the noise. The deep breath before you
             respond. The choice to be present instead of productive. Nina
-            Healthy is a space where inner wellness comes first -- where mental
+            Healthy is a space where inner wellness comes first, where mental
             clarity, calm, and intentional living are the foundation of a
             good life.
           </p>
         </div>
       </section>
 
-      <section className={styles.featured}>
+      <section className={styles.featured} aria-label="Featured journal entries">
         <SectionHeading subtitle="Reflections on mindful living, one thought at a time.">
           From the Journal
         </SectionHeading>
@@ -68,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.practiceTeaser}>
+      <section className={styles.practiceTeaser} aria-label="Daily invitation">
         <div className={styles.practiceTeaserCard}>
           <p className={styles.practiceLabel}>Today's invitation</p>
           <p className={styles.practiceQuote}>
@@ -81,7 +113,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.newsletter}>
+      <section className={styles.newsletter} aria-label="Newsletter signup">
         <NewsletterSignup />
       </section>
     </div>

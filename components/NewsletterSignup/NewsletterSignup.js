@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { subscribeToNewsletter } from "./NewsletterAction";
 import styles from "./NewsletterSignup.module.css";
 
-const NewsletterSignup = () => {
+const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -39,15 +39,19 @@ const NewsletterSignup = () => {
   return (
     <div className={styles.newsletterSection}>
       <div className={styles.newsletterContent}>
-        <h4 className={styles.newsletterTitle}>
+        <HeadingTag className={styles.newsletterTitle}>
           Stay Grounded
-        </h4>
+        </HeadingTag>
         <p className={styles.newsletterDescription}>
           Gentle reflections on mindful living, delivered to your inbox.
-          No noise, no rush -- just a quiet moment of intention each week.
+          No noise, no rush; just a quiet moment of intention each week.
         </p>
         <form onSubmit={handleSubmit} className={styles.newsletterForm}>
+          <label htmlFor="newsletter-email" className="visuallyHidden">
+            Email address
+          </label>
           <input
+            id="newsletter-email"
             type="email"
             placeholder="Enter your email address"
             value={email}
@@ -55,6 +59,7 @@ const NewsletterSignup = () => {
             className={styles.newsletterInput}
             required
             disabled={isSubmitting}
+            autoComplete="email"
           />
           <button
             type="submit"

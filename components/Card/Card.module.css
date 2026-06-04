@@ -50,12 +50,30 @@
   color: var(--color-terracotta);
 }
 
+.titleLink:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
 .excerpt {
   font-size: 0.95rem;
   color: var(--color-stone);
   line-height: 1.6;
   margin-bottom: 1rem;
 }
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.readingTime {
+  font-size: 0.8rem;
+  color: var(--color-pebble);
+  font-style: italic;
+}
+
 
 .readMore {
   font-size: 0.9rem;
@@ -69,8 +87,39 @@
   color: var(--color-olive);
 }
 
-@media (min-width: 769px) {
+.readMore:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
   .content {
     padding: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .image {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .image {
+    transform: none;
+  }
+
+  .titleLink {
+    transition: none;
+  }
+
+  .readMore {
+    transition: none;
   }
 }

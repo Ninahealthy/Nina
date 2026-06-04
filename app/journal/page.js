@@ -1,164 +1,154 @@
-"use client";
-import { useState } from "react";
-import Card from "../../components/Card/Card";
+import { ARTICLES } from "@/lib/articles";
+import JournalFilter from "@/components/JournalFilter/JournalFilter";
+import PageHero from "@/components/PageHero/PageHero";
+import JsonLd from "@/components/JsonLd/JsonLd";
+import { getReadingTime } from "@/lib/readingTime";
 import styles from "./page.module.css";
 
-const CATEGORIES = ["All", "Mindfulness", "Intentional Living", "Reflections", "Rituals"];
+export const metadata = {
+  title: "Journal",
+  description:
+    "Thoughts on mindful living, written from wherever I am in the journey.",
+  openGraph: {
+    title: "Journal",
+    description:
+      "Thoughts on mindful living, written from wherever I am in the journey.",
+    url: "https://ninahealthy.com/journal",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Nina Healthy journal, reflections on mindful living",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://ninahealthy.com/journal",
+  },
+};
 
-const ENTRIES = [
-  {
-    slug: "the-art-of-gentle-transitions",
-    title: "The Art of Gentle Transitions",
-    excerpt: "How learning to pause between tasks can protect your energy and bring ease to your day.",
-    category: "Mindfulness",
-    image: "/images/journal-11.png",
-  },
-  {
-    slug: "digital-minimalism-in-a-loud-world",
-    title: "Digital Minimalism in a Loud World",
-    excerpt: "Practical ways to clear the digital noise and reclaim your attention for the things that matter.",
-    category: "Intentional Living",
-    image: "/images/journal-12.png",
-  },
-  {
-    slug: "finding-ritual-in-the-kitchen",
-    title: "Finding Ritual in the Kitchen",
-    excerpt: "How turning cooking into a sensory practice can ground you in the present moment.",
-    category: "Rituals",
-    image: "/images/journal-13.png",
-  },
-  {
-    slug: "the-gentle-discipline-of-saying-no",
-    title: "The Gentle Discipline of Saying No",
-    excerpt: "Saying no is not selfish. It is the boundary that allows your yes to have true meaning.",
-    category: "Intentional Living",
-    image: "/images/journal-14.png",
-  },
-  {
-    slug: "cultivating-a-mindful-workspace",
-    title: "Cultivating a Mindful Workspace",
-    excerpt: "Simple adjustments to your physical and mental environment to bring more peace to your work hours.",
-    category: "Mindfulness",
-    image: "/images/journal-15.png",
-  },
-  {
-    slug: "the-art-of-doing-nothing",
-    title: "The Art of Doing Nothing",
-    excerpt: "Why rest is not laziness, and how learning to be still changed the way I move through my days.",
-    category: "Mindfulness",
-    image: "/images/journal-1.png",
-  },
-  {
-    slug: "morning-rituals-that-anchor-me",
-    title: "Morning Rituals That Anchor Me",
-    excerpt: "A simple sequence of small acts that turns the first hour of the day into something sacred.",
-    category: "Rituals",
-    image: "/images/journal-2.png",
-  },
-  {
-    slug: "letting-go-of-perfect",
-    title: "Letting Go of Perfect",
-    excerpt: "Perfectionism kept me busy but never at peace. Here is what happened when I stopped chasing it.",
-    category: "Reflections",
-    image: "/images/journal-3.png",
-  },
-  {
-    slug: "the-quiet-power-of-a-slow-morning",
-    title: "The Quiet Power of a Slow Morning",
-    excerpt: "What happens when you stop rushing through the first hours of your day and let them unfold at their own pace.",
-    category: "Intentional Living",
-    image: "/images/journal-4.png",
-  },
-  {
-    slug: "breathing-through-the-overwhelm",
-    title: "Breathing Through the Overwhelm",
-    excerpt: "When everything feels like too much, three breaths can change the entire shape of the moment.",
-    category: "Mindfulness",
-    image: "/images/journal-5.png",
-  },
-  {
-    slug: "seasonal-living-as-practice",
-    title: "Seasonal Living as Practice",
-    excerpt: "Aligning your rhythms with the natural world is one of the gentlest forms of self-care I know.",
-    category: "Rituals",
-    image: "/images/journal-6.png",
-  },
-  {
-    slug: "the-weight-of-being-available",
-    title: "The Weight of Being Available",
-    excerpt: "On the quiet exhaustion of a life with no boundaries between reachable and resting.",
-    category: "Intentional Living",
-    image: "/images/journal-7.png",
-  },
-  {
-    slug: "what-i-mean-when-i-say-gentle",
-    title: "What I Mean When I Say Gentle",
-    excerpt: "Gentleness is not weakness. It is the strongest way I know to move through a hard world.",
-    category: "Reflections",
-    image: "/images/journal-8.png",
-  },
-  {
-    slug: "learning-to-sit-with-discomfort",
-    title: "Learning to Sit with Discomfort",
-    excerpt: "The urge to fix, flee, or distract is strong. But some feelings just need a witness.",
-    category: "Mindfulness",
-    image: "/images/journal-9.png",
-  },
-  {
-    slug: "the-myth-of-balance",
-    title: "The Myth of Balance",
-    excerpt: "What if balance is not a state to achieve but a conversation to keep having with yourself?",
-    category: "Intentional Living",
-    image: "/images/journal-10.png",
-  },
+/**
+ * Card-level entries derived from the full articles.
+ * This runs on the server; only the lightweight card data
+ * is serialized and passed to the JournalFilter client component.
+ */
+const ENTRY_ORDER = [
+  "sleep-as-surrender",
+  "tending-the-inner-weather",
+  "the-long-exhale",
+  "on-walking-without-a-destination",
+  "the-body-keeps-a-quiet-score",
+  "the-art-of-gentle-transitions",
+  "digital-minimalism-in-a-loud-world",
+  "finding-ritual-in-the-kitchen",
+  "the-gentle-discipline-of-saying-no",
+  "cultivating-a-mindful-workspace",
+  "the-art-of-doing-nothing",
+  "morning-rituals-that-anchor-me",
+  "letting-go-of-perfect",
+  "the-quiet-power-of-a-slow-morning",
+  "breathing-through-the-overwhelm",
+  "seasonal-living-as-practice",
+  "the-weight-of-being-available",
+  "what-i-mean-when-i-say-gentle",
+  "learning-to-sit-with-discomfort",
+  "the-myth-of-balance",
 ];
 
-export default function JournalPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+const CARD_IMAGES = {
+  "sleep-as-surrender": "/images/journal-20.png",
+  "tending-the-inner-weather": "/images/journal-19.png",
+  "the-long-exhale": "/images/journal-18.png",
+  "on-walking-without-a-destination": "/images/journal-17.png",
+  "the-body-keeps-a-quiet-score": "/images/journal-16.png",
+  "the-art-of-gentle-transitions": "/images/journal-11.png",
+  "digital-minimalism-in-a-loud-world": "/images/journal-12.png",
+  "finding-ritual-in-the-kitchen": "/images/journal-13.png",
+  "the-gentle-discipline-of-saying-no": "/images/journal-14.png",
+  "cultivating-a-mindful-workspace": "/images/journal-15.png",
+  "the-art-of-doing-nothing": "/images/journal-1.png",
+  "morning-rituals-that-anchor-me": "/images/journal-2.png",
+  "letting-go-of-perfect": "/images/journal-3.png",
+  "the-quiet-power-of-a-slow-morning": "/images/journal-4.png",
+  "breathing-through-the-overwhelm": "/images/journal-5.png",
+  "seasonal-living-as-practice": "/images/journal-6.png",
+  "the-weight-of-being-available": "/images/journal-7.png",
+  "what-i-mean-when-i-say-gentle": "/images/journal-8.png",
+  "learning-to-sit-with-discomfort": "/images/journal-9.png",
+  "the-myth-of-balance": "/images/journal-10.png",
+};
 
-  const filteredEntries = activeCategory === "All"
-    ? ENTRIES
-    : ENTRIES.filter((entry) => entry.category === activeCategory);
+const CARD_EXCERPTS = {
+  "sleep-as-surrender": "What if sleep is the one thing that cannot be optimized, only invited? On letting go of the performance of rest.",
+  "tending-the-inner-weather": "Emotions are not problems to solve. They are weather to notice, name, and let pass.",
+  "the-long-exhale": "The science and ritual behind a longer breath out, and why your nervous system has been waiting for it.",
+  "on-walking-without-a-destination": "What happens when you walk with no route, no earbuds, and no purpose other than presence.",
+  "the-body-keeps-a-quiet-score": "Your body has been keeping notes long before your mind started paying attention. On learning to listen.",
+  "the-art-of-gentle-transitions": "How learning to pause between tasks can protect your energy and bring ease to your day.",
+  "digital-minimalism-in-a-loud-world": "Practical ways to clear the digital noise and reclaim your attention for the things that matter.",
+  "finding-ritual-in-the-kitchen": "How turning cooking into a sensory practice can ground you in the present moment.",
+  "the-gentle-discipline-of-saying-no": "Saying no is not selfish. It is the boundary that allows your yes to have true meaning.",
+  "cultivating-a-mindful-workspace": "Simple adjustments to your physical and mental environment to bring more peace to your work hours.",
+  "the-art-of-doing-nothing": "Why rest is not laziness, and how learning to be still changed the way I move through my days.",
+  "morning-rituals-that-anchor-me": "A simple sequence of small acts that turns the first hour of the day into something sacred.",
+  "letting-go-of-perfect": "Perfectionism kept me busy but never at peace. Here is what happened when I stopped chasing it.",
+  "the-quiet-power-of-a-slow-morning": "What happens when you stop rushing through the first hours of your day and let them unfold at their own pace.",
+  "breathing-through-the-overwhelm": "When everything feels like too much, three breaths can change the entire shape of the moment.",
+  "seasonal-living-as-practice": "Aligning your rhythms with the natural world is one of the gentlest forms of self-care I know.",
+  "the-weight-of-being-available": "On the quiet exhaustion of a life with no boundaries between reachable and resting.",
+  "what-i-mean-when-i-say-gentle": "Gentleness is not weakness. It is the strongest way I know to move through a hard world.",
+  "learning-to-sit-with-discomfort": "The urge to fix, flee, or distract is strong. But some feelings just need a witness.",
+  "the-myth-of-balance": "What if balance is not a state to achieve but a conversation to keep having with yourself?",
+};
+
+function buildEntries() {
+  return ENTRY_ORDER.map((slug) => {
+    const article = ARTICLES[slug];
+    return {
+      slug,
+      title: article.title,
+      excerpt: CARD_EXCERPTS[slug] || article.lead,
+      category: article.category,
+      image: CARD_IMAGES[slug] || "/images/journal-1.png",
+      readingTime: getReadingTime(article.content),
+    };
+  });
+}
+
+function buildCollectionJsonLd(entries) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Journal",
+    description:
+      "Thoughts on mindful living, written from wherever I am in the journey.",
+    url: "https://ninahealthy.com/journal",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: entries.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://ninahealthy.com/journal/${entry.slug}`,
+        name: entry.title,
+      })),
+    },
+  };
+}
+
+export default function JournalPage() {
+  const entries = buildEntries();
+  const collectionJsonLd = buildCollectionJsonLd(entries);
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Journal</h1>
-        <p className={styles.heroSubtitle}>
-          Thoughts on mindful living, written from wherever I am in the journey.
-        </p>
-      </section>
+      <JsonLd data={collectionJsonLd} />
+      <PageHero
+        title="Journal"
+        subtitle="Thoughts on mindful living, written from wherever I am in the journey."
+      />
 
-      <section className={styles.filters}>
-        <div className={styles.filterTabs}>
-          {CATEGORIES.map((category) => (
-            <button
-              key={category}
-              className={`${styles.filterTab} ${
-                activeCategory === category ? styles.filterTabActive : ""
-              }`}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.entries}>
-        <div className={styles.cardGrid}>
-          {filteredEntries.map((entry) => (
-            <Card
-              key={entry.slug}
-              image={entry.image}
-              title={entry.title}
-              excerpt={entry.excerpt}
-              href={`/journal/${entry.slug}`}
-            />
-          ))}
-        </div>
-      </section>
+      <JournalFilter entries={entries} />
     </div>
   );
 }
-

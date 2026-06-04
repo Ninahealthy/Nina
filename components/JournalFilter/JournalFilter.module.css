@@ -1,0 +1,71 @@
+.filters {
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filterTab {
+  padding: 0.5rem 1.25rem;
+  background: var(--color-linen);
+  color: var(--color-stone);
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  clip-path: var(--clip-path-squircle-10);
+}
+
+.filterTab:hover {
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+}
+
+.filterTabActive {
+  background: var(--color-terracotta);
+  color: var(--color-warmwhite);
+}
+
+.filterTabActive:hover {
+  background: var(--color-olive);
+  color: var(--color-warmwhite);
+}
+
+.filterTab:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+.entries {
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -41,7 +41,7 @@ Nina Healthy is a personal mindfulness and lifestyle brand. "Healthy" means inne
 
 | Component | Path | Props |
 |---|---|---|
-| Header | `components/Header/Header1.js` | none |
+| Header | `components/Header/Header.js` | none |
 | Footer | `components/Footer/Footer.js` | none |
 | NewsletterSignup | `components/NewsletterSignup/NewsletterSignup.js` | none |
 | ContactForm | `components/ContactMe/ContactMe.js` | none |

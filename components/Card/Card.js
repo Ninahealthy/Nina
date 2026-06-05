@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Card.module.css";
 
-const Card = ({ image, alt, title, excerpt, href, readingTime }) => {
+const Card = ({ image, alt, title, excerpt, href, readingTime, date }) => {
   return (
     <article className={styles.card}>
       {image && (
@@ -28,13 +28,18 @@ const Card = ({ image, alt, title, excerpt, href, readingTime }) => {
         </h3>
         {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
         <div className={styles.cardFooter}>
+          <div className={styles.cardMeta}>
+            {date && (
+              <span className={styles.date}>{date}</span>
+            )}
+            {readingTime && (
+              <span className={styles.readingTime}>{readingTime} min read</span>
+            )}
+          </div>
           {href && (
             <Link href={href} className={styles.readMore}>
               Read more
             </Link>
-          )}
-          {readingTime && (
-            <span className={styles.readingTime}>{readingTime} min read</span>
           )}
         </div>
       </div>

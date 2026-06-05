@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import styles from "./Header.module.css";
 
 const NAV_ITEMS = [
@@ -151,6 +152,8 @@ const Header = () => {
             </Link>
           ))}
         </nav>
+
+        <ThemeToggle />
 
         {/* Single toggle that morphs between hamburger and X */}
         <button

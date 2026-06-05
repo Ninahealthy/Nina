@@ -332,7 +332,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-cream: #1A1714;
     --color-linen: #2A2520;
     --color-warmwhite: #221E1A;
@@ -350,8 +350,28 @@
   }
 }
 
+/* Manual dark mode override via ThemeToggle */
+:root[data-theme="dark"] {
+  --color-cream: #1A1714;
+  --color-linen: #2A2520;
+  --color-warmwhite: #221E1A;
+  --color-charcoal: #E8E0D6;
+  --color-stone: #B0A89E;
+  --color-pebble: #8A837D;
+  --color-terracotta: #D4926B;
+  --color-sage: #A3BDA0;
+  --color-olive: #8A9E7D;
+  --color-clay: #B09974;
+  --color-sand: #3D3530;
+
+  --background: var(--color-cream);
+  --foreground: var(--color-charcoal);
+  color-scheme: dark;
+}
+
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -418,9 +438,23 @@ main {
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
+  html:not([data-theme="light"]) {
     color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Global focus-visible styles for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,18 +1,22 @@
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import Button from "@/components/Button/Button";
 import BreathPacer from "@/components/BreathPacer/BreathPacer";
+import MeditationTimer from "@/components/MeditationTimer/MeditationTimer";
+import DailyIntention from "@/components/DailyIntention/DailyIntention";
+import GroundingExercise from "@/components/GroundingExercise/GroundingExercise";
 import PageHero from "@/components/PageHero/PageHero";
+import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import styles from "./page.module.css";
 
 export const metadata = {
   title: "Practice",
   description:
-    "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+    "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
   openGraph: {
     title: "Practice",
     description:
-      "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+      "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
     url: "https://ninahealthy.com/practice",
     images: [
       {
@@ -33,7 +37,7 @@ const PRACTICE_JSONLD = {
   "@type": "WebPage",
   name: "Practice",
   description:
-    "Simple mindfulness practices for everyday calm. Breathing exercises, morning rituals, and seasonal guides.",
+    "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
   url: "https://ninahealthy.com/practice",
   specialty: "Mindfulness",
 };
@@ -94,50 +98,93 @@ export default function PracticePage() {
         subtitle="Mindfulness is not something you master. It is something you practice, gently, every day. Start wherever you are."
       />
 
-      <section className={styles.invitation} aria-label="Grounding moment">
-        <div className={styles.invitationCard}>
-          <p className={styles.invitationLabel}>A moment before you begin</p>
-          <p className={styles.invitationText}>
-            Close your eyes. Take one full breath. Feel your feet on the
-            ground. You are here. That is enough to start.
-          </p>
-        </div>
-      </section>
+      <ScrollReveal>
+        <section className={styles.intention} aria-label="Daily intention">
+          <SectionHeading subtitle="A small anchor for your day.">
+            Set Your Intention
+          </SectionHeading>
+          <DailyIntention />
+        </section>
+      </ScrollReveal>
 
-      <section className={styles.breathPacerSection} aria-label="Breathing exercise">
-        <SectionHeading subtitle="Follow the circle. Let your breath find its rhythm.">
-          Breathe With Me
-        </SectionHeading>
-        <BreathPacer />
-      </section>
+      <ScrollReveal>
+        <section
+          className={styles.groundingSection}
+          aria-label="Grounding exercise"
+        >
+          <SectionHeading subtitle="A gentle return to the present moment through your five senses.">
+            Ground Yourself
+          </SectionHeading>
+          <GroundingExercise />
+        </section>
+      </ScrollReveal>
 
-      <section className={styles.practices} aria-label="Mindfulness practices">
-        <SectionHeading subtitle="Simple practices for everyday calm.">
-          Ways to Begin
-        </SectionHeading>
-        <div className={styles.practiceGrid}>
-          {PRACTICES.map((practice) => (
-            <div key={practice.title} className={styles.practiceCard}>
-              <h3 className={styles.practiceTitle}>{practice.title}</h3>
-              <p className={styles.practiceDescription}>
-                {practice.description}
-              </p>
-              <ul className={styles.practiceList}>
-                {practice.items.map((item, i) => (
-                  <li key={i} className={styles.practiceItem}>
-                    <span className={styles.practiceItemIcon}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 22C12 17 7 14 7 9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9C17 14 12 17 12 22Z" stroke="currentColor" strokeWidth="2" />
-                      </svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ScrollReveal>
+        <section
+          className={styles.breathPacerSection}
+          aria-label="Breathing exercise"
+        >
+          <SectionHeading subtitle="Follow the circle. If comfortable, let your eyes soften or close. Let your breath find its rhythm.">
+            Breathe With Me
+          </SectionHeading>
+          <BreathPacer />
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section
+          className={styles.timerSection}
+          aria-label="Meditation timer"
+        >
+          <SectionHeading subtitle="Choose a duration. Sit quietly. If it feels intense, feel free to return to your natural rhythm at any time.">
+            Meditation Timer
+          </SectionHeading>
+          <MeditationTimer />
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section
+          className={styles.practices}
+          aria-label="Mindfulness practices"
+        >
+          <SectionHeading subtitle="Simple practices for everyday calm. Try what resonates; leave what does not.">
+            Ways to Begin
+          </SectionHeading>
+          <div className={styles.practiceGrid}>
+            {PRACTICES.map((practice) => (
+              <div key={practice.title} className={styles.practiceCard}>
+                <h3 className={styles.practiceTitle}>{practice.title}</h3>
+                <p className={styles.practiceDescription}>
+                  {practice.description}
+                </p>
+                <ul className={styles.practiceList}>
+                  {practice.items.map((item, i) => (
+                    <li key={i} className={styles.practiceItem}>
+                      <span className={styles.practiceItemIcon}>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 22C12 17 7 14 7 9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9C17 14 12 17 12 22Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
 
       <section className={styles.cta} aria-label="Call to action">
         <p className={styles.ctaText}>

@@ -113,6 +113,20 @@
   line-height: 1.7;
 }
 
+.timeline {
+  padding: 0 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.faqSection {
+  padding: 0 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .closing {
   padding: 0 1.5rem;
   max-width: 600px;

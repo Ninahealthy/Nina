@@ -1,0 +1,39 @@
+.bar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-linen);
+  color: var(--color-stone);
+  border: none;
+  clip-path: var(--clip-path-squircle-20);
+  cursor: pointer;
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.shareButton:hover {
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+}
+
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+.shareButton svg {
+  flex-shrink: 0;
+}

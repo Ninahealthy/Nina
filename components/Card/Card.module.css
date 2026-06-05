@@ -68,6 +68,17 @@
   justify-content: space-between;
 }
 
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: var(--color-pebble);
+}
+
 .readingTime {
   font-size: 0.8rem;
   color: var(--color-pebble);

@@ -2,6 +2,7 @@ import { Playfair_Display, Lora } from "next/font/google";
 import Script from "next/script";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -61,6 +62,9 @@ export const metadata = {
   },
   alternates: {
     canonical: "https://ninahealthy.com",
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
   },
 };
 
@@ -80,6 +84,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

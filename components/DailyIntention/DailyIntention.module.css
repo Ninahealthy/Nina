@@ -1,0 +1,117 @@
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card {
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-48);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: 1.25rem;
+}
+
+.inputState {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.previousLabel {
+  font-size: 0.8rem;
+  color: var(--color-pebble);
+}
+
+.previousText {
+  font-style: italic;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--color-warmwhite);
+  border: 1px solid var(--color-sand);
+  clip-path: var(--clip-path-squircle-20);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+  resize: none;
+  line-height: 1.6;
+}
+
+.input::placeholder {
+  color: var(--color-pebble);
+}
+
+.input:focus {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+.saveButton {
+  padding: 0.6rem 1.5rem;
+  background: var(--color-sage);
+  color: white;
+  border: none;
+  clip-path: var(--clip-path-squircle-20);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+}
+
+.saveButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.saveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.savedState {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.savedIntention {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  color: var(--color-pebble);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font-body), Georgia, serif;
+  min-height: 44px;
+}
+
+.editButton:hover {
+  color: var(--color-stone);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2.5rem 2rem;
+  }
+}

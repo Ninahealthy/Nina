@@ -9,6 +9,42 @@
   text-align: center;
 }
 
+.patternSelector {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.patternButton {
+  padding: 0.4rem 0.75rem;
+  background: var(--color-warmwhite);
+  color: var(--color-stone);
+  border: none;
+  clip-path: var(--clip-path-squircle-10);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.patternButton:hover {
+  background: var(--color-sand);
+}
+
+.patternActive {
+  background: var(--color-sage);
+  color: white;
+}
+
+.patternActive:hover {
+  background: var(--color-olive);
+}
+
 .circleContainer {
   position: relative;
   width: 180px;

@@ -43,6 +43,27 @@
   width: 100%;
 }
 
+.groundingSection {
+  padding: 0 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.timerSection {
+  padding: 0 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.intention {
+  padding: 0 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .practices {
   padding: 0 1.5rem;
   max-width: 1200px;

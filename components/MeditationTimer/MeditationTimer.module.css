@@ -1,0 +1,132 @@
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.presets {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.presetButton {
+  padding: 0.5rem 1rem;
+  background: var(--color-linen);
+  color: var(--color-stone);
+  border: none;
+  clip-path: var(--clip-path-squircle-10);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.presetButton:hover:not(:disabled) {
+  background: var(--color-sand);
+}
+
+.presetButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.presetActive {
+  background: var(--color-sage);
+  color: white;
+}
+
+.presetActive:hover:not(:disabled) {
+  background: var(--color-olive);
+}
+
+.display {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressRing {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progressCircle {
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.time {
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  letter-spacing: 0.02em;
+}
+
+.completeText {
+  font-size: 0.8rem;
+  color: var(--color-sage);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.controlButton {
+  padding: 0.75rem 2rem;
+  background: var(--color-terracotta);
+  color: white;
+  border: none;
+  clip-path: var(--clip-path-squircle-20);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+}
+
+.controlButton:hover {
+  opacity: 0.9;
+}
+
+.resetButton {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-linen);
+  color: var(--color-stone);
+  border: none;
+  clip-path: var(--clip-path-squircle-20);
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+}
+
+.resetButton:hover {
+  background: var(--color-sand);
+}

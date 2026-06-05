@@ -34,6 +34,16 @@ export const metadata = {
  * is serialized and passed to the JournalFilter client component.
  */
 const ENTRY_ORDER = [
+  "water-as-teacher",
+  "learning-to-be-a-beginner",
+  "the-freedom-of-small-spaces",
+  "hunger-beyond-food",
+  "the-ritual-of-repair",
+  "on-grief-without-a-name",
+  "what-the-garden-teaches",
+  "the-practice-of-receiving",
+  "silence-as-a-language",
+  "the-kindness-of-routine",
   "sleep-as-surrender",
   "tending-the-inner-weather",
   "the-long-exhale",
@@ -57,6 +67,16 @@ const ENTRY_ORDER = [
 ];
 
 const CARD_IMAGES = {
+  "water-as-teacher": "/images/journal-30.png",
+  "learning-to-be-a-beginner": "/images/journal-29.png",
+  "the-freedom-of-small-spaces": "/images/journal-28.png",
+  "hunger-beyond-food": "/images/journal-27.png",
+  "the-ritual-of-repair": "/images/journal-26.png",
+  "on-grief-without-a-name": "/images/journal-25.png",
+  "what-the-garden-teaches": "/images/journal-24.png",
+  "the-practice-of-receiving": "/images/journal-23.png",
+  "silence-as-a-language": "/images/journal-22.png",
+  "the-kindness-of-routine": "/images/journal-21.png",
   "sleep-as-surrender": "/images/journal-20.png",
   "tending-the-inner-weather": "/images/journal-19.png",
   "the-long-exhale": "/images/journal-18.png",
@@ -80,6 +100,16 @@ const CARD_IMAGES = {
 };
 
 const CARD_EXCERPTS = {
+  "water-as-teacher": "Water does not force its way. It finds it. On the oldest teacher and what it knows about patience, persistence, and letting go.",
+  "learning-to-be-a-beginner": "Somewhere between childhood and now, we lost the willingness to be bad at things. Reclaiming it might be the most freeing thing you ever do.",
+  "the-freedom-of-small-spaces": "We chase expansiveness, but some of the deepest peace lives in the smallest moments and the tightest corners.",
+  "hunger-beyond-food": "Sometimes the thing you are reaching for in the kitchen is not in the kitchen at all. On recognizing what you truly need.",
+  "the-ritual-of-repair": "We discard what is broken. But some things were meant to be mended, and the mending is where the beauty lives.",
+  "on-grief-without-a-name": "Not all grief comes with a funeral. Some losses are so quiet that you do not realize you are mourning until the ache has already settled in.",
+  "what-the-garden-teaches": "A garden does not care about your timeline. It grows at its own pace, and it will teach you to do the same.",
+  "the-practice-of-receiving": "We practice giving so often that we forget: receiving is a skill too, and most of us are out of practice.",
+  "silence-as-a-language": "We fill silence because we are afraid of what it might say. But silence is not empty. It is full of answers.",
+  "the-kindness-of-routine": "Routine is not the enemy of freedom. It is the quiet structure that makes freedom possible.",
   "sleep-as-surrender": "What if sleep is the one thing that cannot be optimized, only invited? On letting go of the performance of rest.",
   "tending-the-inner-weather": "Emotions are not problems to solve. They are weather to notice, name, and let pass.",
   "the-long-exhale": "The science and ritual behind a longer breath out, and why your nervous system has been waiting for it.",
@@ -112,6 +142,8 @@ function buildEntries() {
       category: article.category,
       image: CARD_IMAGES[slug] || "/images/journal-1.png",
       readingTime: getReadingTime(article.content),
+      date: article.date,
+      dateISO: article.dateISO,
     };
   });
 }

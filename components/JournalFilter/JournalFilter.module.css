@@ -3,6 +3,37 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sortControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sortButton {
+  padding: 0.35rem 0.75rem;
+  background: transparent;
+  color: var(--color-pebble);
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: color 0.3s ease;
+  min-height: 44px;
+}
+
+.sortButton:hover {
+  color: var(--color-charcoal);
+}
+
+.sortActive {
+  color: var(--color-terracotta);
+  font-weight: 600;
 }
 
 .filterTabs {

@@ -1,4 +1,5 @@
 import PageHero from "@/components/PageHero/PageHero";
+import { SITE } from "@/lib/siteConfig";
 import styles from "@/app/styles/LegalPage.module.css";
 
 export const metadata = {
@@ -9,7 +10,7 @@ export const metadata = {
     title: "Terms of Use",
     description:
       "Terms of use for Nina Healthy. Guidelines for using this mindfulness and wellness website.",
-    url: "https://ninahealthy.com/terms",
+    url: `${SITE.url}/terms`,
     images: [
       {
         url: "/og-default.png",
@@ -20,7 +21,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://ninahealthy.com/terms",
+    canonical: `${SITE.url}/terms`,
   },
 };
 

@@ -30,6 +30,22 @@ This version has breaking changes -- APIs, conventions, and file structure may a
 - No em dashes ( -- ) in any generated text or content; use commas, semicolons, colons, or shorter sentences instead
 - No third-party libraries -- use only official Next.js built-ins, React, and plain CSS
 
+## Path Aliases
+
+The project uses `@/` as a root alias (configured in `jsconfig.json`). Always use it for imports:
+
+```js
+// Correct
+import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/siteConfig";
+import Card from "@/components/Card/Card";
+
+// Incorrect -- do not use relative paths from pages
+import { ARTICLES } from "../../../lib/articles";
+```
+
+> **Note:** Some older files (`app/page.js`, `app/layout.js`) still use relative imports (`../components/...`). New code must always use `@/`. Do not refactor the existing relative imports unless explicitly asked.
+
 ## Components
 
 - Always create reusable components when the same UI pattern appears more than once
@@ -47,7 +63,7 @@ This version has breaking changes -- APIs, conventions, and file structure may a
 - No global selectors (`*`, `html body`, etc.) inside `.module.css` files
 - Never use plain `border-radius` on cards or images
 - Always use `--clip-path-squircle` (defined in `globals.css`) on cards and images
-- Reference `CONTEXT.md` for the squircle size mapping (10, 20, 36, 48, 60)
+- Reference the Squircle Clip-Paths section below for the size mapping (10, 20, 36, 48, 60)
 
 ## Next.js Imports
 
@@ -56,6 +72,115 @@ This version has breaking changes -- APIs, conventions, and file structure may a
 | `<img src="...">`       | `<Image>` from `next/image`            |
 | `<script ...>`          | `<Script>` from `next/script`          |
 | `<a href="/internal">`  | `<Link href="/internal">` from `next/link` |
+
+## Server vs Client Components
+
+- Default to Server Components. Only add `"use client"` when the component genuinely needs client-side interactivity (state, effects, event handlers).
+- The journal index page (`app/journal/page.js`) is a Server Component that passes serialized article data to the `JournalFilter` client component. Article pages are also server components.
+- Do not import large client libraries. Solve problems with CSS and built-in React.
+- Never import `ARTICLES` from `@/lib/articles` in a Client Component; it is server-only data.
+
+## Static Generation
+
+Dynamic routes that draw from a known data set must export `generateStaticParams` so all pages are pre-rendered at build time:
+
+```js
+export function generateStaticParams() {
+  return Object.keys(ARTICLES).map((slug) => ({ slug }));
+}
+```
+
+---
+
+# Project Architecture
+
+## `lib/` Directory
+
+All shared data, configuration, and utilities live in `lib/`. Never duplicate these values; import from the canonical source.
+
+| File | Purpose | Key Exports |
+|---|---|---|
+| `lib/siteConfig.js` | Centralized site metadata (name, URL, author, social, OG image) | `SITE` |
+| `lib/articles/index.js` | Barrel export of all journal articles keyed by slug | `ARTICLES` |
+| `lib/articles/<slug>.js` | Individual article data files | `default` (article object) |
+| `lib/cardImages.js` | Canonical slug-to-thumbnail mapping for all articles | `CARD_IMAGES` |
+| `lib/cardExcerpts.js` | Custom card-level excerpts for journal article cards | `CARD_EXCERPTS` |
+| `lib/entryOrder.js` | Canonical display order for journal + home page featured selection | `ENTRY_ORDER`, `HOME_FEATURED` |
+| `lib/categories.js` | Derives unique category list from article data | `CATEGORIES` |
+| `lib/readingTime.js` | Calculates reading time from content blocks (230 wpm) | `getReadingTime(content)` |
+| `lib/invitations.js` | Daily invitation pool, rotated by day of year | `getTodaysInvitation()`, `getSeasonLabel()` |
+| `lib/socialLinks.js` | Social link definitions with inline SVG icons | `SOCIAL_LINKS`, `getSameAsUrls()` |
+| `lib/escapeHtml.js` | HTML entity escaping utility | `escapeHtml(str)` |
+
+### Adding a New Article
+
+1. Create `lib/articles/<slug>.js` following the article data schema (see below).
+2. Import and register it in `lib/articles/index.js`.
+3. Add the slug to `ENTRY_ORDER` in `lib/entryOrder.js`.
+4. Add a slug-to-image mapping in `lib/cardImages.js`.
+5. Add a card excerpt to `lib/cardExcerpts.js`.
+6. Place the thumbnail image in `public/images/`.
+
+Categories are auto-derived from article data; no manual category update is needed. If the article should appear on the home page, also add it to `HOME_FEATURED` in `lib/entryOrder.js`.
+
+### Article Data Schema
+
+Every article file must export a default object with these fields:
+
+```js
+const article = {
+  title: "The Kindness of Routine",           // string, the article headline
+  date: "June 2026",                          // string, human-readable display date
+  dateISO: "2026-06-01",                       // string, ISO 8601 for structured data
+  category: "Rituals",                         // string, one of: Mindfulness, Intentional Living, Reflections, Rituals
+  lead: "Routine is not the enemy of freedom. It is the quiet structure that makes freedom possible.",
+                                                // string, 1-2 sentences; doubles as meta description
+  contentNote: null,                           // string|null, trauma-informed content warning
+  content: [
+    { type: "paragraph", text: "..." },        // body paragraph
+    { type: "subheading", text: "..." },       // h2 section break
+    { type: "quote", text: "..." },            // pull quote / blockquote
+    { type: "list", items: ["...", "..."] },   // bulleted list (optional)
+    { type: "divider" },                       // decorative dots before closing section
+  ],
+};
+
+export default article;
+```
+
+#### Content block rules
+
+- Every article must have at least one `subheading`, one `quote`, and one `divider`.
+- The `divider` always appears before the final closing invitation paragraph(s).
+- `contentNote` is required (set to `null` if not applicable) for pieces discussing anxiety, overwhelm, grief, or emotional distress.
+
+## Component Library
+
+| Component | Path | Purpose |
+|---|---|---|
+| Accordion | `components/Accordion/` | Collapsible content sections |
+| BreathPacer | `components/BreathPacer/` | Guided breathing animation |
+| Button | `components/Button/` | Primary and secondary CTA buttons |
+| Card | `components/Card/` | Journal entry / content cards |
+| ContactMe | `components/ContactMe/` | Contact form |
+| DailyIntention | `components/DailyIntention/` | Rotating daily mindfulness invitation |
+| Footer | `components/Footer/` | Site footer with social links |
+| GroundingExercise | `components/GroundingExercise/` | Interactive grounding practice |
+| Header | `components/Header/Header.js` | Site header with mobile menu |
+| JournalFilter | `components/JournalFilter/` | Category filter tabs for journal index |
+| JsonLd | `components/JsonLd/` | Reusable JSON-LD structured data injection |
+| MeditationTimer | `components/MeditationTimer/` | Timed meditation with audio cues |
+| NewsletterSignup | `components/NewsletterSignup/` | Email signup form |
+| PageHero | `components/PageHero/` | Reusable hero section with title and subtitle |
+| ReadingProgress | `components/ReadingProgress/` | Scroll progress indicator for articles |
+| RelatedArticles | `components/RelatedArticles/` | Related article suggestions at end of articles |
+| ScrollReveal | `components/ScrollReveal/` | Fade-in-on-scroll wrapper |
+| ScrollToTop | `components/ScrollToTop/` | Return-to-top button |
+| SectionHeading | `components/SectionHeading/` | Consistent section title with optional subtitle |
+| ShareBar | `components/ShareBar/` | Social sharing links for articles |
+| TestimonialCarousel | `components/TestimonialCarousel/` | Rotating testimonial display |
+| ThemeToggle | `components/ThemeToggle/` | Light/dark mode toggle |
+| Timeline | `components/Timeline/` | Vertical timeline layout |
 
 ---
 
@@ -70,34 +195,29 @@ These rules apply to every page and component that affects search visibility.
 The root layout must export a `metadata` object with at minimum:
 
 ```js
+import { SITE } from "@/lib/siteConfig";
+
 export const metadata = {
-  metadataBase: new URL('https://ninahealthy.com'),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: 'Nina Healthy',
-    template: '%s | Nina Healthy',
+    default: SITE.name,
+    template: `%s | ${SITE.name}`,
   },
-  description: '...compelling 150-160 character description...',
+  description: SITE.description,
   openGraph: {
-    title: 'Nina Healthy',
-    description: '...',
-    url: 'https://ninahealthy.com',
-    siteName: 'Nina Healthy',
+    title: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    siteName: SITE.name,
     locale: 'en_US',
     type: 'website',
-    images: [
-      {
-        url: '/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: 'Descriptive alt text for the OG image',
-      },
-    ],
+    images: [SITE.ogImage],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nina Healthy',
-    description: '...',
-    images: ['/og-default.png'],
+    title: SITE.name,
+    description: SITE.description,
+    images: [SITE.ogImage.url],
   },
   robots: {
     index: true,
@@ -111,7 +231,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: 'https://ninahealthy.com',
+    canonical: SITE.url,
   },
 };
 ```
@@ -135,23 +255,27 @@ Every route segment (`page.js`) must export its own `metadata` (or `generateMeta
 For `app/journal/[slug]/page.js` use `generateMetadata`:
 
 ```js
+import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/siteConfig";
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const article = ARTICLES[slug];
+  if (!article) return { title: "Article Not Found" };
   return {
     title: article.title,
-    description: article.lead,   // the lead serves as meta description
+    description: article.lead || article.content.find((b) => b.type === "paragraph")?.text.slice(0, 160),
     openGraph: {
       title: article.title,
       description: article.lead,
-      url: `https://ninahealthy.com/journal/${slug}`,
+      url: `${SITE.url}/journal/${slug}`,
       type: 'article',
-      publishedTime: article.dateISO,  // ISO 8601 format
-      authors: ['Nina'],
+      publishedTime: article.dateISO,
+      authors: [SITE.author.name],
       section: article.category,
     },
     alternates: {
-      canonical: `https://ninahealthy.com/journal/${slug}`,
+      canonical: `${SITE.url}/journal/${slug}`,
     },
   };
 }
@@ -159,33 +283,25 @@ export async function generateMetadata({ params }) {
 
 ## Structured Data (JSON-LD)
 
-Embed JSON-LD structured data in every page that qualifies. Use a `<script type="application/ld+json">` tag inside the page component (Next.js handles this in the body).
+Embed JSON-LD structured data in every page that qualifies. Use the reusable `JsonLd` component at `components/JsonLd/JsonLd.js`:
+
+```jsx
+import JsonLd from "@/components/JsonLd/JsonLd";
+
+// Usage in any page component:
+<JsonLd data={structuredDataObject} />
+```
 
 ### Required Schemas
 
 | Page | Schema Type | Key Properties |
 |---|---|---|
-| Home `/` | `WebSite` + `Organization` | `name`, `url`, `logo`, `sameAs` (social links), `potentialAction` (SearchAction if search exists) |
+| Home `/` | `WebSite` + `Organization` | `name`, `url`, `logo`, `sameAs` (from `getSameAsUrls()`), `potentialAction` (SearchAction if search exists) |
 | Journal index `/journal` | `CollectionPage` + `ItemList` | `itemListElement` with each article as a `ListItem` |
 | Journal article `/journal/[slug]` | `Article` or `BlogPosting` | `headline`, `author`, `datePublished`, `dateModified`, `description`, `image`, `publisher`, `mainEntityOfPage` |
-| About `/about` | `Person` | `name`, `description`, `url`, `sameAs` |
+| About `/about` | `Person` + `FAQPage` | `name`, `description`, `url`, `sameAs`; FAQ items as `Question`/`Answer` pairs |
 | Practice `/practice` | `WebPage` with `specialty` | `name`, `description`, `specialty: "Mindfulness"` |
 | Connect `/connect` | `ContactPage` | `name`, `url` |
-
-### JSON-LD Implementation Pattern
-
-```jsx
-function JsonLd({ data }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
-}
-```
-
-Create this as a reusable component at `components/JsonLd/JsonLd.js`.
 
 ### Article Schema Example
 
@@ -193,8 +309,8 @@ Create this as a reusable component at `components/JsonLd/JsonLd.js`.
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "The Art of Doing Nothing",
-  "description": "On the radical act of stillness in a world that rewards constant motion.",
+  "headline": "The Kindness of Routine",
+  "description": "Routine is not the enemy of freedom. It is the quiet structure that makes freedom possible.",
   "author": {
     "@type": "Person",
     "name": "Nina",
@@ -209,10 +325,10 @@ Create this as a reusable component at `components/JsonLd/JsonLd.js`.
       "url": "https://ninahealthy.com/icon.svg"
     }
   },
-  "datePublished": "2026-05-01",
-  "dateModified": "2026-05-01",
-  "mainEntityOfPage": "https://ninahealthy.com/journal/the-art-of-doing-nothing",
-  "image": "https://ninahealthy.com/images/journal-1.png"
+  "datePublished": "2026-06-01",
+  "dateModified": "2026-06-01",
+  "mainEntityOfPage": "https://ninahealthy.com/journal/the-kindness-of-routine",
+  "image": "https://ninahealthy.com/images/journal-21.png"
 }
 ```
 
@@ -244,11 +360,11 @@ Never use `<div>` or `<span>` when a semantic element exists for the purpose.
 - No trailing slashes (Next.js default)
 - Journal slugs should mirror the article title: `/journal/the-art-of-doing-nothing`
 - Keep URLs under 75 characters where possible
-- No unnecessary nesting (e.g., `/blog/posts/2026/article` -- keep it flat as `/journal/article`)
+- No unnecessary nesting -- keep it flat as `/journal/article`
 
 ## Internal Linking
 
-- Every journal article should link to at least one other related article
+- Every journal article should link to at least one other related article (use `RelatedArticles` component)
 - The home page should surface the latest or most relevant journal entries
 - Use descriptive anchor text; never use "click here" or "read more" without surrounding context (screen readers read links out of context)
 - Navigation must include all primary routes: Home, Journal, Practice, About, Connect
@@ -256,7 +372,7 @@ Never use `<div>` or `<span>` when a semantic element exists for the purpose.
 ## Image SEO
 
 - Every `<Image>` must have a descriptive `alt` attribute that conveys the image's content and function
-- Decorative images should use `alt=""`  and `aria-hidden="true"`
+- Decorative images should use `alt=""` and `aria-hidden="true"`
 - Use the `priority` prop on above-the-fold hero images (LCP candidates)
 - Specify `sizes` for responsive images to prevent unnecessary downloads
 - Use descriptive filenames: `morning-ritual-tea-cup.png` not `IMG_4382.png`
@@ -264,26 +380,29 @@ Never use `<div>` or `<span>` when a semantic element exists for the purpose.
 
 ## Sitemap and Robots
 
-- Next.js generates `sitemap.xml` automatically when you export a `sitemap()` function from `app/sitemap.js`
-- Create `app/sitemap.js` listing all static routes and dynamic journal slugs with `lastModified` dates
-- Create `app/robots.js` (or `robots.txt`) allowing all crawlers, linking to the sitemap
+- `app/sitemap.js` generates the sitemap listing all static routes and journal slugs
+- `app/robots.js` allows all crawlers and links to the sitemap
+- Both files already exist; update them when adding new static routes
 
 ### Sitemap Pattern
 
 ```js
+import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/siteConfig";
+
 export default function sitemap() {
   const staticRoutes = ['', '/journal', '/practice', '/about', '/connect', '/privacy', '/terms'];
   const journalSlugs = Object.keys(ARTICLES);
 
   return [
     ...staticRoutes.map((route) => ({
-      url: `https://ninahealthy.com${route}`,
+      url: `${SITE.url}${route}`,
       lastModified: new Date(),
       changeFrequency: route === '' ? 'weekly' : 'monthly',
       priority: route === '' ? 1.0 : 0.8,
     })),
     ...journalSlugs.map((slug) => ({
-      url: `https://ninahealthy.com/journal/${slug}`,
+      url: `${SITE.url}/journal/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -291,6 +410,10 @@ export default function sitemap() {
   ];
 }
 ```
+
+## RSS Feed
+
+The project has a full RSS 2.0 feed at `app/feed.xml/route.js` (accessible at `/feed.xml`). The root layout advertises it via `alternates.types["application/rss+xml"]`. When adding new articles, no manual feed update is needed; it reads from `ARTICLES` automatically.
 
 ---
 
@@ -304,10 +427,17 @@ Nina Healthy's design must communicate: calm, warmth, intentionality, and spacio
 
 ### Core Principles
 
-1. **Breathing room over density.** Generous whitespace is a feature, not wasted space. Sections should feel spacious and unhurried.
-2. **Warmth over neutrality.** The palette is earthy and organic. Avoid sterile, corporate, or high-contrast aesthetics.
+1. **Breathing room over density.** Generous whitespace is a feature, not wasted space. Prioritize high-density whitespace to lower cognitive friction. The UI must structurally induce calm through uncrowded layout hierarchies.
+2. **Warmth over neutrality.** The palette is earthy and organic. Avoid sterile, corporate, or high-contrast aesthetics. Use biologically soothing, low-saturation, nature-mimicking color palettes.
 3. **Subtlety over spectacle.** Animations and transitions should feel like a gentle exhale, not a firework. If a user notices the animation more than the content, it is too much.
 4. **Consistency over novelty.** Reuse the established palette, spacing, and type scale. Do not introduce one-off colors, fonts, or patterns.
+5. **Agency over coercion.** The user maintains total control over their sensory experience. Never include autoplay audio, un-skippable animations, or intrusive modal pop-ups. Design clear "exit" or "pause" mechanics within experiential flows (e.g., breath sessions, meditation timers).
+
+### Cognitive Load Management
+
+- Present data and user pathways linearly. Prevent choice paralysis by enforcing progressive disclosure for complex content.
+- Avoid gamification tactics that leverage anxiety, FOMO, or artificial urgency (e.g., breaking "streaks" aggressively). Reward consistency through reflective metrics and soft milestones.
+- Design interfaces that feel private and safe. Keep personal data minimized on visible surfaces.
 
 ## Color System
 
@@ -332,6 +462,7 @@ All colors are defined as CSS custom properties in `globals.css`. Always referen
 - **Text contrast:** Primary text (`--color-charcoal` on `--color-cream`) must meet WCAG 2.2 AA minimum (4.5:1 for body text, 3:1 for large text). Verify contrast ratios when combining any foreground/background pair.
 - **Accent restraint:** Terracotta is reserved for CTAs, active states, and key highlights. Do not use it for decorative backgrounds or large surfaces.
 - **Dark mode parity:** Every component must render correctly in both light and dark modes. The dark palette in `globals.css` handles this via `prefers-color-scheme: dark`. Do not create separate dark-mode stylesheets.
+- **Error states:** Avoid harsh warning reds. Use soft, grounding earth tones or informative ambers for validation feedback that does not trigger anxiety.
 
 ## Typography
 
@@ -356,8 +487,8 @@ Both fonts are loaded via `next/font/google` with `display: 'swap'` in `app/layo
 ### Typography Rules
 
 - **Line height:** Body text should use `1.7` - `1.8` for comfortable reading. Headings use `1.2` - `1.3`.
-- **Measure (line length):** Body text should never exceed `65ch` (`max-width: 65ch`). This is critical for readability.
-- **Letter spacing:** Headings may use slight negative tracking (`-0.01em` to `-0.02em`). Body text stays at default.
+- **Measure (line length):** Body text should never exceed `65ch` (`max-width: 65ch`). This is critical for readability and neurodivergent-friendly design.
+- **Letter spacing:** Headings may use slight negative tracking (`-0.01em` to `-0.02em`). Body text stays at default. Generous character spacing accommodates cognitively fatigued users.
 - **Font smoothing:** Already enabled globally via `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale`.
 
 ## Spacing System
@@ -379,7 +510,7 @@ Use a consistent spacing scale based on `rem` units:
 
 ### Guiding Principle
 
-Motion should feel like breathing: slow, smooth, and natural. It reinforces the brand's sense of calm.
+Motion should feel like breathing: slow, smooth, and natural. Design transitions to mimic natural physiological rhythms. It reinforces the brand's sense of calm.
 
 ### Transition Defaults
 
@@ -403,6 +534,7 @@ transition: opacity 0.6s ease, transform 0.6s ease;
 - **No bounce or overshoot:** The brand is calm and grounded. No spring physics or elastic easings.
 - **Hover effects:** Cards may lift slightly (`translateY(-4px)`) and gain a subtle shadow. Links gain color change. Buttons shift background. Keep it minimal.
 - **Scroll animations:** If used, they must be CSS-only (e.g., `@keyframes` triggered by scroll-driven animation or intersection observer). Keep them understated: a gentle fade + slight upward translate (`translateY(16px)` to `translateY(0)`).
+- **Experiential flows:** Breath pacer, meditation timer, and grounding exercise animations must include visible pause/stop controls and respect user agency at all times.
 
 ## Squircle Clip-Paths
 
@@ -455,7 +587,7 @@ Every page follows this vertical rhythm:
 
 # Content Creation Standards
 
-These rules govern all written content: page copy, journal articles, meta descriptions, alt text, button labels, and microcopy.
+These rules govern all written content: page copy, journal articles, meta descriptions, alt text, button labels, and microcopy. They are grounded in evidence-based behavioral science and trauma-informed practice.
 
 ## Brand Voice
 
@@ -485,8 +617,24 @@ Nina is **not** a medical professional. All content must respect this:
 
 - Never use clinical or diagnostic language ("treatment", "therapy", "cure", "heal")
 - Never promise health outcomes ("this will reduce your anxiety")
+- Never imply, suggest, or state that content is a medical, clinical, or psychiatric cure
 - Use framing like "what I have found", "what works for me", "you might try"
-- Include content notes for pieces that discuss anxiety, overwhelm, grief, or emotional distress (see `CONTENT_NOTES` in `app/journal/[slug]/page.js`)
+- Include `contentNote` in article data for pieces that discuss anxiety, overwhelm, grief, or emotional distress
+
+## Scientific and Cultural Integrity
+
+- Where practices have roots in specific traditions (e.g., Vedic, Buddhist, Indigenous), acknowledge the lineage with respect. Avoid over-secularized dilution or cultural appropriation.
+- Mechanistic claims (e.g., references to the nervous system, cortisol, breathing physiology) should be grounded in established neurobiology. Use hedged language: "research suggests", "some evidence points to". Never use or validate pseudoscientific jargon.
+- Actively eliminate toxic positivity and spiritual bypassing. Validate real human struggle, discomfort, and systemic realities rather than manufacturing forced optimism or toxic resilience.
+
+## Trauma-Informed Language
+
+Every guided experiential prompt, breathwork instruction, or meditation cue must:
+
+- Prioritize optionality and agency (e.g., "if comfortable, close your eyes, or simply soften your gaze")
+- Offer exit ramps (e.g., "if this feels intense, feel free to return to your natural rhythm")
+- Use body-neutral, socioeconomically accessible, and neurodivergent-inclusive language
+- Not assume specific physical abilities, baseline financial status, or neurotypical cognitive processing
 
 ## Writing Style
 
@@ -509,6 +657,7 @@ Nina is **not** a medical professional. All content must respect this:
 - Use sensory language: textures, sounds, temperatures, physical sensations
 - Avoid jargon, buzzwords, and wellness cliches ("self-care journey", "live your best life", "manifest your dreams")
 - No em dashes. Use commas, semicolons, colons, or break into two sentences.
+- Build credibility with grounded, precise vocabulary; ban empty marketing hyperbole
 
 ### Formatting in Articles
 
@@ -524,11 +673,35 @@ Nina is **not** a medical professional. All content must respect this:
 
 Every journal article should follow this arc:
 
-1. **Opening hook** (1-2 paragraphs): A personal observation or admission that draws the reader in.
-2. **Exploration** (2-3 sections with subheadings): Deeper reflection, personal stories, observations.
-3. **Pull quote**: A single distilled thought that captures the essence.
-4. **Practical dimension** (1 section): How this shows up in daily life.
-5. **Closing invitation** (after a divider): A gentle, specific invitation for the reader to try something. Not a command. An offer.
+1. **Opening hook** (1-2 paragraphs): A personal observation or admission that draws the reader in. Vulnerable but not dramatic.
+2. **Exploration** (2-3 sections with subheadings): Deeper reflection, personal stories, observations. Each section should stand alone as a scannable unit.
+3. **Pull quote**: A single distilled thought that captures the essence. This is the sentence someone would highlight or share.
+4. **Practical dimension** (1 section): How this shows up in daily life. Concrete, sensory, actionable.
+5. **Closing invitation** (after a divider): A gentle, specific invitation for the reader to try something. Not a command. An offer. Always framed as optional.
+
+## E-E-A-T Content Strategy
+
+Every piece of content must demonstrate Experience, Expertise, Authoritativeness, and Trustworthiness:
+
+### Experience (the "first E")
+- All articles are written from Nina's lived experience. Never write in a detached, third-person editorial voice.
+- Include specific, personal details: the weight of a tea cup, the sound of a morning kitchen, the feeling of feet on a cold floor. Specificity builds trust.
+- Name the difficulty before offering the insight. Show the struggle, not just the resolution.
+
+### Expertise
+- Draw on established behavioral science where relevant (decision fatigue, parasympathetic activation, circadian rhythms) but express it in plain, accessible language.
+- Never cite studies you cannot verify. Use "research suggests" or "psychologists have observed" when referencing well-established principles.
+
+### Authoritativeness
+- The About page clearly states who Nina is and is not (not a therapist, not a doctor). This transparency builds authority through honesty.
+- Internal linking between articles builds topical depth. Each article should reference at least one related piece.
+- The FAQ section on the About page addresses common concerns directly.
+
+### Trustworthiness
+- No dark patterns. No manipulative urgency. No countdown timers on newsletter signups.
+- Content notes before emotionally heavy articles.
+- Clear contact information. Visible privacy policy and terms.
+- No affiliate links or paid recommendations disguised as personal endorsements.
 
 ## SEO Content Guidelines
 
@@ -582,7 +755,7 @@ Accessibility is not optional. Every component must meet WCAG 2.2 Level AA.
 
 - All interactive elements must be reachable and operable via keyboard
 - Focus indicators must be visible and high-contrast (do not remove default outlines without providing a custom focus style)
-- Modals and menus must trap focus and restore it on close (see `Header.js` for the reference pattern)
+- Modals and menus must trap focus and restore it on close (see `components/Header/Header.js` for the reference pattern)
 - `Escape` key must close any overlay, modal, or expanded menu
 
 ## ARIA Patterns
@@ -595,6 +768,19 @@ Accessibility is not optional. Every component must meet WCAG 2.2 Level AA.
 | Modals | `role="dialog"`, `aria-modal="true"` |
 | Skip link | `<a href="#main-content" className="skipLink">Skip to content</a>` (already in layout) |
 | Visually hidden text | Use the `.visuallyHidden` class from `globals.css` |
+
+## Form Accessibility
+
+The project includes forms in `ContactMe` and `NewsletterSignup`. All forms must:
+
+- Associate every input with a visible `<label>` via `htmlFor` / `id` pairing
+- Use `aria-describedby` to link inputs to their validation messages or helper text
+- Mark required fields with both the `required` attribute and a visible indicator
+- Provide clear, specific error messages (e.g., "Please enter a valid email address" not "Invalid input")
+- Use `aria-invalid="true"` on fields that fail validation
+- Ensure error messages use `role="alert"` or `aria-live="polite"` so screen readers announce them
+- Never rely on color alone to indicate an error state; pair with text and/or icons
+- Use `type="email"` for email fields, `type="tel"` for phone, etc. for mobile keyboard optimization
 
 ## Color Contrast
 
@@ -616,7 +802,7 @@ The global stylesheet already includes:
 }
 ```
 
-Any component-level animation must also respect this media query.
+Any component-level animation must also respect this media query. This is especially critical for `BreathPacer`, `MeditationTimer`, `GroundingExercise`, and `ScrollReveal`.
 
 ---
 
@@ -643,40 +829,3 @@ Any component-level animation must also respect this media query.
 - Fonts are loaded via `next/font/google` with `display: 'swap'`
 - The `variable` option is used so fonts are applied via CSS custom properties
 - This prevents FOIT (Flash of Invisible Text) and minimizes CLS
-
-## JavaScript Minimization
-
-- Default to Server Components. Only add `"use client"` when the component genuinely needs client-side interactivity (state, effects, event handlers).
-- The journal index page (`app/journal/page.js`) is `"use client"` because it has interactive category filtering. The article pages are server components.
-- Do not import large client libraries. Solve problems with CSS and built-in React.
-
-
-
-# IDENTITY & SYSTEM ROLE
-You are an elite, enterprise-grade Content Creator, Behavioral Scientist, and Subject Matter Expert in Mindfulness and Holistic Health. Your core function is to generate world-class, clinically safe, and culturally authentic wellness content based on user-provided briefs, topics, or core messages.
-
-# OPERATIONAL MANDATE
-You must execute every generation task in strict alignment with the highest industry standards, including frameworks from the Global Wellness Institute (GWI), National Center for Complementary and Integrative Health (NCCIH), and peer-reviewed behavioral science. 
-
-# FOUNDATIONAL PILLARS & BEHAVIORAL CONSTRAINTS
-
-## 1. Clinical & Scientific Validity
-- Evidence Integration: Mechanistically anchor all core claims in peer-reviewed data or established neurobiology (e.g., vagal nerve stimulation, cortisol reduction, HPA-axis regulation). Never utilize or validate pseudoscientific jargon.
-- Scope Safety: Explicitly frame all generated content as supportive lifestyle or mindfulness practices. Never imply, suggest, or state that content is a medical, clinical, or psychiatric cure. Strictly avoid over-promising physical or psychological health outcomes.
-
-## 2. Lineage Authenticity & Trauma-Informed Mechanics
-- Cultural Respect: Maintain accurate historical context. Contextually acknowledge the roots and lineages of practices (e.g., Vedic, Buddhist, Indigenous) where applicable. Avoid over-secularized dilution, stripping of context, or cultural appropriation.
-- Trauma-Informed Cues: Every guided experiential prompt, breathwork ratio, or meditation instruction must utilize trauma-informed language. Prioritize optionality and agency (e.g., use phrases like "if comfortable, close your eyes, or simply soften your gaze" or "if this feels intense, feel free to return to your natural rhythm").
-
-## 3. Inclusivity & Psychological Safety
-- Anti-Bypassing: Actively eliminate toxic positivity and spiritual bypassing. Validate real human struggle, discomfort, and systemic realities rather than manufacturing forced optimism or toxic resilience.
-- Universal Design: Author content using body-neutral, socioeconomically accessible, and neurodivergent-inclusive language. Ensure practices do not assume specific physical abilities, baseline financial statuses, or neurotypical cognitive processing.
-
-## 4. E-E-A-T & Editorial Resonance
-- Authority & Trust: Build deep credibility using a grounded, precise, and scientifically literate vocabulary.
-- Tone: Maintain an empathetic, resonant, and deeply calm tone. Ban cliché wellness buzzwords, empty marketing hyperbole, and predatory wellness trends.
-
-
----
-
-> See `CONTEXT.md` for project-specific architecture, component inventory, and active tasks.

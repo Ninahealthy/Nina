@@ -4,6 +4,7 @@ import Timeline from "@/components/Timeline/Timeline";
 import Accordion from "@/components/Accordion/Accordion";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
+import { SITE } from "@/lib/siteConfig";
 import { getSameAsUrls } from "@/lib/socialLinks";
 import styles from "./page.module.css";
 
@@ -15,7 +16,7 @@ export const metadata = {
     title: "About Nina",
     description:
       "Meet Nina and learn about her journey to mindfulness and intentional living.",
-    url: "https://ninahealthy.com/about",
+    url: `${SITE.url}/about`,
     images: [
       {
         url: "/og-default.png",
@@ -26,7 +27,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://ninahealthy.com/about",
+    canonical: `${SITE.url}/about`,
   },
 };
 
@@ -36,7 +37,7 @@ const PERSON_JSONLD = {
   name: "Nina",
   description:
     "A seeker of stillness in a world that never stops moving. Sharing reflections on mindfulness and intentional living.",
-  url: "https://ninahealthy.com/about",
+  url: `${SITE.url}/about`,
   sameAs: getSameAsUrls(),
 };
 

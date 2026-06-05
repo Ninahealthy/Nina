@@ -1,6 +1,8 @@
+import { SITE } from "@/lib/siteConfig";
+
 export default function robots() {
   return {
     rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: "https://ninahealthy.com/sitemap.xml",
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }

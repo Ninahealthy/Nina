@@ -7,31 +7,16 @@ import TestimonialCarousel from "../components/TestimonialCarousel/TestimonialCa
 import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
 import JsonLd from "../components/JsonLd/JsonLd";
 import { ARTICLES } from "@/lib/articles";
+import { CARD_IMAGES } from "@/lib/cardImages";
+import { HOME_FEATURED } from "@/lib/entryOrder";
+import { SITE } from "@/lib/siteConfig";
 import { getReadingTime } from "@/lib/readingTime";
 import { getTodaysInvitation, getSeasonLabel } from "@/lib/invitations";
 import { getSameAsUrls } from "@/lib/socialLinks";
 import styles from "./page.module.css";
 
-const ENTRY_ORDER = [
-  "sleep-as-surrender",
-  "tending-the-inner-weather",
-  "the-long-exhale",
-  "on-walking-without-a-destination",
-  "the-body-keeps-a-quiet-score",
-  "the-art-of-gentle-transitions",
-];
-
-const CARD_IMAGES = {
-  "sleep-as-surrender": "/images/journal-20.png",
-  "tending-the-inner-weather": "/images/journal-19.png",
-  "the-long-exhale": "/images/journal-18.png",
-  "on-walking-without-a-destination": "/images/journal-17.png",
-  "the-body-keeps-a-quiet-score": "/images/journal-16.png",
-  "the-art-of-gentle-transitions": "/images/journal-11.png",
-};
-
 function getLatestArticles(count = 3) {
-  return ENTRY_ORDER.slice(0, count).map((slug) => {
+  return HOME_FEATURED.slice(0, count).map((slug) => {
     const article = ARTICLES[slug];
     return {
       slug,
@@ -46,17 +31,16 @@ function getLatestArticles(count = 3) {
 const WEBSITE_JSONLD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Nina Healthy",
-  url: "https://ninahealthy.com",
-  description:
-    "Finding peace in the everyday. A personal journey through mindfulness, intentional living, and inner wellness.",
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
   publisher: {
     "@type": "Organization",
-    name: "Nina Healthy",
-    url: "https://ninahealthy.com",
+    name: SITE.name,
+    url: SITE.url,
     logo: {
       "@type": "ImageObject",
-      url: "https://ninahealthy.com/icon.svg",
+      url: `${SITE.url}/icon.svg`,
     },
   },
 };
@@ -64,9 +48,9 @@ const WEBSITE_JSONLD = {
 const ORGANIZATION_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Nina Healthy",
-  url: "https://ninahealthy.com",
-  logo: "https://ninahealthy.com/icon.svg",
+  name: SITE.name,
+  url: SITE.url,
+  logo: `${SITE.url}/icon.svg`,
   sameAs: getSameAsUrls(),
 };
 

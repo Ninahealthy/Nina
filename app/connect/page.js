@@ -2,6 +2,7 @@ import ContactForm from "@/components/ContactMe/ContactMe";
 import NewsletterSignup from "@/components/NewsletterSignup/NewsletterSignup";
 import PageHero from "@/components/PageHero/PageHero";
 import JsonLd from "@/components/JsonLd/JsonLd";
+import { SITE } from "@/lib/siteConfig";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -12,7 +13,7 @@ export const metadata = {
     title: "Connect with Nina",
     description:
       "Get in touch with Nina. Send a message, subscribe to the newsletter, or find me on social media.",
-    url: "https://ninahealthy.com/connect",
+    url: `${SITE.url}/connect`,
     images: [
       {
         url: "/og-default.png",
@@ -23,7 +24,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://ninahealthy.com/connect",
+    canonical: `${SITE.url}/connect`,
   },
 };
 
@@ -31,7 +32,7 @@ const CONTACT_JSONLD = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: "Connect with Nina",
-  url: "https://ninahealthy.com/connect",
+  url: `${SITE.url}/connect`,
 };
 
 export default function ConnectPage() {

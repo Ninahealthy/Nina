@@ -1,7 +1,7 @@
 # CONTEXT.md
 
-> Single source of truth for project architecture, conventions, and data shapes.
-> Read this before making any changes.
+> Single source of truth for project facts: stack, architecture, data shapes, and integrations.
+> For rules and standards (design, content, SEO, accessibility), see `AGENTS.md`.
 
 ---
 
@@ -61,14 +61,18 @@ Nina/
     manifest.js               # Web App Manifest generator
     sitemap.js                # Dynamic sitemap generator
     robots.js                 # Robots.txt generator
-    loading.js                # Global loading skeleton
-    error.js                  # Global error boundary (client component)
-    not-found.js              # 404 page
+    loading.js                # Global loading skeleton (breathing circle animation)
+    loading.module.css
+    error.js                  # Global error boundary (client component with reset)
+    error.module.css
+    not-found.js              # 404 page (server component)
+    not-found.module.css
     about/page.js             # /about
     connect/page.js           # /connect
     practice/page.js          # /practice
     journal/
-      page.js                 # /journal (index with filter)
+      page.js                 # /journal (server component, passes data to JournalFilter)
+      loading.js              # Journal-specific loading state
       [slug]/
         page.js               # /journal/:slug (article renderer)
         opengraph-image.js    # Dynamic OG image generation per article
@@ -80,12 +84,12 @@ Nina/
   components/                 # Reusable UI components (each in own folder)
   lib/                        # Data layer and utilities
     articles/                 # Article content files (one per article)
-      index.js                # Central ARTICLES registry
+      index.js                # Central ARTICLES registry (barrel export)
     siteConfig.js             # SITE object (name, url, author, social, ogImage)
     categories.js             # CATEGORIES derived from articles
     socialLinks.js            # SOCIAL_LINKS array + getSameAsUrls()
     invitations.js            # Daily invitation pool + season labels
-    readingTime.js            # Reading time calculator
+    readingTime.js            # Reading time calculator (230 wpm)
     escapeHtml.js             # XSS-safe HTML escaping
   public/
     images/                   # All static images (hero, journal thumbnails)
@@ -100,21 +104,17 @@ Nina/
 | Route | File | Type | Description |
 |---|---|---|---|
 | `/` | `app/page.js` | Static | Home: hero, philosophy, latest articles, daily invitation, testimonials, newsletter |
-| `/journal` | `app/journal/page.js` | Static | Journal index with category filter |
-| `/journal/:slug` | `app/journal/[slug]/page.js` | Dynamic (SSG) | Individual article renderer |
+| `/journal` | `app/journal/page.js` | Static | Journal index (server component passes serialized data to JournalFilter client component) |
+| `/journal/:slug` | `app/journal/[slug]/page.js` | Dynamic (SSG) | Individual article renderer with `generateStaticParams` |
 | `/practice` | `app/practice/page.js` | Static | Interactive mindfulness tools |
 | `/about` | `app/about/page.js` | Static | Bio, timeline, values, FAQ |
 | `/connect` | `app/connect/page.js` | Static | Contact form, newsletter, social links |
 | `/privacy` | `app/privacy/page.js` | Static | Privacy policy |
 | `/terms` | `app/terms/page.js` | Static | Terms of use |
-| `/feed.xml` | `app/feed.xml/route.js` | Route Handler | RSS 2.0 feed |
+| `/feed.xml` | `app/feed.xml/route.js` | Route Handler | RSS 2.0 feed (cached 1 hour) |
 | `/sitemap.xml` | `app/sitemap.js` | Generated | XML sitemap |
 | `/robots.txt` | `app/robots.js` | Generated | Robots directives |
 | `/manifest.webmanifest` | `app/manifest.js` | Generated | PWA manifest |
-
-### Static Params
-
-`app/journal/[slug]/page.js` exports `generateStaticParams()` to pre-render all article slugs at build time.
 
 ---
 
@@ -137,45 +137,19 @@ Use `SITE` everywhere instead of hardcoding URLs or strings.
 
 ### 5.2 Article Data Model (`lib/articles/`)
 
-Each article is a JS module exporting a default object:
+Each article is a JS module exporting a default object. See `AGENTS.md` for the full schema and content block rules.
 
-```js
-const article = {
-  title: "The Art of Doing Nothing",      // string, the article headline
-  date: "May 2026",                        // human-readable date
-  dateISO: "2026-05-01",                   // ISO 8601 for structured data
-  category: "Mindfulness",                 // one of the derived categories
-  lead: "On the radical act...",           // meta description / excerpt
-  contentNote: null,                       // optional sensitivity note (string or null)
-  content: [                               // ordered array of content blocks
-    { type: "paragraph", text: "..." },
-    { type: "subheading", text: "..." },
-    { type: "quote", text: "..." },
-    { type: "divider" },
-    { type: "list", items: ["...", "..."] },
-  ],
-};
-```
-
-#### Content Block Types
-
-| Type | Properties | Rendered As |
-|---|---|---|
-| `paragraph` | `text` | `<p>` |
-| `subheading` | `text` | `<h2>` |
-| `quote` | `text` | `<blockquote>` (pull quote) |
-| `divider` | none | Three decorative dots |
-| `list` | `items` (string array) | `<ul>` with `<li>` items |
+Currently **30 articles** registered in `lib/articles/index.js`.
 
 #### Article Registry (`lib/articles/index.js`)
 
-All 20 articles are imported and exported as a single `ARTICLES` object keyed by slug:
+All articles are imported and exported as a single `ARTICLES` object keyed by slug:
 
 ```js
 export const ARTICLES = {
   "the-art-of-doing-nothing": theArtOfDoingNothing,
   "morning-rituals-that-anchor-me": morningRitualsThatAnchorMe,
-  // ... 18 more
+  // ... 28 more
 };
 ```
 
@@ -183,12 +157,13 @@ export const ARTICLES = {
 
 #### Adding a New Article
 
-1. Create `lib/articles/your-slug.js` following the data model above
+1. Create `lib/articles/your-slug.js` following the schema in `AGENTS.md`
 2. Import it in `lib/articles/index.js` and add to `ARTICLES`
-3. Add slug to the `ENTRY_ORDER` arrays in `app/page.js` (home) and `app/journal/page.js` (journal index)
-4. Add a slug-to-image mapping in `CARD_IMAGES` in both pages and in `app/journal/[slug]/page.js`
+3. Add slug to the `ENTRY_ORDER` array in `app/journal/page.js`
+4. Add a slug-to-image mapping in `CARD_IMAGES` in `app/journal/page.js` and `app/journal/[slug]/page.js`
 5. Add a card excerpt to `CARD_EXCERPTS` in `app/journal/page.js`
-6. Place the thumbnail image in `public/images/`
+6. Add a slug-to-image mapping in `CARD_IMAGES` in `app/page.js` if it should appear on the home page
+7. Place the thumbnail image in `public/images/`
 
 ### 5.3 Categories (`lib/categories.js`)
 
@@ -281,27 +256,7 @@ Both use Nodemailer to send emails via SMTP. Both send a confirmation to the use
 
 ---
 
-## 7. Design Tokens
-
-### 7.1 Color Palette
-
-All colors are CSS custom properties in `globals.css` with automatic dark mode.
-
-| Variable | Light | Dark | Usage |
-|---|---|---|---|
-| `--color-cream` | `#FAF7F2` | `#1A1714` | Page background |
-| `--color-linen` | `#F3EDE4` | `#2A2520` | Card/section backgrounds |
-| `--color-warmwhite` | `#FEFCF8` | `#221E1A` | Subtle background variant |
-| `--color-charcoal` | `#3D3832` | `#E8E0D6` | Primary text |
-| `--color-stone` | `#6B6560` | `#B0A89E` | Secondary text |
-| `--color-pebble` | `#9A9490` | `#8A837D` | Tertiary/caption text |
-| `--color-terracotta` | `#C07A56` | `#D4926B` | Primary accent, CTAs |
-| `--color-sage` | `#8FA98B` | `#A3BDA0` | Secondary accent |
-| `--color-olive` | `#6B7D5E` | `#8A9E7D` | Hover states |
-| `--color-clay` | `#C4A882` | `#B09974` | Borders, subtle UI |
-| `--color-sand` | `#E8DFD0` | `#3D3530` | Light accent backgrounds |
-
-### 7.2 Theme System
+## 7. Theme System
 
 Dark mode is handled through three layers:
 
@@ -311,55 +266,34 @@ Dark mode is handled through three layers:
 
 The `ThemeToggle` component sets `data-theme` on `<html>` and persists the choice in `localStorage`.
 
-### 7.3 Squircle Clip-Paths
+---
 
-Never use `border-radius` on cards or images. Use these clip-path variables instead:
-
-| Variable | Radius Equivalent | Use Case |
-|---|---|---|
-| `--clip-path-squircle-10` | ~10px | Badges, tags, small elements |
-| `--clip-path-squircle-20` | ~20px | Buttons, inputs |
-| `--clip-path-squircle-36` | ~36px | Images |
-| `--clip-path-squircle-48` | ~48px | Cards |
-| `--clip-path-squircle-60` | ~60px | Hero images, large sections |
-
-### 7.4 Typography
-
-| Role | Font | CSS Variable | Fallback |
-|---|---|---|---|
-| Headings | Playfair Display | `var(--font-heading)` | Georgia, "Times New Roman", serif |
-| Body | Lora | `var(--font-body)` | Georgia, "Times New Roman", serif |
-
-Loaded via `next/font/google` with `display: "swap"` in `app/layout.js`.
-
-### 7.5 Global Utilities
+## 8. Global Utilities (CSS)
 
 | Class | Purpose |
 |---|---|
 | `.skipLink` | Skip-to-content link (hidden until focused) |
 | `.visuallyHidden` | Accessible screen-reader-only content |
 
-### 7.6 Global Behaviors
-
-| Feature | Implementation |
+| Behavior | Implementation |
 |---|---|
-| Focus styles | `outline: 2px solid var(--color-terracotta)` on `a`, `button`, `input`, `textarea`, `select` via `:focus-visible` |
-| Reduced motion | Blanket `transition: none !important; animation: none !important` on interactive elements via `@media (prefers-reduced-motion: reduce)` |
+| Focus styles | `outline: 2px solid var(--color-terracotta)` on interactive elements via `:focus-visible` |
+| Reduced motion | Blanket `transition: none !important; animation: none !important` via `@media (prefers-reduced-motion: reduce)` |
 | Smooth scroll | `scroll-behavior: smooth` on `html` |
 | No horizontal overflow | `max-width: 100vw; overflow-x: hidden` on `html, body` |
 | Flex column layout | `body` is `display: flex; flex-direction: column; min-height: 100%`; `main` is `flex: 1` |
 
 ---
 
-## 8. SEO Infrastructure
+## 9. SEO Infrastructure
 
-### 8.1 Metadata
+### 9.1 Metadata
 
-- **Root layout** exports a full `metadata` object with title template (`%s | Nina Healthy`), Open Graph, Twitter cards, robots directives, and canonical URL.
+- **Root layout** exports a full `metadata` object with title template (`%s | Nina Healthy`), Open Graph, Twitter cards, robots directives, canonical URL, and RSS feed link.
 - **Every page** exports its own `metadata` or `generateMetadata` (for dynamic routes).
 - **RSS feed** is linked via `alternates.types["application/rss+xml"]`.
 
-### 8.2 Structured Data (JSON-LD)
+### 9.2 Structured Data (JSON-LD)
 
 Every page embeds structured data via the `JsonLd` component:
 
@@ -372,40 +306,39 @@ Every page embeds structured data via the `JsonLd` component:
 | Practice (`/practice`) | `WebPage` with `specialty: "Mindfulness"` |
 | Connect (`/connect`) | `ContactPage` |
 
-### 8.3 Dynamic OG Images
+### 9.3 Dynamic OG Images
 
-`app/journal/[slug]/opengraph-image.js` generates per-article Open Graph images using `next/og` `ImageResponse`. Includes:
+`app/journal/[slug]/opengraph-image.js` generates per-article Open Graph images (1200x630) using `next/og` `ImageResponse`. Includes:
 - Decorative top gradient accent (terracotta to sage)
 - Category badge
-- Article title
-- Truncated lead text
-- Nina Healthy branding
+- Article title (truncated lead at 120 chars)
+- Nina Healthy branding footer
 
-### 8.4 RSS Feed
+### 9.4 RSS Feed
 
-`app/feed.xml/route.js` generates a full RSS 2.0 feed with all articles sorted by date (newest first). Cached for 1 hour.
+`app/feed.xml/route.js` generates a full RSS 2.0 feed with all articles sorted by date (newest first). Cached for 1 hour via `Cache-Control`.
 
-### 8.5 Sitemap
+### 9.5 Sitemap
 
 `app/sitemap.js` generates entries for:
 - 7 static routes (home, journal, practice, about, connect, privacy, terms)
 - All journal article slugs
 
-### 8.6 Robots
+### 9.6 Robots
 
 `app/robots.js` allows all crawlers (`*`) with a link to the sitemap.
 
 ---
 
-## 9. Integrations
+## 10. Integrations
 
-### 9.1 Google AdSense
+### 10.1 Google AdSense
 
 - Script loaded in root layout via `next/script` with `strategy="afterInteractive"`
 - Publisher ID: `ca-pub-2087636695455778`
 - Verification file: `public/ads.txt`
 
-### 9.2 Email (Nodemailer)
+### 10.2 Email (Nodemailer)
 
 Both server actions use the same SMTP transport configuration:
 
@@ -420,7 +353,7 @@ nodemailer.createTransport({
 
 ---
 
-## 10. Environment Variables
+## 11. Environment Variables
 
 | Variable | Purpose | Used By |
 |---|---|---|
@@ -433,7 +366,7 @@ All are server-only (no `NEXT_PUBLIC_` prefix). Required for contact form and ne
 
 ---
 
-## 11. Root Layout Shell
+## 12. Root Layout Shell
 
 `app/layout.js` defines the persistent page shell:
 
@@ -454,7 +387,7 @@ The `Header` and `Footer` are rendered on every page. The `ScrollToTop` button i
 
 ---
 
-## 12. Page-Level Patterns
+## 13. Page-Level Patterns
 
 ### Home Page (`/`)
 
@@ -467,6 +400,13 @@ Sections in order:
 6. **Newsletter Signup**
 
 All sections (except hero) wrapped in `ScrollReveal`.
+
+### Journal Index (`/journal`)
+
+Server Component that builds entry data from `ARTICLES` and passes it to `JournalFilter` (client component). Data includes:
+- `ENTRY_ORDER`: Array of slugs defining display order (newest first)
+- `CARD_IMAGES`: Slug-to-image-path mapping
+- `CARD_EXCERPTS`: Slug-to-custom-excerpt mapping (falls back to `article.lead`)
 
 ### Journal Article (`/journal/:slug`)
 
@@ -491,7 +431,7 @@ Interactive tools in order:
 
 ---
 
-## 13. Image Conventions
+## 14. Image Conventions
 
 ### File Naming
 
@@ -499,82 +439,44 @@ Interactive tools in order:
 |---|---|---|
 | Home hero | `home-hero.png` | `public/images/` |
 | About hero | `about-hero.png` | `public/images/` |
-| Journal thumbnails | `journal-1.png` through `journal-20.png` | `public/images/` |
+| Journal thumbnails | `journal-1.png` through `journal-30.png` | `public/images/` |
 | Default OG | `og-default.png` | `public/` |
 | Favicon | `icon.svg` | `app/` |
 
 ### Image-to-Article Mapping
 
 Article slugs map to thumbnail images via `CARD_IMAGES` objects defined in:
-- `app/page.js` (home page, subset)
-- `app/journal/page.js` (journal index, all 20)
-- `app/journal/[slug]/page.js` (article pages, all 20)
+- `app/page.js` (home page, subset of 6)
+- `app/journal/page.js` (journal index, all 30)
+- `app/journal/[slug]/page.js` (article pages, all 30)
 
 When adding new articles, all three locations must be updated.
 
 ---
 
-## 14. Accessibility Checklist
-
-These are already implemented. Maintain them:
-
-- [x] Skip-to-content link (`<a href="#main-content">`)
-- [x] Semantic landmarks (`<header>`, `<main>`, `<footer>`, `<nav>`, `<section>`, `<article>`)
-- [x] `aria-label` on all `<section>` and `<nav>` elements
-- [x] `aria-expanded` and `aria-modal` on mobile menu
-- [x] Focus trap in mobile menu (Tab/Shift+Tab cycling, Escape to close)
-- [x] `role="dialog"` and `aria-modal` on mobile nav overlay
-- [x] Body scroll lock when mobile menu is open
-- [x] `<time datetime="...">` for all dates
-- [x] Descriptive `alt` text on all images
-- [x] `aria-hidden="true"` on decorative SVGs
-- [x] `:focus-visible` outline on all interactive elements
-- [x] `prefers-reduced-motion` respected globally
-- [x] `.visuallyHidden` class available for screen-reader-only text
-- [x] Minimum 44x44px touch targets on interactive elements
-
----
-
-## 15. File Conventions
-
-| Convention | Rule |
-|---|---|
-| Components | One folder per component under `components/`, named in PascalCase |
-| CSS Modules | Co-located `ComponentName.module.css` per component |
-| No global selectors in modules | Never use `*`, `html`, or `body` selectors in `.module.css` files |
-| Squircles over border-radius | Use `clip-path: var(--clip-path-squircle-*)` for cards and images |
-| `next/image` only | Never use `<img>` tags |
-| `next/link` only | Never use `<a>` for internal navigation |
-| `next/script` only | Never use `<script>` tags directly (except JSON-LD) |
-| SVG icons | Inline SVGs only; no icon libraries, no emoji |
-| No em dashes | Use commas, semicolons, colons, or shorter sentences instead |
-| Mobile-first CSS | Base styles for small screens; scale up with `min-width` queries |
-| Breakpoints | `640px` (sm), `768px` (md), `1024px` (lg), `1280px` (xl) |
-| Path alias | `@/` maps to project root |
-| Server-only data | `ARTICLES` must never be imported in Client Components |
-
----
-
-## 16. Error Handling
+## 15. Error Handling
 
 | Scenario | Handler | Type |
 |---|---|---|
 | Runtime error | `app/error.js` | Client Component with `reset()` retry |
 | 404 | `app/not-found.js` | Server Component with links to Home and Journal |
-| Loading | `app/loading.js` | Global loading skeleton |
+| Loading | `app/loading.js` | Breathing circle animation |
 | Journal loading | `app/journal/loading.js` | Journal-specific loading state |
 | Article not found | Inline fallback in `app/journal/[slug]/page.js` | "Article not found" with back link |
 
 ---
 
-## 17. Content Rules (Quick Reference)
+## 16. PWA Manifest
 
-- Nina speaks in first person
-- Invite, do not instruct ("Try this" not "You must")
-- No clinical language ("treatment", "therapy", "cure")
-- No wellness cliches ("self-care journey", "live your best life")
-- Acknowledge difficulty honestly
-- Short paragraphs (2-4 sentences), varied rhythm
-- Sensory, concrete language
-- 2-3 internal links per article
-- Descriptive anchor text (never "click here")
+`app/manifest.js` generates a web app manifest for "Add to Home Screen" support:
+
+```js
+{
+  name: SITE.name,
+  short_name: "Nina",
+  display: "standalone",
+  background_color: "#FAF7F2",
+  theme_color: "#C07A56",
+  icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+}
+```

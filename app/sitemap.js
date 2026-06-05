@@ -1,4 +1,5 @@
 import { ARTICLES } from "@/lib/articles";
+import { SITE } from "@/lib/siteConfig";
 
 export default function sitemap() {
   const staticRoutes = [
@@ -14,13 +15,13 @@ export default function sitemap() {
 
   return [
     ...staticRoutes.map((route) => ({
-      url: `https://ninahealthy.com${route}`,
+      url: `${SITE.url}${route}`,
       lastModified: new Date(),
       changeFrequency: route === "" ? "weekly" : "monthly",
       priority: route === "" ? 1.0 : 0.8,
     })),
     ...journalSlugs.map((slug) => ({
-      url: `https://ninahealthy.com/journal/${slug}`,
+      url: `${SITE.url}/journal/${slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

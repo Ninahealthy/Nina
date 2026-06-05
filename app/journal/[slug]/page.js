@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ARTICLES } from "@/lib/articles";
+import { CARD_IMAGES } from "@/lib/cardImages";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import RelatedArticles from "@/components/RelatedArticles/RelatedArticles";
 import ShareBar from "@/components/ShareBar/ShareBar";
@@ -7,39 +8,6 @@ import ReadingProgress from "@/components/ReadingProgress/ReadingProgress";
 import { getReadingTime } from "@/lib/readingTime";
 import { SITE } from "@/lib/siteConfig";
 import styles from "./page.module.css";
-
-const CARD_IMAGES = {
-  "water-as-teacher": "/images/journal-30.png",
-  "learning-to-be-a-beginner": "/images/journal-29.png",
-  "the-freedom-of-small-spaces": "/images/journal-28.png",
-  "hunger-beyond-food": "/images/journal-27.png",
-  "the-ritual-of-repair": "/images/journal-26.png",
-  "on-grief-without-a-name": "/images/journal-25.png",
-  "what-the-garden-teaches": "/images/journal-24.png",
-  "the-practice-of-receiving": "/images/journal-23.png",
-  "silence-as-a-language": "/images/journal-22.png",
-  "the-kindness-of-routine": "/images/journal-21.png",
-  "sleep-as-surrender": "/images/journal-20.png",
-  "tending-the-inner-weather": "/images/journal-19.png",
-  "the-long-exhale": "/images/journal-18.png",
-  "on-walking-without-a-destination": "/images/journal-17.png",
-  "the-body-keeps-a-quiet-score": "/images/journal-16.png",
-  "the-art-of-gentle-transitions": "/images/journal-11.png",
-  "digital-minimalism-in-a-loud-world": "/images/journal-12.png",
-  "finding-ritual-in-the-kitchen": "/images/journal-13.png",
-  "the-gentle-discipline-of-saying-no": "/images/journal-14.png",
-  "cultivating-a-mindful-workspace": "/images/journal-15.png",
-  "the-art-of-doing-nothing": "/images/journal-1.png",
-  "morning-rituals-that-anchor-me": "/images/journal-2.png",
-  "letting-go-of-perfect": "/images/journal-3.png",
-  "the-quiet-power-of-a-slow-morning": "/images/journal-4.png",
-  "breathing-through-the-overwhelm": "/images/journal-5.png",
-  "seasonal-living-as-practice": "/images/journal-6.png",
-  "the-weight-of-being-available": "/images/journal-7.png",
-  "what-i-mean-when-i-say-gentle": "/images/journal-8.png",
-  "learning-to-sit-with-discomfort": "/images/journal-9.png",
-  "the-myth-of-balance": "/images/journal-10.png",
-};
 
 export function generateStaticParams() {
   return Object.keys(ARTICLES).map((slug) => ({ slug }));
@@ -62,8 +30,16 @@ export async function generateMetadata({ params }) {
       url: `${SITE.url}/journal/${slug}`,
       type: "article",
       publishedTime: article.dateISO,
-      authors: ["Nina"],
+      authors: [SITE.author.name],
       section: article.category,
+      images: [
+        {
+          url: CARD_IMAGES[slug] || SITE.ogImage.url,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
     },
     alternates: {
       canonical: `${SITE.url}/journal/${slug}`,

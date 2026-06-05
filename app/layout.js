@@ -1,5 +1,6 @@
 import { Playfair_Display, Lora } from "next/font/google";
 import Script from "next/script";
+import { SITE } from "@/lib/siteConfig";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
@@ -18,36 +19,26 @@ const lora = Lora({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://ninahealthy.com"),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Nina Healthy",
-    template: "%s | Nina Healthy",
+    default: SITE.name,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "Finding peace in the everyday. A personal journey through mindfulness, intentional living, and inner wellness.",
+  description: SITE.description,
   openGraph: {
-    title: "Nina Healthy",
-    description:
-      "Finding peace in the everyday. A personal journey through mindfulness, intentional living, and inner wellness.",
-    url: "https://ninahealthy.com",
-    siteName: "Nina Healthy",
+    title: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    siteName: SITE.name,
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/og-default.png",
-        width: 1200,
-        height: 630,
-        alt: "Nina Healthy, a mindfulness and intentional living space",
-      },
-    ],
+    images: [SITE.ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nina Healthy",
-    description:
-      "Finding peace in the everyday. A personal journey through mindfulness, intentional living, and inner wellness.",
-    images: ["/og-default.png"],
+    title: SITE.name,
+    description: SITE.description,
+    images: [SITE.ogImage.url],
   },
   robots: {
     index: true,
@@ -61,7 +52,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://ninahealthy.com",
+    canonical: SITE.url,
     types: {
       "application/rss+xml": "/feed.xml",
     },

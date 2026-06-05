@@ -7,6 +7,7 @@ import GroundingExercise from "@/components/GroundingExercise/GroundingExercise"
 import PageHero from "@/components/PageHero/PageHero";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 import JsonLd from "@/components/JsonLd/JsonLd";
+import { SITE } from "@/lib/siteConfig";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -17,7 +18,7 @@ export const metadata = {
     title: "Practice",
     description:
       "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
-    url: "https://ninahealthy.com/practice",
+    url: `${SITE.url}/practice`,
     images: [
       {
         url: "/og-default.png",
@@ -28,7 +29,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://ninahealthy.com/practice",
+    canonical: `${SITE.url}/practice`,
   },
 };
 
@@ -38,7 +39,7 @@ const PRACTICE_JSONLD = {
   name: "Practice",
   description:
     "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
-  url: "https://ninahealthy.com/practice",
+  url: `${SITE.url}/practice`,
   specialty: "Mindfulness",
 };
 

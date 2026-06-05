@@ -1,4 +1,5 @@
 import PageHero from "@/components/PageHero/PageHero";
+import { SITE } from "@/lib/siteConfig";
 import styles from "@/app/styles/LegalPage.module.css";
 
 export const metadata = {
@@ -9,7 +10,7 @@ export const metadata = {
     title: "Privacy Policy",
     description:
       "How Nina Healthy handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
-    url: "https://ninahealthy.com/privacy",
+    url: `${SITE.url}/privacy`,
     images: [
       {
         url: "/og-default.png",
@@ -20,7 +21,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://ninahealthy.com/privacy",
+    canonical: `${SITE.url}/privacy`,
   },
 };
 

@@ -1,5 +1,7 @@
 import { Playfair_Display, Lora } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE } from "@/lib/siteConfig";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -21,7 +23,7 @@ const lora = Lora({
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: SITE.name,
+    default: `${SITE.name} | Mindfulness, Intentional Living & Inner Wellness`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -53,6 +55,9 @@ export const metadata = {
   },
   alternates: {
     canonical: SITE.url,
+    languages: {
+      "en": SITE.url,
+    },
     types: {
       "application/rss+xml": "/feed.xml",
     },
@@ -63,6 +68,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
       <body>
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087636695455778"
@@ -76,6 +83,8 @@ export default function RootLayout({ children }) {
         <main id="main-content">{children}</main>
         <Footer />
         <ScrollToTop />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

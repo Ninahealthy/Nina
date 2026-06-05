@@ -20,6 +20,12 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary",
+    title: "Terms of Use",
+    description:
+      "Terms of use for Nina Healthy. Guidelines for using this mindfulness and wellness website.",
+  },
   alternates: {
     canonical: `${SITE.url}/terms`,
   },

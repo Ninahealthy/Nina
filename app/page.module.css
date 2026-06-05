@@ -135,7 +135,7 @@
   clip-path: var(--clip-path-squircle-48);
   padding: 3rem 2rem;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(61, 56, 50, 0.06);
+  box-shadow: 0 4px 16px var(--color-card-shadow, rgba(61, 56, 50, 0.06));
 }
 
 .practiceLabel {
@@ -239,11 +239,23 @@
   }
 
   .heroTitle {
-    font-size: 4rem;
+    font-size: clamp(3rem, 4vw, 3.5rem);
   }
 
   .heroImageWrapper {
     width: 360px;
     height: 360px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .heroImageWrapper {
+    width: 400px;
+    height: 400px;
   }
 }

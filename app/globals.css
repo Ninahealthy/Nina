@@ -345,6 +345,9 @@
     --color-clay: #B09974;
     --color-sand: #3D3530;
 
+    --color-card-shadow: rgba(0, 0, 0, 0.2);
+    --color-card-shadow-hover: rgba(0, 0, 0, 0.35);
+
     --background: var(--color-cream);
     --foreground: var(--color-charcoal);
   }
@@ -363,6 +366,9 @@
   --color-olive: #8A9E7D;
   --color-clay: #B09974;
   --color-sand: #3D3530;
+
+  --color-card-shadow: rgba(0, 0, 0, 0.2);
+  --color-card-shadow-hover: rgba(0, 0, 0, 0.35);
 
   --background: var(--color-cream);
   --foreground: var(--color-charcoal);

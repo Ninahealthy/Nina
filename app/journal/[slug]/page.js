@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd/JsonLd";
 import RelatedArticles from "@/components/RelatedArticles/RelatedArticles";
 import ShareBar from "@/components/ShareBar/ShareBar";
 import ReadingProgress from "@/components/ReadingProgress/ReadingProgress";
+import AuthorBio from "@/components/AuthorBio/AuthorBio";
 import { getReadingTime } from "@/lib/readingTime";
 import { SITE } from "@/lib/siteConfig";
 import styles from "./page.module.css";
@@ -30,8 +31,10 @@ export async function generateMetadata({ params }) {
       url: `${SITE.url}/journal/${slug}`,
       type: "article",
       publishedTime: article.dateISO,
+      modifiedTime: article.dateModified || article.dateISO,
       authors: [SITE.author.name],
       section: article.category,
+      tags: article.tags || [article.category],
       images: [
         {
           url: CARD_IMAGES[slug] || SITE.ogImage.url,
@@ -40,6 +43,12 @@ export async function generateMetadata({ params }) {
           alt: article.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.lead,
+      images: [CARD_IMAGES[slug] || SITE.ogImage.url],
     },
     alternates: {
       canonical: `${SITE.url}/journal/${slug}`,
@@ -68,7 +77,7 @@ function buildArticleJsonLd(article, slug) {
       },
     },
     datePublished: article.dateISO,
-    dateModified: article.dateISO,
+    dateModified: article.dateModified || article.dateISO,
     mainEntityOfPage: `${SITE.url}/journal/${slug}`,
     image: CARD_IMAGES[slug]
       ? `${SITE.url}${CARD_IMAGES[slug]}`
@@ -76,37 +85,75 @@ function buildArticleJsonLd(article, slug) {
   };
 }
 
+function buildBreadcrumbJsonLd(article, slug) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Journal",
+        item: `${SITE.url}/journal`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: `${SITE.url}/journal/${slug}`,
+      },
+    ],
+  };
+}
+
 /**
- * Find related articles by matching category, excluding the current one.
+ * Find related articles: prioritize curated relatedSlugs, then category match, then any.
  */
-function getRelatedArticles(currentSlug, currentCategory, count = 3) {
+function getRelatedArticles(currentSlug, currentArticle, count = 3) {
   const related = [];
-  for (const [slug, article] of Object.entries(ARTICLES)) {
-    if (slug === currentSlug) continue;
-    if (article.category === currentCategory) {
-      related.push({
-        slug,
-        title: article.title,
-        category: article.category,
-        image: CARD_IMAGES[slug] || "/images/journal-1.png",
-      });
+  const seen = new Set([currentSlug]);
+
+  const push = (slug) => {
+    if (seen.has(slug) || !ARTICLES[slug]) return;
+    seen.add(slug);
+    related.push({
+      slug,
+      title: ARTICLES[slug].title,
+      category: ARTICLES[slug].category,
+      image: CARD_IMAGES[slug] || "/images/journal-1.png",
+    });
+  };
+
+  /* 1. Editorially curated relatedSlugs */
+  if (Array.isArray(currentArticle.relatedSlugs)) {
+    for (const s of currentArticle.relatedSlugs) {
+      if (related.length >= count) break;
+      push(s);
     }
-    if (related.length >= count) break;
   }
-  /* If not enough from same category, fill with others */
+
+  /* 2. Same category */
   if (related.length < count) {
     for (const [slug, article] of Object.entries(ARTICLES)) {
-      if (slug === currentSlug) continue;
-      if (related.some((r) => r.slug === slug)) continue;
-      related.push({
-        slug,
-        title: article.title,
-        category: article.category,
-        image: CARD_IMAGES[slug] || "/images/journal-1.png",
-      });
       if (related.length >= count) break;
+      if (article.category === currentArticle.category) push(slug);
     }
   }
+
+  /* 3. Any remaining */
+  if (related.length < count) {
+    for (const slug of Object.keys(ARTICLES)) {
+      if (related.length >= count) break;
+      push(slug);
+    }
+  }
+
   return related;
 }
 
@@ -127,13 +174,15 @@ export default async function ArticlePage({ params }) {
 
   const readingTime = getReadingTime(article.content);
   const articleJsonLd = buildArticleJsonLd(article, slug);
-  const relatedArticles = getRelatedArticles(slug, article.category);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(article, slug);
+  const relatedArticles = getRelatedArticles(slug, article);
   const articleUrl = `${SITE.url}/journal/${slug}`;
 
   return (
     <div className={styles.page}>
       <ReadingProgress />
       <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <article className={styles.article}>
         <header className={styles.articleHeader}>
           <div className={styles.articleMeta}>
@@ -201,6 +250,9 @@ export default async function ArticlePage({ params }) {
                 </ul>
               );
             }
+            if (process.env.NODE_ENV === "development") {
+              console.warn(`Unknown content block type: "${block.type}" in article "${slug}"`);
+            }
             return null;
           })}
         </div>
@@ -216,8 +268,9 @@ export default async function ArticlePage({ params }) {
             </svg>
             Back to Journal
           </Link>
-          <span className={styles.authorLine}>Written by Nina</span>
         </footer>
+
+        <AuthorBio />
 
         <RelatedArticles articles={relatedArticles} />
       </article>

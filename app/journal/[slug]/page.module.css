@@ -102,6 +102,7 @@
   font-size: 1.05rem;
   color: var(--color-stone);
   line-height: 1.85;
+  max-width: 65ch;
 }
 
 .subheading {
@@ -167,11 +168,6 @@
   margin-top: 4rem;
   padding-top: 2rem;
   border-top: 1px solid var(--color-sand);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .backLink {
@@ -186,12 +182,6 @@
 
 .backLink:hover {
   color: var(--color-olive);
-}
-
-.authorLine {
-  font-size: 0.9rem;
-  color: var(--color-pebble);
-  font-style: italic;
 }
 
 .notFound {

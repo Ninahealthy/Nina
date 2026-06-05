@@ -28,6 +28,13 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Practice",
+    description:
+      "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, and grounding techniques.",
+    images: ["/og-default.png"],
+  },
   alternates: {
     canonical: `${SITE.url}/practice`,
   },
@@ -100,7 +107,7 @@ export default function PracticePage() {
       />
 
       <ScrollReveal>
-        <section className={styles.intention} aria-label="Daily intention">
+        <section id="daily-intention" className={styles.intention} aria-label="Daily intention">
           <SectionHeading subtitle="A small anchor for your day.">
             Set Your Intention
           </SectionHeading>
@@ -110,6 +117,7 @@ export default function PracticePage() {
 
       <ScrollReveal>
         <section
+          id="grounding-exercise"
           className={styles.groundingSection}
           aria-label="Grounding exercise"
         >
@@ -122,6 +130,7 @@ export default function PracticePage() {
 
       <ScrollReveal>
         <section
+          id="breath-pacer"
           className={styles.breathPacerSection}
           aria-label="Breathing exercise"
         >
@@ -134,6 +143,7 @@ export default function PracticePage() {
 
       <ScrollReveal>
         <section
+          id="meditation-timer"
           className={styles.timerSection}
           aria-label="Meditation timer"
         >
@@ -146,6 +156,7 @@ export default function PracticePage() {
 
       <ScrollReveal>
         <section
+          id="ways-to-begin"
           className={styles.practices}
           aria-label="Mindfulness practices"
         >

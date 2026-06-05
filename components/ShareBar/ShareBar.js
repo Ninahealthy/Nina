@@ -30,7 +30,7 @@ const ShareBar = ({ title, url }) => {
   const supportsShare = typeof navigator !== "undefined" && !!navigator.share;
 
   return (
-    <div className={styles.bar} aria-label="Share this article">
+    <nav className={styles.bar} aria-label="Share this article">
       {supportsShare && (
         <button
           className={styles.shareButton}
@@ -116,7 +116,7 @@ const ShareBar = ({ title, url }) => {
         )}
         <span>{copied ? "Copied" : "Copy link"}</span>
       </button>
-    </div>
+    </nav>
   );
 };
 

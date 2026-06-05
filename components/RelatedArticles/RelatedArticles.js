@@ -25,7 +25,7 @@ const RelatedArticles = ({ articles }) => {
                 src={article.image}
                 alt={article.title}
                 fill
-                sizes="80px"
+                sizes="(max-width: 640px) 80px, 100px"
                 className={styles.image}
               />
             </div>

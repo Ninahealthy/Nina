@@ -22,7 +22,7 @@ export default function sitemap() {
     })),
     ...journalSlugs.map((slug) => ({
       url: `${SITE.url}/journal/${slug}`,
-      lastModified: new Date(),
+      lastModified: new Date(ARTICLES[slug].dateModified || ARTICLES[slug].dateISO),
       changeFrequency: "monthly",
       priority: 0.7,
     })),

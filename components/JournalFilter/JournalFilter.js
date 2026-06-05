@@ -88,6 +88,7 @@ export default function JournalFilter({ entries }) {
               href={`/journal/${entry.slug}`}
               readingTime={entry.readingTime}
               date={entry.date}
+              dateISO={entry.dateISO}
             />
           ))}
         </div>

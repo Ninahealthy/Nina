@@ -26,6 +26,13 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Nina",
+    description:
+      "Meet Nina and learn about her journey to mindfulness and intentional living.",
+    images: ["/og-default.png"],
+  },
   alternates: {
     canonical: `${SITE.url}/about`,
   },

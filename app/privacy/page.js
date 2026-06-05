@@ -20,6 +20,12 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy",
+    description:
+      "How Nina Healthy handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
+  },
   alternates: {
     canonical: `${SITE.url}/privacy`,
   },
@@ -43,7 +49,10 @@ export default function PrivacyPage() {
             contact form, I receive your name, email address, and message. When
             you subscribe to the newsletter, I receive your email address. No
             data is collected automatically beyond what is standard for web
-            hosting (such as server logs).
+            hosting (such as server logs). Additionally, this site displays
+            advertisements through Google AdSense, which may collect certain
+            information as described in the Cookies and Third Parties sections
+            below.
           </p>
 
           <h2 className={styles.sectionTitle}>How I Use It</h2>
@@ -66,17 +75,24 @@ export default function PrivacyPage() {
 
           <h2 className={styles.sectionTitle}>Cookies</h2>
           <p>
-            This site does not use cookies for tracking or advertising
-            purposes. Any cookies present are essential for the basic
-            functioning of the website.
+            This site uses essential cookies for the basic functioning of the
+            website, such as remembering your theme preference. Additionally,
+            Google AdSense, which serves advertisements on this site, may use
+            cookies and similar technologies to display personalized ads based
+            on your browsing history. You can manage your ad personalization
+            preferences through your Google account settings or by visiting
+            the Google Ads Settings page.
           </p>
 
           <h2 className={styles.sectionTitle}>Third Parties</h2>
           <p>
             This site is hosted on standard web infrastructure. Email
-            delivery is handled through a secure SMTP provider. No third-party
-            analytics, social media trackers, or advertising scripts are
-            present on this site.
+            delivery is handled through a secure SMTP provider. Google
+            AdSense is used to display advertisements, and Google may collect
+            and use data according to its own privacy policy. No third-party
+            analytics or social media trackers are used on this site. You can
+            learn more about how Google uses information by visiting
+            Google&#39;s Privacy and Terms page.
           </p>
 
           <h2 className={styles.sectionTitle}>Your Rights</h2>

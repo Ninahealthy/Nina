@@ -24,6 +24,7 @@ function getLatestArticles(count = 3) {
       excerpt: article.lead,
       image: CARD_IMAGES[slug] || "/images/journal-1.png",
       readingTime: getReadingTime(article.content),
+      dateISO: article.dateISO,
     };
   });
 }
@@ -78,7 +79,7 @@ export default function Home() {
             src="/images/home-hero.png"
             alt="Serene meadow with soft morning light filtering through wildflowers"
             fill
-            sizes="(max-width: 768px) 200px, (max-width: 1024px) 300px, 360px"
+            sizes="(max-width: 768px) 200px, (max-width: 1024px) 300px, (max-width: 1280px) 360px, 400px"
             priority
             className={styles.heroImage}
           />
@@ -117,6 +118,7 @@ export default function Home() {
                 excerpt={entry.excerpt}
                 href={`/journal/${entry.slug}`}
                 readingTime={entry.readingTime}
+                dateISO={entry.dateISO}
               />
             ))}
           </div>

@@ -35,6 +35,13 @@ export async function GET() {
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE.url}/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>${SITE.url}/og-default.png</url>
+      <title>${SITE.name}</title>
+      <link>${SITE.url}</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
 ${itemsXml}
   </channel>
 </rss>`;

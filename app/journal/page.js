@@ -27,6 +27,13 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Journal",
+    description:
+      "Thoughts on mindful living, written from wherever I am in the journey.",
+    images: ["/og-default.png"],
+  },
   alternates: {
     canonical: `${SITE.url}/journal`,
   },
@@ -38,19 +45,29 @@ export const metadata = {
  * is serialized and passed to the JournalFilter client component.
  */
 function buildEntries() {
-  return ENTRY_ORDER.map((slug) => {
-    const article = ARTICLES[slug];
-    return {
-      slug,
-      title: article.title,
-      excerpt: CARD_EXCERPTS[slug] || article.lead,
-      category: article.category,
-      image: CARD_IMAGES[slug] || "/images/journal-1.png",
-      readingTime: getReadingTime(article.content),
-      date: article.date,
-      dateISO: article.dateISO,
-    };
-  });
+  return ENTRY_ORDER
+    .filter((slug) => {
+      if (!ARTICLES[slug]) {
+        if (process.env.NODE_ENV === "development") {
+          console.warn(`ENTRY_ORDER contains slug "${slug}" but no matching article exists.`);
+        }
+        return false;
+      }
+      return true;
+    })
+    .map((slug) => {
+      const article = ARTICLES[slug];
+      return {
+        slug,
+        title: article.title,
+        excerpt: CARD_EXCERPTS[slug] || article.lead,
+        category: article.category,
+        image: CARD_IMAGES[slug] || "/images/journal-1.png",
+        readingTime: getReadingTime(article.content),
+        date: article.date,
+        dateISO: article.dateISO,
+      };
+    });
 }
 
 function buildCollectionJsonLd(entries) {

@@ -1,11 +1,14 @@
 import { ImageResponse } from "next/og";
 import { ARTICLES } from "@/lib/articles";
 
-export const size = { width: 1200, height: 630 };
+export const alt = "Nina Healthy Journal";
+export const size = {
+  width: 1200,
+  height: 630,
+};
 export const contentType = "image/png";
-export const alt = "Nina Healthy journal article";
 
-export default async function OgImage({ params }) {
+export default async function Image({ params }) {
   const { slug } = await params;
   const article = ARTICLES[slug];
 
@@ -19,11 +22,13 @@ export default async function OgImage({ params }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#FAF7F2",
+            background: "#FAF7F2",
+            color: "#3D3832",
+            fontSize: 48,
             fontFamily: "Georgia, serif",
           }}
         >
-          <span style={{ fontSize: 40, color: "#3D3832" }}>Nina Healthy</span>
+          Nina Healthy
         </div>
       ),
       { ...size }
@@ -38,22 +43,25 @@ export default async function OgImage({ params }) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end",
-          backgroundColor: "#FAF7F2",
+          justifyContent: "center",
           padding: "60px 80px",
+          background:
+            "linear-gradient(145deg, #FAF7F2 0%, #F3EDE4 40%, #E8DFD0 100%)",
           fontFamily: "Georgia, serif",
           position: "relative",
         }}
       >
-        {/* Decorative top accent */}
+        {/* Top accent gradient bar */}
         <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            right: 0,
+            width: "100%",
             height: "6px",
-            background: "linear-gradient(90deg, #C07A56, #8FA98B)",
+            background:
+              "linear-gradient(90deg, #C07A56 0%, #C4A882 50%, #8FA98B 100%)",
+            display: "flex",
           }}
         />
 
@@ -61,72 +69,136 @@ export default async function OgImage({ params }) {
         <div
           style={{
             display: "flex",
-            marginBottom: "20px",
+            alignItems: "center",
+            marginBottom: 24,
           }}
         >
-          <span
+          <div
             style={{
-              fontSize: 16,
+              display: "flex",
+              alignItems: "center",
+              padding: "8px 20px",
+              background: "rgba(192, 122, 86, 0.12)",
+              borderRadius: "20px",
+              fontSize: 18,
               color: "#C07A56",
-              fontWeight: 700,
+              fontWeight: 600,
+              letterSpacing: "0.05em",
               textTransform: "uppercase",
-              letterSpacing: "0.1em",
             }}
           >
             {article.category}
-          </span>
+          </div>
         </div>
 
         {/* Title */}
         <div
           style={{
-            fontSize: 56,
-            fontWeight: 700,
-            color: "#3D3832",
-            lineHeight: 1.15,
-            marginBottom: "24px",
-            maxWidth: "900px",
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            justifyContent: "center",
           }}
         >
-          {article.title}
-        </div>
-
-        {/* Lead */}
-        {article.lead && (
           <div
             style={{
-              fontSize: 22,
-              color: "#6B6560",
-              lineHeight: 1.5,
-              maxWidth: "800px",
-              marginBottom: "40px",
+              fontSize: article.title.length > 40 ? 52 : 60,
+              fontWeight: 700,
+              color: "#3D3832",
+              lineHeight: 1.2,
+              letterSpacing: "-0.02em",
+              maxWidth: "900px",
+              display: "flex",
             }}
           >
-            {article.lead.length > 120
-              ? article.lead.slice(0, 120) + "..."
-              : article.lead}
+            {article.title}
           </div>
-        )}
 
-        {/* Footer */}
+          {/* Decorative divider dots */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginTop: 32,
+              marginBottom: 16,
+            }}
+          >
+            <div
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#C4A882",
+                display: "flex",
+              }}
+            />
+            <div
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#C07A56",
+                display: "flex",
+              }}
+            />
+            <div
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#8FA98B",
+                display: "flex",
+              }}
+            />
+          </div>
+
+          {/* Date */}
+          <div
+            style={{
+              fontSize: 20,
+              color: "#6B6560",
+              display: "flex",
+            }}
+          >
+            {article.date}
+          </div>
+        </div>
+
+        {/* Bottom branding */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid #E8DFD0",
-            paddingTop: "20px",
+            width: "100%",
           }}
         >
-          <span style={{ fontSize: 20, color: "#3D3832", fontWeight: 600 }}>
+          <div
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: "#C07A56",
+              letterSpacing: "0.02em",
+              display: "flex",
+            }}
+          >
             Nina Healthy
-          </span>
-          <span style={{ fontSize: 16, color: "#9A9490" }}>
+          </div>
+          <div
+            style={{
+              fontSize: 16,
+              color: "#9A9490",
+              display: "flex",
+            }}
+          >
             ninahealthy.com
-          </span>
+          </div>
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+    }
   );
 }

@@ -6,6 +6,7 @@ import { SITE } from "@/lib/siteConfig";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
+import AdSenseRefresh from "@/components/AdSenseRefresh/AdSenseRefresh";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -76,6 +77,7 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        <AdSenseRefresh />
         <a href="#main-content" className="skipLink">
           Skip to content
         </a>

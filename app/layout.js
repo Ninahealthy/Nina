@@ -7,6 +7,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import AdSenseRefresh from "@/components/AdSenseRefresh/AdSenseRefresh";
+import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -71,6 +72,8 @@ export default function RootLayout({ children }) {
       <body>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087636695455778"
@@ -78,6 +81,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         <AdSenseRefresh />
+        <GoogleAnalytics />
         <a href="#main-content" className="skipLink">
           Skip to content
         </a>

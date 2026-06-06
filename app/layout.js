@@ -1,5 +1,4 @@
 import { Playfair_Display, Lora } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE } from "@/lib/siteConfig";
@@ -69,14 +68,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
       <body>
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087636695455778"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
         <AdSenseRefresh />
         <a href="#main-content" className="skipLink">
           Skip to content

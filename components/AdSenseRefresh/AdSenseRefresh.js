@@ -1,86 +1,60 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-
-const AD_CLIENT = "ca-pub-2087636695455778";
-const AD_SCRIPT_SRC = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`;
 
 /**
  * AdSenseRefresh
  *
- * Manages the AdSense Auto Ads script lifecycle for SPA navigation.
+ * Intercepts clicks on links to journal article pages and forces a full
+ * page navigation (window.location.href) instead of letting Next.js do
+ * client-side routing. This ensures Google AdSense Auto Ads re-initializes
+ * and scans the DOM on every article page load.
  *
- * Problem: AdSense Auto Ads only scans the DOM once on initial page load.
- * During client-side navigation (next/link), the page content changes but
- * AdSense never re-scans, so ads disappear.
+ * Why: AdSense Auto Ads only places ads on a full page load. Next.js's
+ * client-side navigation (via next/link) swaps content without reloading,
+ * so AdSense never re-scans and ads disappear. By intercepting the click
+ * before the router handles it, we get a clean full-page load with ads.
  *
- * Solution: On every route change, tear down all AdSense-injected elements,
- * reset the adsbygoogle queue, and re-inject the script so AdSense performs
- * a fresh scan of the new page content.
+ * Non-article navigation (home, journal index, practice, about, etc.)
+ * still uses fast client-side routing.
  */
 export default function AdSenseRefresh() {
   const pathname = usePathname();
-  const isInitialLoad = useRef(true);
 
-  // Initial script load (replaces the <Script> tag in layout)
   useEffect(() => {
-    // Only load if the script isn't already present (e.g., from SSR)
-    const existing = document.querySelector(
-      `script[src*="adsbygoogle.js"]`
-    );
-    if (!existing) {
-      const script = document.createElement("script");
-      script.src = AD_SCRIPT_SRC;
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      document.head.appendChild(script);
+    function handleClick(e) {
+      // Walk up from the click target to find the nearest <a>
+      const link = e.target.closest("a[href]");
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      if (!href) return;
+
+      // Only intercept internal article links: /journal/some-slug
+      // Skip /journal (index page) and external links
+      const isArticleLink =
+        href.startsWith("/journal/") &&
+        href !== "/journal" &&
+        href !== "/journal/";
+
+      if (!isArticleLink) return;
+
+      // Don't intercept if we're already on this exact page
+      if (href === pathname) return;
+
+      // Don't interfere with modifier keys (new tab, etc.)
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      // Prevent Next.js client-side navigation
+      e.preventDefault();
+
+      // Force a full page load so AdSense re-initializes
+      window.location.href = href;
     }
-  }, []);
 
-  // Re-initialize AdSense on route changes
-  useEffect(() => {
-    if (isInitialLoad.current) {
-      isInitialLoad.current = false;
-      return;
-    }
-
-    // Delay to let Next.js finish rendering the new page content
-    const timer = setTimeout(() => {
-      try {
-        // 1. Remove all auto-ad containers that AdSense injected
-        const autoAds = document.querySelectorAll(
-          "ins.adsbygoogle, .google-auto-placed, .adsbygoogle-noablate"
-        );
-        autoAds.forEach((el) => el.remove());
-
-        // 2. Remove AdSense iframes (ad creatives)
-        const adIframes = document.querySelectorAll(
-          'iframe[id*="google_ads"], iframe[id*="aswift"]'
-        );
-        adIframes.forEach((el) => el.remove());
-
-        // 3. Remove the old script tags
-        const oldScripts = document.querySelectorAll(
-          'script[src*="adsbygoogle"]'
-        );
-        oldScripts.forEach((s) => s.remove());
-
-        // 4. Reset the adsbygoogle queue
-        window.adsbygoogle = [];
-
-        // 5. Re-inject the AdSense script to trigger a fresh page scan
-        const script = document.createElement("script");
-        script.src = AD_SCRIPT_SRC;
-        script.async = true;
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-      } catch (e) {
-        // AdSense errors during teardown/reinit are non-critical
-      }
-    }, 600);
-
-    return () => clearTimeout(timer);
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, [pathname]);
 
   return null;

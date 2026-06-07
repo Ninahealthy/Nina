@@ -1,9 +1,7 @@
-/* Footer Main Container */
 .footer {
   position: relative;
   background: var(--color-linen);
   color: var(--color-charcoal);
-  margin-top: auto;
   border-top: 1px solid var(--color-sand);
   /* Mitigate CLS from AdSense injecting height:auto !important at runtime.
      contain prevents internal layout changes from triggering page-level reflow;

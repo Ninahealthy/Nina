@@ -75,12 +75,14 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`}>
-      <body>
+    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`} suppressHydrationWarning>
+      <head>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+      </head>
+      <body suppressHydrationWarning>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2087636695455778"

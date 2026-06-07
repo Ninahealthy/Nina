@@ -8,6 +8,7 @@ import AuthorBio from "@/components/AuthorBio/AuthorBio";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { getReadingTime } from "@/lib/readingTime";
 import { SITE } from "@/lib/siteConfig";
+import { CARD_IMAGES } from "@/lib/cardImages";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {

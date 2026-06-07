@@ -45,6 +45,6 @@ next-env.d.ts
 AGENTS.md
 CLAUDE.md
 CONTEXT.md
-agents.md
+/.agents/
 
 

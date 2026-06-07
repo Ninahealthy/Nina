@@ -55,10 +55,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#C07A56" },
-    { media: "(prefers-color-scheme: dark)", color: "#1A1714" },
-  ],
+
   alternates: {
     languages: {
       "en": SITE.url,
@@ -67,6 +64,13 @@ export const metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#C07A56" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1714" },
+  ],
 };
 
 export default function RootLayout({ children }) {

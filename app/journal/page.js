@@ -12,11 +12,11 @@ import styles from "./page.module.css";
 export const metadata = {
   title: "Journal",
   description:
-    "Thoughts on mindful living, written from wherever I am in the journey.",
+    "Explore reflections on mindfulness, intentional living, and inner wellness. Personal essays on breathing, routine, grief, and the practice of slowing down.",
   openGraph: {
     title: "Journal",
     description:
-      "Thoughts on mindful living, written from wherever I am in the journey.",
+      "Explore reflections on mindfulness, intentional living, and inner wellness. Personal essays on breathing, routine, grief, and the practice of slowing down.",
     url: `${SITE.url}/journal`,
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Journal",
     description:
-      "Thoughts on mindful living, written from wherever I am in the journey.",
+      "Explore reflections on mindfulness, intentional living, and inner wellness. Personal essays on breathing, routine, grief, and the practice of slowing down.",
     images: ["/og-default.png"],
   },
   alternates: {

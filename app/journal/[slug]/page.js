@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ARTICLES } from "@/lib/articles";
-import { CARD_IMAGES } from "@/lib/cardImages";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import RelatedArticles from "@/components/RelatedArticles/RelatedArticles";
 import ShareBar from "@/components/ShareBar/ShareBar";
 import ReadingProgress from "@/components/ReadingProgress/ReadingProgress";
 import AuthorBio from "@/components/AuthorBio/AuthorBio";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { getReadingTime } from "@/lib/readingTime";
 import { SITE } from "@/lib/siteConfig";
 import styles from "./page.module.css";
@@ -37,9 +37,9 @@ export async function generateMetadata({ params }) {
       tags: article.tags || [article.category],
       images: [
         {
-          url: CARD_IMAGES[slug] || SITE.ogImage.url,
-          width: 1200,
-          height: 630,
+          url: SITE.ogImage.url,
+          width: SITE.ogImage.width,
+          height: SITE.ogImage.height,
           alt: article.title,
         },
       ],
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: article.title,
       description: article.lead,
-      images: [CARD_IMAGES[slug] || SITE.ogImage.url],
+      images: [SITE.ogImage.url],
     },
     alternates: {
       canonical: `${SITE.url}/journal/${slug}`,
@@ -184,6 +184,7 @@ export default async function ArticlePage({ params }) {
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <article className={styles.article}>
+        <Breadcrumb articleTitle={article.title} />
         <header className={styles.articleHeader}>
           <div className={styles.articleMeta}>
             <span className={styles.category}>{article.category}</span>

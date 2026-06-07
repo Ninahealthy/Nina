@@ -329,6 +329,34 @@
 
   --background: var(--color-cream);
   --foreground: var(--color-charcoal);
+
+  /* Spacing scale (4px base grid) */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Type scale */
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.85rem;   /* ~14px */
+  --text-base: 1rem;    /* 16px */
+  --text-md: 1.05rem;   /* ~17px — body prose */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px */
+  --text-2xl: 1.5rem;   /* 24px */
+  --text-3xl: 2.25rem;  /* 36px */
+  --text-4xl: 3rem;     /* 48px */
+
+  /* Semantic color tokens */
+  --color-error: #b45309;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -408,6 +436,23 @@ a {
   text-decoration: none;
 }
 
+/* Inline links within article body and legal page content must be
+   visually distinguishable from surrounding text (WCAG 1.4.1).
+   The global reset above is intentional for navigation; these
+   scoped rules restore link indicators in prose content areas. */
+:where(.articleBody, .legalContent) a {
+  color: var(--color-terracotta);
+  text-decoration: underline;
+  text-decoration-color: var(--color-clay);
+  text-underline-offset: 0.15em;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+:where(.articleBody, .legalContent) a:hover {
+  color: var(--color-olive);
+  text-decoration-color: var(--color-olive);
+}
+
 main {
   flex: 1;
 }
@@ -464,13 +509,25 @@ select:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  a,
-  button,
-  div,
-  section,
-  article {
-    transition: none !important;
-    animation: none !important;
+  /* Only suppress motion-related properties. Color, opacity, and
+     background transitions remain because they are not vestibular
+     triggers and provide useful state feedback (WCAG 2.3.3). */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
 
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Hide non-content elements during print */
+  ins.adsbygoogle,
+  [data-ad-client] {
+    display: none !important;
+  }
+}

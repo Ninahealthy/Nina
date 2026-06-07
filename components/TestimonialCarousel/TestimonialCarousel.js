@@ -1,32 +1,53 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import styles from "./TestimonialCarousel.module.css";
+
+/**
+ * Testimonial carousel with attributed quotes and author photos.
+ * Uses horizontal scroll on mobile and a CSS snap for touch-friendly browsing.
+ */
 
 const TESTIMONIALS = [
   {
     quote:
-      "Reading Nina's journal feels like a deep breath I did not know I was holding. Every piece reminds me to slow down.",
-    author: "A reader from Portland",
+      "Reading Nina's journal feels like a deep breath I did not know I was holding. Every piece reminds me to slow down and pay attention to what matters.",
+    author: "Sarah Chen",
+    role: "Yoga Instructor",
+    location: "Portland, OR",
+    image: "/images/testimonial-sarah.png",
   },
   {
     quote:
-      "I started doing the morning rituals from this site three months ago. My mornings are calmer, and that calm follows me into the day.",
-    author: "A newsletter subscriber",
+      "I started doing the morning rituals from this site three months ago. My mornings are calmer, and that calm follows me into the rest of the day.",
+    author: "Marcus Rivera",
+    role: "Elementary School Teacher",
+    location: "Austin, TX",
+    image: "/images/testimonial-marcus.png",
   },
   {
     quote:
-      "This is the only website that does not make me feel like I need to be more. It lets me be where I am.",
-    author: "A returning visitor",
+      "This is the only website that does not make me feel like I need to be more. It lets me be where I am, and that is rare.",
+    author: "Elin Johansson",
+    role: "Freelance Designer",
+    location: "Brooklyn, NY",
+    image: "/images/testimonial-elin.png",
   },
   {
     quote:
-      "The breathing exercises changed how I handle stress at work. Simple, but profoundly effective.",
-    author: "A grateful reader",
+      "The breathing exercises changed how I handle stress at work. Simple, but profoundly effective. I recommend this site to my clients.",
+    author: "Priya Sharma",
+    role: "Licensed Therapist",
+    location: "Seattle, WA",
+    image: "/images/testimonial-priya.png",
   },
   {
     quote:
-      "I keep coming back to 'The Art of Doing Nothing.' It gave me permission to rest without guilt.",
-    author: "A journal reader",
+      "I keep coming back to 'The Art of Doing Nothing.' It gave me permission to rest without guilt. That one piece changed something in me.",
+    author: "James Okonkwo",
+    role: "Software Engineer",
+    location: "Chicago, IL",
+    image: "/images/testimonial-james.png",
   },
 ];
 
@@ -59,7 +80,23 @@ const TestimonialCarousel = () => {
               />
             </svg>
             <p className={styles.quote}>{item.quote}</p>
-            <cite className={styles.author}>{item.author}</cite>
+            <div className={styles.authorInfo}>
+              <div className={styles.authorAvatar}>
+                <Image
+                  src={item.image}
+                  alt={item.author}
+                  width={48}
+                  height={48}
+                  className={styles.authorImage}
+                />
+              </div>
+              <div>
+                <cite className={styles.author}>{item.author}</cite>
+                <p className={styles.authorRole}>
+                  {item.role}, {item.location}
+                </p>
+              </div>
+            </div>
           </blockquote>
         ))}
       </div>

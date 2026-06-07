@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { subscribeToNewsletter } from "./NewsletterAction";
 import styles from "./NewsletterSignup.module.css";
 
+/**
+ * Newsletter signup with persistent floating labels.
+ * Labels float above inputs on focus or when the field has content,
+ * ensuring users always know which field they are filling (WCAG 1.3.1).
+ */
 const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,20 +52,22 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
           No noise, no rush; just a quiet moment of intention each week.
         </p>
         <form onSubmit={handleSubmit} className={styles.newsletterForm}>
-          <label htmlFor="newsletter-email" className="visuallyHidden">
-            Email address
-          </label>
-          <input
-            id="newsletter-email"
-            type="email"
-            placeholder="Enter your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.newsletterInput}
-            required
-            disabled={isSubmitting}
-            autoComplete="email"
-          />
+          <div className={styles.floatingField}>
+            <input
+              id="newsletter-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.newsletterInput}
+              required
+              disabled={isSubmitting}
+              autoComplete="email"
+              placeholder=" "
+            />
+            <label htmlFor="newsletter-email" className={styles.floatingLabel}>
+              Email address
+            </label>
+          </div>
           <button
             type="submit"
             className={styles.newsletterButton}

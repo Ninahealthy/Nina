@@ -55,8 +55,11 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#C07A56" },
+    { media: "(prefers-color-scheme: dark)", color: "#1A1714" },
+  ],
   alternates: {
-    canonical: SITE.url,
     languages: {
       "en": SITE.url,
     },
@@ -68,7 +71,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
+    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`}>
       <body>
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />

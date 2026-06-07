@@ -67,6 +67,7 @@
 .heroImageWrapper {
   width: 200px;
   height: 200px;
+  aspect-ratio: 1;
   clip-path: var(--clip-path-squircle-60);
   overflow: hidden;
   flex-shrink: 0;

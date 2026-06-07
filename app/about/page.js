@@ -42,9 +42,18 @@ const PERSON_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Nina",
+  jobTitle: "Wellness Writer",
   description:
     "A seeker of stillness in a world that never stops moving. Sharing reflections on mindfulness and intentional living.",
   url: `${SITE.url}/about`,
+  knowsAbout: [
+    "Mindfulness",
+    "Intentional living",
+    "Inner wellness",
+    "Breathing exercises",
+    "Meditation",
+    "Somatic awareness",
+  ],
   sameAs: getSameAsUrls(),
 };
 
@@ -207,7 +216,7 @@ export default function AboutPage() {
           <SectionHeading subtitle="Things people often wonder about this space.">
             Common Questions
           </SectionHeading>
-          <Accordion items={FAQ_ITEMS} />
+          <Accordion items={FAQ_ITEMS} showExpandAll />
         </section>
       </ScrollReveal>
 

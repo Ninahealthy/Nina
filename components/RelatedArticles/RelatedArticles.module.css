@@ -82,3 +82,9 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+@media print {
+  .wrapper {
+    display: none;
+  }
+}

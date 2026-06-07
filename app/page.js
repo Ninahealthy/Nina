@@ -24,6 +24,7 @@ function getLatestArticles(count = 3) {
       excerpt: article.lead,
       image: CARD_IMAGES[slug] || "/images/journal-1.png",
       readingTime: getReadingTime(article.content),
+      date: article.date,
       dateISO: article.dateISO,
     };
   });
@@ -67,7 +68,7 @@ export default function Home() {
 
       <section className={styles.hero} aria-label="Introduction">
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Finding peace in the everyday</h1>
+          <h1 className={styles.heroTitle}>Finding peace in the everyday: mindfulness and intentional living</h1>
           <p className={styles.heroSubtitle}>
             A personal space for slowing down, breathing deeper,
             and living with more intention. Welcome to Nina Healthy.
@@ -118,6 +119,7 @@ export default function Home() {
                 excerpt={entry.excerpt}
                 href={`/journal/${entry.slug}`}
                 readingTime={entry.readingTime}
+                date={entry.date}
                 dateISO={entry.dateISO}
               />
             ))}

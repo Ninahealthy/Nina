@@ -41,7 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 # AI Agents
-.AGENTS.md
-.CLAUDE.md
-.CONTEXT.md
-.GEMINI.md
+
+AGENTS.md
+CLAUDE.md
+CONTEXT.md
+agents.md
+
+

@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { sendContactMessage } from "./ContactAction";
 import styles from "./ContactMe.module.css";
 
+/**
+ * Contact form with persistent floating labels.
+ * Labels float above inputs on focus or when the field has content,
+ * ensuring users always know which field they are filling (WCAG 1.3.1).
+ */
 const ContactForm = ({ headingLevel: HeadingTag = "h2" }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -67,70 +72,74 @@ const ContactForm = ({ headingLevel: HeadingTag = "h2" }) => {
 
         <form onSubmit={handleSubmit} className={styles.contactForm}>
           <div className={styles.formRow}>
-            <div>
-              <label htmlFor="contact-name" className="visuallyHidden">
-                Your name
-              </label>
+            <div className={styles.floatingField}>
               <input
                 id="contact-name"
                 type="text"
                 name="name"
-                placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
                 className={styles.contactInput}
                 required
                 disabled={isSubmitting}
                 autoComplete="name"
+                placeholder=" "
               />
-            </div>
-            <div>
-              <label htmlFor="contact-email" className="visuallyHidden">
-                Your email
+              <label htmlFor="contact-name" className={styles.floatingLabel}>
+                Your name
               </label>
+            </div>
+            <div className={styles.floatingField}>
               <input
                 id="contact-email"
                 type="email"
                 name="email"
-                placeholder="Your Email"
                 value={formData.email}
                 onChange={handleChange}
                 className={styles.contactInput}
                 required
                 disabled={isSubmitting}
                 autoComplete="email"
+                placeholder=" "
               />
+              <label htmlFor="contact-email" className={styles.floatingLabel}>
+                Your email
+              </label>
             </div>
           </div>
 
-          <label htmlFor="contact-subject" className="visuallyHidden">
-            Subject (optional)
-          </label>
-          <input
-            id="contact-subject"
-            type="text"
-            name="subject"
-            placeholder="Subject (Optional)"
-            value={formData.subject}
-            onChange={handleChange}
-            className={styles.contactInput}
-            disabled={isSubmitting}
-          />
+          <div className={styles.floatingField}>
+            <input
+              id="contact-subject"
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className={styles.contactInput}
+              disabled={isSubmitting}
+              placeholder=" "
+            />
+            <label htmlFor="contact-subject" className={styles.floatingLabel}>
+              Subject (optional)
+            </label>
+          </div>
 
-          <label htmlFor="contact-message" className="visuallyHidden">
-            Your message
-          </label>
-          <textarea
-            id="contact-message"
-            name="message"
-            placeholder="Your Message"
-            value={formData.message}
-            onChange={handleChange}
-            className={styles.contactTextarea}
-            rows="5"
-            required
-            disabled={isSubmitting}
-          />
+          <div className={styles.floatingField}>
+            <textarea
+              id="contact-message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className={styles.contactTextarea}
+              rows="5"
+              required
+              disabled={isSubmitting}
+              placeholder=" "
+            />
+            <label htmlFor="contact-message" className={styles.floatingLabel}>
+              Your message
+            </label>
+          </div>
 
           <button
             type="submit"

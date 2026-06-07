@@ -102,7 +102,6 @@
   font-size: 1.05rem;
   color: var(--color-stone);
   line-height: 1.85;
-  max-width: 65ch;
 }
 
 .subheading {
@@ -221,5 +220,79 @@
 
   .pullQuoteText {
     font-size: 1.375rem;
+  }
+}
+
+/* Print styles: clean article output without chrome */
+@media print {
+  .page {
+    padding: 0;
+  }
+
+  .article {
+    padding: 1rem 0;
+    max-width: 100%;
+  }
+
+  .articleHeader {
+    text-align: left;
+  }
+
+  .articleTitle {
+    font-size: 1.75rem;
+    color: #000;
+  }
+
+  .articleLead {
+    text-align: left;
+    color: #333;
+    font-size: 1rem;
+  }
+
+  .articleBody p,
+  .articleBody li {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .subheading {
+    color: #000;
+    font-size: 1.25rem;
+  }
+
+  .pullQuote {
+    background: none;
+    border-left: 3px solid #999;
+    clip-path: none;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  .pullQuoteText {
+    color: #333;
+    font-size: 1rem;
+  }
+
+  .contentNote {
+    border: 1px solid #ccc;
+    clip-path: none;
+    background: #f9f9f9;
+  }
+
+  .shareSection,
+  .articleFooter,
+  .backLink {
+    display: none;
+  }
+
+  .article::after {
+    content: "Source: ninahealthy.com";
+    display: block;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.8rem;
+    color: #999;
   }
 }

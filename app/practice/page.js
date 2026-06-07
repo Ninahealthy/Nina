@@ -1,9 +1,16 @@
+import { Suspense } from "react";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import Button from "@/components/Button/Button";
 import BreathPacer from "@/components/BreathPacer/BreathPacer";
 import MeditationTimer from "@/components/MeditationTimer/MeditationTimer";
 import DailyIntention from "@/components/DailyIntention/DailyIntention";
 import GroundingExercise from "@/components/GroundingExercise/GroundingExercise";
+import {
+  BreathPacerSkeleton,
+  MeditationTimerSkeleton,
+  DailyIntentionSkeleton,
+  GroundingExerciseSkeleton,
+} from "@/components/PracticeSkeleton/PracticeSkeleton";
 import PageHero from "@/components/PageHero/PageHero";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 import JsonLd from "@/components/JsonLd/JsonLd";
@@ -48,6 +55,86 @@ const PRACTICE_JSONLD = {
     "Simple mindfulness practices for everyday calm. Breathing exercises, meditation timer, grounding techniques, and morning rituals.",
   url: `${SITE.url}/practice`,
   specialty: "Mindfulness",
+};
+
+const BREATHING_HOWTO_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Practice Box Breathing for Calm",
+  description:
+    "A simple four-step breathing exercise that helps regulate your nervous system and bring you back to the present moment.",
+  totalTime: "PT4M",
+  supply: [],
+  tool: [],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Inhale",
+      text: "Breathe in slowly through your nose for 4 seconds, filling your lungs completely.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Hold",
+      text: "Hold your breath gently for 4 seconds. Stay relaxed.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Exhale",
+      text: "Breathe out slowly through your mouth for 4 seconds, releasing all the air.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Hold",
+      text: "Hold your breath for 4 seconds before beginning the next cycle. Repeat for 3 to 5 minutes.",
+    },
+  ],
+};
+
+const GROUNDING_HOWTO_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "5-4-3-2-1 Grounding Exercise for Anxiety",
+  description:
+    "A sensory awareness technique that uses your five senses to anchor you in the present moment during moments of anxiety or overwhelm.",
+  totalTime: "PT5M",
+  supply: [],
+  tool: [],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "See",
+      text: "Name five things you can see around you right now.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Touch",
+      text: "Name four things you can feel or touch, like the texture of your clothing or the chair beneath you.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Hear",
+      text: "Name three things you can hear, such as distant traffic, birdsong, or the hum of a refrigerator.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Smell",
+      text: "Name two things you can smell. If nothing is obvious, move closer to something like a candle, your sleeve, or a plant.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Taste",
+      text: "Name one thing you can taste. Take a sip of water or notice the residual taste in your mouth.",
+    },
+  ],
 };
 
 const PRACTICES = [
@@ -101,6 +188,8 @@ export default function PracticePage() {
   return (
     <div className={styles.page}>
       <JsonLd data={PRACTICE_JSONLD} />
+      <JsonLd data={BREATHING_HOWTO_JSONLD} />
+      <JsonLd data={GROUNDING_HOWTO_JSONLD} />
       <PageHero
         title="Practice"
         subtitle="Mindfulness is not something you master. It is something you practice, gently, every day. Start wherever you are."
@@ -111,7 +200,9 @@ export default function PracticePage() {
           <SectionHeading subtitle="A small anchor for your day.">
             Set Your Intention
           </SectionHeading>
-          <DailyIntention />
+          <Suspense fallback={<DailyIntentionSkeleton />}>
+            <DailyIntention />
+          </Suspense>
         </section>
       </ScrollReveal>
 
@@ -124,7 +215,9 @@ export default function PracticePage() {
           <SectionHeading subtitle="A gentle return to the present moment through your five senses.">
             Ground Yourself
           </SectionHeading>
-          <GroundingExercise />
+          <Suspense fallback={<GroundingExerciseSkeleton />}>
+            <GroundingExercise />
+          </Suspense>
         </section>
       </ScrollReveal>
 
@@ -137,7 +230,9 @@ export default function PracticePage() {
           <SectionHeading subtitle="Follow the circle. If comfortable, let your eyes soften or close. Let your breath find its rhythm.">
             Breathe With Me
           </SectionHeading>
-          <BreathPacer />
+          <Suspense fallback={<BreathPacerSkeleton />}>
+            <BreathPacer />
+          </Suspense>
         </section>
       </ScrollReveal>
 
@@ -150,7 +245,9 @@ export default function PracticePage() {
           <SectionHeading subtitle="Choose a duration. Sit quietly. If it feels intense, feel free to return to your natural rhythm at any time.">
             Meditation Timer
           </SectionHeading>
-          <MeditationTimer />
+          <Suspense fallback={<MeditationTimerSkeleton />}>
+            <MeditationTimer />
+          </Suspense>
         </section>
       </ScrollReveal>
 

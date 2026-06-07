@@ -249,14 +249,11 @@
     animation: none;
   }
 
-  .authorAvatar:hover,
-  .authorImage:hover,
   .brandGradient:hover {
     transform: none;
   }
 }
 
-/* Print styles */
 @media print {
   .footer {
     background: white;
@@ -266,9 +263,5 @@
   .brandGradient {
     color: black !important;
     -webkit-text-fill-color: black !important;
-  }
-
-  .authorAvatar {
-    background: #ddd;
   }
 }

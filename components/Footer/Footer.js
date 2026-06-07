@@ -9,9 +9,9 @@ const Footer = () => {
           <div className={styles.footerGrid}>
             <div className={styles.brandSection}>
               <div className={styles.brandHeader}>
-                <h2 className={styles.brandTitle}>
+                <p className={styles.brandTitle}>
                   <span className={styles.brandGradient}>Nina Healthy</span>
-                </h2>
+                </p>
               </div>
               <p className={styles.brandDescription}>
                 Finding peace in the everyday. A personal journey through
@@ -19,7 +19,7 @@ const Footer = () => {
               </p>
               <div className={styles.socialLinks}>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/nina____vibes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
@@ -32,7 +32,7 @@ const Footer = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://pinterest.com"
+                  href="https://www.pinterest.com/Nina_Vibes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
@@ -43,7 +43,7 @@ const Footer = () => {
                   </svg>
                 </a>
                 <a
-                  href="mailto:hello@ninahealthy.com"
+                  href="mailto:nina@ninahealthy.com"
                   className={styles.socialLink}
                   aria-label="Email"
                 >
@@ -67,6 +67,9 @@ const Footer = () => {
                 </li>
                 <li className={styles.linkItem}>
                   <Link href="/practice" className={styles.footerLink}>Practice</Link>
+                </li>
+                <li className={styles.linkItem}>
+                  <Link href="/search" className={styles.footerLink}>Search</Link>
                 </li>
               </ul>
             </div>
@@ -104,7 +107,7 @@ const Footer = () => {
             <div className={styles.footerBottomContent}>
               <div>
                 <p className={styles.copyright}>
-                  Nina Healthy {new Date().getFullYear()}
+                  &copy; {new Date().getFullYear()} Nina Healthy
                 </p>
                 <p className={styles.disclaimer}>
                   This site shares personal reflections on mindfulness and intentional living. It is not medical or therapeutic advice. Please consult a qualified professional for health concerns.

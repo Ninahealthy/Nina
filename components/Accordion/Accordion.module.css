@@ -7,6 +7,36 @@
   width: 100%;
 }
 
+.expandAllWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.expandAllButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-terracotta);
+  padding: 0.25rem 0;
+  font-family: inherit;
+  transition: color 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.expandAllButton:hover {
+  color: var(--color-olive);
+}
+
+.expandAllButton:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
 .item {
   border-bottom: 1px solid var(--color-sand);
 }

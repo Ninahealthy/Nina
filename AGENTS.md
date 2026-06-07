@@ -1,18 +1,10 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
-
-This version has breaking changes -- APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
-
-
 
 <!-- ================================================================
-     AGENTS.md -- Universal Agent Rules
+     AGENTS.md -- Nina Healthy Project Rules
      Read by: Claude Code, Gemini, Codex, and all other AI agents
-     Single source of truth for all shared project rules.
+     Single source of truth for all project-specific rules.
+     ✦ Precedence: This file overrides GEMINI.md (global defaults).
      ================================================================ -->
-
-
 
 ---
 
@@ -29,6 +21,7 @@ This version has breaking changes -- APIs, conventions, and file structure may a
 - No emoji in UI or content -- use modern inline SVG only
 - No em dashes ( -- ) in any generated text or content; use commas, semicolons, colons, or shorter sentences instead
 - No third-party libraries -- use only official Vercel packages, official Next.js built-ins, React, and plain CSS. ( an exception has been made for nodemailer)
+- ✦ **Code comments:** Comment non-obvious decisions and "why" explanations. Add brief JSDoc-style comments on exported functions and components. Do not add trivial comments that restate the code. Use `// TODO:` for incomplete work and `// HACK:` for intentional workarounds.
 
 ## Path Aliases
 
@@ -92,6 +85,63 @@ export function generateStaticParams() {
 
 ---
 
+# ✦ Agent Behavior
+
+<!-- ✦ NEW SECTION: Defines how the agent should reason, respond, and handle errors
+     in the context of this project. Complements the global defaults in GEMINI.md. -->
+
+## ✦ Response Standards
+
+- For article-related tasks, always reference the Content Quality Standards section before generating content.
+- When creating or modifying components, confirm the change aligns with the Component Library table before proceeding.
+- When modifying SEO-related code, cross-reference the Metadata Architecture and Structured Data sections.
+
+## ✦ Reasoning and Planning
+
+
+- Before creating a new article, run through the pre-creation checks: thematic differentiation, category balance, emotional register diversity, and hook type diversity.
+
+## ✦ Confirmation Gates
+
+<!-- High-stakes operations require explicit user confirmation before execution. -->
+
+
+## ✦ Error and Edge-Case Protocols
+
+| Scenario | Required Action |
+|----------|----------------|
+| Article slug collision (new slug matches existing) | Stop and ask the user to choose an alternative slug. |
+| `dateISO` collision (new date matches existing article) | Stop and flag the collision; suggest the nearest available date. |
+| Referenced component does not exist in the Component Library | Flag the missing component; do not create a stub without confirmation. |
+| Image file referenced but not found in `public/images/` | Flag the missing image; proceed with the code but note the dependency. |
+| Ambiguous instruction (could be interpreted multiple ways) | Ask for clarification; present the interpretations you see. |
+| Conflicting rules within this file | Follow the more specific rule; flag the conflict for the user to resolve. |
+| Content falls below quality thresholds (word count, subheadings, etc.) | Note the specific metric(s) that are off and suggest adjustments before finalizing. |
+| Category at or above 30% cap | Flag the cap; suggest an underrepresented category or confirm override with user. |
+
+## ✦ Context Management
+
+<!-- This file is approximately 55KB. Agents with limited context windows should
+     prioritize sections based on the current task. -->
+
+**Priority reading order** (if context is constrained):
+
+1. **Shared Rules** -- environment, code style, component and CSS rules (always read)
+2. **Agent Behavior** (this section) -- how to reason, confirm, and handle errors (always read)
+3. **Content Quality Standards** (within Project Architecture) -- read when creating or editing articles
+4. **Design Standards** -- read when creating or modifying UI components
+5. **SEO Standards** -- read when working on metadata, structured data, or page-level changes
+6. **Accessibility Standards** -- always reference when touching interactive components or forms
+7. **Performance Guidelines** -- read when optimizing images, fonts, or Core Web Vitals
+
+**Session continuity:**
+
+- Each conversation is ephemeral. Do not assume prior context from previous sessions.
+- When resuming work on a multi-step task, re-read the relevant section of this file before proceeding.
+- If the user references a previous conversation, ask for the specific details rather than guessing.
+
+---
+
 # Project Architecture
 
 ## `lib/` Directory
@@ -120,6 +170,15 @@ All shared data, configuration, and utilities live in `lib/`. Never duplicate th
 4. Add a slug-to-image mapping in `lib/cardImages.js`.
 5. Add a card excerpt to `lib/cardExcerpts.js`.
 6. Place the thumbnail image in `public/images/`.
+
+<!-- ✦ Validation steps added to catch common edge cases before starting. -->
+
+**✦ Before starting, verify:**
+
+- The chosen slug does not already exist in `lib/articles/index.js` (a slug collision will silently overwrite the existing article).
+- The chosen `dateISO` is unique across all existing articles (check files in `lib/articles/`).
+- The target category is not already at the 30% cap (see Content Ecosystem Health below).
+- The opening hook type is not overrepresented in the library (see Opening Hook Diversity below).
 
 Categories are auto-derived from article data; no manual category update is needed. If the article should appear on the home page, also add it to `HOME_FEATURED` in `lib/entryOrder.js`.
 
@@ -261,7 +320,13 @@ Signs that an article is below baseline:
 
 - **Line endings:** All article files must use LF (`\n`) line endings, not CRLF. Configure `.gitattributes` to enforce this.
 - **Reading time:** The `readingTime.js` utility counts text from paragraph, quote, subheading, and list blocks at 230 wpm. When adding new block types, ensure they are included in the word count.
+  <!-- ✦ Rationale: 230 wpm is the average silent reading speed for non-fiction English
+       prose (Brysbaert, 2019). This produces reading time estimates that match user
+       expectations better than the commonly used but inflated 200 wpm or 250 wpm figures. -->
 - **No Unicode special characters:** Do not use em dashes (`\u2014`), en dashes (`\u2013`), or other typographic Unicode in article text. Use standard ASCII punctuation (commas, semicolons, colons).
+  <!-- ✦ Rationale: Unicode typographic characters cause inconsistent rendering across
+       email clients, RSS readers, and some CMS exports. ASCII punctuation is universally
+       safe and avoids encoding issues in downstream consumers of the RSS feed. -->
 
 ##### Opening Hook Diversity
 
@@ -389,6 +454,10 @@ The article library must be managed as a balanced ecosystem, not an unplanned co
 - Before creating a new article, verify: (a) the topic is not already covered, (b) the target category is not already over-represented, (c) the emotional register is not already dominant in the library.
 
 **Current category distribution (as of June 2026, 40 articles):**
+
+<!-- ✦ STALE DATA WARNING: This snapshot reflects the library as of June 2026.
+     Before using these numbers for category-balance decisions, verify the actual
+     article count by checking lib/articles/index.js against the current codebase. -->
 
 | Category | Count | % | Status |
 |---|---|---|---|
@@ -732,6 +801,10 @@ Both fonts are loaded via `next/font/google` with `display: 'swap'` in `app/layo
 
 - **Line height:** Body text should use `1.7` - `1.8` for comfortable reading. Headings use `1.2` - `1.3`.
 - **Measure (line length):** Body text should never exceed `65ch` (`max-width: 65ch`). This is critical for readability and neurodivergent-friendly design.
+  <!-- ✦ Rationale: 65ch (approximately 45-75 characters per line) is the typographic
+       standard for comfortable reading (Bringhurst, Elements of Typographic Style).
+       Lines beyond this range increase saccade distance and reduce comprehension,
+       disproportionately affecting readers with ADHD or visual processing differences. -->
 - **Letter spacing:** Headings may use slight negative tracking (`-0.01em` to `-0.02em`). Body text stays at default. Generous character spacing accommodates cognitively fatigued users.
 - **Font smoothing:** Already enabled globally via `-webkit-font-smoothing: antialiased` and `-moz-osx-font-smoothing: grayscale`.
 
@@ -783,6 +856,11 @@ transition: opacity 0.6s ease, transform 0.6s ease;
 ## Squircle Clip-Paths
 
 Cards and images use `clip-path` instead of `border-radius`. The squircle variables are defined in `globals.css`.
+
+<!-- ✦ Rationale: Squircles (superellipse curves) produce corners with continuous
+     curvature, unlike CSS border-radius which creates abrupt circular arcs. Apple's
+     iOS uses the same geometry for app icons. The result is a softer, more organic
+     appearance that aligns with the brand's warmth-over-sterility design principle. -->
 
 | Variable | Radius Equivalent | Use Case |
 |---|---|---|
@@ -1056,9 +1134,9 @@ Any component-level animation must also respect this media query. This is especi
 
 | Metric | Target | Primary Lever |
 |---|---|---|
-| LCP (Largest Contentful Paint) | < 2.5s | `priority` on hero images, font `display: swap` |
-| INP (Interaction to Next Paint) | < 200ms | Minimal JS, no heavy event handlers |
-| CLS (Cumulative Layout Shift) | < 0.1 | Explicit image dimensions, font fallback matching |
+| LCP (Largest Contentful Paint) |  ≤ 2.5s | `priority` on hero images, font `display: swap` |
+| INP (Interaction to Next Paint) |  ≤ 200ms | Minimal JS, no heavy event handlers |
+| CLS (Cumulative Layout Shift) | ≤ 0.1 | Explicit image dimensions, font fallback matching |
 
 ## Image Optimization
 

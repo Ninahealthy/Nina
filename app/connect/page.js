@@ -63,7 +63,7 @@ export default function ConnectPage() {
         <h2 className={styles.socialTitle}>Find Me Elsewhere</h2>
         <div className={styles.socialLinks}>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/nina____vibes/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
@@ -77,7 +77,7 @@ export default function ConnectPage() {
             <span>Instagram</span>
           </a>
           <a
-            href="https://pinterest.com"
+            href="https://www.pinterest.com/Nina_Vibes/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
@@ -89,7 +89,7 @@ export default function ConnectPage() {
             <span>Pinterest</span>
           </a>
           <a
-            href="mailto:hello@ninahealthy.com"
+            href="mailto:nina@ninahealthy.com"
             className={styles.socialLink}
             aria-label="Send Nina an email"
           >

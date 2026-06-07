@@ -8,6 +8,7 @@ export default function sitemap() {
     "/practice",
     "/about",
     "/connect",
+    "/search",
     "/privacy",
     "/terms",
   ];
@@ -16,9 +17,8 @@ export default function sitemap() {
   return [
     ...staticRoutes.map((route) => ({
       url: `${SITE.url}${route}`,
-      lastModified: new Date(),
       changeFrequency: route === "" ? "weekly" : "monthly",
-      priority: route === "" ? 1.0 : 0.8,
+      priority: route === "" ? 1.0 : route === "/privacy" || route === "/terms" ? 0.1 : 0.8,
     })),
     ...journalSlugs.map((slug) => ({
       url: `${SITE.url}/journal/${slug}`,

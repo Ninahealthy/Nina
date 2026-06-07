@@ -51,28 +51,52 @@
   margin-bottom: 2rem;
 }
 
-.newsletterInput {
+/* Floating label field wrapper */
+.floatingField {
+  position: relative;
   flex: 1;
   min-width: 280px;
   max-width: 400px;
-  padding: 1rem 1.5rem;
+}
+
+.newsletterInput {
+  width: 100%;
+  padding: 1.25rem 1.5rem 0.75rem;
   border: 2px solid var(--color-sand);
   background: var(--color-warmwhite);
   color: var(--color-charcoal);
   font-size: 1rem;
   font-weight: 400;
   font-family: inherit;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   clip-path: var(--clip-path-squircle-20);
 }
 
-.newsletterInput::placeholder {
+.floatingLabel {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--color-pebble);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  transform-origin: left center;
+}
+
+/* Float the label when input has focus or content */
+.newsletterInput:focus ~ .floatingLabel,
+.newsletterInput:not(:placeholder-shown) ~ .floatingLabel {
+  top: 0.6rem;
+  transform: translateY(0);
+  font-size: 0.75rem;
+  color: var(--color-terracotta);
 }
 
 .newsletterInput:focus {
   border-color: var(--color-terracotta);
   box-shadow: 0 0 0 3px rgba(192, 122, 86, 0.1);
+  outline: none;
 }
 
 .newsletterInput:disabled {
@@ -126,7 +150,7 @@
 
 .message.error {
   background: rgba(192, 122, 86, 0.1);
-  color: #b45309;
+  color: var(--color-error, #b45309);
 }
 
 @keyframes messageSlideIn {
@@ -164,4 +188,22 @@
 .newsletterButton:focus-visible {
   outline: 3px solid var(--color-terracotta);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingLabel {
+    transition: none;
+  }
+
+  .newsletterButton {
+    transition: none;
+  }
+
+  .newsletterButton:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .message {
+    animation: none;
+  }
 }

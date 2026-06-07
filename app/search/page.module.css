@@ -1,0 +1,74 @@
+.page {
+  padding-bottom: 4rem;
+}
+
+.searchSection {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.searchContainer {
+  min-height: 400px;
+}
+
+/* Override Google CSE default styles to match the site's design */
+:global(.gsc-control-cse) {
+  font-family: inherit !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+:global(.gsc-input-box) {
+  border: 2px solid var(--color-sand) !important;
+  background: var(--color-warmwhite) !important;
+  clip-path: var(--clip-path-squircle-20);
+  padding: 0.25rem 0.5rem !important;
+}
+
+:global(.gsc-input-box:focus-within) {
+  border-color: var(--color-terracotta) !important;
+}
+
+:global(.gsc-search-button-v2) {
+  background: var(--color-terracotta) !important;
+  border: none !important;
+  clip-path: var(--clip-path-squircle-20);
+  padding: 0.75rem 1.25rem !important;
+  cursor: pointer;
+}
+
+:global(.gsc-search-button-v2:hover) {
+  background: var(--color-olive) !important;
+}
+
+:global(.gsc-result .gs-title a) {
+  color: var(--color-terracotta) !important;
+  text-decoration: none !important;
+  font-family: var(--font-heading), "Playfair Display", Georgia, serif !important;
+}
+
+:global(.gsc-result .gs-title a:hover) {
+  text-decoration: underline !important;
+}
+
+:global(.gsc-result .gs-snippet) {
+  color: var(--color-stone) !important;
+  line-height: 1.7 !important;
+}
+
+:global(.gsc-cursor-page) {
+  color: var(--color-terracotta) !important;
+}
+
+:global(.gsc-cursor-current-page) {
+  color: var(--color-charcoal) !important;
+  font-weight: 700 !important;
+}
+
+@media (min-width: 768px) {
+  .searchSection {
+    padding: 3rem 2rem;
+  }
+}

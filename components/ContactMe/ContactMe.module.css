@@ -35,10 +35,6 @@
   margin-bottom: 1.5rem;
 }
 
-.titleGradient {
-  color: var(--color-charcoal);
-}
-
 .contactDescription {
   font-size: 1.125rem;
   color: var(--color-stone);
@@ -61,16 +57,23 @@
   gap: 1.25rem;
 }
 
+/* Floating label field wrapper */
+.floatingField {
+  position: relative;
+  flex: 1;
+  text-align: left;
+}
+
 .contactInput,
 .contactTextarea {
-  flex: 1;
-  padding: 1rem 1.5rem;
+  width: 100%;
+  padding: 1.25rem 1.5rem 0.75rem;
   border: 2px solid var(--color-sand);
   background: var(--color-warmwhite);
   color: var(--color-charcoal);
   font-size: 1rem;
   font-weight: 400;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-family: inherit;
   clip-path: var(--clip-path-squircle-20);
 }
@@ -81,15 +84,45 @@
   resize: vertical;
 }
 
-.contactInput::placeholder,
-.contactTextarea::placeholder {
+.floatingLabel {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--color-pebble);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  transform-origin: left center;
+}
+
+/* For textarea, anchor label to top since top:50% would be in the middle */
+.contactTextarea ~ .floatingLabel {
+  top: 1.25rem;
+  transform: translateY(0);
+}
+
+/* Float the label when input has focus or content */
+.contactInput:focus ~ .floatingLabel,
+.contactInput:not(:placeholder-shown) ~ .floatingLabel {
+  top: 0.6rem;
+  transform: translateY(0);
+  font-size: 0.75rem;
+  color: var(--color-terracotta);
+}
+
+.contactTextarea:focus ~ .floatingLabel,
+.contactTextarea:not(:placeholder-shown) ~ .floatingLabel {
+  top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-terracotta);
 }
 
 .contactInput:focus,
 .contactTextarea:focus {
   border-color: var(--color-terracotta);
   box-shadow: 0 0 0 3px rgba(192, 122, 86, 0.1);
+  outline: none;
 }
 
 .contactInput:disabled,
@@ -137,14 +170,14 @@
   clip-path: var(--clip-path-squircle-20);
 }
 
-.success {
+.message.success {
   background: rgba(143, 169, 139, 0.15);
   color: var(--color-olive);
 }
 
-.error {
+.message.error {
   background: rgba(192, 122, 86, 0.1);
-  color: #b45309;
+  color: var(--color-error, #b45309);
 }
 
 @keyframes messageSlideIn {
@@ -183,4 +216,22 @@
 .contactButton:focus-visible {
   outline: 3px solid var(--color-terracotta);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingLabel {
+    transition: none;
+  }
+
+  .contactButton {
+    transition: none;
+  }
+
+  .contactButton:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .message {
+    animation: none;
+  }
 }

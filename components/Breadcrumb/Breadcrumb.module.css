@@ -1,0 +1,51 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.breadcrumbLink {
+  font-size: 0.85rem;
+  color: var(--color-pebble);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-terracotta);
+}
+
+.breadcrumbLink:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+.separator {
+  color: var(--color-clay);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.current {
+  font-size: 0.85rem;
+  color: var(--color-stone);
+  max-width: 20ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumbLink {
+    transition: none;
+  }
+}
+
+@media print {
+  .breadcrumb {
+    display: none;
+  }
+}

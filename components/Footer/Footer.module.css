@@ -59,7 +59,7 @@
 }
 
 .brandGradient {
-  color: var(--color-terracotta);
+  color: #A8663F;
   transition: opacity 0.3s ease;
   cursor: pointer;
 }
@@ -175,18 +175,17 @@
 }
 
 .copyright {
-  color: var(--color-pebble);
+  color: var(--color-stone);
   font-size: 0.875rem;
   margin: 0;
 }
 
 .disclaimer {
-  color: var(--color-pebble);
+  color: var(--color-stone);
   font-size: 0.75rem;
   margin: 0.5rem 0 0 0;
   line-height: 1.5;
   max-width: 32rem;
-  opacity: 0.8;
 }
 
 .footerBottomLinks {
@@ -196,7 +195,7 @@
 }
 
 .footerBottomLink {
-  color: var(--color-pebble);
+  color: var(--color-stone);
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.3s ease;

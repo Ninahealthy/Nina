@@ -13,14 +13,14 @@
 }
 
 .primary {
-  background: #A8663F;
+  background: #8C4E2A;
   color: var(--color-warmwhite);
-  box-shadow: 0 4px 12px rgba(168, 102, 63, 0.25);
+  box-shadow: 0 4px 12px rgba(140, 78, 42, 0.25);
 }
 
 .primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(168, 102, 63, 0.35);
+  box-shadow: 0 8px 20px rgba(140, 78, 42, 0.35);
   background: var(--color-olive);
 }
 

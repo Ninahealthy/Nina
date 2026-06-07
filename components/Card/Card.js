@@ -2,6 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Card.module.css";
 
+/**
+ * Card component for journal article previews.
+ * Uses a stretched-link pattern: the title link's ::after pseudo-element
+ * covers the entire card surface, making the full card clickable via a
+ * single accessible link. No redundant secondary links.
+ */
 const Card = ({ image, alt, title, excerpt, href, readingTime, date, dateISO }) => {
   return (
     <article className={styles.card}>
@@ -37,16 +43,6 @@ const Card = ({ image, alt, title, excerpt, href, readingTime, date, dateISO }) 
               <span className={styles.readingTime}>{readingTime} min read</span>
             )}
           </div>
-          {href && (
-            <Link
-              href={href}
-              className={styles.readMore}
-              aria-hidden="true"
-              tabIndex={-1}
-            >
-              Read more
-            </Link>
-          )}
         </div>
       </div>
     </article>

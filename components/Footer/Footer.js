@@ -3,20 +3,20 @@ import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <div className={styles.footer} role="contentinfo">
       <div className={styles.footerContent}>
         <div className={styles.footerContainer}>
           <div className={styles.footerGrid}>
             <div className={styles.brandSection}>
               <div className={styles.brandHeader}>
-                <p className={styles.brandTitle}>
+                <div className={styles.brandTitle}>
                   <span className={styles.brandGradient}>Nina Healthy</span>
-                </p>
+                </div>
               </div>
-              <p className={styles.brandDescription}>
+              <div className={styles.brandDescription}>
                 Finding peace in the everyday. A personal journey through
                 mindfulness, intentional living, and inner wellness.
-              </p>
+              </div>
               <div className={styles.socialLinks}>
                 <a
                   href="https://www.instagram.com/nina____vibes/"
@@ -106,12 +106,12 @@ const Footer = () => {
           <div className={styles.footerBottom}>
             <div className={styles.footerBottomContent}>
               <div>
-                <p className={styles.copyright}>
+                <div className={styles.copyright}>
                   &copy; {new Date().getFullYear()} Nina Healthy
-                </p>
-                <p className={styles.disclaimer}>
+                </div>
+                <div className={styles.disclaimer}>
                   This site shares personal reflections on mindfulness and intentional living. It is not medical or therapeutic advice. Please consult a qualified professional for health concerns.
-                </p>
+                </div>
               </div>
               <div className={styles.footerBottomLinks}>
                 <Link href="/privacy" className={styles.footerBottomLink}>
@@ -125,7 +125,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 

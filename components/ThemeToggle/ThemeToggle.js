@@ -31,8 +31,12 @@ const ThemeToggle = () => {
     localStorage.setItem("nina-theme", next);
   }, [theme]);
 
-  /* Don't render until we know the theme to avoid hydration mismatch */
-  if (!theme) return null;
+  /* Render an empty placeholder of the same size before hydration to prevent Layout Shift */
+  if (!theme) {
+    return (
+      <div className={styles.toggle} aria-hidden="true" />
+    );
+  }
 
   return (
     <button

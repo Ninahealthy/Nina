@@ -65,7 +65,7 @@
 
 .category {
   font-size: 0.8rem;
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;

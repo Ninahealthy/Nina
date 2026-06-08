@@ -8,17 +8,17 @@
 
 .breadcrumbLink {
   font-size: 0.85rem;
-  color: var(--color-pebble);
+  color: var(--color-stone);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .breadcrumbLink:hover {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .breadcrumbLink:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 

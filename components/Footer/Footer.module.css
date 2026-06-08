@@ -113,7 +113,14 @@
 
 /* Links Sections */
 .footerNav {
-  display: contents;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 1rem;
+}
+
+.linksSection:last-child {
+  grid-column: 1 / -1;
+  text-align: center;
 }
 
 .linksSection {
@@ -229,6 +236,15 @@
     flex-direction: row;
     text-align: left;
     justify-content: space-between;
+  }
+
+  .footerNav {
+    display: contents;
+  }
+
+  .linksSection:last-child {
+    grid-column: auto;
+    text-align: left;
   }
 }
 

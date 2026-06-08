@@ -13,7 +13,7 @@
 }
 
 .primary {
-  background: #8C4E2A;
+  background: var(--color-terracotta-dark);
   color: var(--color-warmwhite);
   box-shadow: 0 4px 12px rgba(140, 78, 42, 0.25);
 }
@@ -43,7 +43,7 @@
 }
 
 .button:focus-visible {
-  outline: 3px solid var(--color-terracotta);
+  outline: 3px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 

@@ -322,6 +322,7 @@
   --color-stone: #6B6560;
   --color-pebble: #9A9490;
   --color-terracotta: #C07A56;
+  --color-terracotta-dark: #8C4E2A; /* Passes 4.5:1 on cream/linen */
   --color-sage: #8FA98B;
   --color-olive: #6B7D5E;
   --color-clay: #C4A882;
@@ -368,6 +369,7 @@
     --color-stone: #B0A89E;
     --color-pebble: #8A837D;
     --color-terracotta: #D4926B;
+    --color-terracotta-dark: #D4926B; /* Native dark mode passes contrast */
     --color-sage: #A3BDA0;
     --color-olive: #8A9E7D;
     --color-clay: #B09974;
@@ -441,7 +443,7 @@ a {
    The global reset above is intentional for navigation; these
    scoped rules restore link indicators in prose content areas. */
 :where(.articleBody, .legalContent) a {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
   text-decoration: underline;
   text-decoration-color: var(--color-clay);
   text-underline-offset: 0.15em;
@@ -463,7 +465,7 @@ main {
   left: 1rem;
   z-index: 9999;
   padding: 0.75rem 1.5rem;
-  background: var(--color-terracotta);
+  background: var(--color-terracotta-dark);
   color: var(--color-warmwhite);
   font-weight: 600;
   font-size: 0.95rem;

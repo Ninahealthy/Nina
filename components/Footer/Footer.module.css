@@ -98,12 +98,12 @@
 .socialLink:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(61, 56, 50, 0.1);
-  border-color: var(--color-terracotta);
-  color: var(--color-terracotta);
+  border-color: var(--color-terracotta-dark);
+  color: var(--color-terracotta-dark);
 }
 
 .socialLink:focus-visible {
-  outline: 3px solid var(--color-terracotta);
+  outline: 3px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 
@@ -149,11 +149,11 @@
 }
 
 .footerLink:hover {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .footerLink:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 
@@ -202,11 +202,11 @@
 }
 
 .footerBottomLink:hover {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .footerBottomLink:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 

@@ -76,13 +76,13 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--color-terracotta);
+  background: var(--color-terracotta-dark);
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav a:hover {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .nav a:hover::after {
@@ -91,13 +91,13 @@
 }
 
 .nav a:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 4px;
 }
 
 /* Active desktop nav link */
 .nav .navActive {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .nav .navActive::after {
@@ -130,7 +130,7 @@
 }
 
 .menuToggle:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 4px;
 }
 
@@ -314,19 +314,19 @@
 /* Hover & focus states */
 .mobileMenuItems a:hover {
   background: var(--color-linen);
-  border-left-color: var(--color-terracotta);
-  color: var(--color-terracotta);
+  border-left-color: var(--color-terracotta-dark);
+  color: var(--color-terracotta-dark);
 }
 
 .mobileMenuItems a:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: -2px;
 }
 
 /* Active menu item */
 .menuItemActive {
-  color: var(--color-terracotta) !important;
-  border-left-color: var(--color-terracotta) !important;
+  color: var(--color-terracotta-dark) !important;
+  border-left-color: var(--color-terracotta-dark) !important;
   background: var(--color-linen);
 }
 
@@ -342,12 +342,12 @@
 }
 
 .mobileMenuItems a:hover .menuIcon {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
   transform: translateX(2px);
 }
 
 .menuItemActive .menuIcon {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 /* === Menu Label === */

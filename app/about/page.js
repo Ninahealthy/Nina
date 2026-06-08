@@ -141,7 +141,7 @@ export default function AboutPage() {
             className={styles.heroImage}
           />
         </div>
-        <h1 className={styles.heroTitle}>Hi, I'm Nina</h1>
+        <h1 className={styles.heroTitle}>Hi, I&apos;m Nina</h1>
         <p className={styles.heroSubtitle}>
           A seeker of stillness in a world that never stops moving.
         </p>

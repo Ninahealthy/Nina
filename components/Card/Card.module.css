@@ -59,11 +59,11 @@
 }
 
 .titleLink:hover {
-  color: var(--color-terracotta);
+  color: var(--color-terracotta-dark);
 }
 
 .titleLink:focus-visible {
-  outline: 2px solid var(--color-terracotta);
+  outline: 2px solid var(--color-terracotta-dark);
   outline-offset: 2px;
 }
 
@@ -88,12 +88,12 @@
 
 .date {
   font-size: 0.8rem;
-  color: var(--color-pebble);
+  color: var(--color-stone);
 }
 
 .readingTime {
   font-size: 0.8rem;
-  color: var(--color-pebble);
+  color: var(--color-stone);
   font-style: italic;
 }
 

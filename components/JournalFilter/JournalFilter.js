@@ -78,6 +78,7 @@ export default function JournalFilter({ entries }) {
       </section>
 
       <section className={styles.entries} aria-label="Journal entries">
+        <h2 className={styles.srOnly}>Journal Entries</h2>
         <div className={styles.cardGrid}>
           {filteredEntries.map((entry) => (
             <Card

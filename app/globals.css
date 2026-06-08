@@ -436,14 +436,6 @@ a {
   text-decoration: none;
 }
 
-/* Prevent AdSense Auto Ads from hijacking structural elements and causing CLS */
-header .google-auto-placed,
-footer .google-auto-placed,
-header ins.adsbygoogle,
-footer ins.adsbygoogle {
-  display: none !important;
-}
-
 /* Inline links within article body and legal page content must be
    visually distinguishable from surrounding text (WCAG 1.4.1).
    The global reset above is intentional for navigation; these

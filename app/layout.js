@@ -1,4 +1,5 @@
 import { Playfair_Display, Lora } from "next/font/google";
+import { preconnect, prefetchDNS } from "react-dom";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -74,14 +75,13 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+  preconnect("https://pagead2.googlesyndication.com", { crossOrigin: "anonymous" });
+  prefetchDNS("https://pagead2.googlesyndication.com");
+  preconnect("https://www.googletagmanager.com", { crossOrigin: "anonymous" });
+  prefetchDNS("https://www.googletagmanager.com");
+
   return (
     <html lang="en-US" className={`${playfair.variable} ${lora.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-      </head>
       <body suppressHydrationWarning>
         <Script
           async

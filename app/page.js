@@ -4,7 +4,7 @@ import Card from "../components/Card/Card";
 import Button from "../components/Button/Button";
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
 import TestimonialCarousel from "../components/TestimonialCarousel/TestimonialCarousel";
-import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
+import ScrollReveal, { ScrollRevealItem } from "../components/ScrollReveal/ScrollReveal";
 import JsonLd from "../components/JsonLd/JsonLd";
 import { ARTICLES } from "@/lib/articles";
 import { CARD_IMAGES } from "@/lib/cardImages";
@@ -105,23 +105,26 @@ export default function Home() {
         </section>
       </ScrollReveal>
 
-      <ScrollReveal>
+      <ScrollReveal stagger={0.12}>
         <section className={styles.featured} aria-label="Latest journal entries">
-          <SectionHeading subtitle="The newest reflections on mindful living.">
-            Latest from the Journal
-          </SectionHeading>
+          <ScrollRevealItem>
+            <SectionHeading subtitle="The newest reflections on mindful living.">
+              Latest from the Journal
+            </SectionHeading>
+          </ScrollRevealItem>
           <div className={styles.cardGrid}>
             {latestArticles.map((entry) => (
-              <Card
-                key={entry.slug}
-                image={entry.image}
-                title={entry.title}
-                excerpt={entry.excerpt}
-                href={`/journal/${entry.slug}`}
-                readingTime={entry.readingTime}
-                date={entry.date}
-                dateISO={entry.dateISO}
-              />
+              <ScrollRevealItem key={entry.slug}>
+                <Card
+                  image={entry.image}
+                  title={entry.title}
+                  excerpt={entry.excerpt}
+                  href={`/journal/${entry.slug}`}
+                  readingTime={entry.readingTime}
+                  date={entry.date}
+                  dateISO={entry.dateISO}
+                />
+              </ScrollRevealItem>
             ))}
           </div>
         </section>

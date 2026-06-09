@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import styles from "./Accordion.module.css";
 
 /**
@@ -10,6 +11,7 @@ import styles from "./Accordion.module.css";
  */
 const Accordion = ({ items, showExpandAll = false }) => {
   const [openIndices, setOpenIndices] = useState(new Set());
+  const shouldReduceMotion = useReducedMotion();
 
   const toggle = useCallback((index) => {
     setOpenIndices((prev) => {
@@ -82,15 +84,25 @@ const Accordion = ({ items, showExpandAll = false }) => {
                 </span>
               </button>
             </h3>
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={triggerId}
-              className={`${styles.panel} ${isOpen ? styles.panelOpen : ""}`}
-              hidden={!isOpen}
-            >
-              <p className={styles.answer}>{item.answer}</p>
-            </div>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={triggerId}
+                  className={styles.panel}
+                  initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{
+                    height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                    opacity: { duration: 0.2, ease: "easeInOut" },
+                  }}
+                >
+                  <p className={styles.answer}>{item.answer}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         );
       })}

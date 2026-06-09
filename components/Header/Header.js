@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import styles from "./Header.module.css";
 
@@ -73,6 +74,52 @@ const Header = () => {
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
+
+  /* Variant definitions for the mobile menu orchestration */
+  const menuVariants = {
+    closed: {
+      x: "100%",
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            type: "tween",
+            duration: 0.4,
+            ease: [0.4, 0, 0.2, 1],
+            when: "afterChildren",
+          },
+    },
+    open: {
+      x: 0,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            type: "tween",
+            duration: 0.45,
+            ease: [0.16, 1, 0.3, 1],
+            when: "beforeChildren",
+            staggerChildren: 0.06,
+            delayChildren: 0.12,
+          },
+    },
+  };
+
+  const menuItemVariants = {
+    closed: {
+      opacity: 0,
+      x: 20,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : { duration: 0.15, ease: "easeIn" },
+    },
+    open: {
+      opacity: 1,
+      x: 0,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
 
   const isActive = useCallback(
     (href) => {
@@ -183,60 +230,73 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Overlay: always in DOM, toggled via CSS */}
-      <div
-        className={`${styles.overlay} ${
-          isMenuOpen ? styles.overlayVisible : ""
-        }`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-
-      {/* Mobile menu: always in DOM, slide via CSS transition */}
-      <nav
-        ref={menuRef}
-        className={`${styles.mobileMenu} ${
-          isMenuOpen ? styles.menuOpen : ""
-        }`}
-        aria-label="Mobile navigation"
-        role="dialog"
-        aria-modal={isMenuOpen || undefined}
-        aria-hidden={!isMenuOpen}
-        onClick={(e) => {
-          if (!e.target.closest("a") && !e.target.closest("button")) {
-            closeMenu();
-          }
-        }}
-      >
-        <div className={styles.mobileMenuHeader}>
-          <Link
-            href="/"
-            className={styles.mobileMenuLogo}
-            onClick={closeMenu}
-            tabIndex={isMenuOpen ? 0 : -1}
-          >
-            Nina
-          </Link>
-        </div>
-
-        <div className={styles.mobileMenuItems}>
-          {NAV_ITEMS.map((item, index) => (
-            <Link
-              key={item.href}
-              href={item.href}
+      {/* Overlay + mobile menu: mounted/unmounted via AnimatePresence */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div
+              className={styles.overlay}
               onClick={closeMenu}
-              className={
-                isActive(item.href) ? styles.menuItemActive : undefined
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.3, ease: "easeInOut" }
               }
-              style={{ "--item-index": index }}
-              tabIndex={isMenuOpen ? 0 : -1}
+            />
+
+            <motion.nav
+              ref={menuRef}
+              className={styles.mobileMenu}
+              aria-label="Mobile navigation"
+              role="dialog"
+              aria-modal="true"
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              onClick={(e) => {
+                if (!e.target.closest("a") && !e.target.closest("button")) {
+                  closeMenu();
+                }
+              }}
             >
-              <span className={styles.menuIcon}>{item.icon}</span>
-              <span className={styles.menuLabel}>{item.label}</span>
-            </Link>
-          ))}
-        </div>
-      </nav>
+              <motion.div
+                className={styles.mobileMenuHeader}
+                variants={menuItemVariants}
+              >
+                <Link
+                  href="/"
+                  className={styles.mobileMenuLogo}
+                  onClick={closeMenu}
+                >
+                  Nina
+                </Link>
+              </motion.div>
+
+              <div className={styles.mobileMenuItems}>
+                {NAV_ITEMS.map((item) => (
+                  <motion.div key={item.href} variants={menuItemVariants}>
+                    <Link
+                      href={item.href}
+                      onClick={closeMenu}
+                      className={
+                        isActive(item.href) ? styles.menuItemActive : undefined
+                      }
+                    >
+                      <span className={styles.menuIcon}>{item.icon}</span>
+                      <span className={styles.menuLabel}>{item.label}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

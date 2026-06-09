@@ -1,10 +1,9 @@
+<!-- Document: AGENT.md | Version: 1.1 | Last updated: 2026-06-08
+     Owner: Project Lead | Review cadence: Quarterly -->
 
-<!-- ================================================================
-     AGENTS.md -- Nina Healthy Project Rules
-     Read by: Claude Code, Gemini, Codex, and all other AI agents
-     Single source of truth for all project-specific rules.
-     ✦ Precedence: This file overrides GEMINI.md (global defaults).
-     ================================================================ -->
+> **Precedence:** This file overrides `GEMINI.md` (global defaults) for all Nina Healthy project work.
+> It is read by Claude Code, Gemini, Codex, and all other AI agents.
+> It is the single source of truth for all project-specific rules.
 
 ---
 
@@ -20,8 +19,9 @@
 
 - No emoji in UI or content -- use modern inline SVG only
 - No em dashes ( -- ) in any generated text or content; use commas, semicolons, colons, or shorter sentences instead
-- No third-party libraries -- use only official Vercel packages, official Next.js built-ins, React, and plain CSS. ( an exception has been made for nodemailer)
-- ✦ **Code comments:** Comment non-obvious decisions and "why" explanations. Add brief JSDoc-style comments on exported functions and components. Do not add trivial comments that restate the code. Use `// TODO:` for incomplete work and `// HACK:` for intentional workarounds.
+- No third-party libraries -- use only official Vercel packages, official Next.js built-ins, React, framer-motion, and plain CSS. ( an exception has been made for nodemailer)
+- by default framer-motion for animations, transitions ...ect . 
+- ✦ **Code comments:** Comment non-obvious decisions and "why" explanations. Add brief JSDoc-style comments on exported functions and components. Do not add trivial comments that restate the code. Use `// TODO:` for incomplete work and `// HACK:` for intentional workarounds. (This overrides the global requirement in GEMINI.md for linked issues on TODOs; this project does not use an external issue tracker.)
 
 ## Path Aliases
 
@@ -101,11 +101,6 @@ export function generateStaticParams() {
 
 - Before creating a new article, run through the pre-creation checks: thematic differentiation, category balance, emotional register diversity, and hook type diversity.
 
-## ✦ Confirmation Gates
-
-<!-- High-stakes operations require explicit user confirmation before execution. -->
-
-
 ## ✦ Error and Edge-Case Protocols
 
 | Scenario | Required Action |
@@ -128,7 +123,7 @@ export function generateStaticParams() {
 
 1. **Shared Rules** -- environment, code style, component and CSS rules (always read)
 2. **Agent Behavior** (this section) -- how to reason, confirm, and handle errors (always read)
-3. **Content Quality Standards** (within Project Architecture) -- read when creating or editing articles
+3. **Content Quality Standards** (within Project Architecture) AND **Content Creation Standards** -- read both when creating or editing articles
 4. **Design Standards** -- read when creating or modifying UI components
 5. **SEO Standards** -- read when working on metadata, structured data, or page-level changes
 6. **Accessibility Standards** -- always reference when touching interactive components or forms
@@ -192,14 +187,16 @@ const article = {
   date: "May 6, 2026",                        // string, human-readable display date (full date: Month Day, Year)
   dateISO: "2026-05-06",                       // string, ISO 8601 for structured data (MUST be unique per article)
   dateModified: "2026-05-06",                  // string, ISO 8601, updated when article content changes
-  category: "Rituals",                         // string, one of: Mindfulness, Intentional Living, Reflections, Rituals, Somatic Awareness
-  lead: "Routine is not the enemy of freedom. It is the quiet structure that makes freedom possible.",
+  category: "Quiet Architecture",                // string, one of: Still Point, The Body Knows, Quiet Architecture, Inner Weather, Chosen Life
+  lead: "Routine is not the enemy of freedom. It is the quiet structure that holds everything else in place, the rhythm I return to when the rest begins to shift.",
                                                 // string, 1-2 sentences; doubles as meta description (150-160 chars ideal)
   contentNote: null,                           // string|null, trauma-informed content warning
   tags: ["routine", "morning practice", "daily rhythm"],
                                                 // string[], 2-5 topic-specific tags for semantic SEO (never generic)
   relatedSlugs: ["morning-rituals-that-anchor-me", "the-quiet-power-of-a-slow-morning"],
                                                 // string[], optional; 2-3 curated slugs for the RelatedArticles component
+  hookType: "paradox",                          // string, optional; one of: "confession" | "scene" | "paradox" | "question" | "observation"
+  emotionalRegister: "acceptance",              // string, optional; one of: "acceptance" | "difficulty" | "joy" | "curiosity" | "grief"
   content: [
     { type: "paragraph", text: "..." },        // body paragraph
     { type: "subheading", text: "..." },       // h2 section break
@@ -234,11 +231,19 @@ These standards ensure a consistent quality baseline across the library. Every n
 - The `lead` field doubles as the article's meta description. It must be **150-160 characters** to maximize SERP click-through.
 - It must answer "why should I read this?" with a benefit or provocative question, not just describe the topic.
 - It must end with a period.
+- **Dual-purpose tension:** The lead serves as both meta description (SERP-optimized, keyword-carrying) and essay opening (literary, first-person, reflective). When voice and SERP optimization conflict, **prioritize voice**. Use the `tags` array and `cardExcerpts.js` entry to carry keyword load that the lead cannot.
+
+| Style | Example Lead | Chars |
+|---|---|---|
+| **Balanced** (default) | "Routine is not the enemy of freedom. It is the quiet structure that holds everything else in place, the rhythm I return to when the rest begins to shift." | 155 |
+| **Voice-forward** | "There are some things you cannot organize your way out of. Grief is one of them, and so is the body remembering what the mind has tried to put away." | 152 |
+| **SERP-forward** | "A simple morning breathing practice for calming the nervous system, rooted in years of learning how the body holds stress and how stillness can release it." | 157 |
 
 ##### Tags
 
 - Every article must include a `tags` array of 2-5 topic-specific keywords.
 - Tags must be unique to the article's subject matter; never use generic site-level tags like `"mindfulness"` or `"intentional living"` unless the article is directly about that concept.
+- Tags are metadata-only and do not generate standalone pages. If tag pages are introduced in the future, tags with fewer than 3 associated articles should be `noindex`'d to prevent thin content.
 - Tags are used for OpenGraph metadata and internal semantic grouping.
 
 ##### Depth and Structure
@@ -254,11 +259,11 @@ Allowed categories (exactly five):
 
 | Category | Focus |
 |---|---|
-| Mindfulness | Present-moment awareness, attention, stillness, meditation |
-| Intentional Living | Boundaries, choices, digital habits, sleep, productivity with purpose |
-| Reflections | Personal essays, identity, grief, meaning-making, vulnerability |
-| Rituals | Morning routines, seasonal practices, cooking, breathwork, daily rhythms |
-| Somatic Awareness | Body-mind connection, physical sensation, embodied practice, nervous system |
+| Still Point | Present-moment awareness, attention, the discipline of noticing, slowness as intelligence |
+| The Body Knows | Physical sensation as intelligence, the nervous system, embodied experience, what the body holds and communicates |
+| Quiet Architecture | The structures that hold a life together: routines, rituals, daily rhythms, seasonal living, small ceremonies |
+| Inner Weather | Emotional life: grief, anger, joy, exhaustion, loneliness, the unnamed feelings, the internal climate that shifts without permission |
+| Chosen Life | Boundaries, decisions, values, the conscious design of how you spend your time, energy, attention, and resources |
 
 ##### Content Notes
 
@@ -272,6 +277,13 @@ Articles must include a `contentNote` (not `null`) when the content discusses an
 - Body awareness that may be activating for trauma survivors
 - Disordered eating or emotional hunger
 - Insomnia or sleep distress
+- Self-harm references, even oblique
+- Substance use or addiction
+- Domestic or relational abuse
+- Medical trauma (hospitalization, diagnosis, chronic illness)
+- Childhood adversity or adverse childhood experiences
+
+This list is not exhaustive. If the article discusses any experience that a reasonable reader might find emotionally activating or re-traumatizing, include a content note.
 
 The note should be 1-2 sentences, written in the brand voice (gentle, non-clinical), and include an exit ramp such as "Read at your own pace" or "Take breaks as needed."
 
@@ -289,6 +301,12 @@ Before creating a new article, review existing articles in the same category for
 - If the title is poetic (e.g., "The Long Exhale"), the lead must include the functional keyword (e.g., "breathing technique", "nervous system").
 - Avoid titles that have zero search-discoverable keywords unless the lead compensates fully.
 - The `cardExcerpts.js` entry can also carry keyword-rich language to bridge the gap between poetic titles and search intent.
+
+| Title / Lead Pair | Assessment |
+|---|---|
+| **Title:** "The Long Exhale" **Lead:** "A breathing technique for calming your nervous system, drawn from years of learning how the body holds tension and how a single slow exhale can begin to release it." | Good: poetic title; lead carries functional keywords (breathing technique, nervous system, tension) |
+| **Title:** "The Long Exhale" **Lead:** "Sometimes the longest breath is the one you did not know you were holding." | Weak: beautiful lead, but no discoverable keywords; search engines cannot connect this to user intent |
+| **Title:** "Morning Breathing Technique for Calm" **Lead:** "What I have learned about the nervous system by breathing slowly before the rest of the day begins." | Acceptable: title carries keywords; lead adds personal experience |
 
 ##### Content Depth Baseline (Tier 1 Standard)
 
@@ -314,7 +332,7 @@ Signs that an article is below baseline:
 - Every article should include a `relatedSlugs` array of 2-3 editorially curated article slugs.
 - The `getRelatedArticles` function in `app/journal/[slug]/page.js` prioritizes these curated slugs, then falls back to category matching.
 - When choosing related slugs, prefer articles that complement (different angle on adjacent topic) over articles that duplicate (same angle on same topic).
-- Cross-category pairings are encouraged when thematically natural (e.g., a "Rituals" article about breathwork paired with a "Somatic Awareness" article about body sensation).
+- Cross-category pairings are encouraged when thematically natural (e.g., a "Quiet Architecture" article about breathwork paired with a "The Body Knows" article about body sensation).
 
 ##### Technical Consistency
 
@@ -344,6 +362,8 @@ Approved hook types (aim for a balanced mix across the library):
 
 Do not default to the confession pattern. If the library already has many "I used to..." openings, choose a scene, paradox, question, or observation instead.
 
+**Tracking:** Each article's `hookType` field (see Article Data Schema) records its opening strategy. To check the current distribution before creating a new article, scan the `hookType` values across all files in `lib/articles/`. If `hookType` is missing from older articles, classify them by reading the first paragraph and add the field retroactively.
+
 ##### Sensory Grounding
 
 Every article must contain at least three instances of named physical sensation (temperature, texture, weight, sound, smell, taste, or specific visual detail). Sensory language must be specific and irreplaceable, not generic.
@@ -354,6 +374,17 @@ Every article must contain at least three instances of named physical sensation 
 | "outside sounds" | "the sound of rain tapping on a single-pane window" |
 | "a comfortable space" | "the weight of the blanket when I first sit up" |
 | "I felt calm" | "something in my chest loosened that I did not know was tight" |
+
+A "named physical sensation" must reference a specific sense modality (temperature, texture, weight, sound, smell, taste, or sight) AND a concrete quality. Use this test: could a reader physically replicate or recognize the sensation?
+
+| Example | Qualifies? | Why |
+|---|---|---|
+| "the tightness in my jaw" | Yes | Names body region + tactile quality |
+| "a heavy feeling" | No | No sense modality; could be emotional |
+| "the weight of the blanket" | Yes | Tactile + concrete object |
+| "the weight of grief" | No | Metaphorical, not physical |
+| "the sound of silence" | No | Names modality but describes an absence |
+| "the hum of the refrigerator" | Yes | Auditory + specific source |
 
 Sensory detail is what distinguishes essay-grade writing from advice-grade writing. Articles that rely primarily on conceptual language without physical grounding should be revised before new articles are created.
 
@@ -375,6 +406,8 @@ When an article reaches a resolution, include at least one sentence acknowledgin
 
 Do not let the library become uniformly solemn. Include moments of genuine humor, wry self-awareness, or playful observation. The absence of lightness makes the brand voice feel performatively serious.
 
+**Tracking:** Each article's `emotionalRegister` field (see Article Data Schema) records its dominant emotional tone. To check the current distribution before creating a new article, scan the `emotionalRegister` values across all files in `lib/articles/`. If `emotionalRegister` is missing from older articles, classify them by overall tone and add the field retroactively.
+
 ##### Pacing and Rhythm
 
 Articles must vary their paragraph length deliberately. A uniform wall of medium-length paragraphs creates monotone pacing.
@@ -382,7 +415,10 @@ Articles must vary their paragraph length deliberately. A uniform wall of medium
 Rules:
 
 - Every article must contain at least one paragraph of 25 words or fewer, used for rhetorical emphasis (e.g., "But that is not what gentleness is. Not the kind I mean.").
-- No more than 3 consecutive paragraphs should be in the same length range (short / medium / long).
+- No more than 3 consecutive paragraphs should be in the same length range. Length ranges are defined as:
+  - **Short:** 35 words or fewer
+  - **Medium:** 36-80 words
+  - **Long:** 81 words or more
 - When an article describes a sequence, practice, or set of options, use the `list` content block instead of embedding items in paragraph prose.
 - After a dense, long section, follow with a shorter paragraph or a pull quote to create visual and cognitive breathing room.
 - For articles over 800 words, consider using two pull quotes instead of one. Place the second near the closing section for rhythm.
@@ -402,6 +438,13 @@ Quality rules:
 - When the author lacks evidence for a personal claim, name the gap honestly. But also check whether supporting evidence exists; many experiential claims have published literature that strengthens the article without overstating certainty.
 - Never fabricate a citation, invent a researcher, or attribute a finding to a field that has not produced it. If no credible source exists, rely on personal experience framed as such.
 
+| Authority Reference | Assessment |
+|---|---|
+| "Studies show that breathing slowly is good for you." | Weak: unnamed studies; no researcher, institution, or field; unverifiable |
+| "Research suggests that slow exhalation activates the parasympathetic nervous system." | Acceptable: well-established consensus finding; hedged appropriately |
+| "Lisa Feldman Barrett, a neuroscientist at Northeastern University, has argued that emotions are constructed, not triggered." | Strong: named researcher, institution, field, and specific claim |
+| "In the Buddhist tradition of anapanasati, breath awareness is not a technique but a form of attention." | Strong: named tradition, specific practice, acknowledged lineage |
+
 ##### Closing Invitation Quality
 
 The closing invitation (the paragraph(s) after the divider) must meet all of these criteria:
@@ -411,6 +454,15 @@ The closing invitation (the paragraph(s) after the divider) must meet all of the
 3. **Conditional**: Use opt-in framing: "if you are willing", "if it feels right", "when you are ready". Never use bare imperatives ("Look at your calendar", "Take five minutes to clean your workspace") without conditional language.
 4. **Low-barrier**: The suggested action should require no equipment, no cost, and less than 5 minutes. It should be doable right now, wherever the reader is.
 5. **Exit ramp**: End with permission to not do it: "If it does not help, let it go." or "That is enough for today." The reader must never feel commanded.
+
+**Specificity test:** A closing invitation is specific enough if it answers at least two of: *what* (the physical action), *where* (body position or setting), and *how long* (a duration or breath count). Example pass: "Try placing your feet flat on the floor and taking one full breath" (answers *what* and *where*). Example fail: "Try pausing for a moment today" (answers only a vague *what*).
+
+| Closing Invitation | Assessment |
+|---|---|
+| "If you are willing, try placing your feet flat on the floor and taking one slow breath. If it does not help, let it go." | Pass: specific (what + where), conditional, low-barrier, exit ramp |
+| "Be more mindful today." | Fail: vague, imperative, no exit ramp, no specificity |
+| "Take five minutes to journal about your feelings." | Fail: bare imperative (no conditional), assumes equipment (journal), exceeds low-barrier threshold for some readers |
+| "When you are ready, try noticing the temperature of the next thing you touch. That is enough." | Pass: conditional, specific (what + sensory), brief, exit ramp |
 
 Articles whose closing invitations read as commands (bare imperatives without opt-out language) must be revised.
 
@@ -446,6 +498,7 @@ The article library must be managed as a balanced ecosystem, not an unplanned co
 - No single category should exceed 30% of the total library.
 - No category should fall below 10% of the total library.
 - When a category is underrepresented, prioritize new articles for that category before creating additional articles in dominant categories.
+- **Threshold:** These percentage targets apply when the library contains 15 or more articles. Below that threshold, prioritize filling underrepresented categories but do not block article creation based on percentage limits.
 
 **Content gap planning:**
 
@@ -453,19 +506,32 @@ The article library must be managed as a balanced ecosystem, not an unplanned co
 - Prioritize gap-filling over cluster-deepening when the library already has 3 or more articles in a single thematic cluster.
 - Before creating a new article, verify: (a) the topic is not already covered, (b) the target category is not already over-represented, (c) the emotional register is not already dominant in the library.
 
-**Current category distribution (as of June 2026, 40 articles):**
+**Current category distribution (as of June 2026, 45 articles):**
 
-<!-- ✦ STALE DATA WARNING: This snapshot reflects the library as of June 2026.
-     Before using these numbers for category-balance decisions, verify the actual
-     article count by checking lib/articles/index.js against the current codebase. -->
+> [!WARNING]
+> This snapshot may be outdated. Always verify the actual article count by checking `lib/articles/index.js` before making category-balance decisions.
 
 | Category | Count | % | Status |
 |---|---|---|---|
-| Mindfulness | 8 | 20% | Healthy |
-| Intentional Living | 10 | 25% | Healthy; near cap |
-| Reflections | 10 | 25% | Healthy; near cap |
-| Rituals | 7 | 17.5% | Healthy |
-| Somatic Awareness | 5 | 12.5% | Improved; above minimum |
+| Still Point | 9 | 20% | Healthy |
+| The Body Knows | 8 | 18% | Healthy |
+| Quiet Architecture | 8 | 18% | Healthy |
+| Inner Weather | 10 | 22% | Healthy |
+| Chosen Life | 10 | 22% | Healthy |
+
+##### Content Lifecycle
+
+Articles are living documents. When an article falls below the current quality baseline and cannot be revised to meet it:
+
+1. **Revise** (first preference): Update the article to meet current standards. Update `dateModified` when content changes.
+2. **Consolidate**: If the article is thematically redundant within a cluster, merge its strongest insights into a stronger cluster article. Remove the weaker article.
+3. **Redirect**: If an article is removed, implement a 301 redirect to the most relevant replacement. Never hard-delete an article URL without a redirect.
+
+Articles should also be reviewed when:
+- A referenced study is retracted or superseded
+- A cultural or scientific claim is found to be inaccurate
+- The brand voice standards are updated and the article no longer meets them
+- Three or more articles in the same cluster make differentiation impractical
 
 ## Component Library
 
@@ -927,11 +993,38 @@ Nina Healthy speaks in first person. The voice is:
 
 Before publishing any content, verify:
 
-- [ ] Is this written as Nina speaking, not a generic wellness brand?
+- [ ] Is this written in Nina's first-person voice ("I", "me", "my"), not a generic wellness brand or third-person description of Nina?
 - [ ] Does it invite rather than instruct? ("Try this" not "You must")
 - [ ] Does it acknowledge difficulty rather than promising easy fixes?
 - [ ] Is the language concrete and sensory, not abstract?
 - [ ] Would someone feel calmer after reading this, not more pressured?
+
+### Voice Anti-Examples
+
+These examples show what Nina does NOT sound like and why:
+
+| Violation | Why It Fails | Nina Version |
+|---|---|---|
+| "You deserve to shine today, beautiful soul!" | Saccharine; performative; hollow affirmation | "Some mornings, the hardest thing is just getting up. That counts." |
+| "Studies have conclusively shown that mindfulness reduces cortisol by 23%." | Academic; clinical; overstates certainty | "There is some evidence that stillness changes the body. I have felt it, though I cannot measure it." |
+| "STOP scrolling and START living!" | Commanding; judgmental; urgency as coercion | "If the screen is where you are right now, that is okay. When you are ready, something else will be here." |
+| "In this article, we will explore five tips for better sleep." | Generic blog voice; not first-person; listicle framing | "I have been thinking about what happens when we stop trying to fall asleep." |
+| "You are worthy of rest, queen." | Performative warmth; gendered assumption; empty affirmation | "Rest is not a reward. It is just what your body needs, and it does not have to be earned." |
+
+### Voice by Context
+
+The brand voice adapts its register depending on content type:
+
+| Context | Register | Key Adaptation |
+|---|---|---|
+| Journal articles | Full literary voice | First-person, reflective, sensory |
+| Meta descriptions | Compressed literary | First-person optional; benefit-led; keyword-aware |
+| Button / CTA copy | Warm imperative | "Begin" over "Start"; invitational, never urgent |
+| Error messages | Gentle functional | "We could not find that" not "Error 404" |
+| Content notes | Institutional-warm | Slightly more formal; clear and direct, not literary |
+| Alt text | Functional-descriptive | Scene + mood; no first-person |
+| Legal pages (privacy, terms) | Clear informational | Professional; not literary; not first-person |
+| Newsletter subject lines | Curious / invitational | First-person; question or observation |
 
 ## Content Boundaries
 
@@ -955,8 +1048,26 @@ Every guided experiential prompt, breathwork instruction, or meditation cue must
 
 - Prioritize optionality and agency (e.g., "if comfortable, close your eyes, or simply soften your gaze")
 - Offer exit ramps (e.g., "if this feels intense, feel free to return to your natural rhythm")
-- Use body-neutral, socioeconomically accessible, and neurodivergent-inclusive language
+- Use body-neutral, socioeconomically accessible, and neurodivergent-inclusive language (see implementation guidelines below)
 - Not assume specific physical abilities, baseline financial status, or neurotypical cognitive processing
+
+### Implementation Guidelines
+
+**Body-neutral language:**
+- Do not assume the reader can stand, sit cross-legged, close their eyes, or hold a specific posture. Always offer alternatives.
+- Avoid: "Sit comfortably on the floor." Use: "Find a position that feels supported, whether sitting, lying down, or standing."
+- Avoid: "Feel your belly rise and fall." Use: "Notice whatever movement your breath makes, wherever you feel it."
+
+**Socioeconomically accessible language:**
+- Do not assume the reader has access to specific equipment, a quiet private space, organic food, or paid wellness services.
+- Avoid: "Light your favorite candle and draw a bath." Use: "Find one small thing that signals rest to you, whatever that is."
+- Never frame wellbeing as requiring purchases, subscriptions, or specific living conditions.
+
+**Neurodivergent-inclusive language:**
+- Do not assume linear attention, consistent energy, or typical sensory processing. Offer flexible timeframes ("30 seconds or 5 minutes, whatever feels right").
+- Avoid: "Clear your mind completely." Use: "Let your thoughts move without trying to direct them."
+- Avoid: "Sit still and focus." Use: "Find a kind of stillness that works for you; movement counts too."
+- Do not assume the reader finds stillness calming; some neurodivergent readers find movement more regulating.
 
 ## Writing Style
 
@@ -977,7 +1088,7 @@ Every guided experiential prompt, breathwork instruction, or meditation cue must
 
 - Prefer the simpler word: "start" over "commence", "use" over "utilize"
 - Use sensory language: textures, sounds, temperatures, physical sensations
-- Avoid jargon, buzzwords, and wellness cliches ("self-care journey", "live your best life", "manifest your dreams")
+- Avoid jargon, buzzwords, and wellness cliches. Prohibited phrases include (non-exhaustive): "self-care journey", "live your best life", "manifest your dreams", "lean into [anything]", "show up for yourself", "hold space", "do the inner work", "your body is a temple", "positive vibes only", "everything happens for a reason", "trust the process", "radical self-love", "align with your highest self", "healing journey", "mind-body-spirit". If a phrase could appear on a mass-market wellness Instagram account without attribution, it is likely a cliche; replace it with specific, personal language.
 - No em dashes. Use commas, semicolons, colons, or break into two sentences.
 - Build credibility with grounded, precise vocabulary; ban empty marketing hyperbole
 
@@ -998,6 +1109,15 @@ Every journal article should follow this arc:
 1. **Opening hook** (1-2 paragraphs): A personal observation or admission that draws the reader in. Vulnerable but not dramatic.
 2. **Exploration** (2-3 sections with subheadings): Deeper reflection, personal stories, observations. Each section should stand alone as a scannable unit.
 3. **Pull quote**: A single distilled thought that captures the essence. This is the sentence someone would highlight or share.
+
+   Pull quote quality criteria:
+   - Drawn from or adapted from the article body (not entirely new text)
+   - A single sentence of 10-25 words
+   - Captures the article's central insight, not a supporting detail
+   - Works as a standalone statement (comprehensible without surrounding context)
+   - Placed after the second or third subheading, providing a mid-article breathing point
+   - For articles over 800 words, consider a second pull quote near the closing section
+
 4. **Practical dimension** (1 section): How this shows up in daily life. Concrete, sensory, actionable.
 5. **Closing invitation** (after a divider): A gentle, specific invitation for the reader to try something. Not a command. An offer. Always framed as optional.
 
@@ -1025,11 +1145,23 @@ Every piece of content must demonstrate Experience, Expertise, Authoritativeness
 - Clear contact information. Visible privacy policy and terms.
 - No affiliate links or paid recommendations disguised as personal endorsements.
 
+### E-E-A-T by Page Type
+
+E-E-A-T signals vary by page. Each page should emphasize its primary trust dimension:
+
+| Page | Primary Signal | Implementation |
+|---|---|---|
+| Journal articles | Experience, Expertise | First-person narrative, cited research, sensory detail |
+| About `/about` | Trust, Experience | Bio, credentials, transparent scope ("not a therapist"), FAQ |
+| Practice `/practice` | Expertise | Named techniques, clear scope, no overclaiming |
+| Home `/` | Authority | Curated content selection, breadth of topics, internal linking |
+| Connect `/connect` | Trust | Clear contact method, no dark patterns, visible privacy policy |
+
 ## SEO Content Guidelines
 
 ### Title Tags
 
-- Include the primary keyword naturally in the first 40 characters
+- When the article title includes a discoverable keyword, place it in the first 40 characters of the title tag. When the title is literary and keyword-free (see Title SEO and Keyword Strategy in Content Quality Standards), ensure the meta description carries the primary keyword in its first 80 characters. This overrides the global SEO rule that primary keywords must appear in the h1.
 - Format for articles: `{Article Title} | Nina Healthy`
 - Format for pages: `{Page Purpose} | Nina Healthy`
 - Keep total length between 50-60 characters

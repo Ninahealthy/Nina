@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { subscribeToNewsletter } from "./NewsletterAction";
 import styles from "./NewsletterSignup.module.css";
 
@@ -13,6 +14,7 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const shouldReduceMotion = useReducedMotion();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,11 +79,19 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
           </button>
         </form>
 
-        {message && (
-          <div className={`${styles.message} ${styles[messageType]}`}>
-            {message}
-          </div>
-        )}
+        <AnimatePresence>
+          {message && (
+            <motion.div
+              className={`${styles.message} ${styles[messageType]}`}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {message}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

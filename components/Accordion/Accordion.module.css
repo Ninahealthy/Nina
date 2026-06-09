@@ -97,13 +97,10 @@
   overflow: hidden;
 }
 
-.panelOpen {
-  padding-bottom: 1.25rem;
-}
-
 .answer {
   font-size: 0.95rem;
   color: var(--color-stone);
   line-height: 1.7;
   max-width: 600px;
+  padding-bottom: 1.25rem;
 }

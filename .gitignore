@@ -47,4 +47,6 @@ CLAUDE.md
 CONTEXT.md
 /.agents/
 
+# Pinterest publisher
+scripts/pinterest/pin-log.json
 

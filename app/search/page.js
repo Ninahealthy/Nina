@@ -1,7 +1,6 @@
-import PageHero from "@/components/PageHero/PageHero";
 import { SITE } from "@/lib/siteConfig";
 import Script from "next/script";
-import styles from "./page.module.css";
+import SearchResultsClient from "./SearchResultsClient";
 
 export const metadata = {
   title: "Search",
@@ -34,29 +33,17 @@ export const metadata = {
 
 /**
  * Search page powered by Google Programmable Search Engine.
- * Results render inline via the gcse-searchresults-only widget,
- * which only shows results (no search box; the query comes from
- * the page's own input or URL parameter).
+ * The server component handles metadata; the client component
+ * handles the interactive search bar and CSE widget mounting.
  */
 export default function SearchPage() {
   return (
-    <div className={styles.page}>
-      <PageHero
-        title="Search"
-        subtitle="Find reflections, practices, and ideas across the journal."
-      />
-
-      <section className={styles.searchSection} aria-label="Search results">
-        <div className={styles.searchContainer}>
-          <div className="gcse-searchbox-only" data-resultsurl="/search" data-newwindow="false" data-queryparametername="q"></div>
-          <div className="gcse-searchresults-only"></div>
-        </div>
-      </section>
-
+    <>
+      <SearchResultsClient />
       <Script
         src="https://cse.google.com/cse.js?cx=763af41fbeba0fc8e"
         strategy="afterInteractive"
       />
-    </div>
+    </>
   );
 }

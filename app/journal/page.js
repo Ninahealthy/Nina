@@ -5,6 +5,7 @@ import { ENTRY_ORDER } from "@/lib/entryOrder";
 import { SITE } from "@/lib/siteConfig";
 import JournalFilter from "@/components/JournalFilter/JournalFilter";
 import PageHero from "@/components/PageHero/PageHero";
+import JournalSearchBar from "@/components/JournalSearchBar/JournalSearchBar";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import { getReadingTime } from "@/lib/readingTime";
 import styles from "./page.module.css";
@@ -101,6 +102,8 @@ export default function JournalPage() {
         title="Journal"
         subtitle="Thoughts on mindful living, written from wherever I am in the journey."
       />
+
+      <JournalSearchBar />
 
       <JournalFilter entries={entries} />
     </div>

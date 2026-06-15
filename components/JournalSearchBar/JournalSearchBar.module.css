@@ -1,0 +1,188 @@
+/* ========================================================
+   JournalSearchBar
+   Frosted-glass search input integrated into the journal page.
+   Animations handled by framer-motion; CSS provides surfaces.
+   ======================================================== */
+
+.searchForm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0.875rem 1.25rem;
+  background: var(--color-warmwhite);
+  border: 1.5px solid var(--color-sand);
+  clip-path: var(--clip-path-squircle-20);
+  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Focus state border accent via CSS (complements framer-motion shadow) */
+.searchForm:focus-within {
+  border-color: var(--color-terracotta);
+  background: var(--color-cream);
+}
+
+/* === Search icon === */
+.searchIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-pebble);
+  transition: color 0.3s ease;
+}
+
+.searchForm:focus-within .searchIcon {
+  color: var(--color-terracotta);
+}
+
+/* === Input field === */
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--color-charcoal);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  outline: none;
+  min-height: 28px;
+}
+
+.searchInput::placeholder {
+  color: var(--color-pebble);
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.searchInput:focus::placeholder {
+  color: var(--color-stone);
+}
+
+/* Remove the default browser clear button on search inputs */
+.searchInput::-webkit-search-cancel-button,
+.searchInput::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* === Accent underline === */
+.accentLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-terracotta) 0%,
+    var(--color-clay) 50%,
+    var(--color-sage) 100%
+  );
+  transform-origin: center center;
+}
+
+/* === Keyboard shortcut badge === */
+.shortcutBadge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-linen);
+  color: var(--color-pebble);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  clip-path: var(--clip-path-squircle-10);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* === Submit button === */
+.submitButton {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  background: var(--color-terracotta);
+  color: var(--color-warmwhite);
+  border: none;
+  cursor: pointer;
+  clip-path: var(--clip-path-squircle-10);
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background: var(--color-terracotta-dark);
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-terracotta-dark);
+  outline-offset: 3px;
+}
+
+/* ========================================================
+   Responsive
+   ======================================================== */
+
+@media (min-width: 768px) {
+  .searchForm {
+    padding: 1rem 1.5rem;
+  }
+
+  .searchInput {
+    font-size: 1.05rem;
+  }
+}
+
+/* ========================================================
+   Dark Mode
+   ======================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .searchForm {
+    border-color: var(--color-sand);
+    background: var(--color-warmwhite);
+  }
+
+  .searchForm:focus-within {
+    border-color: var(--color-terracotta);
+    background: var(--color-linen);
+  }
+}
+
+:global([data-theme="dark"]) .searchForm {
+  border-color: var(--color-sand);
+  background: var(--color-warmwhite);
+}
+
+:global([data-theme="dark"]) .searchForm:focus-within {
+  border-color: var(--color-terracotta);
+  background: var(--color-linen);
+}
+
+/* ========================================================
+   Reduced Motion
+   ======================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .searchForm,
+  .searchIcon,
+  .searchInput::placeholder,
+  .submitButton {
+    transition: none !important;
+  }
+}

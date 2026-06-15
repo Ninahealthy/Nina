@@ -102,8 +102,8 @@ export default function JournalSearchBar() {
           aria-label="Submit search"
           animate={
             query.trim()
-              ? { opacity: 1, scale: 1, pointerEvents: "auto" }
-              : { opacity: 0, scale: 0.85, pointerEvents: "none" }
+              ? { opacity: 1, width: 44 }
+              : { opacity: 0, width: 0 }
           }
           transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
         >

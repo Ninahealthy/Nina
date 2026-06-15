@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
   prefetchDNS("https://www.googletagmanager.com");
 
   return (
-    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`} suppressHydrationWarning>
+    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Script
           async

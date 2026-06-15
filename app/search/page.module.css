@@ -95,6 +95,14 @@
   line-height: 1.5;
   outline: none;
   min-height: 28px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.searchInput:focus,
+.searchInput:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 .searchInput::placeholder {
@@ -133,11 +141,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 0;
+  height: 44px;
+  min-width: 0;
   padding: 0;
+  overflow: hidden;
   background: var(--color-terracotta);
   color: var(--color-warmwhite);
   border: none;
@@ -360,7 +368,7 @@
 
 @media (min-width: 768px) {
   .searchHeader {
-    padding: 3rem 2rem 1.5rem;
+    padding: 8rem 2rem 1.5rem;
     flex-direction: row;
     align-items: center;
     gap: 1.25rem;

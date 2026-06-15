@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, useCallback, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import styles from "./page.module.css";
@@ -11,7 +11,6 @@ import styles from "./page.module.css";
  */
 function SearchResultsInner() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
   const initialQuery = searchParams.get("q") || "";
   const [query, setQuery] = useState(initialQuery);
@@ -45,10 +44,11 @@ function SearchResultsInner() {
       e.preventDefault();
       const trimmed = query.trim();
       if (!trimmed) return;
-      router.push(`/search?q=${encodeURIComponent(trimmed)}`);
-      inputRef.current?.blur();
+      /* Full navigation required: Google CSE only reads the ?q= param
+         on page load; client-side router.push does not trigger a CSE refresh. */
+      window.location.href = `/search?q=${encodeURIComponent(trimmed)}`;
     },
-    [query, router]
+    [query]
   );
 
   const motionDuration = shouldReduceMotion ? 0 : 0.4;
@@ -127,8 +127,8 @@ function SearchResultsInner() {
             aria-label="Submit search"
             animate={
               query.trim()
-                ? { opacity: 1, x: 0, pointerEvents: "auto" }
-                : { opacity: 0, x: 8, pointerEvents: "none" }
+                ? { opacity: 1, width: 44 }
+                : { opacity: 0, width: 0 }
             }
             transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -163,7 +163,7 @@ function SearchResultsInner() {
         transition={{ duration: motionDuration, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className={styles.resultsContainer}>
-          <div className="gcse-searchresults-only" data-queryParameterName="q"></div>
+          <div className="gcse-searchresults-only" data-queryparametername="q"></div>
         </div>
       </motion.section>
 

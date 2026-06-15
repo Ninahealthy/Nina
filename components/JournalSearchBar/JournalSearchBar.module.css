@@ -55,6 +55,16 @@
   line-height: 1.5;
   outline: none;
   min-height: 28px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Override the global focus-visible outline from globals.css;
+   focus indication is handled by the outer form's border + accent line. */
+.searchInput:focus,
+.searchInput:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 .searchInput::placeholder {
@@ -93,11 +103,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 0;
+  height: 44px;
+  min-width: 0;
   padding: 0;
+  overflow: hidden;
   background: var(--color-terracotta);
   color: var(--color-warmwhite);
   border: none;

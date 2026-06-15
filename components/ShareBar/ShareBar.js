@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import styles from "./ShareBar.module.css";
 
@@ -29,7 +29,13 @@ const ShareBar = ({ title, url }) => {
     }
   }, [url]);
 
-  const supportsShare = typeof navigator !== "undefined" && !!navigator.share;
+  /* Deferred to useEffect so server and client render the same initial HTML.
+     navigator.share is only available in the browser, so checking during
+     render would cause a hydration mismatch. */
+  const [supportsShare, setSupportsShare] = useState(false);
+  useEffect(() => {
+    setSupportsShare(typeof navigator !== "undefined" && !!navigator.share);
+  }, []);
 
   return (
     <nav className={styles.bar} aria-label="Share this article">

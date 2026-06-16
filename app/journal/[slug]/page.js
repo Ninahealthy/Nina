@@ -38,7 +38,9 @@ export async function generateMetadata({ params }) {
       tags: article.tags || [article.category],
       images: [
         {
-          url: SITE.ogImage.url,
+          url: CARD_IMAGES[slug]
+            ? `${SITE.url}${CARD_IMAGES[slug]}`
+            : SITE.ogImage.url,
           width: SITE.ogImage.width,
           height: SITE.ogImage.height,
           alt: article.title,
@@ -49,7 +51,11 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: article.title,
       description: article.lead,
-      images: [SITE.ogImage.url],
+      images: [
+        CARD_IMAGES[slug]
+          ? `${SITE.url}${CARD_IMAGES[slug]}`
+          : SITE.ogImage.url,
+      ],
     },
     alternates: {
       canonical: `${SITE.url}/journal/${slug}`,
@@ -58,32 +64,41 @@ export async function generateMetadata({ params }) {
 }
 
 function buildArticleJsonLd(article, slug) {
-  return {
+  const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.lead,
-    author: {
-      "@type": "Person",
-      name: SITE.author.name,
-      url: SITE.author.aboutUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: SITE.name,
-      url: SITE.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE.url}/icon.svg`,
-      },
-    },
+    author: { "@id": SITE.entityIds.author },
+    publisher: { "@id": SITE.entityIds.organization },
     datePublished: article.dateISO,
     dateModified: article.dateModified || article.dateISO,
     mainEntityOfPage: `${SITE.url}/journal/${slug}`,
     image: CARD_IMAGES[slug]
       ? `${SITE.url}${CARD_IMAGES[slug]}`
       : `${SITE.url}/og-default.png`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [`.${styles.articleLead}`, `.${styles.pullQuote}`, `.${styles.subheading}`],
+    },
   };
+
+  /* Add mentions for cited researchers */
+  if (Array.isArray(article.citations) && article.citations.length > 0) {
+    jsonLd.citation = article.citations
+      .filter((c) => c.work)
+      .map((c) => ({
+        "@type": "CreativeWork",
+        name: c.work,
+        author: { "@type": "Person", name: c.name },
+      }));
+    jsonLd.mentions = article.citations.map((c) => ({
+      "@type": "Person",
+      name: c.name,
+    }));
+  }
+
+  return jsonLd;
 }
 
 function buildBreadcrumbJsonLd(article, slug) {
@@ -225,7 +240,11 @@ export default async function ArticlePage({ params }) {
               return <p key={i}>{block.text}</p>;
             }
             if (block.type === "subheading") {
-              return <h2 key={i} className={styles.subheading}>{block.text}</h2>;
+              const id = block.text
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, "");
+              return <h2 key={i} id={id} className={styles.subheading}>{block.text}</h2>;
             }
             if (block.type === "quote") {
               return (

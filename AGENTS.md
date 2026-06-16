@@ -1,4 +1,4 @@
-<!-- Document: AGENT.md | Version: 1.1 | Last updated: 2026-06-08
+<!-- Document: AGENTS.md | Version: 1.3 | Last updated: 2026-06-15
      Owner: Project Lead | Review cadence: Quarterly -->
 
 > **Precedence:** This file overrides `GEMINI.md` (global defaults) for all Nina Healthy project work.
@@ -19,8 +19,8 @@
 
 - No emoji in UI or content -- use modern inline SVG only
 - No em dashes ( -- ) in any generated text or content; use commas, semicolons, colons, or shorter sentences instead
-- No third-party libraries -- use only official Vercel packages, official Next.js built-ins, React, framer-motion, and plain CSS. ( an exception has been made for nodemailer)
-- by default framer-motion for animations, transitions ...ect . 
+- No third-party libraries -- use only packages from Vercel (`@vercel/*`), Next.js built-ins, React, framer-motion, and plain CSS. Nodemailer is the sole non-Vercel exception.
+- Use framer-motion by default for animations, transitions, and interactive motion.
 - ✦ **Code comments:** Comment non-obvious decisions and "why" explanations. Add brief JSDoc-style comments on exported functions and components. Do not add trivial comments that restate the code. Use `// TODO:` for incomplete work and `// HACK:` for intentional workarounds. (This overrides the global requirement in GEMINI.md for linked issues on TODOs; this project does not use an external issue tracker.)
 
 ## Path Aliases
@@ -95,10 +95,6 @@ export function generateStaticParams() {
 - For article-related tasks, always reference the Content Quality Standards section before generating content.
 - When creating or modifying components, confirm the change aligns with the Component Library table before proceeding.
 - When modifying SEO-related code, cross-reference the Metadata Architecture and Structured Data sections.
-
-## ✦ Reasoning and Planning
-
-
 - Before creating a new article, run through the pre-creation checks: thematic differentiation, category balance, emotional register diversity, and hook type diversity.
 
 ## ✦ Error and Edge-Case Protocols
@@ -116,7 +112,7 @@ export function generateStaticParams() {
 
 ## ✦ Context Management
 
-<!-- This file is approximately 55KB. Agents with limited context windows should
+<!-- This file is approximately 93KB. Agents with limited context windows should
      prioritize sections based on the current task. -->
 
 **Priority reading order** (if context is constrained):
@@ -124,10 +120,12 @@ export function generateStaticParams() {
 1. **Shared Rules** -- environment, code style, component and CSS rules (always read)
 2. **Agent Behavior** (this section) -- how to reason, confirm, and handle errors (always read)
 3. **Content Quality Standards** (within Project Architecture) AND **Content Creation Standards** -- read both when creating or editing articles
-4. **Design Standards** -- read when creating or modifying UI components
+4. **Generative Engine Optimization (GEO) Standards** -- read when creating articles (for citability, citations field), modifying JSON-LD, or working on AI crawler policy
+5. **Design Standards** -- read when creating or modifying UI components
 5. **SEO Standards** -- read when working on metadata, structured data, or page-level changes
-6. **Accessibility Standards** -- always reference when touching interactive components or forms
-7. **Performance Guidelines** -- read when optimizing images, fonts, or Core Web Vitals
+6. **Pinterest SEO and Algorithm Standards** -- read when creating articles, generating pin content, or optimizing for Pinterest discovery
+7. **Accessibility Standards** -- always reference when touching interactive components or forms
+8. **Performance Guidelines** -- read when optimizing images, fonts, or Core Web Vitals
 
 **Session continuity:**
 
@@ -197,6 +195,9 @@ const article = {
                                                 // string[], optional; 2-3 curated slugs for the RelatedArticles component
   hookType: "paradox",                          // string, optional; one of: "confession" | "scene" | "paradox" | "question" | "observation"
   emotionalRegister: "acceptance",              // string, optional; one of: "acceptance" | "difficulty" | "joy" | "curiosity" | "grief"
+  citations: [                                    // array, optional; named researchers/works referenced in the article
+    { name: "Harriet Lerner", work: "The Dance of Anger", type: "Book" },
+  ],
   content: [
     { type: "paragraph", text: "..." },        // body paragraph
     { type: "subheading", text: "..." },       // h2 section break
@@ -477,7 +478,7 @@ Rules:
 - Articles within a cluster must use `relatedSlugs` to cross-link each other, so search engines understand they serve different intents.
 - Each article in a cluster must target a distinct search intent. For example, in a "morning/routine" cluster: one article covers the emotional case for routine, another covers a specific ritual sequence, a third covers the science of morning cortisol. They share a theme but not an angle.
 
-Current clusters to monitor:
+Current clusters to monitor (last verified: June 15, 2026):
 
 | Cluster | Articles | Differentiation Status |
 |---|---|---|
@@ -485,9 +486,13 @@ Current clusters to monitor:
 | Breathing / nervous system | `breathing-through-the-overwhelm`, `the-long-exhale`, `the-body-keeps-a-quiet-score` | Well-differentiated |
 | Boundaries / availability | `the-gentle-discipline-of-saying-no`, `the-weight-of-being-available`, `digital-minimalism-in-a-loud-world` | Moderate overlap; each should target a different angle |
 | Nature as metaphor | `water-as-teacher`, `what-the-garden-teaches`, `seasonal-living-as-practice` | Well-differentiated by subject matter |
-| Body / embodiment | `the-body-keeps-a-quiet-score`, `the-body-you-are-in`, `living-alongside-pain` | Well-differentiated (sensation vs. image vs. chronic pain) |
-| Emotional processing | `anger-as-information`, `the-permission-to-weep`, `tending-the-inner-weather` | Well-differentiated (anger vs. tears vs. general weather) |
+| Body / embodiment | `the-body-keeps-a-quiet-score`, `the-body-you-are-in`, `living-alongside-pain`, `what-the-body-holds-after`, `when-the-body-slows`, `what-the-illness-left-behind` | Large cluster; well-differentiated (sensation vs. image vs. chronic pain vs. aftermath vs. aging vs. illness recovery) |
+| Emotional processing | `anger-as-information`, `the-permission-to-weep`, `tending-the-inner-weather`, `the-courage-of-staying-still` | Well-differentiated (anger vs. tears vs. general weather vs. stillness under pressure) |
 | Rest / recovery | `the-art-of-doing-nothing`, `sleep-as-surrender`, `rest-is-not-recovery` | Well-differentiated (stillness vs. sleep vs. active recovery) |
+| Craft / hands / making | `hands-that-remember`, `the-thing-you-make-badly`, `finding-ritual-in-the-kitchen` | Well-differentiated (memory vs. imperfection vs. cooking) |
+| Money / scarcity / enough | `money-scarcity-and-enough`, `the-taste-of-enough`, `hunger-beyond-food` | Monitor; overlapping "enough" theme across categories |
+| Attention / presence | `the-edges-of-attention`, `cultivating-a-mindful-workspace`, `the-art-of-doing-nothing` | Well-differentiated (peripheral attention vs. workspace vs. stillness) |
+| Unseen labor / time | `the-hours-no-one-sees`, `the-hours-that-belong-to-someone-else` | Well-differentiated (invisible work vs. caretaking time) |
 
 ##### Content Ecosystem Health
 
@@ -506,18 +511,18 @@ The article library must be managed as a balanced ecosystem, not an unplanned co
 - Prioritize gap-filling over cluster-deepening when the library already has 3 or more articles in a single thematic cluster.
 - Before creating a new article, verify: (a) the topic is not already covered, (b) the target category is not already over-represented, (c) the emotional register is not already dominant in the library.
 
-**Current category distribution (as of June 2026, 45 articles):**
+**Current category distribution (last verified: June 15, 2026, 59 articles):**
 
 > [!WARNING]
 > This snapshot may be outdated. Always verify the actual article count by checking `lib/articles/index.js` before making category-balance decisions.
 
 | Category | Count | % | Status |
 |---|---|---|---|
-| Still Point | 9 | 20% | Healthy |
-| The Body Knows | 8 | 18% | Healthy |
-| Quiet Architecture | 8 | 18% | Healthy |
-| Inner Weather | 10 | 22% | Healthy |
-| Chosen Life | 10 | 22% | Healthy |
+| Still Point | 11 | 19% | Healthy |
+| The Body Knows | 11 | 19% | Healthy |
+| Quiet Architecture | 11 | 19% | Healthy |
+| Inner Weather | 13 | 22% | Healthy |
+| Chosen Life | 13 | 22% | Healthy |
 
 ##### Content Lifecycle
 
@@ -538,19 +543,25 @@ Articles should also be reviewed when:
 | Component | Path | Purpose |
 |---|---|---|
 | Accordion | `components/Accordion/` | Collapsible content sections |
+| AdSenseRefresh | `components/AdSenseRefresh/` | Google AdSense ad slot refresh on route changes |
+| AuthorBio | `components/AuthorBio/` | Author bio section displayed on article pages |
+| Breadcrumb | `components/Breadcrumb/` | Breadcrumb navigation for journal articles |
 | BreathPacer | `components/BreathPacer/` | Guided breathing animation |
 | Button | `components/Button/` | Primary and secondary CTA buttons |
 | Card | `components/Card/` | Journal entry / content cards |
 | ContactMe | `components/ContactMe/` | Contact form |
 | DailyIntention | `components/DailyIntention/` | Rotating daily mindfulness invitation |
 | Footer | `components/Footer/` | Site footer with social links |
+| GoogleAnalytics | `components/GoogleAnalytics/` | GA4 tracking script wrapper |
 | GroundingExercise | `components/GroundingExercise/` | Interactive grounding practice |
 | Header | `components/Header/Header.js` | Site header with mobile menu |
 | JournalFilter | `components/JournalFilter/` | Category filter tabs for journal index |
+| JournalSearchBar | `components/JournalSearchBar/` | Search input for journal articles |
 | JsonLd | `components/JsonLd/` | Reusable JSON-LD structured data injection |
 | MeditationTimer | `components/MeditationTimer/` | Timed meditation with audio cues |
 | NewsletterSignup | `components/NewsletterSignup/` | Email signup form |
 | PageHero | `components/PageHero/` | Reusable hero section with title and subtitle |
+| PracticeSkeleton | `components/PracticeSkeleton/` | Loading skeleton placeholder for practice page |
 | ReadingProgress | `components/ReadingProgress/` | Scroll progress indicator for articles |
 | RelatedArticles | `components/RelatedArticles/` | Related article suggestions at end of articles |
 | ScrollReveal | `components/ScrollReveal/` | Fade-in-on-scroll wrapper |
@@ -560,6 +571,27 @@ Articles should also be reviewed when:
 | TestimonialCarousel | `components/TestimonialCarousel/` | Rotating testimonial display |
 | ThemeToggle | `components/ThemeToggle/` | Light/dark mode toggle |
 | Timeline | `components/Timeline/` | Vertical timeline layout |
+
+## App-Level Error and Loading Files
+
+The following files in `app/` handle error states and loading. They must follow the brand voice and design standards.
+
+| File | Purpose | Design Constraints |
+|---|---|---|
+| `app/error.js` | Client-side error boundary for unexpected runtime errors | Must use gentle, non-technical language ("Something went wrong" not "Error 500"). Include a link back to the home page. Follow the warm, reassuring brand voice. |
+| `app/not-found.js` | Custom 404 page for unmatched routes | Must feel calming, not alarming. Include a link to the journal and home page. Use the brand palette and typography. |
+| `app/loading.js` | Global loading state shown during route transitions | Keep minimal and unobtrusive. Use a subtle animation that respects `prefers-reduced-motion`. |
+
+## Search
+
+The project includes a search page at `app/search/page.js` (accessible at `/search`). It provides client-side article search functionality via the `JournalSearchBar` component.
+
+| Attribute | Value |
+|---|---|
+| Route | `/search` |
+| Schema type | `SearchResultsPage` (only when results are displayed) |
+| Navigation | Not in main nav; accessible via journal search bar and direct URL |
+| Sitemap | Excluded (search results pages are dynamic and should not be indexed as static content) |
 
 ---
 
@@ -652,6 +684,17 @@ export async function generateMetadata({ params }) {
       publishedTime: article.dateISO,
       authors: [SITE.author.name],
       section: article.category,
+      tags: article.tags || [article.category],
+      images: [
+        {
+          url: CARD_IMAGES[slug]
+            ? `${SITE.url}${CARD_IMAGES[slug]}`
+            : SITE.ogImage.url,
+          width: SITE.ogImage.width,
+          height: SITE.ogImage.height,
+          alt: article.title,
+        },
+      ],
     },
     alternates: {
       canonical: `${SITE.url}/journal/${slug}`,
@@ -659,6 +702,9 @@ export async function generateMetadata({ params }) {
   };
 }
 ```
+
+> [!IMPORTANT]
+> The `openGraph.images` must use the article-specific card image from `CARD_IMAGES[slug]` (with a fallback to the site default). This ensures Pinterest Rich Pins, social shares, and link previews display the correct per-article image, matching the JSON-LD `image` field.
 
 ## Structured Data (JSON-LD)
 
@@ -677,10 +723,11 @@ import JsonLd from "@/components/JsonLd/JsonLd";
 |---|---|---|
 | Home `/` | `WebSite` + `Organization` | `name`, `url`, `logo`, `sameAs` (from `getSameAsUrls()`), `potentialAction` (SearchAction if search exists) |
 | Journal index `/journal` | `CollectionPage` + `ItemList` | `itemListElement` with each article as a `ListItem` |
-| Journal article `/journal/[slug]` | `Article` or `BlogPosting` | `headline`, `author`, `datePublished`, `dateModified`, `description`, `image`, `publisher`, `mainEntityOfPage` |
+| Journal article `/journal/[slug]` | `Article` + `BreadcrumbList` | `headline`, `author`, `datePublished`, `dateModified`, `description`, `image`, `publisher`, `mainEntityOfPage`; `BreadcrumbList` with Home > Journal > Article |
 | About `/about` | `Person` + `FAQPage` | `name`, `description`, `url`, `sameAs`; FAQ items as `Question`/`Answer` pairs |
 | Practice `/practice` | `WebPage` with `specialty` | `name`, `description`, `specialty: "Mindfulness"` |
 | Connect `/connect` | `ContactPage` | `name`, `url` |
+| Search `/search` | `SearchResultsPage` | `name`, `url`; only when search results are displayed |
 
 ### Article Schema Example
 
@@ -776,13 +823,12 @@ export default function sitemap() {
   return [
     ...staticRoutes.map((route) => ({
       url: `${SITE.url}${route}`,
-      lastModified: new Date(),
       changeFrequency: route === '' ? 'weekly' : 'monthly',
-      priority: route === '' ? 1.0 : 0.8,
+      priority: route === '' ? 1.0 : route === '/privacy' || route === '/terms' ? 0.1 : 0.8,
     })),
     ...journalSlugs.map((slug) => ({
       url: `${SITE.url}/journal/${slug}`,
-      lastModified: new Date(),
+      lastModified: new Date(ARTICLES[slug].dateModified || ARTICLES[slug].dateISO),
       changeFrequency: 'monthly',
       priority: 0.7,
     })),
@@ -793,6 +839,507 @@ export default function sitemap() {
 ## RSS Feed
 
 The project has a full RSS 2.0 feed at `app/feed.xml/route.js` (accessible at `/feed.xml`). The root layout advertises it via `alternates.types["application/rss+xml"]`. When adding new articles, no manual feed update is needed; it reads from `ARTICLES` automatically.
+
+The feed includes full article content via `<content:encoded>` and uses `<dc:creator>` for author attribution. This ensures AI crawlers indexing the feed get complete article text, not just the lead.
+
+---
+
+# Generative Engine Optimization (GEO) Standards
+
+<!-- ✦ Rationale: GEO optimizes content for citation, attribution, and source selection
+     by AI-powered answer engines (Google AI Overviews, Bing Copilot, Perplexity,
+     ChatGPT with browsing). Unlike traditional SEO (optimizing for click-through on a
+     results page), GEO optimizes for being surfaced, cited, and attributed by LLMs.
+     Nina Healthy's first-person essay format, named researcher references, and strong
+     structured data make it well-suited for AI citation, but explicit optimization
+     ensures the content is machine-interpretable at the entity level. -->
+
+These standards govern how Nina Healthy content is structured and annotated to maximize visibility, citation, and attribution in AI-powered search and answer engines.
+
+## Entity Architecture
+
+All JSON-LD schemas across the site use stable `@id` values to form a connected knowledge graph. AI engines use `@id` references to link entities across pages, treating them as a single graph rather than fragmented duplicates.
+
+### Entity IDs
+
+Defined in `lib/siteConfig.js` under `SITE.entityIds`:
+
+| Entity | `@id` Value | Used On |
+|---|---|---|
+| Author (Person) | `https://ninahealthy.com/#author` | About page, every article page |
+| Organization | `https://ninahealthy.com/#organization` | Home page, every article page |
+| WebSite | `https://ninahealthy.com/#website` | Home page |
+
+### Entity Linking Rules
+
+- **Never inline author or publisher details** in article JSON-LD. Always use `{ "@id": SITE.entityIds.author }` and `{ "@id": SITE.entityIds.organization }`.
+- **The canonical Person definition** lives on the About page (`app/about/page.js`). It includes `knowsAbout`, `sameAs`, `jobTitle`, and `description`.
+- **The canonical Organization definition** lives on the Home page (`app/page.js`). It includes `name`, `url`, `logo`, and `sameAs`.
+- When adding new pages with JSON-LD, reference existing entities by `@id`. Do not create inline duplicates.
+
+### knowsAbout
+
+The Person schema's `knowsAbout` array uses specific topical signals for entity disambiguation. Avoid generic terms that could match thousands of entities.
+
+| Weak (generic) | Strong (specific) |
+|---|---|
+| "Mindfulness" | "Mindfulness meditation" |
+| "Breathing exercises" | "Breathwork practices" |
+| "Wellness" | "Nervous system regulation" |
+| "Body awareness" | "Somatic awareness and interoception" |
+
+## Citability Standards
+
+AI answer engines select sources based on citability: the presence of clear, self-contained claims that can be extracted and attributed. Nina Healthy's essay format already supports this, but these rules ensure consistency.
+
+### What Makes Content Citable
+
+1. **Named claims**: Statements that reference a specific researcher, study, concept, or data point. AI engines prefer sources that provide verifiable, attributed claims over generic advice.
+2. **Self-contained paragraphs**: Paragraphs that make sense when extracted in isolation, without requiring the preceding or following paragraph for context.
+3. **Pull quotes**: The `quote` content block type is designed to be extractable. Every pull quote should work as a standalone citation.
+4. **Concrete definitions**: When introducing a concept (e.g., "attention residue", "sleep effort", "distress tolerance"), define it clearly in the same paragraph. AI engines extract definitions as featured snippets.
+
+### Citability Rules for Articles
+
+- Every article must contain at least **one citable statement**: a clear, attributed claim that an AI engine could extract and cite with author attribution.
+- When referencing a researcher or concept, include enough context for verification: full name, institutional affiliation (when known), and the specific concept or work being referenced.
+- Pull quotes (`quote` content blocks) must be self-contained and attributable. They should make sense to a reader who has not read the rest of the article.
+
+### Citation Data Schema
+
+Articles that reference named researchers should include a `citations` array in the article data:
+
+```js
+citations: [
+  { name: "Harriet Lerner", work: "The Dance of Anger", type: "Book" },
+  { name: "Stephen Porges", work: "The Polyvagal Theory", type: "Book" },
+],
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | string | Full name of the cited researcher or author |
+| `work` | string | Title of the cited work (book, paper, framework) |
+| `type` | string | Category: "Book", "Research paper", "Research instrument", "Therapeutic framework" |
+
+When `citations` is present, the article page automatically adds `citation` (CreativeWork) and `mentions` (Person) properties to the Article JSON-LD. This gives AI engines structured links to the entities mentioned in the content.
+
+## Speakable Content
+
+The Article JSON-LD includes a `speakable` property using `SpeakableSpecification` with CSS selectors. This tells Google and AI engines which portions of content are suitable for voice synthesis, audio reading, and AI citation extraction.
+
+### Speakable Selectors
+
+The article page targets three CSS classes:
+
+| CSS Class | Content Type | Why It Is Speakable |
+|---|---|---|
+| `.articleLead` | Opening lead paragraph | Summarizes the article's thesis; ideal for AI answer snippets |
+| `.pullQuote` | Pull quotes / blockquotes | Self-contained, quotable statements |
+| `.subheading` | H2 section headings | Provides scannable structure for AI extraction |
+
+### Speakable Rules
+
+- Do not add interactive or decorative content to speakable selectors.
+- The `articleLead` class must be present on the lead paragraph element in the article template. If this class is missing, the speakable schema will not match any content.
+- When adding new content block types to the article renderer, evaluate whether they should be speakable.
+
+## Section Deep-Linking
+
+All `<h2>` subheadings in articles receive a slugified `id` attribute, enabling AI engines and users to deep-link to specific sections within an article.
+
+The ID is generated by:
+1. Converting the heading text to lowercase
+2. Replacing non-alphanumeric characters with hyphens
+3. Trimming leading and trailing hyphens
+
+Example: `"The Message in the Heat"` becomes `id="the-message-in-the-heat"`, linkable as `/journal/anger-as-information#the-message-in-the-heat`.
+
+## AI Crawler Policy
+
+The project explicitly allows all major AI crawlers in `app/robots.js`. This is an intentional decision: Nina Healthy benefits from being cited by AI answer engines, and blocking crawlers would reduce GEO visibility.
+
+### Allowed AI Crawlers
+
+| User Agent | Engine | Purpose |
+|---|---|---|
+| `GPTBot` | OpenAI | ChatGPT browsing and search |
+| `ChatGPT-User` | OpenAI | ChatGPT user-initiated browsing |
+| `Google-Extended` | Google | Gemini and AI Overviews |
+| `Anthropic-ai` | Anthropic | Claude web search |
+| `Claude-Web` | Anthropic | Claude web access |
+| `PerplexityBot` | Perplexity | Perplexity answer engine |
+
+### Blocked Crawlers
+
+SEO scraper bots (AhrefsBot, SemrushBot, MJ12bot, etc.) are blocked. These are not AI answer engines; they are competitive intelligence scrapers that provide no visibility benefit.
+
+### Policy Rationale
+
+- Nina Healthy's content is public and attribution is desired. AI citation drives referral traffic and brand awareness.
+- All content is copyrighted. The `llms.txt` file includes explicit attribution requirements.
+- If an AI training-only crawler (distinct from search/retrieval) emerges in the future, evaluate on a case-by-case basis.
+
+## llms.txt and llms-full.txt
+
+The project provides two files for AI engine consumption:
+
+### llms.txt (Static)
+
+- **Location:** `public/llms.txt` (served at `/llms.txt`)
+- **Purpose:** A structured summary of the site for LLMs, following the emerging `llms.txt` standard
+- **Contents:** Site description, author info, content summary, links to key pages, and citation/attribution requirements
+- **Update cadence:** Update manually when adding new site sections or changing the site's purpose
+
+### llms-full.txt (Dynamic)
+
+- **Location:** `app/llms-full.txt/route.js` (served at `/llms-full.txt`)
+- **Purpose:** A comprehensive plain-text dump of all article content, optimized for LLM indexing
+- **Contents:** Full body text of every article, ordered by `ENTRY_ORDER`, with metadata (title, URL, date, category, tags, citations)
+- **Caching:** 24-hour cache (`Cache-Control: public, max-age=86400, s-maxage=86400`)
+- **Update cadence:** Automatic; reads from `ARTICLES` and `ENTRY_ORDER` at request time
+
+### Maintenance Rules
+
+- When adding a new article, no manual update to `llms-full.txt` is needed (it reads from `ARTICLES` automatically).
+- When changing the site's structure, purpose, or adding new sections, update `public/llms.txt` manually.
+- When modifying article content block types (e.g., adding a new block type), ensure the `llms-full.txt` route handles it in the `bodyText` builder.
+
+---
+
+# Pinterest SEO and Algorithm Standards
+
+<!-- ✦ Rationale: Pinterest functions as a visual search engine, not a social media platform.
+     Content on Pinterest has a lifespan of 3-6 months (vs. hours on Instagram/Twitter),
+     making it the highest-ROI organic channel for evergreen wellness content. The Nina
+     Healthy Pinterest publisher script (scripts/pinterest/) automates pin creation, but
+     the quality of pin metadata, keyword targeting, and image design determines whether
+     the algorithm surfaces that content to the right audience. These rules ensure every
+     article is Pinterest-algorithm-ready from the moment it is created. -->
+
+These standards govern how content is prepared, structured, and optimized for discovery on Pinterest. They apply to every article, every pin payload generated by the publisher script, and every image created for Pinterest distribution.
+
+## Algorithm Ranking Pillars
+
+Pinterest's algorithm evaluates content on four pillars. Every decision in this section maps to one or more of them.
+
+| Pillar | What Pinterest Measures | How Nina Healthy Addresses It |
+|---|---|---|
+| **Relevance** | Keywords in pin title, description, board name, and linked page OG tags | Pin titles and descriptions are keyword-optimized; boards are named with search terms; article pages emit full OG metadata |
+| **Engagement** | Saves, closeups, outbound clicks, time spent | High-quality pin images with clear text overlays; compelling descriptions that drive click-through; landing pages that deliver on the pin's promise |
+| **Freshness** | New, unique image URLs; consistent publishing cadence | Each article gets a unique pin image; the publisher script staggers posts to maintain a steady cadence |
+| **Domain Quality** | Claimed website; consistent pinning history; user engagement with domain content | Domain is claimed via `p:domain_verify` meta tag; Rich Pins are active; all pins link to `ninahealthy.com/journal/*` |
+
+## Pinterest Profile and Domain
+
+### Domain Verification
+
+The site must include a Pinterest domain verification meta tag in the root layout. In Next.js App Router, add it to the `metadata` export in `app/layout.js`:
+
+```js
+export const metadata = {
+  // ... existing metadata
+  other: {
+    'p:domain_verify': 'd384da0f4f21f33b58ef09218a6fffd5',
+  },
+};
+```
+
+Domain verification enables:
+- Rich Pin auto-sync (article title, description, and author pulled from OG tags)
+- Attribution (profile photo and "Follow" button on all pins from the domain)
+- Enhanced analytics (see which pins from your domain others create)
+- Algorithm trust signal (claimed domains receive higher distribution priority)
+
+### Profile Optimization
+
+| Element | Current Value | SEO Purpose |
+|---|---|---|
+| Display Name | Nina Healthy | Brand recognition; searchable |
+| Username | `@Nina_Vibes` | URL slug (`pinterest.com/Nina_Vibes/`) |
+| Bio | Must include keywords: mindfulness, intentional living, wellness, self-care, journal | Pinterest indexes profile bios for topical authority |
+| Profile URL | `${SITE.social.pinterest}` (from `lib/siteConfig.js`) | Canonical; used in `sameAs` structured data |
+
+The bio should read as a natural sentence, not a keyword list. Example: "Personal reflections on mindfulness, daily rituals, and the quiet work of building an intentional life. New journal entries weekly."
+
+## Board Architecture
+
+Pinterest boards function as topical containers. The algorithm uses board names and descriptions to categorize pins and match them to user search intent. The five boards mirror the article category taxonomy.
+
+| Article Category | Pinterest Board Name | Board Description (keyword-rich, max 500 chars) |
+|---|---|---|
+| Still Point | Still Point: Presence and Attention | Reflections on present-moment awareness, mindfulness practice, the discipline of noticing, and slowness as a form of intelligence. Essays on attention, stillness, and learning to be where you are. |
+| The Body Knows | The Body Knows: Embodied Living | Essays on the body as teacher: nervous system awareness, breathwork, physical sensation, embodied self-care, and what the body holds when the mind looks away. |
+| Quiet Architecture | Quiet Architecture: Routines and Rituals | Daily rhythms, morning routines, seasonal living, small ceremonies, and the gentle structures that hold a life together. Practical inspiration for intentional living. |
+| Inner Weather | Inner Weather: The Emotional Life | Honest reflections on grief, anger, joy, exhaustion, loneliness, and the feelings that arrive without permission. Emotional wellness without toxic positivity. |
+| Chosen Life | Chosen Life: Boundaries and Decisions | Essays on boundaries, values, digital minimalism, decision-making, and the conscious design of how you spend your time, energy, and attention. |
+
+### Board Rules
+
+- Board names are fixed. Do not rename them; renaming resets the board's SEO authority.
+- Board descriptions must be updated when the content focus shifts, but changes should be infrequent (quarterly at most).
+- Each board should contain 20-100 pins. Boards with fewer than 10 pins lack authority signals; boards with more than 200 become unfocused.
+- Pin only to the single most relevant board per article. Multi-board pinning of the same URL dilutes engagement signals.
+- The publisher script at `scripts/pinterest/` handles board mapping automatically via the `boards.js` module.
+
+## Pin Content Optimization
+
+### Pin Titles
+
+Pinterest caps titles at 100 characters. The publisher script appends " | Nina Healthy" when space allows.
+
+**Rules:**
+
+- Place the primary Pinterest keyword in the first 40 characters of the title.
+- When the article title is literary and keyword-free (e.g., "The Long Exhale"), the pin title should be rewritten to lead with a functional keyword. Use the `pinterestTitle` field in the article schema (see below).
+- Titles should read as benefit statements or curiosity hooks, not generic labels.
+
+| Article Title | Pin Title (auto-generated) | Assessment |
+|---|---|---|
+| "The Kindness of Routine" | "The Kindness of Routine \| Nina Healthy" | Acceptable: "routine" is discoverable |
+| "The Long Exhale" | "The Long Exhale \| Nina Healthy" | Weak: no discoverable keyword; Pinterest users do not search for "the long exhale" |
+| "The Long Exhale" | "Calming Breathing Technique for Your Nervous System \| Nina Healthy" | Strong: leads with the search term a user would type |
+
+### Pin Descriptions
+
+Pinterest caps descriptions at 500 characters. The publisher script constructs descriptions from `cardExcerpt` (or `lead`), `tags`, and a call-to-action.
+
+**Rules:**
+
+- Lead with a benefit-driven sentence that answers "why should I click?"
+- Include 2-3 long-tail keywords naturally. Pinterest indexes descriptions for search matching.
+- End with a soft call-to-action: "Read more at ninahealthy.com" (the publisher script adds this automatically).
+- Never keyword-stuff. Descriptions must read as natural, helpful language.
+- Include the article's `tags` as a pipe-separated keyword line. The publisher script handles this.
+
+**Keyword placement hierarchy** (most important first):
+
+1. Pin title (first 40 characters)
+2. Pin description (first 100 characters)
+3. Board name
+4. Board description
+5. Image text overlay
+6. Linked page OG tags and content
+
+### Pin Descriptions for Wellness Content
+
+Pinterest wellness audiences search with intent-driven queries. Descriptions should bridge the literary brand voice with the functional language pinners use.
+
+| Voice Register | Example Description | When to Use |
+|---|---|---|
+| **Search-forward** | "A simple morning breathing practice for calming the nervous system. Learn how slow exhalation activates your body's natural rest response." | When the article title is literary and keyword-free |
+| **Balanced** | "Routine is not the enemy of freedom; it is the structure that holds everything else in place. A reflection on daily rituals and why small rhythms matter." | Default for most articles |
+| **Voice-forward** | "Some mornings, the hardest thing is getting up. This essay is about what happens when you stop trying to be productive and start trying to be present." | When the topic is emotionally resonant and the card excerpt already carries keywords |
+
+## Pinterest-Optimized Article Schema
+
+Two optional fields extend the article data schema for Pinterest-specific metadata. When present, the publisher script uses these instead of the default `title` and `cardExcerpt`/`lead`.
+
+```js
+const article = {
+  // ... existing required fields
+
+  // Pinterest-specific overrides (optional)
+  pinterestTitle: "Calming Breathing Technique for Your Nervous System",
+    // string, optional; keyword-optimized pin title (max 100 chars including " | Nina Healthy")
+    // Use when the article title is literary and lacks discoverable search keywords.
+    // Falls back to article.title if omitted.
+
+  pinterestDescription: "A simple breathwork practice for activating your parasympathetic nervous system. Learn why the exhale matters more than the inhale for calming anxiety and finding stillness.",
+    // string, optional; keyword-rich pin description (max 500 chars)
+    // Use when the card excerpt or lead is too literary for Pinterest discovery.
+    // Falls back to cardExcerpt or lead if omitted.
+};
+```
+
+### When to Use Pinterest Overrides
+
+| Scenario | Use `pinterestTitle`? | Use `pinterestDescription`? |
+|---|---|---|
+| Article title contains a discoverable keyword ("Morning Routine...") | No | No |
+| Article title is literary ("The Long Exhale") | Yes | Evaluate |
+| Card excerpt is keyword-rich | No | No |
+| Card excerpt is poetic/literary | No | Yes |
+| Both title and excerpt are literary | Yes | Yes |
+
+**Decision rule:** If the auto-generated pin title (article title + " \| Nina Healthy") would return zero results if typed into Pinterest search, write a `pinterestTitle`. Apply the same test to the description.
+
+## Pin Image Specifications
+
+Pinterest is a visual search engine. The algorithm's Visual Graph scans images for objects, text, and context. Image quality directly affects ranking.
+
+### Dimensions and Format
+
+| Attribute | Requirement |
+|---|---|
+| Aspect ratio | **2:3** (vertical) |
+| Recommended size | **1000 x 1500 px** |
+| Maximum file size | 20 MB |
+| Accepted formats | PNG, JPG, WebP |
+| Minimum resolution | 600 px wide |
+
+### Image Design Rules
+
+- **Vertical orientation is mandatory.** Horizontal or square images are cropped in the feed and receive lower distribution.
+- **Text overlay:** Include a clear, readable headline on the image. This serves dual purposes: (a) the Visual Graph reads it for relevance signals, and (b) it increases click-through by communicating value before the user reads the description.
+- **Font legibility:** Use the brand's heading typeface (Playfair Display) or a clean sans-serif at a size readable on a mobile screen (minimum 36px effective). High contrast between text and background is critical.
+- **Safe zones:** Keep text and key visual elements away from the top 50px and bottom 100px. Pinterest overlays the Save button and profile icon in these areas.
+- **Brand consistency:** Include the Nina Healthy wordmark or URL (small, bottom corner) on every pin image. This builds brand recognition in the feed.
+- **No stock-photo cliches:** Avoid generic wellness imagery (woman on mountaintop, hands in prayer position, candles in a spa). Use images that match the article's specific sensory details.
+
+### Current Pin Images
+
+The publisher script uses the existing card thumbnails from `lib/cardImages.js` (mapped to files in `public/images/`). These images are 1200x630 (OG aspect ratio), which Pinterest will accept but display with letterboxing.
+
+> [!IMPORTANT]
+> For optimal Pinterest performance, create dedicated 1000x1500 pin images for high-priority articles. Store them in `public/images/pins/` and reference them via a future `pinterestImage` field in the article schema. Until dedicated pin images exist, the publisher script will continue using card thumbnails.
+
+## Rich Pins
+
+Rich Pins automatically pull metadata from the linked page's Open Graph tags. The site already emits the required OG tags via Next.js `generateMetadata`.
+
+### Required OG Tags (Already Implemented)
+
+| OG Property | Source | Emitted By |
+|---|---|---|
+| `og:type` | `"article"` | `generateMetadata` in `app/journal/[slug]/page.js` |
+| `og:title` | `article.title` | `generateMetadata` |
+| `og:description` | `article.lead` | `generateMetadata` |
+| `og:url` | `${SITE.url}/journal/${slug}` | `generateMetadata` |
+| `og:site_name` | `SITE.name` | Root layout metadata |
+| `article:published_time` | `article.dateISO` | `generateMetadata` (as `publishedTime`) |
+| `article:author` | `SITE.author.name` | `generateMetadata` (as `authors`) |
+| `og:image` | Card thumbnail URL | `generateMetadata` |
+
+### Rich Pin Validation
+
+Rich Pins require a one-time validation per domain:
+
+1. Go to the [Pinterest Rich Pin Validator](https://developers.pinterest.com/tools/url-debugger/)
+2. Enter any article URL (e.g., `https://ninahealthy.com/journal/the-kindness-of-routine`)
+3. Click **Validate**
+
+Once validated, all pins linking to the domain automatically display Rich Pin formatting. No per-article setup is needed.
+
+## Keyword Strategy for Pinterest
+
+Pinterest keyword research differs from Google keyword research. Pinterest users search with planning intent ("how to start a morning routine") rather than informational intent ("what is a morning routine").
+
+### Keyword Research Method
+
+1. **Pinterest Search Bar:** Type the article's core topic and observe autocomplete suggestions. These are high-volume, real-time search terms.
+2. **Pinterest Trends:** Use [trends.pinterest.com](https://trends.pinterest.com) to identify seasonal spikes. Wellness topics have predictable cycles (New Year: routines; Spring: renewal; Fall: slowing down; Winter: rest).
+3. **Related Pins:** After searching, observe the "Related" bubbles at the top of results. These are semantic clusters Pinterest uses for content matching.
+
+### Keyword Placement Rules
+
+- Every pin must target **one primary keyword** and **1-2 secondary keywords**.
+- The primary keyword must appear in the pin title.
+- At least one secondary keyword must appear in the pin description's first 100 characters.
+- Tags in the article schema (`tags` array) should include Pinterest-discoverable terms, not just editorial labels.
+
+### Pinterest Keyword Examples for Nina Healthy
+
+| Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
+|---|---|---|
+| Morning routine | morning routine ideas | daily rituals, mindful morning, slow morning |
+| Breathwork | breathing exercises for anxiety | calming breathing technique, nervous system regulation |
+| Boundaries | how to set boundaries | saying no, emotional boundaries, people pleasing |
+| Grief | coping with grief | grief journaling, processing loss, emotional healing |
+| Sleep | sleep hygiene tips | bedtime routine, falling asleep naturally, sleep ritual |
+| Nature connection | nature therapy | grounding exercises outdoors, forest bathing, nature mindfulness |
+| Digital detox | digital minimalism | screen time reduction, phone-free routine, intentional technology use |
+
+> [!TIP]
+> When creating a new article, run the topic through Pinterest's search bar before finalizing the `tags` array. Add at least one Pinterest-native keyword (a term that autocompletes on Pinterest) to the tags. This ensures the publisher script generates descriptions that match real search behavior.
+
+## Seasonal Content Planning
+
+Pinterest content performs best when published **45-90 days before peak search interest.** Wellness topics follow seasonal patterns that the editorial calendar should anticipate.
+
+| Season | Peak Search Window | Topics to Publish 45-90 Days Before |
+|---|---|---|
+| Winter (Dec-Feb) | Rest, reflection, cozy rituals | Sleep, evening routines, stillness, winter self-care, rest |
+| Spring (Mar-May) | Renewal, fresh starts, decluttering | Morning routines, boundaries, digital detox, walking |
+| Summer (Jun-Aug) | Energy, outdoor wellness, simplicity | Nature connection, body awareness, seasonal living, simplicity |
+| Autumn (Sep-Nov) | Slowing down, introspection, nesting | Routine, journaling, emotional processing, letting go |
+
+### Evergreen vs. Seasonal Pins
+
+- **Evergreen:** Most Nina Healthy content is evergreen (breathwork, boundaries, mindfulness). These pins compound value over months. Ensure their descriptions use timeless language ("every morning" not "this January").
+- **Seasonal:** A few topics have seasonal peaks. When publishing pins for these, include the season in the pin title or description ("A Gentle Evening Routine for the Darker Months") to capture seasonal search traffic, then rotate the pin title to a timeless version after the season passes.
+
+## Publisher Script Integration
+
+The existing Pinterest publisher at `scripts/pinterest/` automates pin creation from article data. These standards govern how the script constructs pin payloads.
+
+### Data Flow
+
+```
+lib/articles/*.js         title, lead, tags, category, pinterestTitle, pinterestDescription
+lib/cardImages.js         slug to thumbnail URL
+lib/cardExcerpts.js       slug to card excerpt
+lib/siteConfig.js         SITE.url, SITE.social.pinterest
+        |
+        v
+  [data-loader.js]        Loads all data via Node.js vm module
+        |
+        v
+  [publish.js]            Builds pin payloads (title, description, image, link)
+        |
+        v
+  [boards.js]             Ensures 5 category-mapped boards exist
+  [auth.js]               Validates/refreshes OAuth token
+  [api-client.js]         HTTPS requests to Pinterest API v5
+        |
+        v
+  Pinterest API           POST /v5/pins
+        |
+        v
+  [pin-log.json]          Records pin IDs, timestamps, links
+```
+
+### Publishing Cadence
+
+| Action | Cadence | Rationale |
+|---|---|---|
+| New article published | Pin within 24 hours | Freshness signal; early engagement lifts ranking |
+| Batch initial rollout | 10-15 pins per day, 2s delay between calls | Avoids spam flags; respects Pinterest rate limits |
+| Re-pin existing content | Monthly, with updated pin image or description | Freshness signal; new image URL counts as a new pin |
+| Seasonal boost | 45-90 days before peak season | Captures early search traffic before competition peaks |
+
+### Anti-spam Rules
+
+- Never publish more than 25 pins per day.
+- Maintain at least a 2-second delay between API calls (the publisher script default).
+- Do not delete and re-create pins for the same URL. Use `--force` to create a second pin with a different image instead.
+- Never pin the same URL to multiple boards in a single session.
+
+## Pinterest-Aware Content Creation Checklist
+
+When creating a new article, verify the following Pinterest readiness items in addition to the standard content quality checklist:
+
+- [ ] At least one `tags` entry is a term that autocompletes in Pinterest search
+- [ ] The pin title (article title or `pinterestTitle` override) contains a discoverable keyword in the first 40 characters
+- [ ] The pin description (card excerpt, lead, or `pinterestDescription` override) leads with a benefit statement and includes at least one long-tail keyword
+- [ ] The card thumbnail exists in `lib/cardImages.js` (required for the publisher script)
+- [ ] The article's OG tags will emit correctly (title, description, image, `og:type: article`, `publishedTime`)
+- [ ] If the article is seasonally relevant, it is scheduled for publication 45-90 days before peak search interest
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It Hurts | What to Do Instead |
+|---|---|---|
+| Keyword-stuffing pin descriptions | Pinterest penalizes unnatural language; reduces engagement | Write naturally; place keywords in title and first sentence |
+| Horizontal or square pin images | Cropped in feed; lower visibility and save rates | Always use 2:3 vertical (1000x1500) |
+| Identical descriptions across multiple pins | Duplicate content signal; confuses the algorithm | Each pin for a different article should have a unique description |
+| Deleting underperforming pins | Erases accumulated SEO value; resets engagement history | Leave pins live; create new pins with improved images instead |
+| Pinning 50+ items at once | Triggers spam detection; account may be flagged | Use the publisher script's `--batch` flag (max 15 per run) |
+| Clever/artistic board names | "Sacred Stillness" is unsearchable; users type "mindfulness tips" | Use descriptive, keyword-bearing board names (already configured) |
+| Neglecting the profile bio | Missed topical authority signal | Include 3-5 core keywords naturally in the bio |
+| Treating Pinterest like Instagram | Pinterest rewards search optimization, not aesthetic grids or hashtag games | Optimize for search intent; focus on keyword relevance over visual curation |
+| Linking to the homepage instead of the article | Dilutes click-through engagement; user cannot find the promised content | Always link to the specific article URL (`/journal/<slug>`) |
+| Ignoring Pinterest Trends for content planning | Missed seasonal traffic; content published after peak interest | Check [trends.pinterest.com](https://trends.pinterest.com) before finalizing the editorial calendar |
 
 ---
 
@@ -818,6 +1365,64 @@ Nina Healthy's design must communicate: calm, warmth, intentionality, and spacio
 - Avoid gamification tactics that leverage anxiety, FOMO, or artificial urgency (e.g., breaking "streaks" aggressively). Reward consistency through reflective metrics and soft milestones.
 - Design interfaces that feel private and safe. Keep personal data minimized on visible surfaces.
 
+## Image Generation Standards
+
+<!-- ✦ Rationale: journal-51 through journal-59 were generated in a "digital watercolor
+     illustration" style that reads as obviously AI-generated. They undermine the brand's
+     credibility and visual consistency. This section prevents agents from repeating the
+     mistake by defining the mandatory photographic style. -->
+
+All article thumbnail images in `public/images/` must follow a **photographic realism** style. The visual standard is set by images journal-1 through journal-50, which look like editorial photographs with natural light, depth of field, and organic texture.
+
+### Mandatory Style: Photographic Realism
+
+When generating article thumbnail images, the result must look like a high-quality editorial photograph, not an illustration. Key characteristics:
+
+- **Natural light**: Soft, directional light that creates realistic shadows and highlights (golden hour, window light, overcast diffusion)
+- **Depth of field**: Shallow or medium depth of field with natural bokeh; foreground subjects in focus, backgrounds softly blurred
+- **Photographic texture**: Grain, lens softness, and tonal variation consistent with real camera sensors
+- **Material realism**: Surfaces (wood, linen, ceramic, skin, stone, water) must look tangible and textured, not painted or smoothed
+- **Color grading**: Warm, muted tones consistent with the brand palette (creams, terracottas, sage, olive, soft neutrals)
+
+### Banned Styles
+
+The following styles are **explicitly prohibited** for article thumbnails:
+
+| Banned Style | Visual Markers | Why It Fails |
+|---|---|---|
+| Digital watercolor illustration | Visible brushstroke textures, painted edges, paper-texture borders, washed-out color bleeds | Reads as obviously AI-generated; undermines editorial credibility |
+| Cartoon or vector illustration | Flat color fills, black outlines, simplified shapes | Inconsistent with brand's photographic identity |
+| Oil painting or impasto style | Thick visible paint strokes, canvas texture overlay | Same as watercolor; reads as AI art |
+| Pencil or charcoal sketch | Hatching, line-drawing quality, monochrome strokes | Too far from the established photographic look |
+| 3D render or CGI | Plastic surfaces, perfect geometry, uncanny lighting | Sterile, corporate; antithetical to warmth principle |
+| Collage or mixed media | Layered cutouts, scrapbook aesthetic, visible edges between elements | Inconsistent with the clean photographic grid |
+
+### Specific Anti-Patterns from journal-51 to journal-59
+
+These images exhibit a recognizable "AI watercolor" style that must not be repeated:
+
+- **Painted brush edge borders**: A white or cream border with visible paint strokes framing the image (journal-51, journal-53, journal-54)
+- **Illustrative hands**: Human hands rendered with visible brushwork and exaggerated vein/wrinkle detail that looks drawn, not photographed (journal-51, journal-52, journal-59)
+- **Flat watercolor washes**: Large areas of blended color without photographic detail or texture (journal-54, journal-56)
+- **Painted window light**: Light rendered as streaky yellow-white paint strokes rather than realistic light falloff (journal-55, journal-57)
+- **Illustrated objects with paint texture**: Cups, spoons, notebooks rendered with visible brushwork rather than photographic material detail (journal-55, journal-58)
+
+### Prompt Guidance
+
+When generating images, prompts should emphasize photographic qualities:
+
+| Include in prompts | Avoid in prompts |
+|---|---|
+| "editorial photograph", "natural light" | "watercolor", "illustration", "painting" |
+| "shallow depth of field", "35mm film" | "digital art", "sketch", "drawn" |
+| "warm tones", "soft focus" | "brushstrokes", "canvas texture" |
+| "muted colors", "lifestyle photography" | "artistic", "hand-painted", "gouache" |
+| "candid", "intimate", "documentary style" | "storybook", "concept art", "whimsical" |
+
+### Consistency Check
+
+Before adding a new image to `public/images/`, compare it visually against journal-1 through journal-10. If the new image looks drawn, painted, or illustrated when placed next to the existing set, it must be regenerated with a photographic prompt.
+
 ## Color System
 
 All colors are defined as CSS custom properties in `globals.css`. Always reference the variable, never hardcode hex values.
@@ -831,10 +1436,12 @@ All colors are defined as CSS custom properties in `globals.css`. Always referen
 | `--color-stone` | `#6B6560` | `#B0A89E` | Secondary text |
 | `--color-pebble` | `#9A9490` | `#8A837D` | Tertiary / caption text |
 | `--color-terracotta` | `#C07A56` | `#D4926B` | Primary accent, CTAs |
+| `--color-terracotta-dark` | `#8C4E2A` | `#D4926B` | WCAG-compliant text variant of terracotta; use for inline links and text on light backgrounds |
 | `--color-sage` | `#8FA98B` | `#A3BDA0` | Secondary accent |
 | `--color-olive` | `#6B7D5E` | `#8A9E7D` | Hover states |
 | `--color-clay` | `#C4A882` | `#B09974` | Borders, subtle UI |
 | `--color-sand` | `#E8DFD0` | `#3D3530` | Light accent backgrounds |
+| `--color-error` | `#b45309` | `#b45309` | Validation feedback; warm amber, not harsh red |
 
 ### Color Usage Rules
 
@@ -854,14 +1461,16 @@ Both fonts are loaded via `next/font/google` with `display: 'swap'` in `app/layo
 
 ### Type Scale (Mobile-First)
 
-| Element | Mobile | Desktop (min-width: 768px) | Weight |
-|---|---|---|---|
-| `h1` | `2rem` | `2.75rem` - `3.5rem` | 700 |
-| `h2` | `1.5rem` | `2rem` - `2.25rem` | 600-700 |
-| `h3` | `1.25rem` | `1.5rem` | 600 |
-| Body text | `1rem` | `1.05rem` - `1.125rem` | 400 |
-| Captions / meta | `0.85rem` | `0.9rem` | 400 |
-| Buttons | `0.95rem` | `1rem` | 600 |
+Use the `--text-*` CSS custom properties defined in `globals.css`. Never hardcode `rem` values directly.
+
+| Element | Token | Mobile | Desktop (min-width: 768px) | Weight |
+|---|---|---|---|---|
+| `h1` | `--text-3xl` / `--text-4xl` | `2rem` | `2.75rem` - `3.5rem` | 700 |
+| `h2` | `--text-2xl` | `1.5rem` | `2rem` - `2.25rem` | 600-700 |
+| `h3` | `--text-xl` | `1.25rem` | `1.5rem` | 600 |
+| Body text | `--text-base` / `--text-md` | `1rem` | `1.05rem` - `1.125rem` | 400 |
+| Captions / meta | `--text-sm` | `0.85rem` | `0.9rem` | 400 |
+| Buttons | `--text-base` | `0.95rem` | `1rem` | 600 |
 
 ### Typography Rules
 
@@ -876,18 +1485,22 @@ Both fonts are loaded via `next/font/google` with `display: 'swap'` in `app/layo
 
 ## Spacing System
 
-Use a consistent spacing scale based on `rem` units:
+Use the `--space-*` CSS custom properties defined in `globals.css`. Never hardcode `rem` values directly.
 
-| Token | Value | Usage |
-|---|---|---|
-| `0.25rem` | 4px | Micro gaps (icon padding) |
-| `0.5rem` | 8px | Tight spacing (inline elements) |
-| `1rem` | 16px | Standard element spacing |
-| `1.5rem` | 24px | Section padding (mobile) |
-| `2rem` | 32px | Between content blocks |
-| `3rem` | 48px | Section gaps |
-| `4rem` | 64px | Major section separation |
-| `6rem` - `8rem` | 96-128px | Hero / page-level vertical padding |
+| Variable | Value | Pixels | Usage |
+|---|---|---|---|
+| `--space-1` | `0.25rem` | 4px | Micro gaps (icon padding) |
+| `--space-2` | `0.5rem` | 8px | Tight spacing (inline elements) |
+| `--space-3` | `0.75rem` | 12px | Small gaps (between related elements) |
+| `--space-4` | `1rem` | 16px | Standard element spacing |
+| `--space-5` | `1.25rem` | 20px | Medium gaps |
+| `--space-6` | `1.5rem` | 24px | Section padding (mobile) |
+| `--space-8` | `2rem` | 32px | Between content blocks |
+| `--space-10` | `2.5rem` | 40px | Large gaps |
+| `--space-12` | `3rem` | 48px | Section gaps |
+| `--space-16` | `4rem` | 64px | Major section separation |
+| `--space-20` | `5rem` | 80px | Large section separation |
+| `--space-24` | `6rem` | 96px | Hero / page-level vertical padding |
 
 ## Animation and Motion
 
@@ -1249,9 +1862,13 @@ The global stylesheet already includes:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  a, button, div, section, article {
-    transition: none !important;
-    animation: none !important;
+  /* Only suppress motion-related properties. Color, opacity, and
+     background transitions remain because they are not vestibular
+     triggers and provide useful state feedback (WCAG 2.3.3). */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
 ```
@@ -1283,3 +1900,24 @@ Any component-level animation must also respect this media query. This is especi
 - Fonts are loaded via `next/font/google` with `display: 'swap'`
 - The `variable` option is used so fonts are applied via CSS custom properties
 - This prevents FOIT (Flash of Invisible Text) and minimizes CLS
+
+## Resource Hints
+
+When adding external resources (third-party scripts, APIs, CDN origins), use React 19's `preconnect()` and `prefetchDNS()` functions in the root layout to reduce connection latency:
+
+```js
+import { preconnect, prefetchDNS } from "react-dom";
+
+// Inside the root layout component, before the return statement:
+preconnect("https://example.com", { crossOrigin: "anonymous" });
+prefetchDNS("https://example.com");
+```
+
+The root layout already uses this pattern for Google AdSense and Google Tag Manager. When adding new external origins, follow the same pattern.
+
+## CSS Class Conventions
+
+The global stylesheet at `app/globals.css` defines scoped prose link styles using the `.articleBody` and `.legalContent` class names. Inline `<a>` tags inside these containers receive visible underline styling with `--color-terracotta-dark`. Without these parent class names, inline links inherit the global reset (no underline, inherited color) and become invisible to sighted users.
+
+- Any template rendering article body content must wrap it in an element with `className="articleBody"` (or use the CSS module equivalent that outputs this class)
+- Legal pages (privacy, terms) must wrap prose content in an element with `className="legalContent"`

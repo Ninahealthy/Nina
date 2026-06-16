@@ -33,23 +33,17 @@ function getLatestArticles(count = 3) {
 const WEBSITE_JSONLD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": SITE.entityIds.website,
   name: SITE.name,
   url: SITE.url,
   description: SITE.description,
-  publisher: {
-    "@type": "Organization",
-    name: SITE.name,
-    url: SITE.url,
-    logo: {
-      "@type": "ImageObject",
-      url: `${SITE.url}/icon.svg`,
-    },
-  },
+  publisher: { "@id": SITE.entityIds.organization },
 };
 
 const ORGANIZATION_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": SITE.entityIds.organization,
   name: SITE.name,
   url: SITE.url,
   logo: `${SITE.url}/icon.svg`,

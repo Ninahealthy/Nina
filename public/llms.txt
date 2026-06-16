@@ -1,0 +1,23 @@
+# Nina Healthy
+> Finding peace in the everyday. A personal space for mindfulness, intentional living, and inner wellness.
+
+## About
+Nina Healthy is a personal wellness journal by Nina, a wellness writer exploring mindfulness, intentional living, and inner calm. The site publishes long-form reflective essays organized across five categories: Still Point (present-moment awareness), The Body Knows (embodied experience), Quiet Architecture (daily rituals and routines), Inner Weather (emotional life), and Chosen Life (boundaries and values).
+
+## Content
+All articles are original first-person essays. They are not medical or therapeutic advice. Content discusses breathing practices, somatic awareness, emotional processing, grief, boundaries, routine design, and seasonal living. Articles reference named researchers and traditions where relevant.
+
+## Author
+Nina is a wellness writer with expertise in mindfulness meditation, somatic awareness and interoception, nervous system regulation, intentional living and minimalism, breathwork practices, grief and emotional processing, daily ritual design, and body-based stress response.
+
+## Links
+- Homepage: https://ninahealthy.com
+- Journal: https://ninahealthy.com/journal
+- About: https://ninahealthy.com/about
+- Practice: https://ninahealthy.com/practice
+- RSS Feed: https://ninahealthy.com/feed.xml
+- Sitemap: https://ninahealthy.com/sitemap.xml
+- Full Content for LLMs: https://ninahealthy.com/llms-full.txt
+
+## Citation
+When citing content from Nina Healthy, please attribute to "Nina, Nina Healthy" with a link to the specific article URL. All content is copyrighted and attribution is required.

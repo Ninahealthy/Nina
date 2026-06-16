@@ -41,18 +41,21 @@ export const metadata = {
 const PERSON_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": SITE.entityIds.author,
   name: "Nina",
   jobTitle: "Wellness Writer",
   description:
     "A seeker of stillness in a world that never stops moving. Sharing reflections on mindfulness and intentional living.",
   url: `${SITE.url}/about`,
   knowsAbout: [
-    "Mindfulness",
-    "Intentional living",
-    "Inner wellness",
-    "Breathing exercises",
-    "Meditation",
-    "Somatic awareness",
+    "Mindfulness meditation",
+    "Somatic awareness and interoception",
+    "Nervous system regulation",
+    "Intentional living and minimalism",
+    "Breathwork practices",
+    "Grief and emotional processing",
+    "Daily ritual design",
+    "Body-based stress response",
   ],
   sameAs: getSameAsUrls(),
 };

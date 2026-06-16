@@ -58,12 +58,16 @@ export const metadata = {
   },
 
   alternates: {
+    canonical: SITE.url,
     languages: {
       "en": SITE.url,
     },
     types: {
       "application/rss+xml": "/feed.xml",
     },
+  },
+  other: {
+    "p:domain_verify": "d384da0f4f21f33b58ef09218a6fffd5",
   },
 };
 

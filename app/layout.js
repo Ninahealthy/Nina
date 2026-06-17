@@ -26,12 +26,12 @@ const lora = Lora({
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} | Mindfulness, Intentional Living & Inner Wellness`,
+    default: "Nina Healthy, a personal journal of attention and honest reflection",
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
-    title: SITE.name,
+    title: "Nina Healthy: A personal journal of attention and honest reflection",
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,

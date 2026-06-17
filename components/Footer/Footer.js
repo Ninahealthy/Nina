@@ -14,8 +14,9 @@ const Footer = () => {
                 </div>
               </div>
               <div className={styles.brandDescription}>
-                Finding peace in the everyday. A personal journey through
-                mindfulness, intentional living, and inner wellness.
+                A personal practice of attention and honest reflection. Not
+                wellness advice, not productivity in a softer voice. One woman
+                writing slowly about what it means to be present.
               </div>
               <div className={styles.socialLinks}>
                 <a
@@ -56,50 +57,50 @@ const Footer = () => {
             </div>
 
             <nav aria-label="Footer navigation" className={styles.footerNav}>
-            <div className={styles.linksSection}>
-              <h3 className={styles.sectionTitle}>Explore</h3>
-              <ul className={styles.linksList}>
-                <li className={styles.linkItem}>
-                  <Link href="/" className={styles.footerLink}>Home</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/journal" className={styles.footerLink}>Journal</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/practice" className={styles.footerLink}>Practice</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/search" className={styles.footerLink}>Search</Link>
-                </li>
-              </ul>
-            </div>
+              <div className={styles.linksSection}>
+                <h3 className={styles.sectionTitle}>Explore</h3>
+                <ul className={styles.linksList}>
+                  <li className={styles.linkItem}>
+                    <Link href="/" className={styles.footerLink}>Home</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/journal" className={styles.footerLink}>Journal</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/practice" className={styles.footerLink}>Practice</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/search" className={styles.footerLink}>Search</Link>
+                  </li>
+                </ul>
+              </div>
 
-            <div className={styles.linksSection}>
-              <h3 className={styles.sectionTitle}>Connect</h3>
-              <ul className={styles.linksList}>
-                <li className={styles.linkItem}>
-                  <Link href="/about" className={styles.footerLink}>About</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/connect" className={styles.footerLink}>Contact</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/connect#newsletter" className={styles.footerLink}>Newsletter</Link>
-                </li>
-              </ul>
-            </div>
+              <div className={styles.linksSection}>
+                <h3 className={styles.sectionTitle}>Connect</h3>
+                <ul className={styles.linksList}>
+                  <li className={styles.linkItem}>
+                    <Link href="/about" className={styles.footerLink}>About</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/connect" className={styles.footerLink}>Contact</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/connect#newsletter" className={styles.footerLink}>Newsletter</Link>
+                  </li>
+                </ul>
+              </div>
 
-            <div className={styles.linksSection}>
-              <h3 className={styles.sectionTitle}>Legal</h3>
-              <ul className={styles.linksList}>
-                <li className={styles.linkItem}>
-                  <Link href="/privacy" className={styles.footerLink}>Privacy</Link>
-                </li>
-                <li className={styles.linkItem}>
-                  <Link href="/terms" className={styles.footerLink}>Terms</Link>
-                </li>
-              </ul>
-            </div>
+              <div className={styles.linksSection}>
+                <h3 className={styles.sectionTitle}>Legal</h3>
+                <ul className={styles.linksList}>
+                  <li className={styles.linkItem}>
+                    <Link href="/privacy" className={styles.footerLink}>Privacy</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/terms" className={styles.footerLink}>Terms</Link>
+                  </li>
+                </ul>
+              </div>
             </nav>
           </div>
 
@@ -110,7 +111,7 @@ const Footer = () => {
                   &copy; {new Date().getFullYear()} Nina Healthy
                 </div>
                 <div className={styles.disclaimer}>
-                  This site shares personal reflections on mindfulness and intentional living. It is not medical or therapeutic advice. Please consult a qualified professional for health concerns.
+                  This journal shares personal reflections, not clinical guidance. For medical or mental health concerns, please consult a qualified professional.
                 </div>
               </div>
               <div className={styles.footerBottomLinks}>

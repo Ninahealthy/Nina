@@ -1,6 +1,75 @@
-/* ScrollReveal layout wrapper.
-   All animation is handled by framer-motion inline styles;
-   this file only provides the layout container. */
+/* ScrollReveal: CSS-driven scroll animations.
+   All animation uses CSS transitions triggered by
+   adding the .visible class via IntersectionObserver. */
+
+/* Base wrapper: starts invisible and shifted down */
 .wrapper {
   width: 100%;
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+/* When stagger is active, the parent itself does not animate;
+   only its .item children do. */
+.staggerParent {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Visible state: fully opaque, in final position */
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children: start hidden, animate in sequence */
+.staggerParent .item {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* When parent becomes visible, children animate with stagger */
+.staggerParent.visible .item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.staggerParent.visible .item:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.staggerParent.visible .item:nth-child(2) {
+  transition-delay: var(--stagger-step, 0.12s);
+}
+
+.staggerParent.visible .item:nth-child(3) {
+  transition-delay: calc(var(--stagger-step, 0.12s) * 2);
+}
+
+.staggerParent.visible .item:nth-child(4) {
+  transition-delay: calc(var(--stagger-step, 0.12s) * 3);
+}
+
+.staggerParent.visible .item:nth-child(5) {
+  transition-delay: calc(var(--stagger-step, 0.12s) * 4);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .wrapper,
+  .staggerParent .item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

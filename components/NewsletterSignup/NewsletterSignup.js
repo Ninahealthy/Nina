@@ -47,11 +47,11 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
     <div className={styles.newsletterSection}>
       <div className={styles.newsletterContent}>
         <HeadingTag className={styles.newsletterTitle}>
-          Stay Grounded
+          The Correspondence
         </HeadingTag>
         <p className={styles.newsletterDescription}>
-          Gentle reflections on mindful living, delivered to your inbox.
-          No noise, no rush; just a quiet moment of intention each week.
+          Letters on attention, rest, and the practiced art of not doing
+          everything. They arrive when there is something worth saying.
         </p>
         <form onSubmit={handleSubmit} className={styles.newsletterForm}>
           <div className={styles.floatingField}>
@@ -75,7 +75,7 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
             className={styles.newsletterButton}
             disabled={isSubmitting || !email}
           >
-            {isSubmitting ? "Joining..." : "Join the Journey"}
+            {isSubmitting ? "Sending..." : "Subscribe"}
           </button>
         </form>
 

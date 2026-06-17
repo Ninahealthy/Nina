@@ -5,24 +5,30 @@ import Accordion from "@/components/Accordion/Accordion";
 import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import { SITE } from "@/lib/siteConfig";
-import { getSameAsUrls } from "@/lib/socialLinks";
+import { getSameAsUrls, SOCIAL_LINKS } from "@/lib/socialLinks";
+import { ARTICLES } from "@/lib/articles";
+import { CARD_IMAGES } from "@/lib/cardImages";
+import { CARD_EXCERPTS } from "@/lib/cardExcerpts";
+import { getReadingTime } from "@/lib/readingTime";
+import NewsletterSignup from "@/components/NewsletterSignup/NewsletterSignup";
+import Card from "@/components/Card/Card";
 import styles from "./page.module.css";
 
 export const metadata = {
   title: "About",
   description:
-    "Meet Nina and learn about her journey to mindfulness and intentional living.",
+    "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
   openGraph: {
     title: "About Nina",
     description:
-      "Meet Nina and learn about her journey to mindfulness and intentional living.",
+      "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
     url: `${SITE.url}/about`,
     images: [
       {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "About Nina, a mindfulness and intentional living guide",
+        alt: "Nina Healthy, a journal of attention and honest reflection",
       },
     ],
   },
@@ -30,7 +36,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About Nina",
     description:
-      "Meet Nina and learn about her journey to mindfulness and intentional living.",
+      "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
     images: ["/og-default.png"],
   },
   alternates: {
@@ -43,9 +49,9 @@ const PERSON_JSONLD = {
   "@type": "Person",
   "@id": SITE.entityIds.author,
   name: "Nina",
-  jobTitle: "Wellness Writer",
+  jobTitle: "Personal Essayist",
   description:
-    "A seeker of stillness in a world that never stops moving. Sharing reflections on mindfulness and intentional living.",
+    "Personal essayist exploring mindfulness, somatic awareness, nervous system regulation, and intentional living through honest, reflective writing.",
   url: `${SITE.url}/about`,
   knowsAbout: [
     "Mindfulness meditation",
@@ -62,29 +68,35 @@ const PERSON_JSONLD = {
 
 const TIMELINE_ITEMS = [
   {
-    year: "The Before",
-    title: "Living on autopilot",
+    year: "Morning",
+    title: "Stillness before the day begins",
     description:
-      "Years of chasing productivity, filling every gap with doing. Always moving, rarely feeling present.",
+      "Ten minutes with no screen, no plan. Just the body waking up, the kettle boiling, the light changing on the wall.",
   },
   {
-    year: "The Shift",
-    title: "Choosing to slow down",
+    year: "Midday",
+    title: "Checking in with the body",
     description:
-      "Not a dramatic moment but a series of small decisions. Paying attention to my breath. Letting mornings be slow. Stopping the habit of filling silence with noise.",
+      "A pause between tasks to notice what the shoulders are holding, where the breath has gone shallow, what the stomach is saying.",
   },
   {
-    year: "The Practice",
-    title: "Building daily rituals",
+    year: "Evening",
+    title: "Writing things down",
     description:
-      "Morning stillness became non-negotiable. Walking without a podcast. Drinking tea with both hands. Each ritual a small act of returning to myself.",
+      "Not journaling with a prompt or a goal. Just listening to what the day left behind and letting the pen follow.",
   },
   {
-    year: "The Sharing",
-    title: "Nina Healthy begins",
+    year: "Ongoing",
+    title: "Learning to stay",
     description:
-      "What started as private journaling became a desire to offer this space to others. Not as advice, but as companionship. A place to land when the world feels too fast.",
+      "The practice that holds all the others: staying with discomfort instead of fixing it, staying with joy instead of rushing past it.",
   },
+];
+
+const START_HERE_SLUGS = [
+  "the-body-you-are-in",
+  "the-page-that-listens",
+  "anger-as-information",
 ];
 
 const FAQ_ITEMS = [
@@ -137,17 +149,32 @@ export default function AboutPage() {
         <div className={styles.heroImageWrapper}>
           <Image
             src="/images/about-hero.png"
-            alt="Nina, a wellness guide with a warm and peaceful expression"
+            alt="Nina, the writer behind Nina Healthy"
             fill
-            sizes="(max-width: 768px) 180px, 220px"
+            sizes="(max-width: 768px) 220px, 280px"
             priority
             className={styles.heroImage}
           />
         </div>
         <h1 className={styles.heroTitle}>Hi, I&apos;m Nina</h1>
         <p className={styles.heroSubtitle}>
-          A seeker of stillness in a world that never stops moving.
+          I write slowly about attention, the body, and what I am still
+          learning. Not advice. Just honest practice.
         </p>
+        <div className={styles.socialLinks}>
+          {SOCIAL_LINKS.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={styles.socialLink}
+              aria-label={link.name}
+              {...(link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              dangerouslySetInnerHTML={{ __html: link.icon }}
+            />
+          ))}
+        </div>
       </section>
 
       <ScrollReveal>
@@ -155,31 +182,40 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>My Story</h2>
           <div className={styles.storyContent}>
             <p>
-              For years, I chased the version of life everyone told me was right.
-              Busy schedules, constant productivity, never enough time. I was
-              always moving, always doing, but rarely feeling present.
+              There was a morning, a few years ago now, when I sat in my car
+              in the parking lot before work and realized I could not name a
+              single thing I had done that week that was not for someone
+              else&apos;s timeline. My coffee was cold. My hands were
+              shaking, not from fear, but from the particular exhaustion of
+              a life that looks fine from the outside.
             </p>
             <p>
-              The shift came quietly. Not through a dramatic moment, but through
-              small, repeated choices to slow down. I started paying attention to
-              my breath. I let mornings be slow. I stopped filling silence with
-              noise.
+              I did not quit my job or book a retreat. I did something
+              smaller. I sat there for five more minutes. I noticed the rain
+              on the windshield. I breathed without checking the time.
             </p>
             <p>
-              Nina Healthy grew from those small choices. It is not a program or
-              a prescription. It is an open invitation to explore what peace looks
-              like in your own life. I share what I have learned, what I am still
-              learning, and what helps me stay grounded when the world feels
-              heavy.
+              That was the beginning, though I did not know it yet. Over
+              the months that followed, I started paying attention to what
+              my body had been trying to tell me. I let mornings be slow. I
+              stopped filling silence with noise. I wrote things down, not
+              to publish, but to understand.
+            </p>
+            <p>
+              Nina Healthy grew from those notes. It is not a program or a
+              prescription. It is what happens when one woman starts
+              writing honestly about attention, the nervous system, and
+              what it takes to stay present in a life that keeps pulling
+              you elsewhere.
             </p>
           </div>
         </section>
       </ScrollReveal>
 
       <ScrollReveal>
-        <section className={styles.timeline} aria-label="My journey">
-          <SectionHeading subtitle="The path was never straight, but it was always mine.">
-            The Journey
+        <section className={styles.timeline} aria-label="Daily practice">
+          <SectionHeading subtitle="Not a routine. More like a series of small returns.">
+            The Daily Practice
           </SectionHeading>
           <Timeline items={TIMELINE_ITEMS} />
         </section>
@@ -215,6 +251,31 @@ export default function AboutPage() {
       </ScrollReveal>
 
       <ScrollReveal>
+        <section className={styles.startHere} aria-label="Start here">
+          <SectionHeading subtitle="New here? These three pieces are a good place to begin.">
+            Start Here
+          </SectionHeading>
+          <div className={styles.startHereGrid}>
+            {START_HERE_SLUGS.map((slug) => {
+              const article = ARTICLES[slug];
+              if (!article) return null;
+              return (
+                <Card
+                  key={slug}
+                  image={CARD_IMAGES[slug]}
+                  alt={article.title}
+                  title={article.title}
+                  excerpt={CARD_EXCERPTS[slug]}
+                  href={`/journal/${slug}`}
+                  readingTime={getReadingTime(article.content)}
+                />
+              );
+            })}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
         <section className={styles.faqSection} aria-label="Frequently asked questions">
           <SectionHeading subtitle="Things people often wonder about this space.">
             Common Questions
@@ -223,11 +284,18 @@ export default function AboutPage() {
         </section>
       </ScrollReveal>
 
+      <ScrollReveal>
+        <section className={styles.newsletter} aria-label="Newsletter signup">
+          <NewsletterSignup headingLevel="h2" />
+        </section>
+      </ScrollReveal>
+
       <section className={styles.closing} aria-label="Closing note">
         <p className={styles.closingText}>
-          I am not a doctor, a therapist, or a guru. I am someone who found
-          peace through small, daily acts of attention and I believe you can
-          too. Thank you for being here.
+          If something here reached you at the right moment, I am glad you
+          found it. This space is not going anywhere. It will be here
+          whenever you need to come back, as quiet and steady as the
+          practice it was built from.
         </p>
       </section>
     </div>

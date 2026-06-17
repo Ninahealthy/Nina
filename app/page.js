@@ -1,9 +1,7 @@
 import Image from "next/image";
 import SectionHeading from "../components/SectionHeading/SectionHeading";
 import Card from "../components/Card/Card";
-import Button from "../components/Button/Button";
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
-import TestimonialCarousel from "../components/TestimonialCarousel/TestimonialCarousel";
 import ScrollReveal, { ScrollRevealItem } from "../components/ScrollReveal/ScrollReveal";
 import JsonLd from "../components/JsonLd/JsonLd";
 import { ARTICLES } from "@/lib/articles";
@@ -50,6 +48,18 @@ const ORGANIZATION_JSONLD = {
   sameAs: getSameAsUrls(),
 };
 
+/** Person entity for E-E-A-T: establishes the author as a real,
+ *  machine-readable identity linked to the organization. */
+const PERSON_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": SITE.entityIds.author,
+  name: SITE.author.name,
+  url: SITE.author.aboutUrl,
+  sameAs: getSameAsUrls(),
+  worksFor: { "@id": SITE.entityIds.organization },
+};
+
 export default function Home() {
   const latestArticles = getLatestArticles(3);
   const todaysInvitation = getTodaysInvitation();
@@ -59,20 +69,19 @@ export default function Home() {
     <div className={styles.page}>
       <JsonLd data={WEBSITE_JSONLD} />
       <JsonLd data={ORGANIZATION_JSONLD} />
+      <JsonLd data={PERSON_JSONLD} />
 
       <section className={styles.hero} aria-label="Introduction">
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Finding peace in the everyday: mindfulness and intentional living</h1>
+          <h1 className={styles.heroTitle}>The practice of paying attention</h1>
           <p className={styles.heroSubtitle}>
-            A personal space for slowing down, breathing deeper,
-            and living with more intention. Welcome to Nina Healthy.
+            Written for no audience. Read by those who found it anyway.
           </p>
-          <Button href="/practice">Begin the journey</Button>
         </div>
         <div className={styles.heroImageWrapper}>
           <Image
             src="/images/home-hero.png"
-            alt="Serene meadow with soft morning light filtering through wildflowers"
+            alt="Morning light across a weathered wooden table with an open notebook and cooling tea"
             fill
             sizes="(max-width: 768px) 200px, (max-width: 1024px) 300px, (max-width: 1280px) 360px, 400px"
             priority
@@ -88,23 +97,22 @@ export default function Home() {
               What does healthy really mean?
             </h2>
             <p className={styles.philosophyText}>
-              For me, healthy has never been about diets or routines. It is about
-              the quiet moments between the noise. The deep breath before you
-              respond. The choice to be present instead of productive. Nina
-              Healthy is a space where inner wellness comes first, where mental
-              clarity, calm, and intentional living are the foundation of a
-              good life.
+              For me, it was never the word itself. It was the morning I stopped
+              reading about morning routines and just sat with my coffee until it
+              went cold. It was the realization that self-care had become another
+              item on a list I was already failing. Health, the kind that
+              actually holds, lives in the pause before you answer, the walk
+              with no destination, the willingness to be unproductive and not
+              apologize for it. That is what this journal is about.
             </p>
           </div>
         </section>
       </ScrollReveal>
 
       <ScrollReveal stagger={0.12}>
-        <section className={styles.featured} aria-label="Latest journal entries">
+        <section className={styles.featured} aria-label="Recent writing">
           <ScrollRevealItem>
-            <SectionHeading subtitle="The newest reflections on mindful living.">
-              Latest from the Journal
-            </SectionHeading>
+            <SectionHeading>From the Journal</SectionHeading>
           </ScrollRevealItem>
           <div className={styles.cardGrid}>
             {latestArticles.map((entry) => (
@@ -129,19 +137,7 @@ export default function Home() {
           <div className={styles.practiceTeaserCard}>
             <p className={styles.practiceLabel}>{seasonLabel}</p>
             <p className={styles.practiceQuote}>{todaysInvitation}</p>
-            <Button href="/practice" variant="secondary">
-              Explore practices
-            </Button>
           </div>
-        </section>
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <section className={styles.testimonials} aria-label="Reader voices">
-          <SectionHeading subtitle="Gentle words from those who have visited this space.">
-            Words from Readers
-          </SectionHeading>
-          <TestimonialCarousel />
         </section>
       </ScrollReveal>
 

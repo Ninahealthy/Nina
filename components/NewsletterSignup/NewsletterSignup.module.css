@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-terracotta), var(--color-sage), var(--color-clay));
+  background: var(--color-bronze);
 }
 
 .newsletterContent {

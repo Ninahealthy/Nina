@@ -1,8 +1,8 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
-  padding-bottom: 4rem;
+  gap: 6rem;
+  padding-bottom: 6rem;
 }
 
 /* Hero entrance animations */
@@ -11,6 +11,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -18,9 +19,12 @@
 }
 
 @keyframes floatGentle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -31,7 +35,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 8rem 1.5rem 4rem;
+  padding: 10rem 1.5rem 4rem;
   gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -43,25 +47,26 @@
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  max-width: 640px;
+  max-width: 720px;
 }
 
 .heroTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
   font-family: var(--font-heading), "Playfair Display", Georgia, serif;
   color: var(--color-charcoal);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroSubtitle {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   color: var(--color-stone);
   line-height: 1.7;
-  max-width: 500px;
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both;
+  max-width: 480px;
+  letter-spacing: 0.01em;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
 .heroImageWrapper {
@@ -81,6 +86,7 @@
   animation: floatGentle 6s ease-in-out infinite;
 }
 
+/* Philosophy: atmospheric shift with deeper background */
 .philosophy {
   padding: 0 1.5rem;
   max-width: 800px;
@@ -91,24 +97,24 @@
 .philosophyCard {
   background: var(--color-linen);
   clip-path: var(--clip-path-squircle-48);
-  padding: 2.5rem 2rem;
-  text-align: center;
+  padding: 3rem 2rem;
+  text-align: left;
 }
 
 .philosophyTitle {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 400;
   font-family: var(--font-heading), "Playfair Display", Georgia, serif;
   color: var(--color-charcoal);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
 }
 
 .philosophyText {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--color-stone);
-  line-height: 1.8;
-  max-width: 600px;
-  margin: 0 auto;
+  line-height: 1.85;
+  max-width: 640px;
 }
 
 .featured {
@@ -124,9 +130,10 @@
   gap: 2rem;
 }
 
+/* Daily invitation: the emotional centerpiece */
 .practiceTeaser {
   padding: 0 1.5rem;
-  max-width: 700px;
+  max-width: 760px;
   margin: 0 auto;
   width: 100%;
 }
@@ -134,28 +141,29 @@
 .practiceTeaserCard {
   background: var(--color-warmwhite);
   clip-path: var(--clip-path-squircle-48);
-  padding: 3rem 2rem;
+  padding: 4rem 2.5rem;
   text-align: center;
   box-shadow: 0 4px 16px var(--color-card-shadow, rgba(61, 56, 50, 0.06));
+  border-top: 2px solid var(--color-bronze);
 }
 
 .practiceLabel {
-  font-size: 0.85rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-sage);
-  margin-bottom: 1rem;
+  letter-spacing: 0.16em;
+  color: var(--color-bronze);
+  margin-bottom: 1.5rem;
 }
 
 .practiceQuote {
   font-size: 1.375rem;
   font-family: var(--font-heading), "Playfair Display", Georgia, serif;
   font-style: italic;
+  font-weight: 400;
   color: var(--color-charcoal);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 500px;
+  line-height: 1.65;
+  max-width: 560px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -164,15 +172,8 @@
   padding: 0 1.5rem;
 }
 
-.testimonials {
-  padding: 0 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  overflow: hidden;
-}
-
 @media (prefers-reduced-motion: reduce) {
+
   .heroTitle,
   .heroSubtitle {
     animation: none;
@@ -190,31 +191,31 @@
 }
 
 @media (min-width: 768px) {
+  .page {
+    gap: 8rem;
+    padding-bottom: 8rem;
+  }
+
   .hero {
     flex-direction: row;
     text-align: left;
-    padding: 10rem 2rem 6rem;
+    padding: 12rem 2rem 8rem;
+    gap: 4rem;
   }
 
   .heroContent {
     align-items: flex-start;
-  }
-
-  .heroTitle {
-    font-size: 3.5rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1.25rem;
+    flex: 1.2;
   }
 
   .heroImageWrapper {
     width: 300px;
     height: 300px;
+    flex: 0 0 auto;
   }
 
   .philosophyCard {
-    padding: 3.5rem 3rem;
+    padding: 4rem 3.5rem;
   }
 
   .philosophyTitle {
@@ -226,21 +227,17 @@
   }
 
   .practiceTeaserCard {
-    padding: 4rem 3rem;
+    padding: 5rem 3.5rem;
   }
 
   .practiceQuote {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
   }
 }
 
 @media (min-width: 1024px) {
   .cardGrid {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .heroTitle {
-    font-size: clamp(3rem, 4vw, 3.5rem);
   }
 
   .heroImageWrapper {

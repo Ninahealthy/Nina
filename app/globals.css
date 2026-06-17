@@ -322,7 +322,8 @@
   --color-stone: #6B6560;
   --color-pebble: #9A9490;
   --color-terracotta: #C07A56;
-  --color-terracotta-dark: #8C4E2A; /* Passes 4.5:1 on cream/linen */
+  --color-terracotta-dark: #8C4E2A;
+  /* Passes 4.5:1 on cream/linen */
   --color-sage: #8FA98B;
   --color-olive: #6B7D5E;
   --color-clay: #C4A882;
@@ -332,32 +333,59 @@
   --foreground: var(--color-charcoal);
 
   /* Spacing scale (4px base grid) */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+  --space-16: 4rem;
+  /* 64px */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
 
   /* Type scale */
-  --text-xs: 0.75rem;   /* 12px */
-  --text-sm: 0.85rem;   /* ~14px */
-  --text-base: 1rem;    /* 16px */
-  --text-md: 1.05rem;   /* ~17px — body prose */
-  --text-lg: 1.125rem;  /* 18px */
-  --text-xl: 1.25rem;   /* 20px */
-  --text-2xl: 1.5rem;   /* 24px */
-  --text-3xl: 2.25rem;  /* 36px */
-  --text-4xl: 3rem;     /* 48px */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.85rem;
+  /* ~14px */
+  --text-base: 1rem;
+  /* 16px */
+  --text-md: 1.05rem;
+  /* ~17px — body prose */
+  --text-lg: 1.125rem;
+  /* 18px */
+  --text-xl: 1.25rem;
+  /* 20px */
+  --text-2xl: 1.5rem;
+  /* 24px */
+  --text-3xl: 2.25rem;
+  /* 36px */
+  --text-4xl: 3rem;
+  /* 48px */
 
   /* Semantic color tokens */
   --color-error: #b45309;
+
+  /* Premium accent: warm bronze for fine details (dividers, attribution, icon strokes) */
+  --color-bronze: #8B6F47;
+
+  /* Deepened charcoal for long-form body text and editorial contexts */
+  --color-charcoal-deep: #2A2520;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -369,7 +397,8 @@
     --color-stone: #B0A89E;
     --color-pebble: #8A837D;
     --color-terracotta: #D4926B;
-    --color-terracotta-dark: #D4926B; /* Native dark mode passes contrast */
+    --color-terracotta-dark: #D4926B;
+    /* Native dark mode passes contrast */
     --color-sage: #A3BDA0;
     --color-olive: #8A9E7D;
     --color-clay: #B09974;
@@ -377,6 +406,9 @@
 
     --color-card-shadow: rgba(0, 0, 0, 0.2);
     --color-card-shadow-hover: rgba(0, 0, 0, 0.35);
+
+    --color-bronze: #A8885E;
+    --color-charcoal-deep: #E0D8CE;
 
     --background: var(--color-cream);
     --foreground: var(--color-charcoal);
@@ -399,6 +431,9 @@
 
   --color-card-shadow: rgba(0, 0, 0, 0.2);
   --color-card-shadow-hover: rgba(0, 0, 0, 0.35);
+
+  --color-bronze: #A8885E;
+  --color-charcoal-deep: #E0D8CE;
 
   --background: var(--color-cream);
   --foreground: var(--color-charcoal);
@@ -511,10 +546,13 @@ select:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   /* Only suppress motion-related properties. Color, opacity, and
      background transitions remain because they are not vestibular
      triggers and provide useful state feedback (WCAG 2.3.3). */
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;

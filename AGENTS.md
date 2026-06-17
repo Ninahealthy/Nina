@@ -1,9 +1,29 @@
-<!-- Document: AGENTS.md | Version: 1.3 | Last updated: 2026-06-15
-     Owner: Project Lead | Review cadence: Quarterly -->
+<!-- Document: AGENTS.md | Version: 1.4 | Last updated: 2026-06-16
+     Owner: Project Lead
+     Review cadence: Quarterly (foundational rules), Monthly (operational data) -->
 
 > **Precedence:** This file overrides `GEMINI.md` (global defaults) for all Nina Healthy project work.
 > It is read by Claude Code, Gemini, Codex, and all other AI agents.
 > It is the single source of truth for all project-specific rules.
+
+<!-- ✦ Convention: Sections and rules marked with ✦ were added or significantly
+     revised after version 1.0. The marker helps reviewers identify recent changes
+     during audits. It has no effect on agent behavior. -->
+
+## Contents
+
+| # | Section | Scope |
+|---|---|---|
+| 1 | Shared Rules | Environment, code style, components, CSS |
+| 2 | Agent Behavior | Reasoning, identity, error handling, context management |
+| 3 | Project Architecture | Data schema, components, content quality standards |
+| 4 | SEO Standards | Metadata, structured data, sitemap, RSS |
+| 5 | GEO Standards | Entity architecture, citability, AI crawlers |
+| 6 | Pinterest SEO | Boards, pins, keywords, seasonal planning |
+| 7 | Design Standards | Colors, typography, spacing, motion, images |
+| 8 | Content Creation Standards | Brand voice, writing style, E-E-A-T |
+| 9 | Accessibility Standards | WCAG 2.2 AA, ARIA, forms, contrast |
+| 10 | Performance Guidelines | Core Web Vitals, images, fonts, caching |
 
 ---
 
@@ -90,6 +110,18 @@ export function generateStaticParams() {
 <!-- ✦ NEW SECTION: Defines how the agent should reason, respond, and handle errors
      in the context of this project. Complements the global defaults in GEMINI.md. -->
 
+## ✦ Agent Role
+
+You are a content engineer and editorial assistant for **Nina Healthy**, a personal wellness journal built with Next.js. You operate as a careful, detail-oriented collaborator who prioritizes brand voice fidelity and content quality over speed. You are not a therapist, medical professional, or generic wellness brand voice. When in doubt, ask rather than guess.
+
+**Decision-making priorities** (in order):
+
+1. Brand voice and content integrity
+2. Accessibility and inclusivity
+3. SEO and discoverability
+4. Code quality and performance
+5. Speed of delivery
+
 ## ✦ Response Standards
 
 - For article-related tasks, always reference the Content Quality Standards section before generating content.
@@ -110,9 +142,37 @@ export function generateStaticParams() {
 | Content falls below quality thresholds (word count, subheadings, etc.) | Note the specific metric(s) that are off and suggest adjustments before finalizing. |
 | Category at or above 30% cap | Flag the cap; suggest an underrepresented category or confirm override with user. |
 
+## ✦ Pushback Protocol
+
+If a user request conflicts with a rule in this file, the agent must:
+
+1. **Name** the specific rule and section being violated.
+2. **Explain** the conflict clearly and concisely.
+3. **Suggest** an alternative that satisfies both the user's intent and the rule.
+4. **Proceed** only with explicit user override.
+
+Common pushback scenarios:
+
+| User Request | Rule Violated | Agent Response |
+|---|---|---|
+| "Skip the content note" | Content Notes (Content Quality Standards) | "This article discusses [topic]. The content notes policy requires a note. I can draft a gentle, on-brand note for your review." |
+| "Use a poetic lead, no keywords" | Title SEO and Keyword Strategy | "A voice-forward lead is fine, but the tags and card excerpt must carry the keyword load. Shall I ensure those compensate?" |
+| "Create a 6th category" | Categories (exactly five) | "The category system is fixed at five. Which existing category best fits this article? I can suggest the closest match." |
+| "Just use border-radius" | Squircle Clip-Paths | "Cards and images use squircle clip-paths per the design system. border-radius is only for circles and tiny UI details. Shall I apply the correct squircle variable?" |
+
+## ✦ Output Format
+
+When creating or modifying files, follow these output conventions:
+
+- **New article files:** Output the complete JS file ready to save to `lib/articles/<slug>.js`.
+- **Component changes:** Show the modified code with a brief summary of what changed and why.
+- **Multi-file changes:** List all files that need modification, then present each change in order.
+- **Content review:** When asked to review or audit content, present findings in a structured table with severity, location, and recommended fix.
+- **Before finalizing any article**, run the Quality Validation Checklist (see Content Quality Standards) and report pass/fail for each metric.
+
 ## ✦ Context Management
 
-<!-- This file is approximately 93KB. Agents with limited context windows should
+<!-- This file is large. Agents with limited context windows should
      prioritize sections based on the current task. -->
 
 **Priority reading order** (if context is constrained):
@@ -122,10 +182,10 @@ export function generateStaticParams() {
 3. **Content Quality Standards** (within Project Architecture) AND **Content Creation Standards** -- read both when creating or editing articles
 4. **Generative Engine Optimization (GEO) Standards** -- read when creating articles (for citability, citations field), modifying JSON-LD, or working on AI crawler policy
 5. **Design Standards** -- read when creating or modifying UI components
-5. **SEO Standards** -- read when working on metadata, structured data, or page-level changes
-6. **Pinterest SEO and Algorithm Standards** -- read when creating articles, generating pin content, or optimizing for Pinterest discovery
-7. **Accessibility Standards** -- always reference when touching interactive components or forms
-8. **Performance Guidelines** -- read when optimizing images, fonts, or Core Web Vitals
+6. **SEO Standards** -- read when working on metadata, structured data, or page-level changes
+7. **Pinterest SEO and Algorithm Standards** -- read when creating articles, generating pin content, or optimizing for Pinterest discovery
+8. **Accessibility Standards** -- always reference when touching interactive components or forms
+9. **Performance Guidelines** -- read when optimizing images, fonts, or Core Web Vitals
 
 **Session continuity:**
 
@@ -161,7 +221,7 @@ All shared data, configuration, and utilities live in `lib/`. Never duplicate th
 2. Import and register it in `lib/articles/index.js`.
 3. Add the slug to `ENTRY_ORDER` in `lib/entryOrder.js`.
 4. Add a slug-to-image mapping in `lib/cardImages.js`.
-5. Add a card excerpt to `lib/cardExcerpts.js`.
+5. Add a card excerpt to `lib/cardExcerpts.js`. Note: the card excerpt doubles as the default Pinterest pin description. Include at least one Pinterest-discoverable keyword. If the excerpt is primarily literary, also add a `pinterestDescription` override in the article data.
 6. Place the thumbnail image in `public/images/`.
 
 <!-- ✦ Validation steps added to catch common edge cases before starting. -->
@@ -198,6 +258,12 @@ const article = {
   citations: [                                    // array, optional; named researchers/works referenced in the article
     { name: "Harriet Lerner", work: "The Dance of Anger", type: "Book" },
   ],
+  pinterestTitle: null,                           // string|null, optional; keyword-optimized pin title (max 84 chars; publisher script appends " | Nina Healthy" for 100 total)
+                                                   // Use when the article title is literary and lacks discoverable search keywords.
+  pinterestDescription: null,                     // string|null, optional; keyword-rich pin description (max 500 chars)
+                                                   // Use when the card excerpt or lead is too literary for Pinterest discovery.
+  pinterestImage: null,                           // string|null, optional; path to 1000x1500 pin image in public/images/pins/
+                                                   // Falls back to card thumbnail if omitted.
   content: [
     { type: "paragraph", text: "..." },        // body paragraph
     { type: "subheading", text: "..." },       // h2 section break
@@ -250,7 +316,7 @@ These standards ensure a consistent quality baseline across the library. Every n
 ##### Depth and Structure
 
 - Every article must have a minimum of **3 subheadings** to ensure adequate depth and scannability.
-- Every article should target **700-1000 words** of body content (excluding metadata). Shorter articles risk reading as blog advice rather than essay-grade reflection.
+- Every article must contain a minimum of **700 words** of body content (excluding metadata). There is no hard upper limit, but articles exceeding 1200 words should verify they maintain pacing variety per the Pacing and Rhythm rules below. Shorter articles risk reading as blog advice rather than essay-grade reflection.
 - At least one section should include a named concept, researcher, cultural reference, or specific anecdote that grounds the piece in irreplaceable personal experience.
 - Use the `list` content block type when describing sequences, steps, or enumerated practices rather than embedding them in paragraph prose.
 
@@ -409,6 +475,9 @@ Do not let the library become uniformly solemn. Include moments of genuine humor
 
 **Tracking:** Each article's `emotionalRegister` field (see Article Data Schema) records its dominant emotional tone. To check the current distribution before creating a new article, scan the `emotionalRegister` values across all files in `lib/articles/`. If `emotionalRegister` is missing from older articles, classify them by overall tone and add the field retroactively.
 
+> [!NOTE]
+> **Pinterest performance note:** In the wellness niche, articles with "curiosity" and "acceptance" registers tend to generate the highest Pinterest save rates (users save aspirational and reflective content for later). Articles with "difficulty" and "grief" registers generate higher click-through rates (users click to read the full story). This natural variation means the existing register diversity targets also produce a healthy mix of Pinterest engagement types — saves for discovery, clicks for depth.
+
 ##### Pacing and Rhythm
 
 Articles must vary their paragraph length deliberately. A uniform wall of medium-length paragraphs creates monotone pacing.
@@ -480,6 +549,9 @@ Rules:
 
 Current clusters to monitor (last verified: June 15, 2026):
 
+> [!WARNING]
+> This cluster snapshot may be outdated. Always verify the actual articles by checking `lib/articles/` before making differentiation decisions.
+
 | Cluster | Articles | Differentiation Status |
 |---|---|---|
 | Morning / routine | `morning-rituals-that-anchor-me`, `the-quiet-power-of-a-slow-morning`, `the-kindness-of-routine` | Needs sharper differentiation in leads and openings |
@@ -537,6 +609,32 @@ Articles should also be reviewed when:
 - A cultural or scientific claim is found to be inaccurate
 - The brand voice standards are updated and the article no longer meets them
 - Three or more articles in the same cluster make differentiation impractical
+
+##### Quality Validation Checklist
+
+Before finalizing any new or revised article, the agent must verify every metric below and report pass/fail. Do not submit an article with any failing metric without user acknowledgment.
+
+| # | Metric | Threshold | Check Method |
+|---|---|---|---|
+| 1 | Word count | >= 700 words body text | Count words in paragraph, subheading, quote, and list blocks |
+| 2 | Subheadings | >= 3 | Count `subheading` blocks |
+| 3 | Lead length | 150-160 characters | `article.lead.length` |
+| 4 | Lead ends with period | Yes | Check last character |
+| 5 | Tags | 2-5 items, no generics | Review `tags` array |
+| 6 | Sensory details | >= 3 named physical sensations | Scan body text for sense modalities |
+| 7 | Authority anchor | >= 1 named researcher, tradition, or concept | Scan for named references |
+| 8 | Short paragraph | >= 1 paragraph of 25 words or fewer | Count words per paragraph block |
+| 9 | Pacing variety | No 3+ consecutive same-length paragraphs | Classify each paragraph as short/medium/long |
+| 10 | Content note | Present if topic is activating (see list) | Check `contentNote` field |
+| 11 | Hook type diversity | Not overrepresented (< 40%) | Check `hookType` across library |
+| 12 | Emotional register diversity | Not overrepresented (see targets) | Check `emotionalRegister` across library |
+| 13 | Category balance | Target category not at 30% cap | Count articles per category |
+| 14 | Date uniqueness | `dateISO` not used by another article | Check `lib/articles/` |
+| 15 | Closing invitation | Specific, conditional, low-barrier, exit ramp | Review final paragraph(s) after divider |
+| 16 | Pull quote quality | Self-contained, 10-25 words, from article body | Review `quote` blocks |
+| 17 | Pinterest keyword in tags | At least one `tags` entry autocompletes in Pinterest search | Type each tag into Pinterest search bar; at least one must autocomplete |
+| 18 | Pin title discoverability | Article title (or `pinterestTitle`) contains a keyword in the first 40 characters | Check title or `pinterestTitle` field |
+| 19 | Pin image readiness | Card thumbnail exists in `lib/cardImages.js` | Verify slug is mapped in `cardImages.js` |
 
 ## Component Library
 
@@ -682,6 +780,7 @@ export async function generateMetadata({ params }) {
       url: `${SITE.url}/journal/${slug}`,
       type: 'article',
       publishedTime: article.dateISO,
+      modifiedTime: article.dateModified,
       authors: [SITE.author.name],
       section: article.category,
       tags: article.tags || [article.category],
@@ -731,32 +830,42 @@ import JsonLd from "@/components/JsonLd/JsonLd";
 
 ### Article Schema Example
 
+<!-- ✦ This example must use @id entity references per the Entity Architecture
+     rules in the GEO Standards section. Never inline author or publisher. -->
+
 ```json
 {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "The Kindness of Routine",
   "description": "Routine is not the enemy of freedom. It is the quiet structure that makes freedom possible.",
-  "author": {
-    "@type": "Person",
-    "name": "Nina",
-    "url": "https://ninahealthy.com/about"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Nina Healthy",
-    "url": "https://ninahealthy.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://ninahealthy.com/icon.svg"
-    }
-  },
+  "author": { "@id": "https://ninahealthy.com/#author" },
+  "publisher": { "@id": "https://ninahealthy.com/#organization" },
   "datePublished": "2026-05-06",
   "dateModified": "2026-05-06",
-  "mainEntityOfPage": "https://ninahealthy.com/journal/the-kindness-of-routine",
-  "image": "https://ninahealthy.com/images/journal-21.png"
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ninahealthy.com/journal/the-kindness-of-routine"
+  },
+  "image": "https://ninahealthy.com/images/journal-21.png",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".articleLead", ".pullQuote", ".subheading"]
+  }
 }
 ```
+
+> [!NOTE]
+> This is a simplified example. The actual implementation must also include: `BreadcrumbList` (as a second item in a `@graph` array), `citation` and `mentions` properties (when the article has a `citations` array), and the full `speakable` specification. See the Speakable Content and Citation Data Schema sections in GEO Standards for details.
+
+### Schema Validation
+
+After modifying JSON-LD in any page, validate the output using:
+
+- [Google Rich Results Test](https://search.google.com/test/rich-results) -- confirms eligibility for rich results
+- [Schema.org Validator](https://validator.schema.org/) -- checks structural correctness
+
+Validation is especially important after changing entity `@id` references, adding new schema types, or modifying the `speakable` selectors.
 
 ## Heading Hierarchy
 
@@ -1021,14 +1130,15 @@ These standards govern how content is prepared, structured, and optimized for di
 
 ## Algorithm Ranking Pillars
 
-Pinterest's algorithm evaluates content on four pillars. Every decision in this section maps to one or more of them.
+Pinterest's algorithm evaluates content on five pillars. Every decision in this section maps to one or more of them.
 
 | Pillar | What Pinterest Measures | How Nina Healthy Addresses It |
 |---|---|---|
-| **Relevance** | Keywords in pin title, description, board name, and linked page OG tags | Pin titles and descriptions are keyword-optimized; boards are named with search terms; article pages emit full OG metadata |
-| **Engagement** | Saves, closeups, outbound clicks, time spent | High-quality pin images with clear text overlays; compelling descriptions that drive click-through; landing pages that deliver on the pin's promise |
-| **Freshness** | New, unique image URLs; consistent publishing cadence | Each article gets a unique pin image; the publisher script staggers posts to maintain a steady cadence |
-| **Domain Quality** | Claimed website; consistent pinning history; user engagement with domain content | Domain is claimed via `p:domain_verify` meta tag; Rich Pins are active; all pins link to `ninahealthy.com/journal/*` |
+| **Relevance** | Keywords in pin title, description, board name, and linked page OG tags; visual-text alignment via the Visual Graph | Pin titles and descriptions are keyword-optimized; boards are named with search terms; article pages emit full OG metadata; image text overlays match pin title keywords |
+| **Engagement** | Saves (highest weight), outbound clicks, closeups, time spent; early engagement velocity in the first 24-72 hours significantly boosts distribution | High-quality pin images with clear text overlays; compelling descriptions that drive click-through; landing pages that deliver on the pin's promise; pins published within 24 hours of article creation to capture early velocity |
+| **Freshness** | New, unique image URLs; consistent publishing cadence; new pin designs over recycled repins | Each article gets a unique pin image; the publisher script staggers posts to maintain a steady cadence; monthly pin refreshes use genuinely new image compositions |
+| **Pinner Quality** | Overall account authority, reliability, and history of high-quality pinning; consistency of posting schedule | Consistent weekly pinning via publisher script; keyword-optimized profile bio; all pins link to original ninahealthy.com content; no spam behavior (rate-limited API calls, no mass deletions) |
+| **Domain Quality** | Claimed website; landing page quality (page speed, mobile responsiveness, content-to-pin relevance); user engagement with domain content | Domain is claimed via `p:domain_verify` meta tag; Rich Pins are active; all pins link to `ninahealthy.com/journal/*`; Core Web Vitals targets ensure fast, mobile-friendly landing pages (see Performance Guidelines) |
 
 ## Pinterest Profile and Domain
 
@@ -1077,10 +1187,32 @@ Pinterest boards function as topical containers. The algorithm uses board names 
 ### Board Rules
 
 - Board names are fixed. Do not rename them; renaming resets the board's SEO authority.
-- Board descriptions must be updated when the content focus shifts, but changes should be infrequent (quarterly at most).
+- Board descriptions must be updated when the content focus shifts, but changes should be infrequent (quarterly, or when 5+ new articles shift the board's topical emphasis). During seasonal peaks (see Seasonal Content Planning), consider temporarily adding seasonal keywords to relevant board descriptions.
 - Each board should contain 20-100 pins. Boards with fewer than 10 pins lack authority signals; boards with more than 200 become unfocused.
 - Pin only to the single most relevant board per article. Multi-board pinning of the same URL dilutes engagement signals.
 - The publisher script at `scripts/pinterest/` handles board mapping automatically via the `boards.js` module.
+
+### Board Sections
+
+When a board exceeds 30 pins, add Sections to organize content by sub-topic. Sections provide additional keyword surfaces and improve user navigation.
+
+| Board | Potential Sections |
+|---|---|
+| Still Point | Breathwork Practices, Meditation & Stillness, Morning Presence |
+| The Body Knows | Nervous System Regulation, Living With Pain, Body Awareness |
+| Quiet Hours | Sleep Rituals, Resting Without Guilt, Evening Wind-Down |
+| Inner Weather | Processing Grief, Emotional Honesty, Navigating Anger |
+| Chosen Life | Setting Boundaries, Digital Minimalism, Intentional Decision-Making |
+
+Section names should be keyword-rich and match Pinterest search terms. Create sections only when sufficient content (5+ pins) exists for the sub-topic.
+
+### Board Cover Images
+
+Each board should have a custom cover image that matches the brand's photographic realism style. Board covers are a branding signal; a profile with custom covers looks more authoritative than one with auto-selected thumbnails.
+
+- Use a representative pin image or a dedicated cover in 2:3 aspect ratio.
+- Covers should visually communicate the board's topic at a glance (e.g., a warm morning scene for "Still Point", a nature close-up for "The Body Knows").
+- Update covers quarterly or when the board's visual identity shifts.
 
 ## Pin Content Optimization
 
@@ -1102,15 +1234,27 @@ Pinterest caps titles at 100 characters. The publisher script appends " | Nina H
 
 ### Pin Descriptions
 
-Pinterest caps descriptions at 500 characters. The publisher script constructs descriptions from `cardExcerpt` (or `lead`), `tags`, and a call-to-action.
+Pinterest caps descriptions at 500 characters. The publisher script constructs descriptions from `cardExcerpt` (or `lead`), `tags`, and a call-to-action. Target **300-500 characters** for optimal keyword density without dilution; descriptions under 200 characters miss keyword opportunities.
 
 **Rules:**
 
-- Lead with a benefit-driven sentence that answers "why should I click?"
+- **Front-load the first 50-60 characters.** Pinterest truncates descriptions to approximately 50-60 characters in the feed view. The primary keyword and core benefit must appear within this visible window. Structure descriptions as: `[Benefit + keyword sentence, 50-60 chars]` + `[supporting detail + secondary keywords]` + `[CTA]`.
 - Include 2-3 long-tail keywords naturally. Pinterest indexes descriptions for search matching.
-- End with a soft call-to-action: "Read more at ninahealthy.com" (the publisher script adds this automatically).
+- End with a soft, action-oriented call-to-action. Prefer specific CTAs ("Save this for your morning routine", "Click to read the full reflection") over generic "Read more at ninahealthy.com". The publisher script should rotate between 3-4 CTA variants to avoid pattern repetition.
 - Never keyword-stuff. Descriptions must read as natural, helpful language.
 - Include the article's `tags` as a pipe-separated keyword line. The publisher script handles this.
+
+### Hashtags
+
+Hashtags are supplemental on Pinterest and no longer a primary discovery mechanism. They have been largely superseded by keyword-driven SEO.
+
+**Rules:**
+
+- Hashtags are **optional**. You do not need hashtags to rank on Pinterest. Keyword optimization in titles and descriptions is far more effective.
+- If used, append **2-5 highly specific, relevant hashtags** at the very end of the description (e.g., `#morningroutine #breathwork #nervousystemregulation`).
+- Never use generic or broad hashtags (`#love`, `#inspo`, `#wellness`, `#selfcare`). These provide no SEO value and can appear spammy.
+- The publisher script should not add hashtags automatically. Include them only when the article's `tags` array contains Pinterest-native search terms that also function well as hashtags.
+- Overuse of hashtags (more than 5) is associated with lower distribution. When in doubt, omit them entirely and rely on keyword placement in the title and description.
 
 **Keyword placement hierarchy** (most important first):
 
@@ -1141,7 +1285,7 @@ const article = {
 
   // Pinterest-specific overrides (optional)
   pinterestTitle: "Calming Breathing Technique for Your Nervous System",
-    // string, optional; keyword-optimized pin title (max 100 chars including " | Nina Healthy")
+    // string, optional; keyword-optimized pin title (max 84 chars; publisher script appends " | Nina Healthy" for 100 total)
     // Use when the article title is literary and lacks discoverable search keywords.
     // Falls back to article.title if omitted.
 
@@ -1182,10 +1326,27 @@ Pinterest is a visual search engine. The algorithm's Visual Graph scans images f
 
 - **Vertical orientation is mandatory.** Horizontal or square images are cropped in the feed and receive lower distribution.
 - **Text overlay:** Include a clear, readable headline on the image. This serves dual purposes: (a) the Visual Graph reads it for relevance signals, and (b) it increases click-through by communicating value before the user reads the description.
+- **Text-metadata alignment:** The primary keyword in the pin image text overlay must match the primary keyword in the pin title. Pinterest's Visual Graph cross-references image text with metadata; mismatches dilute relevance signals. Example: if the pin title is "Calming Breathing Technique for Your Nervous System", the image text should include "Breathing Technique" or "Calm Your Nervous System", not an unrelated literary phrase.
+- **Text overlay coverage:** Text overlays should cover no more than 40% of the pin image area. Excessive text triggers lower distribution as Pinterest may classify the pin as promotional content. Use 2-4 lines of large, readable text positioned in the upper or center third of the image.
+- **Text overlay source:** Use the article's pull quote (`quote` content block) as the primary candidate for pin image text. Pull quotes are already required to be self-contained, 10-25 words, and capture the article's central insight, making them ideal text overlays. If the pull quote lacks a discoverable keyword, adapt it to include one.
 - **Font legibility:** Use the brand's heading typeface (Playfair Display) or a clean sans-serif at a size readable on a mobile screen (minimum 36px effective). High contrast between text and background is critical.
 - **Safe zones:** Keep text and key visual elements away from the top 50px and bottom 100px. Pinterest overlays the Save button and profile icon in these areas.
 - **Brand consistency:** Include the Nina Healthy wordmark or URL (small, bottom corner) on every pin image. This builds brand recognition in the feed.
 - **No stock-photo cliches:** Avoid generic wellness imagery (woman on mountaintop, hands in prayer position, candles in a spa). Use images that match the article's specific sensory details.
+- **Color alignment:** Pin images should use the brand's warm, earthy color palette (creams, terracottas, sage, olive). Pinterest's Visual Graph analyzes color for categorical matching; warm, natural tones align with wellness search categories. Avoid high-saturation neon or stark black-and-white, which signal different content categories.
+- **Filename SEO:** Pin image filenames should follow the same descriptive naming convention as article thumbnails (see Image SEO standards): `morning-breathing-routine-pin.png`, not `pin-42.png`. Pinterest indexes the image URL as a supplemental relevance signal.
+
+### Pin Image Creation Workflow
+
+For articles receiving dedicated pin images (high-priority or high-performing):
+
+1. Generate a 1000x1500 image following the Photographic Realism standards from Design Standards.
+2. Include at least one clearly identifiable real-world object that matches the article's sensory details (see Visual Graph Optimization).
+3. Add a text overlay with the pin title's primary keyword, using Playfair Display at minimum 36px. Keep text coverage under 40%.
+4. Include the Nina Healthy wordmark at bottom-right, within the safe zone.
+5. Save to `public/images/pins/<slug>-pin.png` using a descriptive, keyword-bearing filename.
+6. Add `pinterestImage: '/images/pins/<slug>-pin.png'` to the article data.
+7. The publisher script will use `pinterestImage` (if present) instead of the card thumbnail.
 
 ### Current Pin Images
 
@@ -1208,18 +1369,28 @@ Rich Pins automatically pull metadata from the linked page's Open Graph tags. Th
 | `og:url` | `${SITE.url}/journal/${slug}` | `generateMetadata` |
 | `og:site_name` | `SITE.name` | Root layout metadata |
 | `article:published_time` | `article.dateISO` | `generateMetadata` (as `publishedTime`) |
+| `article:modified_time` | `article.dateModified` | `generateMetadata` (as `modifiedTime`) |
 | `article:author` | `SITE.author.name` | `generateMetadata` (as `authors`) |
+| `article:section` | `article.category` | `generateMetadata` (as `section`); helps Pinterest categorize content topically |
 | `og:image` | Card thumbnail URL | `generateMetadata` |
+| `og:image:width` | `SITE.ogImage.width` | `generateMetadata`; enables Pinterest to pre-render image dimensions |
+| `og:image:height` | `SITE.ogImage.height` | `generateMetadata`; prevents layout shift in pin previews |
 
-### Rich Pin Validation
+> [!NOTE]
+> The standard OG image (1200x630) is landscape-oriented for Google/Facebook social previews. Pinterest will letterbox this image in the feed. For optimal Pinterest display, the `pinterestImage` field (when available) is used by the publisher script instead of the OG image. The `og:image` tag should continue to serve the 1200x630 image for non-Pinterest platforms.
 
-Rich Pins require a one-time validation per domain:
+### Rich Pin Activation
 
-1. Go to the [Pinterest Rich Pin Validator](https://developers.pinterest.com/tools/url-debugger/)
-2. Enter any article URL (e.g., `https://ninahealthy.com/journal/the-kindness-of-routine`)
-3. Click **Validate**
+<!-- ✦ Updated 2026-06-16: Pinterest deprecated the manual Rich Pin Validator tool.
+     Rich Pins now activate automatically once the domain is claimed and correct OG
+     metadata is present. The old validator URL (developers.pinterest.com/tools/url-debugger/)
+     is no longer functional. -->
 
-Once validated, all pins linking to the domain automatically display Rich Pin formatting. No per-article setup is needed.
+Rich Pins activate automatically once the domain is claimed (via `p:domain_verify` in the root layout metadata) and correct OG metadata is present on article pages. No manual validation step is required.
+
+Pinterest's crawler detects the OG tags and begins displaying Rich Pin formatting (article title, description, and author pulled from OG metadata) within 24-48 hours of claiming.
+
+**Verification:** To confirm Rich Pins are active, create a test pin linking to any article URL (e.g., `https://ninahealthy.com/journal/the-kindness-of-routine`) and verify that the title, description, and author display automatically on the pin. If Rich Pin data does not appear after 48 hours, check that the OG tags are correctly emitted by viewing the page source and searching for `og:type`, `og:title`, and `og:description`.
 
 ## Keyword Strategy for Pinterest
 
@@ -1229,26 +1400,80 @@ Pinterest keyword research differs from Google keyword research. Pinterest users
 
 1. **Pinterest Search Bar:** Type the article's core topic and observe autocomplete suggestions. These are high-volume, real-time search terms.
 2. **Pinterest Trends:** Use [trends.pinterest.com](https://trends.pinterest.com) to identify seasonal spikes. Wellness topics have predictable cycles (New Year: routines; Spring: renewal; Fall: slowing down; Winter: rest).
-3. **Related Pins:** After searching, observe the "Related" bubbles at the top of results. These are semantic clusters Pinterest uses for content matching.
+3. **Pinterest Predicts:** Review the annual [Pinterest Predicts](https://business.pinterest.com/pinterest-predicts/) report for emerging trends in the wellness category. Pinterest Predicts identifies search trends 6-12 months before they peak, giving a significant first-mover advantage. Cross-reference Predicts themes with Nina Healthy's category taxonomy to identify content opportunities.
+4. **Related Pins:** After searching, observe the "Related" bubbles at the top of results. These are semantic clusters Pinterest uses for content matching.
+
+### Long-Tail Keyword Strategy
+
+Pinterest's algorithm increasingly rewards specificity. Long-tail keywords (4-8 word phrases) match planning-intent queries more precisely than broad terms, resulting in higher save rates and click-through.
+
+**Method:**
+
+1. Type the core topic into Pinterest search.
+2. Note the autocomplete suggestions. These are long-tail queries with proven search volume.
+3. Check Pinterest Trends for rising variations of the core topic.
+4. Select the most specific, intent-rich phrase as the primary keyword.
+
+| Broad Keyword | Long-Tail Keyword (Better) | Why It Wins |
+|---|---|---|
+| breathing exercises | breathing exercises for anxiety before bed | Matches a specific planning-intent query; user knows what they want |
+| morning routine | 10-minute mindful morning routine for busy people | Specifies time, style, and audience; filters to high-intent users |
+| boundaries | how to set emotional boundaries with family | Names the relationship context; captures a specific problem |
+| sleep tips | gentle bedtime routine for falling asleep naturally | Qualifies the approach (gentle, natural); avoids clinical framing |
+| journaling | simple journaling prompts for emotional processing | Names the format and purpose; matches users seeking a specific tool |
+
+When the article's `tags` array includes long-tail keywords, the publisher script generates descriptions that align with real Pinterest search queries rather than generic editorial labels.
 
 ### Keyword Placement Rules
 
 - Every pin must target **one primary keyword** and **1-2 secondary keywords**.
-- The primary keyword must appear in the pin title.
-- At least one secondary keyword must appear in the pin description's first 100 characters.
-- Tags in the article schema (`tags` array) should include Pinterest-discoverable terms, not just editorial labels.
+- The primary keyword must appear in the pin title (in the first 40 characters).
+- At least one secondary keyword must appear in the pin description's first 50-60 characters (the visible truncation window).
+- Tags in the article schema (`tags` array) should include Pinterest-discoverable terms, not just editorial labels. At least one tag should be a long-tail keyword that autocompletes on Pinterest.
 
 ### Pinterest Keyword Examples for Nina Healthy
 
+This table provides illustrative keyword targets organized by content category. For any new article, always verify keywords via Pinterest search autocomplete before committing them to the `tags` array.
+
+**Still Point (Presence and Attention)**
+
 | Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
 |---|---|---|
-| Morning routine | morning routine ideas | daily rituals, mindful morning, slow morning |
-| Breathwork | breathing exercises for anxiety | calming breathing technique, nervous system regulation |
-| Boundaries | how to set boundaries | saying no, emotional boundaries, people pleasing |
-| Grief | coping with grief | grief journaling, processing loss, emotional healing |
+| Mindfulness practice | mindfulness exercises for beginners | present moment awareness, grounding techniques, daily mindfulness |
+| Attention and focus | how to focus without forcing it | gentle focus, attention practice, mindful concentration |
+| Stillness and silence | benefits of sitting in silence | quiet time routine, stillness practice, slow living mindset |
+
+**The Body Knows (Embodied Living)**
+
+| Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
+|---|---|---|
+| Breathwork | breathing exercises for anxiety | calming breathing technique, nervous system regulation, vagal tone |
+| Body awareness | somatic awareness exercises | body scan practice, embodied self-care, listening to your body |
+| Chronic pain | living with chronic pain mindfully | pain management without medication, gentle movement for pain, body kindness |
+
+**Quiet Architecture (Routines and Rituals)**
+
+| Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
+|---|---|---|
+| Morning routine | morning routine ideas | daily rituals, mindful morning, slow morning routine |
 | Sleep | sleep hygiene tips | bedtime routine, falling asleep naturally, sleep ritual |
-| Nature connection | nature therapy | grounding exercises outdoors, forest bathing, nature mindfulness |
+| Seasonal living | seasonal rituals for wellbeing | living with the seasons, seasonal self-care, slow seasonal rhythm |
+
+**Inner Weather (Emotional Life)**
+
+| Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
+|---|---|---|
+| Grief | coping with grief | grief journaling, processing loss, emotional healing |
+| Emotional processing | how to process difficult emotions | emotional awareness, feeling your feelings, emotional regulation tips |
+| Joy and lightness | finding joy in small things | simple pleasures, everyday gratitude, cultivating lightness |
+
+**Chosen Life (Boundaries and Decisions)**
+
+| Article Topic | Pinterest Primary Keyword | Pinterest Secondary Keywords |
+|---|---|---|
+| Boundaries | how to set boundaries | saying no, emotional boundaries, people pleasing recovery |
 | Digital detox | digital minimalism | screen time reduction, phone-free routine, intentional technology use |
+| Nature connection | nature therapy | grounding exercises outdoors, forest bathing, nature mindfulness |
 
 > [!TIP]
 > When creating a new article, run the topic through Pinterest's search bar before finalizing the `tags` array. Add at least one Pinterest-native keyword (a term that autocompletes on Pinterest) to the tags. This ensures the publisher script generates descriptions that match real search behavior.
@@ -1257,17 +1482,42 @@ Pinterest keyword research differs from Google keyword research. Pinterest users
 
 Pinterest content performs best when published **45-90 days before peak search interest.** Wellness topics follow seasonal patterns that the editorial calendar should anticipate.
 
-| Season | Peak Search Window | Topics to Publish 45-90 Days Before |
-|---|---|---|
-| Winter (Dec-Feb) | Rest, reflection, cozy rituals | Sleep, evening routines, stillness, winter self-care, rest |
-| Spring (Mar-May) | Renewal, fresh starts, decluttering | Morning routines, boundaries, digital detox, walking |
-| Summer (Jun-Aug) | Energy, outdoor wellness, simplicity | Nature connection, body awareness, seasonal living, simplicity |
-| Autumn (Sep-Nov) | Slowing down, introspection, nesting | Routine, journaling, emotional processing, letting go |
+| Season | Peak Search Window | Topics to Publish 45-90 Days Before | Publish By |
+|---|---|---|---|
+| Winter (Dec-Feb) | Rest, reflection, cozy rituals | Sleep, evening routines, stillness, winter self-care, rest | Oct 1 - Nov 15 |
+| Spring (Mar-May) | Renewal, fresh starts, decluttering | Morning routines, boundaries, digital detox, walking | Jan 1 - Feb 15 |
+| Summer (Jun-Aug) | Energy, outdoor wellness, simplicity | Nature connection, body awareness, seasonal living, simplicity | Apr 1 - May 15 |
+| Autumn (Sep-Nov) | Slowing down, introspection, nesting | Routine, journaling, emotional processing, letting go | Jul 1 - Aug 15 |
+
+### Micro-Seasonal Opportunities
+
+Beyond the four-season model, Pinterest sees search spikes around specific moments. These are short-lived but high-volume opportunities for existing evergreen content:
+
+| Moment | Peak | Nina Healthy Topics | Pin By |
+|---|---|---|---|
+| New Year (resolutions, reset) | January 1-15 | Routines, intentions, morning rituals | November 1 |
+| Valentine's Day (self-love) | February 14 | Self-compassion, boundaries, enough | December 15 |
+| Mother's Day (self-care) | May (2nd Sunday) | Rest, body kindness, receiving | March 15 |
+| Back-to-school (routines) | August-September | Morning routines, structure, transitions | June 15 |
+| Thanksgiving (gratitude) | November (4th Thursday) | Gratitude, enough, emotional honesty | September 15 |
+| End of year (reflection) | December 20-31 | Letting go, reflection, stillness | October 15 |
 
 ### Evergreen vs. Seasonal Pins
 
 - **Evergreen:** Most Nina Healthy content is evergreen (breathwork, boundaries, mindfulness). These pins compound value over months. Ensure their descriptions use timeless language ("every morning" not "this January").
 - **Seasonal:** A few topics have seasonal peaks. When publishing pins for these, include the season in the pin title or description ("A Gentle Evening Routine for the Darker Months") to capture seasonal search traffic, then rotate the pin title to a timeless version after the season passes.
+
+### Pinterest Content Policy Awareness
+
+Pinterest restricts or reduces distribution for content related to weight loss claims, eating disorder triggers, self-harm, and unverified health claims. Nina Healthy's existing Content Boundaries (no clinical language, no health outcome promises) naturally align with Pinterest's policy, but agents should additionally avoid:
+
+- Weight-loss-adjacent keywords in pin titles or descriptions
+- Before/after transformation framing
+- Language that could be interpreted as a medical or health claim
+- Prescriptive advice framing; prefer personal experience ("what I found") over prescriptive direction ("how to fix")
+
+> [!IMPORTANT]
+> Pinterest's wellness content policies are stricter than most platforms. Even well-intentioned health language can trigger reduced distribution. When in doubt, frame content as personal reflection and exploration rather than clinical guidance.
 
 ## Publisher Script Integration
 
@@ -1303,10 +1553,12 @@ lib/siteConfig.js         SITE.url, SITE.social.pinterest
 
 | Action | Cadence | Rationale |
 |---|---|---|
-| New article published | Pin within 24 hours | Freshness signal; early engagement lifts ranking |
-| Batch initial rollout | 10-15 pins per day, 2s delay between calls | Avoids spam flags; respects Pinterest rate limits |
-| Re-pin existing content | Monthly, with updated pin image or description | Freshness signal; new image URL counts as a new pin |
+| New article published | Pin within 24 hours | Freshness signal; early engagement velocity in the first 24-72 hours boosts distribution |
+| Sustained daily cadence | 5-10 high-quality pins per day | Consistent daily posting matters more than volume; quality over quantity. One well-optimized pin outperforms many generic ones |
+| Batch initial rollout | Up to 15 pins per day, 2s delay between calls | For first-time library publishing only; avoids spam flags; respects Pinterest rate limits |
+| Re-pin existing content | Monthly, with genuinely new pin image and updated description | Freshness signal; new image URL counts as a new pin. A filter change or minor crop does not trigger a freshness signal; create a genuinely new composition. Update the description with currently trending keywords from Pinterest Trends. |
 | Seasonal boost | 45-90 days before peak season | Captures early search traffic before competition peaks |
+| Optimal posting time | Weekday evenings (7-10 PM EST), weekend mornings (8-11 AM EST) | Wellness content performs best during peak Pinterest activity windows; stagger pins across these windows rather than batch-publishing during off-hours |
 
 ### Anti-spam Rules
 
@@ -1340,6 +1592,187 @@ When creating a new article, verify the following Pinterest readiness items in a
 | Treating Pinterest like Instagram | Pinterest rewards search optimization, not aesthetic grids or hashtag games | Optimize for search intent; focus on keyword relevance over visual curation |
 | Linking to the homepage instead of the article | Dilutes click-through engagement; user cannot find the promised content | Always link to the specific article URL (`/journal/<slug>`) |
 | Ignoring Pinterest Trends for content planning | Missed seasonal traffic; content published after peak interest | Check [trends.pinterest.com](https://trends.pinterest.com) before finalizing the editorial calendar |
+| Using the same base image with different text overlays as "separate" pins | Pinterest's Visual Graph recognizes the base image; perceived as duplicate content | Create genuinely unique compositions (different photos, different crops, different layouts) for each pin variation |
+| Health claims or weight-loss framing in pin descriptions | Pinterest restricts wellness content that makes prescriptive health claims; triggers reduced distribution | Frame content as personal experience, not prescriptive advice; avoid before/after framing (see Content Policy Awareness) |
+
+## ✦ Multi-Pin and Collage Strategy
+
+<!-- ✦ NEW SECTION: Added 2026-06-16. Addresses the single-pin-per-article limitation
+     and introduces collage pins as an emerging format. -->
+
+### Multiple Creative Variations Per Article
+
+For high-priority or high-performing articles, create 2-3 pin variations with different images and text overlays, all linking to the same article URL and posted to the same board. This tests which creative resonates best and provides multiple entry points into the article.
+
+**Rules:**
+
+- Space variations at least **7 days apart** to avoid spam signals.
+- Each variation must use a genuinely unique image (not just different text on the same photo).
+- Each variation should target a different secondary keyword or angle of the same topic.
+- Track which variation performs best via Pinterest Analytics; use insights to inform future pin design.
+- Maximum 3 variations per article. Beyond that, diminishing returns and potential spam risk.
+
+### Collage Pins (Future Consideration)
+
+Pinterest Collages allow combining image cut-outs into mood-board-style compositions. This format aligns with Nina Healthy's aesthetic and is popular with Gen Z audiences.
+
+Potential uses:
+- Combine article imagery with pull quote text into saveable mood boards
+- Create "get the look" style compositions for morning routine or self-care setups
+- Mix multiple article visuals into a thematic collection pin
+
+Evaluate adoption when the publisher script supports the collage creation API. Collage pins should maintain the brand's photographic realism standard and warm color palette.
+
+## ✦ Pinterest Analytics and Performance Tracking
+
+<!-- ✦ NEW SECTION: Added 2026-06-16. Addresses the critical gap of having no measurement
+     framework for Pinterest performance. Without analytics, the entire Pinterest
+     optimization strategy operates blind. -->
+
+Pinterest optimization without measurement is guesswork. These rules establish a feedback loop between content strategy and performance data.
+
+### Key Performance Indicators (KPIs)
+
+Track these metrics monthly via Pinterest Analytics (available in the Pinterest business account dashboard):
+
+| KPI | What It Measures | Why It Matters | Target |
+|---|---|---|---|
+| Impressions | How often pins appear in search results and feeds | Indicates keyword/topic relevance | Trending upward month-over-month |
+| Saves | Users saving pins to their own boards | Strongest organic signal; indicates long-term value intent | Save rate > 2% of impressions |
+| Outbound clicks | Users clicking through to ninahealthy.com | Direct traffic driver; measures pin-to-page conversion | Click rate > 1% of impressions |
+| Engagement rate | Percentage of impressions resulting in any action (saves, clicks, closeups) | Overall content quality signal | > 3% |
+| Top-performing pins | Pins ranked by saves and outbound clicks | Identifies high-resonance topics and formats for replication | Review top 10 monthly |
+| Audience insights | Demographics, interests, and device data of engaged users | Validates target audience alignment | Quarterly review |
+
+### Pinterest Tag (Conversion Tracking)
+
+The Pinterest Tag enables tracking of what happens after a user clicks through from a pin to the website. It is the foundation for measuring downstream impact.
+
+**Implementation:**
+
+1. Install the Pinterest base tag on all pages via Google Tag Manager (GTM is already in use for GA4 per the Third-Party Script Policy).
+2. Configure event tracking for key conversion actions:
+
+| Event | Trigger | Purpose |
+|---|---|---|
+| `PageVisit` | Any article page load from Pinterest referral | Measures pin-to-page conversion |
+| `SignUp` | Newsletter form submission (`NewsletterSignup` component) | Measures email acquisition from Pinterest traffic |
+| `Custom` ("ArticleRead") | Scroll depth > 75% on article pages | Measures content engagement quality |
+
+3. If using both client-side (Pinterest Tag) and server-side (Conversions API) tracking, implement event deduplication using a shared `event_id` to prevent inflated conversion counts.
+4. Load the Pinterest Tag through `next/script` with the `afterInteractive` strategy, consistent with the existing GA4 and AdSense script loading pattern.
+
+### UTM Parameters
+
+The publisher script must append UTM parameters to all pin destination URLs to enable accurate attribution in Google Analytics:
+
+```
+https://ninahealthy.com/journal/<slug>?utm_source=pinterest&utm_medium=organic&utm_campaign=<board_name>&utm_content=<slug>
+```
+
+| Parameter | Value | Purpose |
+|---|---|---|
+| `utm_source` | `pinterest` | Identifies Pinterest as the traffic source |
+| `utm_medium` | `organic` | Distinguishes organic pins from future promoted pins |
+| `utm_campaign` | Board name (slugified, e.g., `still-point-presence-and-attention`) | Enables per-board performance comparison |
+| `utm_content` | Article slug | Enables per-article performance comparison |
+
+### Data-Informed Content Planning
+
+Monthly, review Pinterest Analytics to inform future content decisions:
+
+1. **Top 10 pins by save rate**: These indicate topics with high audience resonance. Prioritize similar topics and angles for future articles.
+2. **Top 10 pins by outbound click rate**: These indicate topics with high conversion intent. Ensure these articles have strong newsletter CTAs and related article links.
+3. **Bottom 10 pins by impressions**: These indicate keyword or title optimization failures. Review and update pin titles, descriptions, and tags. Consider adding a `pinterestTitle` override if the original title lacks discoverable keywords.
+4. **Board performance comparison**: Identify which category boards drive the most engagement. If a board is underperforming, review its description keywords and the quality of pins within it.
+5. **Seasonal validation**: Compare actual traffic patterns against the Seasonal Content Planning calendar. Adjust lead times if content is peaking earlier or later than predicted.
+
+### Review Cadence
+
+| Review | Cadence | Owner |
+|---|---|---|
+| Pinterest Analytics dashboard review | Monthly | Project lead |
+| Pin performance audit (top/bottom performers) | Monthly | Project lead |
+| UTM attribution check in GA4 | Monthly | Project lead |
+| Board-level strategy review | Quarterly | Project lead |
+| Pinterest Tag event verification | After any site deployment that changes tracked pages | Developer |
+
+## ✦ Video Pin Strategy
+
+<!-- ✦ NEW SECTION: Added 2026-06-16. Pinterest has made short-form video a core content
+     pillar. Video pins receive higher engagement velocity and save rates than static pins
+     in many wellness categories. Nina Healthy's existing interactive components are natural
+     candidates for video repurposing. -->
+
+Short-form video pins (6-60 seconds) are a high-engagement format for wellness content. They supplement, not replace, static pins for each article.
+
+### Video Pin Candidates
+
+Nina Healthy's existing interactive components are natural candidates for video repurposing:
+
+| Source | Video Content | Duration | Style |
+|---|---|---|---|
+| `BreathPacer` component | Screen recording of a breath cycle with text guidance | 15-30s | Minimal UI; focus on the breathing animation rhythm |
+| `MeditationTimer` component | Guided timer countdown with ambient visuals | 30-60s | Nature footage or abstract calm visuals with timer overlay |
+| `GroundingExercise` component | Narrated or text-guided grounding sequence | 30-45s | Close-up sensory footage (hands on grass, water, fabric) |
+| Article pull quotes | Text-over-nature-footage essay excerpts | 6-15s | Pull quote text animating over slow-motion nature footage |
+| Article summaries | Key insights from an article as text slides | 15-30s | Brand-styled text slides with soft transitions |
+
+### Video Pin Specifications
+
+| Attribute | Requirement |
+|---|---|
+| Aspect ratio | **9:16** (vertical) for maximum feed presence |
+| Resolution | **1080 x 1920 px** minimum |
+| Duration | **6-60 seconds** (15-30s optimal for wellness) |
+| File format | MP4, MOV |
+| Maximum file size | 2 GB |
+| Captions | **Required** (many users watch without sound) |
+| Cover image | Select a frame that works as a static thumbnail in search results |
+
+### Video Pin Rules
+
+- Video pins must include text captions or text overlays throughout. Many Pinterest users browse without sound; a silent video with no text context will be skipped.
+- The first 3 seconds must communicate the video's value proposition. Pinterest's algorithm measures early engagement; if users scroll past in the first 3 seconds, distribution is reduced.
+- Video pin titles and descriptions follow the same keyword optimization rules as static pins (primary keyword in first 40 characters of title, benefit-driven description).
+- The publisher script uploads video via the Pinterest API v5 asynchronous media upload flow: (1) initiate upload, (2) poll for processing status, (3) use the returned `media_id` to create the pin.
+- Video pins link to the same article URL as the corresponding static pin. Both pin types reinforce the same destination page.
+- Do not create video pins for every article. Prioritize articles that have interactive components, strong sensory content, or high save rates on their static pins.
+
+## ✦ Visual Graph Optimization
+
+<!-- ✦ NEW SECTION: Added 2026-06-16. Pinterest's Visual Graph uses AI to analyze pin
+     images for objects, colors, text, and visual similarity. Explicit optimization for
+     the Visual Graph significantly improves content categorization and distribution. -->
+
+Pinterest's Visual Graph uses AI to analyze pin images for relevance signals. Optimizing for the Visual Graph ensures Pinterest correctly categorizes content and matches it to user search intent.
+
+### What the Visual Graph Analyzes
+
+| Signal | How Pinterest Uses It | Nina Healthy Optimization |
+|---|---|---|
+| **Objects and subjects** | Identifies items in the image (tea cups, journals, plants, hands, windows) to categorize content | Include at least one clearly identifiable real-world object that matches the article's sensory details |
+| **Color palette and mood** | Matches images to aesthetic categories and user preferences | Use the brand's warm, earthy color palette (creams, terracottas, sage, olive); avoid high-saturation or stark black-and-white |
+| **Text overlays** | Reads text on images as keyword signals; cross-references against pin title and description | Ensure text overlay keywords match pin title keywords (see Text-metadata alignment rule above) |
+| **Visual similarity** | Groups visually similar pins for "More like this" recommendations | Maintain consistent visual style across all pin images (photographic realism, warm tones, natural light) so pins cluster together |
+
+### Pinterest Lens
+
+Pinterest Lens allows users to search by photographing real-world objects. Nina Healthy's photographic realism image standard naturally supports Lens discoverability.
+
+When generating pin images, include at least one clearly identifiable real-world object that a user might photograph: tea cups, journals, blankets, kitchen utensils, plants, candles, morning light through a window, hands holding a book. These objects act as visual anchors that connect the pin to Lens search queries.
+
+### Pin Image Alt Text
+
+Pin images uploaded via the Pinterest API should include descriptive alt text (maximum ~125 characters) that names the subject, mood, and primary keyword:
+
+| Example | Assessment |
+|---|---|
+| "Woman sitting by a window with tea, practicing a calming morning breathing routine" | Strong: identifiable subject, mood, and keyword |
+| "Wellness image" | Weak: no descriptive content; Visual Graph receives no supplemental signal |
+| "Journal and pen on a wooden table with soft morning light, daily mindfulness ritual" | Strong: specific objects, sensory detail, and keyword |
+
+Alt text serves dual purposes: Pinterest accessibility compliance and Visual Graph relevance matching. The publisher script should populate the `alt_text` field in the `POST /v5/pins` payload.
 
 ---
 
@@ -1447,7 +1880,7 @@ All colors are defined as CSS custom properties in `globals.css`. Always referen
 
 - **Text contrast:** Primary text (`--color-charcoal` on `--color-cream`) must meet WCAG 2.2 AA minimum (4.5:1 for body text, 3:1 for large text). Verify contrast ratios when combining any foreground/background pair.
 - **Accent restraint:** Terracotta is reserved for CTAs, active states, and key highlights. Do not use it for decorative backgrounds or large surfaces.
-- **Dark mode parity:** Every component must render correctly in both light and dark modes. The dark palette in `globals.css` handles this via `prefers-color-scheme: dark`. Do not create separate dark-mode stylesheets.
+- **Dark mode parity:** Every component must render correctly in both light and dark modes. The dark palette in `globals.css` handles this via `prefers-color-scheme: dark`. Do not create separate dark-mode stylesheets. **Verify contrast ratios in both light and dark modes.** The dark palette has been designed for AA compliance, but foreground/background combinations not listed in the color table above must be verified manually.
 - **Error states:** Avoid harsh warning reds. Use soft, grounding earth tones or informative ambers for validation feedback that does not trigger anxiety.
 
 ## Typography
@@ -1525,7 +1958,7 @@ transition: opacity 0.6s ease, transform 0.6s ease;
 ### Motion Rules
 
 - **Reduced motion:** Always wrap animations in a `prefers-reduced-motion` check. The global stylesheet already includes a blanket override; respect it in component-level animations too.
-- **Duration range:** Keep transitions between `0.2s` (micro-interactions like button hover) and `0.8s` (page-level reveals). Nothing should exceed `1s`.
+- **Duration range:** Keep UI transitions between `0.2s` (micro-interactions like button hover) and `0.8s` (page-level reveals). Nothing should exceed `1s`. **Exception:** Experiential components (`BreathPacer`, `MeditationTimer`, `GroundingExercise`) may use durations that match their therapeutic rhythm (e.g., 4-8s breath cycles). The 1s maximum applies to UI transitions only.
 - **Easing:** Use `cubic-bezier(0.4, 0, 0.2, 1)` (ease-out variant) for most UI transitions. Avoid linear easing.
 - **No bounce or overshoot:** The brand is calm and grounded. No spring physics or elastic easings.
 - **Hover effects:** Cards may lift slightly (`translateY(-4px)`) and gain a subtle shadow. Links gain color change. Buttons shift background. Keep it minimal.
@@ -1855,6 +2288,21 @@ The project includes forms in `ContactMe` and `NewsletterSignup`. All forms must
 - Large text (18px+ bold or 24px+): minimum 3:1 ratio
 - Interactive element borders and focus indicators: minimum 3:1 against adjacent colors
 - Do not rely on color alone to convey meaning; pair with text, icons, or patterns
+- **Touch targets:** All interactive elements must be at least 44x44 CSS pixels on mobile (cross-reference: Responsive Design section in Shared Rules). This exceeds the WCAG 2.5.8 Level AA minimum of 24x24 and aligns with iOS/Android platform guidelines.
+
+## Language
+
+- The root `<html>` element must include `lang="en"` (WCAG 3.1.1 Level A).
+- When articles include terms from other languages (e.g., `pranayama`, `anapanasati`, `ikigai`), wrap them in a `<span>` with the appropriate BCP 47 language tag: `<span lang="sa">pranayama</span>` (Sanskrit), `<span lang="ja">ikigai</span>` (Japanese). This satisfies WCAG 3.1.2 Level AA (Language of Parts) and helps screen readers pronounce foreign terms correctly.
+- The site is English-only. If internationalization is added in the future, implement `hreflang` tags per the [Google hreflang specification](https://developers.google.com/search/docs/specialty/international/localized-versions).
+
+## Screen Reader Testing
+
+- Test all interactive components with at least one screen reader before considering them complete:
+  - **macOS:** VoiceOver (built-in)
+  - **Windows:** NVDA (free) or Narrator (built-in)
+- Pay special attention to `BreathPacer`, `MeditationTimer`, `GroundingExercise`, and `Accordion`, which have complex interaction patterns.
+- The skip link (`<a href="#main-content">`) must be the **first focusable element** in the DOM. Do not insert other focusable elements before it.
 
 ## Reduced Motion
 
@@ -1915,9 +2363,80 @@ prefetchDNS("https://example.com");
 
 The root layout already uses this pattern for Google AdSense and Google Tag Manager. When adding new external origins, follow the same pattern.
 
+## Bundle Size Budget
+
+Keep the client-side JavaScript footprint minimal. The site is primarily static content; heavy JS undermines the calm, fast experience.
+
+| Metric | Budget | Measurement |
+|---|---|---|
+| First-load JS (shared) | <= 100 KB (gzipped) | `next build` output |
+| Per-page JS | <= 50 KB (gzipped) | `next build` output |
+| Total CSS | <= 50 KB (gzipped) | `next build` output |
+
+When a component exceeds these budgets, evaluate:
+- Can it be a Server Component instead of a Client Component?
+- Can it use CSS animations instead of JS-driven motion?
+- Can it be lazily loaded below the fold?
+
+## Third-Party Script Policy
+
+All third-party scripts must be loaded through `next/script` with an explicit loading strategy:
+
+| Script | Strategy | Rationale |
+|---|---|---|
+| Google Analytics / GTM | `afterInteractive` | Needs to run after hydration but before user interaction tracking |
+| Google AdSense | `afterInteractive` | Ad rendering after page is interactive |
+| Any future analytics or A/B tool | `lazyOnload` | Non-critical; load after everything else |
+
+Never add third-party scripts directly in `<head>` or as raw `<script>` tags. Use `next/script` for automatic optimization.
+
+## Lazy Loading
+
+- Use `next/dynamic` for client components that are below the fold or conditionally rendered:
+
+```js
+import dynamic from 'next/dynamic';
+
+const BreathPacer = dynamic(() => import('@/components/BreathPacer/BreathPacer'), {
+  loading: () => <PracticeSkeleton />,
+});
+```
+
+- Candidates for lazy loading: `BreathPacer`, `MeditationTimer`, `GroundingExercise`, `TestimonialCarousel`, `ShareBar`.
+- Never lazy-load above-the-fold components (`Header`, `PageHero`, article body content).
+
+## Caching Strategy
+
+| Resource | Cache Policy | Implementation |
+|---|---|---|
+| Static pages (ISR) | Revalidate on deploy | Default Next.js behavior with static export |
+| Images (`public/images/`) | Immutable, long-lived | Next.js image optimization handles `Cache-Control` |
+| `llms-full.txt` | 24h public cache | Already set: `Cache-Control: public, max-age=86400, s-maxage=86400` |
+| RSS feed (`/feed.xml`) | 1h public cache | `Cache-Control: public, max-age=3600, s-maxage=3600` |
+| Fonts | Immutable, long-lived | Handled by `next/font` with hash-based filenames |
+
 ## CSS Class Conventions
 
 The global stylesheet at `app/globals.css` defines scoped prose link styles using the `.articleBody` and `.legalContent` class names. Inline `<a>` tags inside these containers receive visible underline styling with `--color-terracotta-dark`. Without these parent class names, inline links inherit the global reset (no underline, inherited color) and become invisible to sighted users.
 
 - Any template rendering article body content must wrap it in an element with `className="articleBody"` (or use the CSS module equivalent that outputs this class)
 - Legal pages (privacy, terms) must wrap prose content in an element with `className="legalContent"`
+
+> [!CAUTION]
+> Missing the `.articleBody` wrapper on article pages will make all inline links invisible to sighted users. This is a critical accessibility and usability failure.
+
+---
+
+# Version History
+
+| Version | Date | Key Changes |
+|---|---|---|
+| 1.0 | 2026-04 | Initial AGENTS.md: Shared Rules, Project Architecture, SEO Standards, Design Standards, Content Creation Standards, Accessibility, Performance |
+| 1.1 | 2026-05 | Added Content Quality Standards (depth baseline, sensory grounding, emotional range, pacing, authority scaffolding, closing invitation quality) |
+| 1.2 | 2026-05 | Added GEO Standards (entity architecture, citability, speakable content, AI crawler policy, llms.txt) |
+| 1.3 | 2026-06-15 | Added Pinterest SEO Standards, Image Generation Standards, thematic cluster management, content ecosystem health, opening hook diversity |
+| 1.4 | 2026-06-16 | Audit-driven revision: Added Agent Role, Pushback Protocol, Output Format, Quality Validation Checklist, Table of Contents. Fixed JSON-LD example (entity @id references). Added modifiedTime to OG metadata, schema validation guidance, animation duration exceptions, lang attribute guidance, screen reader testing, bundle budgets, caching strategy, lazy loading, third-party script policy. Split review cadence to quarterly/monthly. Added version history. |
+| 1.5 | 2026-06-16 | Pinterest SEO audit (Tier 1 critical fixes): Added text-metadata alignment rule, text overlay coverage limit (40%), and pull quote as text overlay source to Image Design Rules. Replaced deprecated Rich Pin Validator with auto-activation guidance. Added Pinterest Analytics and Performance Tracking section (KPIs, Pinterest Tag conversion tracking, UTM parameters, data-informed content planning, review cadence). Added Video Pin Strategy section (candidates, specifications, rules). Added Visual Graph Optimization section (signal analysis, Pinterest Lens, pin alt text). |
+| 1.6 | 2026-06-16 | Pinterest SEO audit (Tier 2 high-priority fixes): Added Pinner Quality as 5th algorithm pillar; enhanced Engagement pillar with save-weight and velocity signals. Added description front-loading rule (50-60 char truncation), optimal length target (300-500 chars), hashtag guidance (optional, 2-5 max, no generics). Fixed pinterestTitle max-length inconsistency (standardized to 84 chars + 16 suffix = 100). Added og:image:width, og:image:height, article:modified_time, article:section to Rich Pin OG table. Added Long-Tail Keyword Strategy subsection and Pinterest Predicts reference. Revised publishing cadence (sustained 5-10/day, optimal posting times, genuine refresh requirements). |
+| 1.7 | 2026-06-16 | Pinterest SEO audit (Tier 3 medium-priority fixes): Added Board Sections guidance with per-board examples, Board Cover Images rules. Added color alignment and filename SEO rules to Image Design. Added Pin Image Creation Workflow (7-step). Added OG image aspect ratio note (landscape vs Pinterest vertical). Added Pinterest Content Policy Awareness for wellness topics with IMPORTANT alert. Added Micro-Seasonal Opportunities table (6 moments with pin-by dates) and specific Publish By dates to seasonal table. Added Pinterest items (17-19) to Quality Validation Checklist. Connected card excerpts to Pinterest descriptions in Adding a New Article steps. Added Multi-Pin and Collage Strategy section. Added 2 anti-patterns (duplicate base image, health claims). |
+| 1.8 | 2026-06-16 | Pinterest SEO audit (Tier 4 low-priority fixes, audit complete): Expanded Pinterest Keyword Examples table from 7 generic topics to 15 topics organized by all 5 content categories (3 per category). Added emotional register Pinterest performance note connecting register diversity targets to Pinterest engagement patterns (curiosity/acceptance → saves; difficulty/grief → clicks). All 35+ audit findings across Tiers 1-4 are now addressed. |

@@ -5,20 +5,21 @@
 
 .heading {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 400;
   font-family: var(--font-heading), "Playfair Display", Georgia, serif;
   color: var(--color-charcoal);
   margin-bottom: 0.75rem;
   position: relative;
   display: inline-block;
+  letter-spacing: -0.02em;
 }
 
 .heading::after {
   content: "";
   display: block;
-  width: 48px;
-  height: 3px;
-  background: var(--color-terracotta);
+  width: 32px;
+  height: 2px;
+  background: var(--color-bronze);
   margin: 0.75rem auto 0;
 }
 

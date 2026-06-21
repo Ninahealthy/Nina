@@ -1,4 +1,4 @@
-import { Playfair_Display, Lora } from "next/font/google";
+import { Instrument_Serif, Lora } from "next/font/google";
 import { preconnect, prefetchDNS } from "react-dom";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
@@ -11,7 +11,8 @@ import AdSenseRefresh from "@/components/AdSenseRefresh/AdSenseRefresh";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
@@ -26,12 +27,12 @@ const lora = Lora({
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Nina Healthy, a personal journal of attention and honest reflection",
+    default: "Nina, a personal journal of attention and honest reflection",
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
-    title: "Nina Healthy: A personal journal of attention and honest reflection",
+    title: "Nina: A personal journal of attention and honest reflection",
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
@@ -85,7 +86,7 @@ export default function RootLayout({ children }) {
   prefetchDNS("https://www.googletagmanager.com");
 
   return (
-    <html lang="en-US" className={`${playfair.variable} ${lora.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en-US" className={`${instrumentSerif.variable} ${lora.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Script
           async

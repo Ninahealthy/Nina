@@ -11,7 +11,7 @@ import { escapeHtml } from "@/lib/escapeHtml";
 export async function GET() {
   const orderedSlugs = ENTRY_ORDER.filter((slug) => ARTICLES[slug]);
 
-  const header = `# Nina Healthy: Full Content Index
+  const header = `# Nina: Full Content Index
 > Generated: ${new Date().toISOString()}
 > Total articles: ${orderedSlugs.length}
 > Site: ${SITE.url}

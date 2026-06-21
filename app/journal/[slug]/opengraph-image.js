@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { ARTICLES } from "@/lib/articles";
 
-export const alt = "Nina Healthy Journal";
+export const alt = "Nina Journal";
 export const size = {
   width: 1200,
   height: 630,
@@ -28,7 +28,7 @@ export default async function Image({ params }) {
             fontFamily: "Georgia, serif",
           }}
         >
-          Nina Healthy
+          Nina
         </div>
       ),
       { ...size }
@@ -183,7 +183,7 @@ export default async function Image({ params }) {
               display: "flex",
             }}
           >
-            Nina Healthy
+            Nina
           </div>
           <div
             style={{

@@ -1,5 +1,5 @@
 .newsletterSection {
-  padding: 4rem 2rem;
+  padding: 2.5rem 1.25rem;
   background: var(--color-linen);
   clip-path: var(--clip-path-squircle-60);
   text-align: center;
@@ -7,7 +7,7 @@
   overflow: hidden;
   margin: auto;
   max-width: 1200px;
-  width: 90%;
+  width: 92%;
 }
 
 .newsletterSection::before {
@@ -28,35 +28,33 @@
 }
 
 .newsletterTitle {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading), "Instrument Serif", Georgia, serif;
   color: var(--color-charcoal);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .newsletterDescription {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--color-stone);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   line-height: 1.7;
   font-weight: 400;
 }
 
 .newsletterForm {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
 }
 
 /* Floating label field wrapper */
 .floatingField {
   position: relative;
-  flex: 1;
-  min-width: 280px;
-  max-width: 400px;
+  width: 100%;
 }
 
 .newsletterInput {
@@ -105,7 +103,7 @@
 }
 
 .newsletterButton {
-  padding: 1rem 2.5rem;
+  padding: 1rem 2rem;
   background: var(--color-terracotta);
   color: var(--color-warmwhite);
   font-weight: 600;
@@ -116,8 +114,7 @@
   box-shadow: 0 4px 12px rgba(192, 122, 86, 0.25);
   text-decoration: none;
   white-space: nowrap;
-  min-width: 180px;
-  align-self: center;
+  width: 100%;
   clip-path: var(--clip-path-squircle-20);
 }
 
@@ -152,6 +149,38 @@
   color: var(--color-error, #b45309);
 }
 
+@media (min-width: 480px) {
+  .newsletterSection {
+    padding: 3rem 2rem;
+  }
+
+  .newsletterTitle {
+    font-size: 2.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .newsletterDescription {
+    font-size: 1.0625rem;
+  }
+
+  .newsletterForm {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .floatingField {
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .newsletterButton {
+    width: auto;
+    min-width: 160px;
+    padding: 1rem 2.5rem;
+  }
+}
+
 @media (min-width: 640px) {
   .newsletterSection {
     padding: 4rem 3rem;
@@ -165,10 +194,16 @@
 
   .newsletterTitle {
     font-size: 3rem;
+    margin-bottom: 1.5rem;
   }
 
   .newsletterDescription {
     font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .newsletterForm {
+    margin-bottom: 2rem;
   }
 }
 

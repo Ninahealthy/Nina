@@ -2,7 +2,7 @@
  * Article data loader for the Pinterest publisher.
  *
  * Reads article data, card images, card excerpts, and site config
- * from the Nina Healthy lib/ directory using the Node.js vm module.
+ * from the Nina lib/ directory using the Node.js vm module.
  *
  * Why vm? The lib/ files use ESM `export` syntax, which Next.js handles
  * at build time. But the root package.json has no "type": "module", so

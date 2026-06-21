@@ -1,7 +1,7 @@
 /**
  * Pinterest board management.
  *
- * Maps Nina Healthy's five editorial categories to Pinterest boards
+ * Maps Nina's five editorial categories to Pinterest boards
  * with keyword-optimized titles and descriptions for discoverability.
  *
  * @module boards
@@ -21,35 +21,35 @@ const BOARD_CONFIGS = {
     description:
       'Mindfulness practices, present-moment awareness, attention training, ' +
       'and the art of slowing down. Essays on noticing, stillness, and quiet ' +
-      'focus from Nina Healthy.',
+      'focus from Nina.',
   },
   'The Body Knows': {
     name: 'The Body Knows: Embodied Living',
     description:
       'Body awareness, nervous system health, embodied living, breathwork ' +
       'practice, and what your body is trying to tell you. Somatic practices ' +
-      'for everyday life from Nina Healthy.',
+      'for everyday life from Nina.',
   },
   'Quiet Architecture': {
     name: 'Quiet Architecture: Routines and Rituals',
     description:
       'Morning routines, daily rituals, seasonal living, kitchen rituals, ' +
       'evening routines, and the small structures that hold a life together. ' +
-      'From Nina Healthy.',
+      'From Nina.',
   },
   'Inner Weather': {
     name: 'Inner Weather: The Emotional Life',
     description:
       'Emotional wellness, processing grief, understanding anger, sitting ' +
       'with discomfort, and navigating the inner emotional landscape with ' +
-      'honesty and gentleness. From Nina Healthy.',
+      'honesty and gentleness. From Nina.',
   },
   'Chosen Life': {
     name: 'Chosen Life: Boundaries and Decisions',
     description:
       'Setting boundaries, intentional living, saying no, digital minimalism, ' +
       'and the conscious design of how you spend your time, energy, and ' +
-      'attention. From Nina Healthy.',
+      'attention. From Nina.',
   },
 };
 

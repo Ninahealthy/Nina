@@ -287,7 +287,7 @@
 :global(.gs-title a.gs-title) {
   color: var(--color-terracotta-dark) !important;
   text-decoration: none !important;
-  font-family: var(--font-heading), "Playfair Display", Georgia, serif !important;
+  font-family: var(--font-heading), "Instrument Serif", Georgia, serif !important;
   font-size: 1.15rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;

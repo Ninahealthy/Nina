@@ -5,18 +5,18 @@ import styles from "@/app/styles/LegalPage.module.css";
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "How Nina Healthy handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
+    "How Nina handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
   openGraph: {
     title: "Privacy Policy",
     description:
-      "How Nina Healthy handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
+      "How Nina handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
     url: `${SITE.url}/privacy`,
     images: [
       {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Nina Healthy privacy policy",
+        alt: "Nina privacy policy",
       },
     ],
   },
@@ -24,7 +24,7 @@ export const metadata = {
     card: "summary",
     title: "Privacy Policy",
     description:
-      "How Nina Healthy handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
+      "How Nina handles your personal information. Our privacy practices for newsletter subscribers and contact form submissions.",
   },
   alternates: {
     canonical: `${SITE.url}/privacy`,

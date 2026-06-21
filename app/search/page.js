@@ -5,18 +5,18 @@ import SearchResultsClient from "./SearchResultsClient";
 export const metadata = {
   title: "Search",
   description:
-    "Search Nina Healthy for articles on mindfulness, intentional living, breathing exercises, and inner wellness.",
+    "Search Nina for articles on mindfulness, intentional living, breathing exercises, and inner wellness.",
   openGraph: {
     title: "Search",
     description:
-      "Search Nina Healthy for articles on mindfulness, intentional living, breathing exercises, and inner wellness.",
+      "Search Nina for articles on mindfulness, intentional living, breathing exercises, and inner wellness.",
     url: `${SITE.url}/search`,
     images: [
       {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Search Nina Healthy",
+        alt: "Search Nina",
       },
     ],
   },
@@ -24,7 +24,7 @@ export const metadata = {
     card: "summary",
     title: "Search",
     description:
-      "Search Nina Healthy for articles on mindfulness, intentional living, and inner wellness.",
+      "Search Nina for articles on mindfulness, intentional living, and inner wellness.",
   },
   alternates: {
     canonical: `${SITE.url}/search`,

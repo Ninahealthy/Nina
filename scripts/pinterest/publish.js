@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pinterest Pin Publisher for Nina Healthy
+ * Pinterest Pin Publisher for Nina
  *
  * Reads article data from lib/, constructs keyword-optimized pin payloads,
  * and publishes them to category-mapped Pinterest boards via API v5.
@@ -94,7 +94,7 @@ function buildDescription(article) {
  * @returns {string}
  */
 function buildTitle(title) {
-  const branded = `${title} | Nina Healthy`;
+  const branded = `${title} | Nina`;
   return branded.length <= 100 ? branded : title.slice(0, 100);
 }
 
@@ -178,7 +178,7 @@ function parseArgs() {
 
 function printHelp() {
   console.log(`
-Pinterest Pin Publisher for Nina Healthy
+Pinterest Pin Publisher for Nina
 ========================================
 
 Usage:

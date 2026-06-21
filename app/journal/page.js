@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ARTICLES } from "@/lib/articles";
 import { CARD_IMAGES } from "@/lib/cardImages";
 import { CARD_EXCERPTS } from "@/lib/cardExcerpts";
@@ -24,7 +25,7 @@ export const metadata = {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Nina Healthy journal, reflections on mindful living",
+        alt: "Nina journal, reflections on mindful living",
       },
     ],
   },
@@ -104,6 +105,28 @@ export default function JournalPage() {
       />
 
       <JournalSearchBar />
+
+      <div className={styles.startHereBanner}>
+        <p className={styles.bannerText}>
+          Not sure where to start?
+        </p>
+        <Link href="/start-here" className={styles.bannerLink}>
+          Browse reading paths
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
 
       <JournalFilter entries={entries} />
     </div>

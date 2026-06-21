@@ -1,0 +1,16 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 4rem;
+}
+
+.content {
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 0 2rem;
+  }
+}

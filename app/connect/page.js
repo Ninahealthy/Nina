@@ -19,7 +19,7 @@ export const metadata = {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Connect with Nina Healthy",
+        alt: "Connect with Nina",
       },
     ],
   },
@@ -47,8 +47,8 @@ export default function ConnectPage() {
     <div className={styles.page}>
       <JsonLd data={CONTACT_JSONLD} />
       <PageHero
-        title="Let's Connect"
-        subtitle="Whether you have a question, a thought to share, or just want to say hello, I would love to hear from you."
+        title="Write to Me"
+        subtitle="I read everything that arrives here. If something in the journal stayed with you, or if you just need to be heard for a moment, this is a good place to start."
       />
 
       <section className={styles.contactSection} aria-label="Contact form">
@@ -60,7 +60,7 @@ export default function ConnectPage() {
       </section>
 
       <section className={styles.socialSection} aria-label="Social media links">
-        <h2 className={styles.socialTitle}>Find Me Elsewhere</h2>
+        <h2 className={styles.socialTitle}>Other Quiet Corners</h2>
         <div className={styles.socialLinks}>
           <a
             href="https://www.instagram.com/nina____vibes/"

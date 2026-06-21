@@ -1,0 +1,31 @@
+.mark {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Breathing pulse animation for loading states.
+   4-second cycle mimics a natural breathing rhythm —
+   an intentional echo of the Somatic Attention lens. */
+.breathPulse {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breathPulse {
+    animation: none;
+    opacity: 0.7;
+  }
+}

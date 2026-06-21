@@ -13,7 +13,7 @@
 .heroTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading), "Instrument Serif", Georgia, serif;
   color: var(--color-charcoal);
   margin-bottom: 1rem;
 }
@@ -54,7 +54,7 @@
 .sectionTitle {
   font-size: 1.35rem;
   font-weight: 600;
-  font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading), "Instrument Serif", Georgia, serif;
   color: var(--color-charcoal);
   margin-top: 1rem;
 }

@@ -1,0 +1,213 @@
+/* Manifesto page — mobile-first responsive styles */
+
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--color-sand);
+  margin-bottom: 2.5rem;
+}
+
+.heroMark {
+  color: var(--color-terracotta);
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+/* Principles list */
+.principles {
+  padding: 0;
+}
+
+.principlesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: principle;
+}
+
+.principleItem {
+  display: flex;
+  gap: 1.25rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.principleItem:last-child {
+  border-bottom: none;
+}
+
+.principleNumber {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-terracotta);
+  opacity: 0.6;
+  flex-shrink: 0;
+  padding-top: 0.15rem;
+  min-width: 1.75rem;
+}
+
+.principleContent {
+  flex: 1;
+}
+
+.principleTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+}
+
+.principleBody {
+  font-size: 1rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+}
+
+/* Closing */
+.closing {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.closingContent {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.closingMark {
+  color: var(--color-terracotta);
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.closingText {
+  font-size: 1rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.closingSignoff {
+  font-size: 0.875rem;
+  color: var(--color-pebble);
+  line-height: 1.6;
+}
+
+/* Newsletter */
+.newsletter {
+  padding: 2rem 0 0;
+}
+
+/* Tablet (480px+) */
+@media (min-width: 480px) {
+  .page {
+    padding: 0 2rem 4rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .principleItem {
+    gap: 1.5rem;
+    padding: 2.5rem 0;
+  }
+
+  .principleNumber {
+    font-size: 1.125rem;
+    min-width: 2rem;
+  }
+
+  .principleTitle {
+    font-size: 1.375rem;
+  }
+}
+
+/* Small desktop (640px+) */
+@media (min-width: 640px) {
+  .hero {
+    padding: 4rem 0 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.0625rem;
+  }
+
+  .principleItem {
+    gap: 2rem;
+    padding: 3rem 0;
+  }
+
+  .principleNumber {
+    font-size: 1.25rem;
+    min-width: 2.5rem;
+  }
+
+  .principleTitle {
+    font-size: 1.5rem;
+  }
+
+  .principleBody {
+    font-size: 1.0625rem;
+  }
+}
+
+/* Desktop (768px+) */
+@media (min-width: 768px) {
+  .hero {
+    padding: 5rem 0 3.5rem;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.125rem;
+  }
+
+  .principleTitle {
+    font-size: 1.625rem;
+  }
+
+  .principleBody {
+    font-size: 1.125rem;
+  }
+
+  .closingText {
+    font-size: 1.0625rem;
+  }
+}

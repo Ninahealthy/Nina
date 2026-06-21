@@ -31,7 +31,7 @@ export const metadata = {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Nina Healthy mindfulness practices",
+        alt: "Nina mindfulness practices",
       },
     ],
   },
@@ -192,13 +192,13 @@ export default function PracticePage() {
       <JsonLd data={GROUNDING_HOWTO_JSONLD} />
       <PageHero
         title="Practice"
-        subtitle="Mindfulness is not something you master. It is something you practice, gently, every day. Start wherever you are."
+        subtitle="None of this needs to be done well. It just needs to be done, slowly, with whatever attention you have today."
       />
 
       <ScrollReveal>
         <section id="daily-intention" className={styles.intention} aria-label="Daily intention">
-          <SectionHeading subtitle="A small anchor for your day.">
-            Set Your Intention
+          <SectionHeading subtitle="Not a goal. More like a word you carry in your pocket.">
+            Today's Anchor
           </SectionHeading>
           <Suspense fallback={<DailyIntentionSkeleton />}>
             <DailyIntention />
@@ -212,8 +212,8 @@ export default function PracticePage() {
           className={styles.groundingSection}
           aria-label="Grounding exercise"
         >
-          <SectionHeading subtitle="A gentle return to the present moment through your five senses.">
-            Ground Yourself
+          <SectionHeading subtitle="When the mind drifts, the body is still here. Five senses, one at a time.">
+            Come Back to the Room
           </SectionHeading>
           <Suspense fallback={<GroundingExerciseSkeleton />}>
             <GroundingExercise />
@@ -242,8 +242,8 @@ export default function PracticePage() {
           className={styles.timerSection}
           aria-label="Meditation timer"
         >
-          <SectionHeading subtitle="Choose a duration. Sit quietly. If it feels intense, feel free to return to your natural rhythm at any time.">
-            Meditation Timer
+          <SectionHeading subtitle="Choose a length. Sit with it. If it gets uncomfortable, that is allowed too.">
+            Sit for a While
           </SectionHeading>
           <Suspense fallback={<MeditationTimerSkeleton />}>
             <MeditationTimer />
@@ -257,7 +257,7 @@ export default function PracticePage() {
           className={styles.practices}
           aria-label="Mindfulness practices"
         >
-          <SectionHeading subtitle="Simple practices for everyday calm. Try what resonates; leave what does not.">
+          <SectionHeading subtitle="Take one. Leave the rest. Nothing here expires.">
             Ways to Begin
           </SectionHeading>
           <div className={styles.practiceGrid}>
@@ -297,8 +297,8 @@ export default function PracticePage() {
 
       <section className={styles.cta} aria-label="Call to action">
         <p className={styles.ctaText}>
-          Want to explore these ideas further? The journal has longer
-          reflections on each of these practices.
+          These practices came from somewhere. The journal is where I write
+          about what they taught me, and what I am still figuring out.
         </p>
         <Button href="/journal">Read the Journal</Button>
       </section>

@@ -5,18 +5,18 @@ import styles from "@/app/styles/LegalPage.module.css";
 export const metadata = {
   title: "Terms of Use",
   description:
-    "Terms of use for Nina Healthy. Guidelines for using this mindfulness and wellness website.",
+    "Terms of use for Nina. Guidelines for using this mindfulness and wellness website.",
   openGraph: {
     title: "Terms of Use",
     description:
-      "Terms of use for Nina Healthy. Guidelines for using this mindfulness and wellness website.",
+      "Terms of use for Nina. Guidelines for using this mindfulness and wellness website.",
     url: `${SITE.url}/terms`,
     images: [
       {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Nina Healthy terms of use",
+        alt: "Nina terms of use",
       },
     ],
   },
@@ -24,7 +24,7 @@ export const metadata = {
     card: "summary",
     title: "Terms of Use",
     description:
-      "Terms of use for Nina Healthy. Guidelines for using this mindfulness and wellness website.",
+      "Terms of use for Nina. Guidelines for using this mindfulness and wellness website.",
   },
   alternates: {
     canonical: `${SITE.url}/terms`,
@@ -67,7 +67,7 @@ export default function TermsPage() {
           <h2 className={styles.sectionTitle}>Content Ownership</h2>
           <p>
             All written content, images, and design elements on this site are
-            the property of Nina Healthy. You are welcome to share excerpts
+            the property of Nina. You are welcome to share excerpts
             with proper attribution, but please do not reproduce full articles
             or claim them as your own work.
           </p>

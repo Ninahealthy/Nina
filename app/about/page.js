@@ -17,18 +17,18 @@ import styles from "./page.module.css";
 export const metadata = {
   title: "About",
   description:
-    "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
+    "The story behind Nina: a journal born in a Portland parking garage in 2019, when one project manager stopped performing wellness and started paying attention. Read about the practice, the principles, and what this space is for.",
   openGraph: {
     title: "About Nina",
     description:
-      "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
+      "The story behind Nina: a journal born in a Portland parking garage in 2019, when one project manager stopped performing wellness and started paying attention.",
     url: `${SITE.url}/about`,
     images: [
       {
         url: "/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Nina Healthy, a journal of attention and honest reflection",
+        alt: "Nina, a journal of attention and honest reflection",
       },
     ],
   },
@@ -36,7 +36,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About Nina",
     description:
-      "One woman's practice of paying attention, shared slowly. Explore the story, values, and daily practice behind Nina Healthy, a journal of attention and honest reflection.",
+      "The story behind Nina: a journal born in a Portland parking garage in 2019, when one project manager stopped performing wellness and started paying attention.",
     images: ["/og-default.png"],
   },
   alternates: {
@@ -103,7 +103,7 @@ const FAQ_ITEMS = [
   {
     question: "Is this therapy or medical advice?",
     answer:
-      "No. Nina Healthy is a personal reflection space. I am not a therapist, doctor, or licensed health professional. Everything I share comes from my own experience and is offered as an invitation, not a prescription. If you are struggling, please reach out to a qualified professional.",
+      "No. Nina is a personal reflection space. I am not a therapist, doctor, or licensed health professional. Everything I share comes from my own experience and is offered as an invitation, not a prescription. If you are struggling, please reach out to a qualified professional.",
   },
   {
     question: "How often is the journal updated?",
@@ -113,12 +113,12 @@ const FAQ_ITEMS = [
   {
     question: "Do you offer one-on-one coaching or sessions?",
     answer:
-      "Not at this time. Nina Healthy is a written space for shared reflection. If that changes, I will share updates through the newsletter.",
+      "Not at this time. Nina is a written space for shared reflection. If that changes, I will share updates through the newsletter.",
   },
   {
     question: "What is the newsletter about?",
     answer:
-      "A gentle weekly note with reflections on mindful living, simple practices for everyday calm, and thoughts on living with more intention. No spam, no pressure. You can unsubscribe anytime.",
+      "Letters on attention and honest reflection. They follow no schedule. Each one is written slowly, sent only when there is something real to share. No spam, no pressure. You can unsubscribe anytime.",
   },
   {
     question: "Can I share your articles?",
@@ -149,7 +149,7 @@ export default function AboutPage() {
         <div className={styles.heroImageWrapper}>
           <Image
             src="/images/about-hero.png"
-            alt="Nina, the writer behind Nina Healthy"
+            alt="Nina, the writer behind Nina"
             fill
             sizes="(max-width: 768px) 220px, 280px"
             priority
@@ -158,8 +158,9 @@ export default function AboutPage() {
         </div>
         <h1 className={styles.heroTitle}>Hi, I&apos;m Nina</h1>
         <p className={styles.heroSubtitle}>
-          I write slowly about attention, the body, and what I am still
-          learning. Not advice. Just honest practice.
+          I write about attention, the nervous system, and what it takes to stay
+          present in a life that keeps pulling you elsewhere. Based in Portland,
+          Oregon.
         </p>
         <div className={styles.socialLinks}>
           {SOCIAL_LINKS.map((link) => (
@@ -182,31 +183,40 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>My Story</h2>
           <div className={styles.storyContent}>
             <p>
-              There was a morning, a few years ago now, when I sat in my car
-              in the parking lot before work and realized I could not name a
-              single thing I had done that week that was not for someone
-              else&apos;s timeline. My coffee was cold. My hands were
-              shaking, not from fear, but from the particular exhaustion of
-              a life that looks fine from the outside.
+              In the fall of 2019, I was sitting in a gray Subaru in the
+              parking garage on Morrison Street in Portland, Oregon. I had
+              been working in project management for a tech company for six
+              years. I had been promoted twice in three years and could not
+              remember the last time I had eaten lunch without a screen in
+              front of me.
+            </p>
+            <p>
+              That particular morning, I realized I could not name a single
+              thing I had done that week that was not for someone else&apos;s
+              timeline. My coffee was cold. My hands were shaking, not from
+              fear, but from the particular exhaustion of a life that looks
+              fine from the outside. I had not taken a full breath in what
+              felt like months.
             </p>
             <p>
               I did not quit my job or book a retreat. I did something
               smaller. I sat there for five more minutes. I noticed the rain
-              on the windshield. I breathed without checking the time.
+              on the windshield. I breathed without checking the time. It
+              was the first moment in years that belonged entirely to my
+              body.
             </p>
             <p>
-              That was the beginning, though I did not know it yet. Over
-              the months that followed, I started paying attention to what
-              my body had been trying to tell me. I let mornings be slow. I
-              stopped filling silence with noise. I wrote things down, not
-              to publish, but to understand.
+              Over the months that followed, I started paying attention to
+              what my nervous system had been trying to tell me. I let
+              mornings be slow. I stopped filling silence with noise. I
+              wrote things down, not to publish, but to understand what was
+              happening beneath the performance of being fine.
             </p>
             <p>
-              Nina Healthy grew from those notes. It is not a program or a
-              prescription. It is what happens when one woman starts
-              writing honestly about attention, the nervous system, and
-              what it takes to stay present in a life that keeps pulling
-              you elsewhere.
+              Nina grew from those notes. It is not a program or a
+              prescription. It is a practice that began in a parking garage
+              and now lives here, in essays about attention, the body, and
+              what it actually costs to stay present.
             </p>
           </div>
         </section>
@@ -223,27 +233,30 @@ export default function AboutPage() {
 
       <ScrollReveal>
         <section className={styles.philosophy} aria-label="Values">
-          <h2 className={styles.sectionTitle}>What Healthy Means Here</h2>
+          <h2 className={styles.sectionTitle}>What This Space Is For</h2>
           <div className={styles.valuesGrid}>
             <div className={styles.valueCard}>
-              <h3 className={styles.valueTitle}>Inner Wellness</h3>
+              <h3 className={styles.valueTitle}>The Quiet Kind</h3>
               <p className={styles.valueText}>
-                Health starts within. Mental clarity, emotional balance, and a
-                calm mind are the foundation everything else rests on.
+                I stopped calling it wellness the day I realized the word had
+                become a product. What I mean is something simpler: the quiet
+                inside a day that is not performing for anyone.
               </p>
             </div>
             <div className={styles.valueCard}>
-              <h3 className={styles.valueTitle}>Intentional Living</h3>
+              <h3 className={styles.valueTitle}>On Purpose, Not Optimized</h3>
               <p className={styles.valueText}>
-                Not doing more, but doing what matters. Making choices that align
-                with who you are and who you want to become.
+                There is a difference between choosing what matters and
+                optimizing your life into a spreadsheet. I am interested in the
+                first one. The second one already has enough advocates.
               </p>
             </div>
             <div className={styles.valueCard}>
-              <h3 className={styles.valueTitle}>Gentle Practice</h3>
+              <h3 className={styles.valueTitle}>Showing Up Badly</h3>
               <p className={styles.valueText}>
-                No perfection required. Mindfulness is a practice, not a
-                performance. Show up as you are and start from there.
+                The best meditation I ever had was the one where I could not
+                stop thinking about laundry. Practice does not mean getting it
+                right. It means coming back after getting it wrong.
               </p>
             </div>
           </div>

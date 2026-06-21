@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { getReadingTime } from "@/lib/readingTime";
 import { SITE } from "@/lib/siteConfig";
 import { CARD_IMAGES } from "@/lib/cardImages";
+import { OG_IMAGES } from "@/lib/ogImages";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -38,11 +39,13 @@ export async function generateMetadata({ params }) {
       tags: article.tags || [article.category],
       images: [
         {
-          url: CARD_IMAGES[slug]
-            ? `${SITE.url}${CARD_IMAGES[slug]}`
-            : SITE.ogImage.url,
-          width: SITE.ogImage.width,
-          height: SITE.ogImage.height,
+          url: OG_IMAGES[slug]
+            ? `${SITE.url}${OG_IMAGES[slug]}`
+            : CARD_IMAGES[slug]
+              ? `${SITE.url}${CARD_IMAGES[slug]}`
+              : SITE.ogImage.url,
+          width: 1200,
+          height: 630,
           alt: article.title,
         },
       ],
@@ -52,9 +55,11 @@ export async function generateMetadata({ params }) {
       title: article.title,
       description: article.lead,
       images: [
-        CARD_IMAGES[slug]
-          ? `${SITE.url}${CARD_IMAGES[slug]}`
-          : SITE.ogImage.url,
+        OG_IMAGES[slug]
+          ? `${SITE.url}${OG_IMAGES[slug]}`
+          : CARD_IMAGES[slug]
+            ? `${SITE.url}${CARD_IMAGES[slug]}`
+            : SITE.ogImage.url,
       ],
     },
     alternates: {
@@ -74,9 +79,11 @@ function buildArticleJsonLd(article, slug) {
     datePublished: article.dateISO,
     dateModified: article.dateModified || article.dateISO,
     mainEntityOfPage: `${SITE.url}/journal/${slug}`,
-    image: CARD_IMAGES[slug]
-      ? `${SITE.url}${CARD_IMAGES[slug]}`
-      : `${SITE.url}/og-default.png`,
+    image: OG_IMAGES[slug]
+      ? `${SITE.url}${OG_IMAGES[slug]}`
+      : CARD_IMAGES[slug]
+        ? `${SITE.url}${CARD_IMAGES[slug]}`
+        : `${SITE.url}/og-default.png`,
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: [`.${styles.articleLead}`, `.${styles.pullQuote}`, `.${styles.subheading}`],

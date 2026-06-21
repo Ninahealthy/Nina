@@ -16,11 +16,13 @@ const ThemeToggle = () => {
       setTheme(stored);
       document.documentElement.setAttribute("data-theme", stored);
     } else {
-      /* Follow system */
+      /* Follow system — set data-theme so CSS only needs one dark selector */
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      setTheme(prefersDark ? "dark" : "light");
+      const resolved = prefersDark ? "dark" : "light";
+      setTheme(resolved);
+      document.documentElement.setAttribute("data-theme", resolved);
     }
   }, []);
 

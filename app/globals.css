@@ -388,34 +388,9 @@
   --color-charcoal-deep: #2A2520;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-cream: #1A1714;
-    --color-linen: #2A2520;
-    --color-warmwhite: #221E1A;
-    --color-charcoal: #E8E0D6;
-    --color-stone: #B0A89E;
-    --color-pebble: #8A837D;
-    --color-terracotta: #D4926B;
-    --color-terracotta-dark: #D4926B;
-    /* Native dark mode passes contrast */
-    --color-sage: #A3BDA0;
-    --color-olive: #8A9E7D;
-    --color-clay: #B09974;
-    --color-sand: #3D3530;
-
-    --color-card-shadow: rgba(0, 0, 0, 0.2);
-    --color-card-shadow-hover: rgba(0, 0, 0, 0.35);
-
-    --color-bronze: #A8885E;
-    --color-charcoal-deep: #E0D8CE;
-
-    --background: var(--color-cream);
-    --foreground: var(--color-charcoal);
-  }
-}
-
-/* Manual dark mode override via ThemeToggle */
+/* Dark palette — single source of truth.
+   ThemeToggle sets data-theme="dark" for both stored preference and
+   system preference users, so this one selector covers all dark mode. */
 :root[data-theme="dark"] {
   --color-cream: #1A1714;
   --color-linen: #2A2520;
@@ -424,6 +399,7 @@
   --color-stone: #B0A89E;
   --color-pebble: #8A837D;
   --color-terracotta: #D4926B;
+  --color-terracotta-dark: #D4926B;
   --color-sage: #A3BDA0;
   --color-olive: #8A9E7D;
   --color-clay: #B09974;
@@ -525,14 +501,13 @@ main {
   border: 0;
 }
 
+/* Pre-hydration hint: before ThemeToggle JS runs, tell the browser
+   to render native widgets (scrollbars, form controls) in dark if
+   system preference is dark. Once JS hydrates, data-theme takes over. */
 @media (prefers-color-scheme: dark) {
   html:not([data-theme="light"]) {
     color-scheme: dark;
   }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
 }
 
 /* Global focus-visible styles for all interactive elements */
@@ -556,6 +531,9 @@ select:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+    /* Suppress transform/translate transitions (card lifts, slides)
+       but not color/opacity which provide non-vestibular state cues */
+    transition-duration: 0.01ms !important;
   }
 }
 

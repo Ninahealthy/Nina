@@ -4,3 +4,53 @@
   gap: 2rem;
   padding-bottom: 4rem;
 }
+
+.startHereBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin: 0 1rem;
+  background: var(--color-card-bg);
+  clip-path: var(--clip-path-squircle-20);
+}
+
+@media (min-width: 768px) {
+  .startHereBanner {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+.bannerText {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.bannerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-terracotta);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.bannerLink:hover {
+  opacity: 0.8;
+}
+
+.bannerLink svg {
+  transition: transform 0.2s ease;
+}
+
+.bannerLink:hover svg {
+  transform: translateX(2px);
+}

@@ -63,11 +63,12 @@ const ContactForm = ({ headingLevel: HeadingTag = "h2" }) => {
     <div className={styles.contactSection}>
       <div className={styles.contactContent}>
         <HeadingTag className={styles.contactTitle}>
-          Get In Touch
+          Say What You Came to Say
         </HeadingTag>
         <p className={styles.contactDescription}>
-          Have a question or want to share something? I would love to hear from
-          you. Send me a message and I will get back to you soon.
+          There is no wrong reason to write. A question, a story that echoed
+          something in your own life, a correction, a quiet hello. I read
+          every message, and I will reply when I can.
         </p>
 
         <form onSubmit={handleSubmit} className={styles.contactForm}>

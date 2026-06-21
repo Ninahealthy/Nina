@@ -51,7 +51,8 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
         </HeadingTag>
         <p className={styles.newsletterDescription}>
           Letters on attention, rest, and the practiced art of not doing
-          everything. They arrive when there is something worth saying.
+          everything. Each one arrives at the pace of breath. <br />no
+          schedule, no urgency.
         </p>
         <form onSubmit={handleSubmit} className={styles.newsletterForm}>
           <div className={styles.floatingField}>

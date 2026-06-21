@@ -5,7 +5,10 @@ export default function sitemap() {
   const staticRoutes = [
     "",
     "/journal",
+    "/start-here",
     "/practice",
+    "/listen",
+    "/manifesto",
     "/about",
     "/connect",
     "/search",

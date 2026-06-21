@@ -1,4 +1,4 @@
-# Pinterest Pin Publisher for Nina Healthy
+# Pinterest Pin Publisher for Nina
 
 Standalone CLI tool that reads your article library and publishes keyword-optimized pins to Pinterest via API v5. Each pin links back to `ninahealthy.com/journal/<slug>`, making Pinterest a continuous source of organic traffic.
 
@@ -21,7 +21,7 @@ The script lives entirely in `scripts/pinterest/` and is **not** part of the Nex
 1. Go to [developers.pinterest.com/apps](https://developers.pinterest.com/apps/)
 2. Click **Create app**
 3. Fill in:
-   - **App name:** Nina Healthy Publisher
+   - **App name:** Nina Publisher
    - **Description:** Publishes journal article pins for ninahealthy.com
    - **Website URL:** https://ninahealthy.com
 4. Note your **App ID** and **App Secret**
@@ -172,7 +172,7 @@ lib/siteConfig.js          Site URL (https://ninahealthy.com)
 ### Pin Structure
 
 Each pin contains:
-- **Title:** Article title + " | Nina Healthy" (max 100 chars)
+- **Title:** Article title + " | Nina" (max 100 chars)
 - **Description:** Card excerpt + tag keywords + "Read more at ninahealthy.com" (max 500 chars)
 - **Destination Link:** `https://ninahealthy.com/journal/<slug>` (this is the traffic driver)
 - **Image:** The article's card thumbnail from `/images/journal-XX.png`

@@ -1,16 +1,18 @@
 import Link from "next/link";
+import BrandMark from "../BrandMark/BrandMark";
 import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <div className={styles.footer} role="contentinfo">
+    <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerContainer}>
           <div className={styles.footerGrid}>
             <div className={styles.brandSection}>
               <div className={styles.brandHeader}>
                 <div className={styles.brandTitle}>
-                  <span className={styles.brandGradient}>Nina Healthy</span>
+                  <BrandMark size="lg" opacity={0.8} />
+                  <span className={styles.brandGradient}>Nina</span>
                 </div>
               </div>
               <div className={styles.brandDescription}>
@@ -70,6 +72,12 @@ const Footer = () => {
                     <Link href="/practice" className={styles.footerLink}>Practice</Link>
                   </li>
                   <li className={styles.linkItem}>
+                    <Link href="/listen" className={styles.footerLink}>Listen</Link>
+                  </li>
+                  <li className={styles.linkItem}>
+                    <Link href="/manifesto" className={styles.footerLink}>Manifesto</Link>
+                  </li>
+                  <li className={styles.linkItem}>
                     <Link href="/search" className={styles.footerLink}>Search</Link>
                   </li>
                 </ul>
@@ -108,7 +116,7 @@ const Footer = () => {
             <div className={styles.footerBottomContent}>
               <div>
                 <div className={styles.copyright}>
-                  &copy; {new Date().getFullYear()} Nina Healthy
+                  &copy; {new Date().getFullYear()} Nina
                 </div>
                 <div className={styles.disclaimer}>
                   This journal shares personal reflections, not clinical guidance. For medical or mental health concerns, please consult a qualified professional.
@@ -126,7 +134,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -54,10 +54,11 @@
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
+  color: var(--color-terracotta);
 }
 
 .brandGradient {
-  color: #A8663F;
+  color: var(--color-terracotta);
   transition: opacity 0.3s ease;
   cursor: pointer;
 }
@@ -119,8 +120,8 @@
 }
 
 .linksSection:last-child {
-  grid-column: 1 / -1;
-  text-align: center;
+  grid-column: auto;
+  text-align: left;
 }
 
 .linksSection {
@@ -240,11 +241,6 @@
 
   .footerNav {
     display: contents;
-  }
-
-  .linksSection:last-child {
-    grid-column: auto;
-    text-align: left;
   }
 }
 

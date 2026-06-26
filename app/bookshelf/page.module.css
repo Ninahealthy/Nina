@@ -1,0 +1,198 @@
+/* Bookshelf page — mobile-first responsive styles */
+
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--color-sand);
+  margin-bottom: 2.5rem;
+}
+
+.heroMark {
+  color: var(--color-terracotta);
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 38rem;
+  margin: 0 auto;
+}
+
+/* Shelf sections */
+.shelf {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.shelf:last-of-type {
+  border-bottom: none;
+}
+
+.shelfTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+.shelfDescription {
+  font-size: 0.95rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 44rem;
+}
+
+/* Book list */
+.bookList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.bookItem {
+  padding: 1.25rem 1.5rem;
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-20);
+  transition: background 0.2s ease;
+}
+
+.bookItem:hover {
+  background: var(--color-sand);
+}
+
+.bookMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-terracotta);
+  letter-spacing: 0.02em;
+}
+
+.bookType {
+  font-size: 0.75rem;
+  color: var(--color-stone);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.bookTitle {
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-charcoal);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.bookLinks {
+  font-size: 0.8rem;
+  color: var(--color-stone);
+  line-height: 1.6;
+}
+
+.bookLinksLabel {
+  margin-right: 0.35rem;
+}
+
+.bookLink {
+  color: var(--color-terracotta);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.bookLink:hover {
+  color: var(--color-charcoal);
+  text-decoration: underline;
+}
+
+.bookLinkSep {
+  margin-right: 0.25rem;
+}
+
+/* Closing */
+.closing {
+  padding: 2.5rem 0 1rem;
+  text-align: center;
+}
+
+.closingText {
+  font-size: 0.95rem;
+  color: var(--color-stone);
+  line-height: 1.7;
+  max-width: 36rem;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* Medium screens */
+@media (min-width: 768px) {
+  .hero {
+    padding: 4rem 0 3rem;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.05rem;
+  }
+
+  .shelfTitle {
+    font-size: 1.5rem;
+  }
+
+  .bookList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bookItem {
+    padding: 1.5rem 1.75rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .page {
+    max-width: 60rem;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .bookList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+}

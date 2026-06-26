@@ -9,6 +9,7 @@ export default function sitemap() {
     "/practice",
     "/listen",
     "/manifesto",
+    "/bookshelf",
     "/about",
     "/connect",
     "/search",

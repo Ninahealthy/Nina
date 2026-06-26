@@ -9,6 +9,7 @@ import Footer from "../components/Footer/Footer";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import AdSenseRefresh from "@/components/AdSenseRefresh/AdSenseRefresh";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
+import PinterestTag from "@/components/PinterestTag/PinterestTag";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
         />
         <AdSenseRefresh />
         <GoogleAnalytics />
+        <PinterestTag />
         <a href="#main-content" className="skipLink">
           Skip to content
         </a>

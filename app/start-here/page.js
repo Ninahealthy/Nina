@@ -12,14 +12,14 @@ export const metadata = {
   title: "Start Here",
   description:
     "Not sure where to begin? Four curated reading paths guide you through " +
-    "somatic attention, embodiment, sitting with difficulty, and the quiet " +
-    "architecture of daily life.",
+    "body awareness, embodiment, sitting with difficulty, and the shape " +
+    "of a deliberate day.",
   openGraph: {
     title: "Start Here",
     description:
       "Not sure where to begin? Four curated reading paths guide you through " +
-      "somatic attention, embodiment, sitting with difficulty, and the quiet " +
-      "architecture of daily life.",
+      "body awareness, embodiment, sitting with difficulty, and the shape " +
+      "of a deliberate day.",
     url: `${SITE.url}/start-here`,
     images: [
       {
@@ -35,8 +35,8 @@ export const metadata = {
     title: "Start Here",
     description:
       "Not sure where to begin? Four curated reading paths guide you through " +
-      "somatic attention, embodiment, sitting with difficulty, and the quiet " +
-      "architecture of daily life.",
+      "body awareness, embodiment, sitting with difficulty, and the shape " +
+      "of a deliberate day.",
     images: ["/og-default.png"],
   },
   alternates: {
@@ -85,8 +85,8 @@ function buildPageJsonLd() {
     "@type": "Article",
     headline: "Start Here: Curated Reading Paths",
     description:
-      "Four curated reading paths guide you through somatic attention, " +
-      "embodiment, sitting with difficulty, and the quiet architecture of daily life.",
+      "Four curated reading paths guide you through body awareness, " +
+      "embodiment, sitting with difficulty, and the shape of a deliberate day.",
     url: `${SITE.url}/start-here`,
     author: {
       "@type": "Person",

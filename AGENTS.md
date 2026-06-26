@@ -165,6 +165,7 @@ All shared data, configuration, and utilities live in `lib/`. Never duplicate th
 | `lib/audioConfig.js` | Nina's fixed voice identity for TTS production | `NINA_VOICE_BASE` |
 | `lib/readingPaths.js` | Curated reading path sequences for the Start Here page | `READING_PATHS` |
 | `lib/ogImages.js` | Canonical slug-to-OG-image mapping for social cards | `OG_IMAGES` |
+| `lib/bookshelf.js` | Derives deduplicated bookshelf from article citations, grouped by citationMode | `getBookshelf()`, `SHELVES` |
 
 ### Adding a New Article
 
@@ -204,7 +205,7 @@ Categories are auto-derived from article data; no manual category update is need
 | ContactMe | `components/ContactMe/` | Contact form |
 | DailyIntention | `components/DailyIntention/` | Rotating daily mindfulness invitation |
 | Footer | `components/Footer/` | Site footer with social links |
-| GoogleAnalytics | `components/GoogleAnalytics/` | GA4 tracking script wrapper |
+| GoogleAnalytics | `components/GoogleAnalytics/` | GA4 with scroll-depth tracking, reading engagement, article completion, content grouping |
 | GroundingExercise | `components/GroundingExercise/` | Interactive grounding practice |
 | Header | `components/Header/Header.js` | Site header with mobile menu |
 | JournalFilter | `components/JournalFilter/` | Category filter tabs for journal index |
@@ -215,6 +216,7 @@ Categories are auto-derived from article data; no manual category update is need
 | PageHero | `components/PageHero/` | Reusable hero section with title and subtitle |
 | PracticeSkeleton | `components/PracticeSkeleton/` | Loading skeleton placeholder for practice page |
 | ReadingProgress | `components/ReadingProgress/` | Scroll progress indicator for articles |
+| PinterestTag | `components/PinterestTag/` | Pinterest conversion tracking (pagevisit, article reads, newsletter signups) |
 | ReadingPaths | `components/ReadingPaths/` | Curated reading path cards for the Start Here page |
 | RelatedArticles | `components/RelatedArticles/` | Related article suggestions at end of articles |
 | ScrollReveal | `components/ScrollReveal/` | Fade-in-on-scroll wrapper |
@@ -281,6 +283,33 @@ The Manifesto page at `app/manifesto/page.js` (accessible at `/manifesto`) prese
 | Navigation | Not in main nav; accessible via internal links and direct URL |
 | Sitemap | Included |
 | Design constraints | Uses `BrandMark` at `xl` and `md` sizes. Principles rendered as an ordered list with scroll-reveal animations. Must maintain the brand's calm, spacious layout. |
+
+## Bookshelf
+
+The Bookshelf page at `app/bookshelf/page.js` (accessible at `/bookshelf`) displays all books, research, and traditions cited across the journal, grouped by how Nina engages with each work (agreement, evolving-understanding, unresolved-tension, disagreement). Data is derived dynamically from article citations via `lib/bookshelf.js`.
+
+| Attribute | Value |
+|---|---|
+| Route | `/bookshelf` |
+| Schema type | `CollectionPage` + `BreadcrumbList` |
+| Navigation | Not in main nav; accessible via internal links and direct URL |
+| Sitemap | Included |
+| Key imports | `lib/bookshelf.js`, `lib/articles`, `BrandMark`, `ScrollReveal` |
+| Design constraints | Book cards use squircle clip-paths. Shelves are grouped by citationMode with editorial introductions in Nina's voice. |
+
+## Content Health Report
+
+A Node.js script at `scripts/content-health-report.js` generates a quarterly editorial health analysis. Run it after publishing 5+ new articles or quarterly.
+
+| Metric | What it checks |
+|---|---|
+| Category distribution | No category above 30% cap |
+| Voice mode distribution | Playful >= 10%, reflective/searching <= 35% each |
+| Structure type distribution | classic-arc <= 40% |
+| Emotional register | Even spread across 5 registers |
+| Hook type diversity | No single hook type above 50% |
+| Word count | Flags articles below 1,000 words |
+| Citation coverage | Flags articles with no citations |
 
 ## Podcast RSS Feed
 

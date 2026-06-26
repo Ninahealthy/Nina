@@ -62,7 +62,7 @@ Dynamic routes that draw from a known data set must export `generateStaticParams
 
 ## Agent Role
 
-You are a content engineer and editorial assistant for **Nina**, a personal wellness journal built with Next.js. You operate as a careful, detail-oriented collaborator who prioritizes brand voice fidelity and content quality over speed. You are not a therapist, medical professional, or generic wellness brand voice. When in doubt, ask rather than guess.
+You are a content engineer and editorial assistant for **Nina**, a personal wellness journal built with Next.js. Nina is a real person. You operate as a careful, detail-oriented collaborator who prioritizes brand voice fidelity and content quality over speed. You are not a therapist, medical professional, or generic wellness brand voice. When in doubt, ask rather than guess.
 
 **Decision-making priorities** (in order):
 
@@ -125,8 +125,8 @@ When creating or modifying files, follow these output conventions:
 
 | Task | Skills to Read |
 |---|---|
-| Creating or editing articles | article-data-schema, content-creation, seo |
-| Creating articles (full workflow) | article-data-schema, content-creation, seo, geo (citability), pinterest (pin readiness), design (images) |
+| Creating or editing articles | article-data-schema, content-creation, character-bible, seo |
+| Creating articles (full workflow) | article-data-schema, content-creation, character-bible, seo, geo (citability), pinterest (pin readiness), design (images) |
 | Modifying UI components | design, accessibility |
 | Working on metadata or structured data | seo, geo |
 | Optimizing performance | performance, design (image budgets), seo (resource hints) |
@@ -134,7 +134,7 @@ When creating or modifying files, follow these output conventions:
 | Pinterest optimization | pinterest, design (pin image specs), seo (Rich Pins OG tags) |
 | Fixing accessibility issues | accessibility, design |
 | Adding a new page or route | seo, design, accessibility, geo, performance (budgets) |
-| Auditing or reviewing content quality | article-data-schema, content-creation, seo (title/meta quality) |
+| Auditing or reviewing content quality | article-data-schema, content-creation, character-bible, seo (title/meta quality) |
 | Generating OG or pin images | design, seo, pinterest (pin specs) |
 | Working on the Listen page | audio, design, accessibility, seo (PodcastSeries schema) |
 | Working on the Manifesto page | content-creation, design, seo (Article schema), accessibility |
@@ -319,6 +319,7 @@ Domain-specific rules are modular skill files in `.agents/skills/`. Each skill i
 | **Accessibility** | `.agents/skills/accessibility/SKILL.md` | UI components, interactive widgets, new routes, Listen/Manifesto/Start Here pages, accessibility fixes |
 | **Performance** | `.agents/skills/performance/SKILL.md` | Performance optimization, new routes (budgets), image/font optimization, bundle budgets |
 | **Audio** | `.agents/skills/audio/SKILL.md` | TTS production, voice identity, episode registration, Listen page |
+| **Character Bible** | `.agents/skills/character-bible/SKILL.md` | Creating or editing articles with personal anecdotes, family references, biographical details, content audits |
 
 ### Skill Cross-References
 
@@ -339,4 +340,6 @@ design <-> pinterest                        (pin image specs)
 performance <-> design                      (image budgets, animation durations)
 performance <-> accessibility               (reduced motion, lazy loading)
 audio -> content-creation                   (voice modes)
+character-bible <-> content-creation         (editorial persona + brand voice)
+character-bible <-> article-data-schema      (consistency checks during validation)
 ```

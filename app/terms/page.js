@@ -72,6 +72,16 @@ export default function TermsPage() {
             or claim them as your own work.
           </p>
 
+          <h2 className={styles.sectionTitle}>Content and AI</h2>
+          <p>
+            Some content on this site is generated with the assistance of
+            artificial intelligence tools and reviewed by a human against
+            high editorial standards. Every piece is read, refined, and
+            approved before it is published. The research cited in essays
+            is verified for accuracy. The voice, the editorial direction,
+            and the final judgment on what gets published are human.
+          </p>
+
           <h2 className={styles.sectionTitle}>Respectful Use</h2>
           <p>
             When using the contact form or engaging with this space, I ask for

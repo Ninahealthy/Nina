@@ -212,8 +212,59 @@
   }
 }
 
+/* Explore Further */
+.exploreFurther {
+  padding: 0 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.exploreLinks {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.exploreCard {
+  display: block;
+  padding: 1.5rem 1.75rem;
+  background: var(--color-linen);
+  clip-path: var(--clip-path-squircle-20);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.exploreCard:hover {
+  background: var(--color-sand);
+}
+
+.exploreCardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-heading), Georgia, serif;
+  color: var(--color-terracotta);
+  margin-bottom: 0.5rem;
+}
+
+.exploreCardText {
+  font-size: 0.9rem;
+  color: var(--color-stone);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .exploreLinks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .socialLink {
+    transition: none;
+  }
+
+  .exploreCard {
     transition: none;
   }
 }

@@ -298,6 +298,30 @@ export default function AboutPage() {
       </ScrollReveal>
 
       <ScrollReveal>
+        <section className={styles.exploreFurther} aria-label="Explore further">
+          <SectionHeading subtitle="More ways to engage with this practice.">
+            Explore Further
+          </SectionHeading>
+          <div className={styles.exploreLinks}>
+            <Link href="/bookshelf" className={styles.exploreCard}>
+              <h3 className={styles.exploreCardTitle}>Bookshelf</h3>
+              <p className={styles.exploreCardText}>
+                The books, research, and traditions that shaped how I think,
+                organized by how I engage with each work.
+              </p>
+            </Link>
+            <Link href="/manifesto" className={styles.exploreCard}>
+              <h3 className={styles.exploreCardTitle}>Manifesto</h3>
+              <p className={styles.exploreCardText}>
+                Seven principles of somatic attention. The beliefs that hold
+                this practice together.
+              </p>
+            </Link>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
         <section className={styles.newsletter} aria-label="Newsletter signup">
           <NewsletterSignup headingLevel="h2" />
         </section>

@@ -18,7 +18,7 @@ export const metadata = {
     url: `${SITE.url}/bookshelf`,
     images: [
       {
-        url: "/og-default.png",
+        url: "/images/og/bookshelf.png",
         width: 1200,
         height: 630,
         alt: "Nina's Bookshelf: books on somatic attention and presence",

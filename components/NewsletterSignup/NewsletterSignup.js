@@ -31,6 +31,15 @@ const NewsletterSignup = ({ headingLevel: HeadingTag = "h2" }) => {
         setMessage(result.message);
         setMessageType("success");
         setEmail("");
+
+        // Dispatch events for analytics tracking (GA4 + Pinterest Tag)
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "newsletter_signup", {
+            event_category: "engagement",
+            event_label: "newsletter",
+          });
+        }
+        window.dispatchEvent(new CustomEvent("nina:newsletter_signup"));
       } else {
         setMessage(result.error);
         setMessageType("error");

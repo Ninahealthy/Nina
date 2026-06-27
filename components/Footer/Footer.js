@@ -78,6 +78,9 @@ const Footer = () => {
                     <Link href="/manifesto" className={styles.footerLink}>Manifesto</Link>
                   </li>
                   <li className={styles.linkItem}>
+                    <Link href="/bookshelf" className={styles.footerLink}>Bookshelf</Link>
+                  </li>
+                  <li className={styles.linkItem}>
                     <Link href="/search" className={styles.footerLink}>Search</Link>
                   </li>
                 </ul>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import Timeline from "@/components/Timeline/Timeline";

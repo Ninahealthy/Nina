@@ -100,6 +100,38 @@
   line-height: 1.8;
 }
 
+.storyContent h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-family: var(--font-heading), "Instrument Serif", Georgia, serif;
+  color: var(--color-charcoal);
+  margin-top: 1rem;
+  margin-bottom: -0.25rem;
+}
+
+.storyContent blockquote {
+  border-left: 3px solid var(--color-terracotta);
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+  font-style: italic;
+  color: var(--color-charcoal);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.storyContent hr {
+  border: none;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.storyContent hr::after {
+  content: "\00B7\00A0\00A0\00B7\00A0\00A0\00B7";
+  color: var(--color-sage);
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+}
+
 .philosophy {
   padding: 0 1.5rem;
   max-width: 1000px;

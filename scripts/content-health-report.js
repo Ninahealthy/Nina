@@ -3,8 +3,8 @@
  *
  * Generates a structured editorial health analysis of Nina's article library.
  * Run quarterly (or after any batch of new articles) to surface imbalances
- * in category distribution, voice mode, structure type, emotional register,
- * hook type, word count, and citation coverage.
+ * in category distribution, voice mode, structure type, closing type,
+ * emotional register, hook type, word count, and citation coverage.
  *
  * Usage: node scripts/content-health-report.js
  * Output: Markdown report printed to stdout.
@@ -52,6 +52,21 @@ for (const file of files) {
 
   const citationCount = (content.match(/citationMode:/g) || []).length;
 
+  // "Body knows" refrain detection across all text blocks
+  const bodyText = textMatches
+    .map((t) => t.replace(/^text:\s*"/, "").replace(/"$/, ""))
+    .join(" ")
+    .toLowerCase();
+  const bodyKnowsPatterns = [
+    "the body knows", "the body is precise", "the body is more honest",
+    "the body remembers", "the body is right", "the body cannot lie",
+    "your body already knows", "the body has an opinion",
+    "the body has been",
+  ];
+  const bodyKnowsCount = bodyKnowsPatterns.reduce(
+    (sum, p) => sum + (bodyText.match(new RegExp(p, "g")) || []).length, 0
+  );
+
   articles.push({
     slug,
     title: get("title"),
@@ -60,10 +75,12 @@ for (const file of files) {
     emotionalRegister: get("emotionalRegister"),
     voiceMode: get("voiceMode"),
     structureType: get("structureType"),
+    closingType: get("closingType"),
     dateISO: get("dateISO"),
     contentNote: content.includes("contentNote: null") ? null : "present",
     wordCount,
     citationCount,
+    bodyKnowsCount,
     tags: getArray("tags"),
   });
 }
@@ -200,6 +217,14 @@ ${formatDist(hookDist)}
 
 ---
 
+## Closing Type Distribution
+
+> Cap: no single closing type should exceed 40%.
+
+${formatDist(distribution(articles, "closingType"), { "somatic-invitation": [0, 40], "final-image": [0, 40], "open-question": [0, 40], "quiet-exit": [0, 40], "direct-address": [0, 40] })}
+
+---
+
 ## Word Count
 
 | Metric | Value |
@@ -244,6 +269,33 @@ if (noCitations.length > 0) {
 
 report += `---
 
+## "Body Knows" Refrain
+
+> Cap: no more than 30% of articles should contain a "the body knows" variant.
+
+`;
+
+const withBodyKnows = articles.filter((a) => a.bodyKnowsCount > 0);
+const bodyKnowsPct = ((withBodyKnows.length / total) * 100).toFixed(1);
+const multiBodyKnows = articles.filter((a) => a.bodyKnowsCount > 1);
+
+report += `| Metric | Value |
+|---|---|
+| Articles with any variant | ${withBodyKnows.length} of ${total} (${bodyKnowsPct}%) |
+| Articles with 2+ variants (over per-article limit) | ${multiBodyKnows.length} |
+
+`;
+
+if (multiBodyKnows.length > 0) {
+  report += `### Articles exceeding per-article limit (max 1)\n\n`;
+  for (const a of multiBodyKnows.sort((x, y) => y.bodyKnowsCount - x.bodyKnowsCount)) {
+    report += `- **${a.title}** (${a.slug}): ${a.bodyKnowsCount} occurrences\n`;
+  }
+  report += "\n";
+}
+
+report += `---
+
 ## Flags
 
 `;
@@ -275,9 +327,30 @@ if (classicArc && parseFloat(classicArc.pct) > 40) {
   );
 }
 
+// Closing type diversity check
+for (const { key, pct } of distribution(articles, "closingType")) {
+  if (key !== "unknown" && parseFloat(pct) > 40) {
+    flags.push(
+      `Closing type "${key}" is at ${pct}% (above 40% cap)`
+    );
+  }
+}
+
 if (shortArticles.length > 0) {
   flags.push(
     `${shortArticles.length} articles are below 1,000 words (potential quality floor issue)`
+  );
+}
+
+// "Body knows" refrain check
+if (parseFloat(bodyKnowsPct) > 30) {
+  flags.push(
+    `"Body knows" refrain appears in ${bodyKnowsPct}% of articles (above 30% cap)`
+  );
+}
+if (multiBodyKnows.length > 0) {
+  flags.push(
+    `${multiBodyKnows.length} articles exceed the per-article "body knows" limit of 1`
   );
 }
 

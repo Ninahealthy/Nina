@@ -354,6 +354,15 @@ if (multiBodyKnows.length > 0) {
   );
 }
 
+// Future-date check
+const today = new Date().toISOString().split("T")[0];
+const futureDated = articles.filter((a) => a.dateISO && a.dateISO > today);
+if (futureDated.length > 0) {
+  flags.push(
+    `CRITICAL: ${futureDated.length} articles have future dates (run node scripts/fix-future-dates.js): ${futureDated.map((a) => a.slug).join(", ")}`
+  );
+}
+
 if (flags.length === 0) {
   report += "No flags. All metrics within healthy ranges.\n";
 } else {
